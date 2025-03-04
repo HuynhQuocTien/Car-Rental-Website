@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db:3306
--- Generation Time: Mar 04, 2025 at 03:14 AM
+-- Generation Time: Mar 04, 2025 at 03:22 AM
 -- Server version: 9.2.0
 -- PHP Version: 8.2.27
 
@@ -48,6 +48,8 @@ CREATE TABLE `Customers` (
   `PhoneNumber` varchar(255) DEFAULT NULL,
   `Email` varchar(255) DEFAULT NULL,
   `IdentityCard` varchar(255) DEFAULT NULL,
+  `FrontOfIdentityCard` varchar(255) DEFAULT NULL,
+  `BackOfIdentityCard` varchar(255) DEFAULT NULL,
   `Avatar` varchar(255) DEFAULT NULL,
   `Status` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
