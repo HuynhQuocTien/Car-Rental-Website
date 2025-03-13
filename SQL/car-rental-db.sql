@@ -54,8 +54,6 @@ CREATE TABLE `Payments` (
 
 CREATE TABLE `Users` (
 	`UserID` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
-	`Username` VARCHAR(255),
-	`Password` VARCHAR(255),
 	`FullName` VARCHAR(255),
 	`Avatar` VARCHAR(255),
 	`AccountID` INTEGER,
