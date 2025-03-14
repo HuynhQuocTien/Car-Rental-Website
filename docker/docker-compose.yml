@@ -7,7 +7,7 @@ services:
     depends_on:
       - db
     volumes:
-      - ../:/var/www/html/
+      - ./:/var/www/html/
       - ./php.ini:/usr/local/etc/php/php.ini
     ports:
       - 80:80
@@ -35,3 +35,11 @@ services:
     environment:
       - PMA_HOST=db
       - PMA_PORT=3306
+
+  composer:
+    restart: "no"
+    image: composer:latest
+    volumes:
+      - ../:/var/www/html/
+    working_dir: /var/www/html
+    command: ["composer", "install"]
