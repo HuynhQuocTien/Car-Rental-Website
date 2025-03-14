@@ -7,7 +7,7 @@ services:
     depends_on:
       - db
     volumes:
-      - ./:/var/www/html/
+      - ../:/var/www/html/
       - ./php.ini:/usr/local/etc/php/php.ini
     ports:
       - 80:80

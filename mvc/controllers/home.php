@@ -1,19 +1,12 @@
 <?php
 
-class HomeController {
-    public function index() {
-        // Load the home view
-        require_once '../views/home.php';
-    }
-
-    public function about() {
-        // Load the about view
-        require_once '../views/about.php';
-    }
-
-    public function contact() {
-        // Load the contact view
-        require_once '../views/contact.php';
+class Home extends Controller {
+    public function default() {
+        $this->view("main_layout", [
+            "Title"=>"Hệ thống thuê xe",
+            "Page"=>"home"
+        ],
+        "user");
     }
 }
 ?>
