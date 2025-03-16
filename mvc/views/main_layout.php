@@ -9,7 +9,7 @@
     <?php
     include "./mvc/views/user/".$data['Page'].".php" 
     ?>     
-
+    <?php include "./mvc/views/user/inc/chat.php"; ?>
     <?php
     include "./mvc/views/user/inc/footer.php";
     ?>

@@ -1,0 +1,98 @@
+/* Mini Cart Styles */
+.mini-cart {
+  position: fixed;
+  top: 0;
+  right: -30%;
+  width: 30%;
+  height: 100%;
+  background: #fff;
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  transition: right 0.3s ease-in-out;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.mini-cart.active {
+  right: 0;
+}
+
+.mini-cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.mini-cart-header h5 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.close-cart {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.mini-cart ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mini-cart ul li {
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.mini-cart p {
+  margin: 15px 0;
+  font-weight: bold;
+}
+
+.mini-cart .btn {
+  margin-top: 10px;
+}
+
+/* Overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  display: none;
+}
+
+.overlay.active {
+  display: block;
+}
+
+#cart-button {
+  position: relative; /* Cho phép định vị tuyệt đối bên trong */
+  display: inline-block; /* Để icon và số lượng nằm trên cùng một dòng */
+  text-decoration: none;
+  color: #fff; /* Màu chữ */
+}
+
+#cart-button .fas {
+  font-size: 15px; /* Kích thước icon */
+}
+
+#cart-button .cart-count {
+  position: absolute; /* Định vị tuyệt đối so với #cart-button */
+  top: -1px; /* Dịch chuyển lên trên */
+  /* right: -3px; Dịch chuyển sang phải */
+  background: red; /* Màu nền số lượng */
+  color: #fff; /* Màu chữ số lượng */
+  border-radius: 50%; /* Bo tròn */
+  padding: 2px 6px; /* Khoảng cách bên trong */
+  font-size: 10px; /* Kích thước chữ */
+  min-width: 20px; /* Đảm bảo số lượng có kích thước tối thiểu */
+  text-align: center; /* Căn giữa chữ */
+  line-height: 1.5; /* Chiều cao dòng */
+}

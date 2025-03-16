@@ -20,9 +20,9 @@ class App{
 
 
         // Controller
-        // print_r($arr[0]);
+        // print_r($arr[1]);
         if($arr != NULL) {
-            if(file_exists("./mvc/controllers/".$arr[1].".php") ){
+            if( isset($arr[1]) && file_exists("./mvc/controllers/".$arr[1].".php") ){
                 $this->controller = $arr[1];
                 unset($arr[1]);
             } else {
