@@ -14,12 +14,7 @@ class Auth extends Controller
 
     public function default()
     {
-        // header("Location: ./auth/signin");
-        $this->view("single_layout", [
-            "Page" => "auth/signin",
-            "Title" => "Đăng nhập",
-        ],
-        "user");
+        header("Location: ./auth/signin");
     }
 
     function signin()
@@ -48,67 +43,56 @@ class Auth extends Controller
 
     function signup()
     {
-        AuthCore::onLogin();
-        header("Location: ./signin");
         $this->view("single_layout", [
             "Page" => "auth/signup",
-            "Title" => "Đăng ký tài khoản",
-            "Script" => "signup",
-            "Plugin" => [
-                "jquery-validate" => 1,
-                "notify" => 1
-            ]
-        ]);
+            "Title" => "Đăng ký tài khoản"
+        ],
+        "user");
     }
 
-    function recover()
+    function forgot()
     {
-        AuthCore::onLogin();
         $this->view("single_layout", [
-            "Page" => "auth/recover",
+            "Page" => "auth/forgot",
             "Title" => "Khôi phục tài khoản",
-            "Script" => "recover",
-            "Plugin" => [
-                "jquery-validate" => 1,
-                "notify" => 1
-            ]
-        ]);
+        ],
+        "user");
     }
 
     function otp()
     {
-        AuthCore::onLogin();
-        if (isset($_SESSION['checkMail'])) {
-            $this->view("single_layout", [
-                "Page" => "auth/otp",
-                "Title" => "Nhập mã OTP",
-                "Script" => "recover",
-                "Plugin" => [
-                    "jquery-validate" => 1,
-                    "notify" => 1
-                ]
-            ]);
-        } else {
-            header("Location: ./recover");
-        }
+        $this->view("single_layout", [
+            "Page" => "auth/otp",
+            "Title" => "Nhập mã OTP",
+        ],
+        "user");
+        // if (isset($_SESSION['checkMail'])) {
+        //     $this->view("single_layout", [
+        //         "Page" => "auth/otp",
+        //         "Title" => "Nhập mã OTP",
+        //     ],
+        //     "user");
+        // } else {
+        //     header("Location: ./forgot");
+        // }
     }
 
-    function changepass()
+    function resetpass()
     {
-        AuthCore::onLogin();
-        if (isset($_SESSION['checkMail'])) {
             $this->view("single_layout", [
-                "Page" => "auth/changepass",
-                "Title" => "Nhập mật khẩu mới",
-                "Script" => "recover",
-                "Plugin" => [
-                    "jquery-validate" => 1,
-                    "notify" => 1
-                ]
-            ]);
-        } else {
-            header("Location: ./recover");
-        }
+                "Page" => "auth/resetpass",
+                "Title" => "Nhập mật khẩu mới"
+            ],
+            "user");
+        // if (isset($_SESSION['checkMail'])) {
+        //     $this->view("single_layout", [
+        //         "Page" => "auth/resetpass",
+        //         "Title" => "Nhập mật khẩu mới"
+        //     ],
+        //     "user");
+        // } else {
+        //     header("Location: ./forgot");
+        // }
     }
 
     public function addUser()

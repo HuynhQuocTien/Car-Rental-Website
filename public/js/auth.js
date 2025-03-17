@@ -4,7 +4,7 @@
 
 
     /*==================================================================
-    [ Focus Contact2 ]*/
+    [ Focus input ]*/
     $('.input100').each(function(){
         $(this).on('blur', function(){
             if($(this).val().trim() != "") {
@@ -66,5 +66,53 @@
         $(thisAlert).removeClass('alert-validate');
     }
     
+    /*==================================================================
+    [ Show pass ]*/
+    var showPass = 0;
+    $('.btn-show-pass').on('click', function(){
+        if(showPass == 0) {
+            $(this).next('input').attr('type','text');
+            $(this).find('i').removeClass('zmdi-eye');
+            $(this).find('i').addClass('zmdi-eye-off');
+            showPass = 1;
+        }
+        else {
+            $(this).next('input').attr('type','password');
+            $(this).find('i').addClass('zmdi-eye');
+            $(this).find('i').removeClass('zmdi-eye-off');
+            showPass = 0;
+        }
+        
+    });
+
 
 })(jQuery);
+
+// Hàm di chuyển đến ô nhập tiếp theo
+function moveToNext(input, nextIndex) {
+    if (input.value.length === 1) {
+        const nextInput = document.querySelector(`.otp-input:nth-child(${nextIndex + 1})`);
+        if (nextInput) {
+            nextInput.focus();
+        }
+    }
+}
+
+// Hàm gửi lại OTP
+function resendOTP() {
+    fetch('/api/resend-otp', {
+        method: 'POST',
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert("OTP has been resent to your email/phone.");
+        } else {
+            alert("Failed to resend OTP. Please try again.");
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert("An error occurred. Please try again.");
+    });
+}
