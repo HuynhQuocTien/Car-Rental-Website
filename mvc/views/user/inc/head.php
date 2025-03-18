@@ -28,4 +28,5 @@
     <link rel="stylesheet" href="../public/css/icomoon.css">
     <link rel="stylesheet" href="../public/css/style.css">
     <link rel="stylesheet" href="../public/css/chat.css">
+    <?php if($data['Page'] == 'cars' ) echo '<link rel="stylesheet" href="../public/css/car.css">' ?>
   </head>

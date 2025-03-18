@@ -107,12 +107,14 @@
             <div class="col-md-9">
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="car-wrap rounded ftco-animate" style="transform: scale(0.9);">
-                            <div class="img rounded d-flex align-items-end" style="background-image: url(../public/images/car-1.jpg); height: 180px;"></div>
+						<div class="car-wrap rounded ftco-animate" style="transform: scale(0.9);">
+							<div class="img rounded d-flex align-items-end" style="background-image: url(../public/images/car-1.jpg); height: 180px;">
+							<i class="fas fa-heart heart-icon favorite-icon"></i>
+							</div>
                             <div class="text">
-                                <h2 class="mb-0" style="font-size: 1rem;"><a href="car-single.html">Mercedes Grand Sedan</a></h2>
+								<h2 class="mb-0" style="font-size: 1rem;"><a href="car-single.html">Mercedes Grand Sedan</a></h2>
                                 <div class="d-flex mb-2">
-                                    <span class="cat" style="font-size: 0.8rem;">Cheverolet</span>
+									<span class="cat" style="font-size: 0.8rem;">Cheverolet</span>
                                     <p class="price ml-auto" style="font-size: 0.8rem;">$500 <span>/day</span></p>
                                 </div>
                                 <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-1 mr-1" style="font-size: 0.8rem;">Book now</a> <a href="./detailcar" class="btn btn-secondary py-1 ml-1" style="font-size: 0.8rem;">Details</a></p>
@@ -151,4 +153,9 @@ function updatePrice() {
     minPrice.textContent = `$0`;
     maxPrice.textContent = `$${priceRange.value}`;
 }
+document.querySelectorAll('.heart-icon').forEach(icon => {
+    icon.addEventListener('click', () => {
+        icon.classList.toggle('liked');
+    });
+});
 </script>

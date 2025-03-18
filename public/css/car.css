@@ -1,0 +1,30 @@
+.car-wrap {
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.car-wrap:hover {
+    transform: scale(1.05);
+}
+
+/* Style cho trái tim */
+.heart-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+    color: #ccc;
+    opacity: 1;
+    transition: opacity 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+}
+
+/* Hiện trái tim khi hover */
+.car-wrap:hover .heart-icon {
+    opacity: 1;
+}
+
+/* Trái tim chuyển đỏ khi được chọn */
+.heart-icon.liked {
+    color: #e63946;
+}

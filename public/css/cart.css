@@ -78,6 +78,9 @@
   text-decoration: none;
   color: #fff; /* Màu chữ */
 }
+#cart-button:hover{
+  color: #01d28e !important;
+}
 
 #cart-button .fas {
   font-size: 15px; /* Kích thước icon */
@@ -95,4 +98,46 @@
   min-width: 20px; /* Đảm bảo số lượng có kích thước tối thiểu */
   text-align: center; /* Căn giữa chữ */
   line-height: 1.5; /* Chiều cao dòng */
+}
+
+/* Love Button Styles - giống như cart */
+#love-button {
+  position: relative; /* Định vị để hiển thị số lượng */
+  display: inline-block; /* Giữ icon và số lượng trên cùng 1 dòng */
+  text-decoration: none;
+  color: #fff;
+}
+
+/* Icon trái tim */
+#love-button .fas {
+  font-size: 15px;
+}
+
+/* Số lượng Love */
+#love-button .love-count {
+  position: absolute; /* Định vị số lượng */
+  top: -1px;
+  background: #e63946; /* Màu đỏ nổi bật */
+  color: #fff;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 10px;
+  min-width: 20px;
+  text-align: center;
+  line-height: 1.5;
+  font-weight: bold;
+}
+
+/* Hover hiệu ứng đổi màu */
+#love-button:hover .fas {
+  color: #e63946;
+}
+
+/* Hiệu ứng nhấn vào icon */
+#love-button:active {
+  transform: scale(1.1);
+  transition: transform 0.1s ease;
+}
+.ftco-navbar-light.scrolled .nav-link:hover {
+  color: #01d28e !important;
 }

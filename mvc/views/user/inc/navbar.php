@@ -29,16 +29,27 @@ function getActiveNav($url, $pattern) {
                     <a href="/user/contact" class="nav-link">Contact</a>
                 </li>
             </ul>
-            <ul class="navbar-nav ml-auto"> <!-- Thêm các nút đăng nhập và giỏ hàng bên phải -->
-                <li class="nav-item"><a href="/user/auth/signin" class="nav-link">Login</a></li>
-				<li class="nav-item"><a href="login.html" class="nav-link">Love</a></li>
+            <ul class="navbar-nav ml-auto">
+                
+                <!-- Nút Love (giống giỏ hàng) -->
                 <li class="nav-item">
-                    <a href="javascript:void(0)" class="nav-link" id="cart-button">
-                    <i class="fas fa-shopping-cart fa-xs"></i>
-                    <span class="cart-count">2</span>
+                    <a href="javascript:void(0)" class="nav-link" id="love-button">
+                        <i class="fas fa-heart fa-xs"></i>
+                        <span class="love-count">3</span>
                     </a>
                 </li>
+                
+                <!-- Nút Giỏ hàng -->
+                <li class="nav-item">
+                    <a href="javascript:void(0)" class="nav-link" id="cart-button">
+                        <i class="fas fa-shopping-cart fa-xs"></i>
+                        <span class="cart-count">2</span>
+                    </a>
+                </li>
+                <li class="nav-item"><a href="/user/auth/signin" class="nav-link">Login</a></li>
             </ul>
+
+
         </div>
     </div>
 	<script src="../public/js/cart.js" defer></script>
