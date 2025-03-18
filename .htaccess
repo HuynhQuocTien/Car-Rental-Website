@@ -1,6 +1,5 @@
 RewriteEngine On
 
-# Bỏ index.php khỏi URL
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.+)$ index.php?url=$1 [L]
