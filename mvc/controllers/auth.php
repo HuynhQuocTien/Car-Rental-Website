@@ -6,7 +6,13 @@ class Auth extends Controller
     public $userModel;
     public $googleAuth;
     public $mailAuth;
-
+    
+    function UrlProcess(){
+        if (isset($_GET["url"])) {
+            return explode("/", filter_var(trim($_GET["url"], "/")));
+        }
+        return null;
+    }
     function __construct()
     {
         
@@ -19,25 +25,22 @@ class Auth extends Controller
 
     function signin()
     {
-        // // AuthCore::onLogin();
-        // $p = parse_url($_SERVER['REQUEST_URI']);
-        // if (isset($p['query'])) {
-        //     $query = $p['query'];
-        //     $queryitem = explode('&', $query);
-        //     $get = array();
-        //     foreach ($queryitem as $key => $qi) {
-        //         $r = explode('=', $qi);
-        //         $get[$r[0]] = $r[1];
-        //     }
-        //     $this->googleAuth->handleCallback(urldecode($get['code']));
-        // } else {
-            // $authUrl = $this->googleAuth->getAuthUrl();
+        $url = $this->UrlProcess();
+        if (in_array($url[0], ['admin'])) {
+            $this->view("single_layout", [
+                "Page" => "auth/signin",
+                "Title" => "Đăng nhập Admin",
+            ],
+            "admin");
+        } else  if (in_array($url[0], ['user'])) {
             $this->view("single_layout", [
                 "Page" => "auth/signin",
                 "Title" => "Đăng nhập",
             ],
             "user");
-        // }
+        } else {
+            header("Location: ./auth/signin");
+        }
     }
 
 
