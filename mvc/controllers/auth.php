@@ -6,7 +6,6 @@ class Auth extends Controller
     public $userModel;
     public $googleAuth;
     public $mailAuth;
-    
     function UrlProcess(){
         if (isset($_GET["url"])) {
             return explode("/", filter_var(trim($_GET["url"], "/")));
@@ -17,12 +16,6 @@ class Auth extends Controller
     {
         
     }
-
-    public function default()
-    {
-        header("Location: ./auth/signin");
-    }
-
     function signin()
     {
         $url = $this->UrlProcess();
@@ -46,29 +39,50 @@ class Auth extends Controller
 
     function signup()
     {
+        $url = $this->UrlProcess();
+        if (in_array($url[0], ['user'])){
         $this->view("single_layout", [
             "Page" => "auth/signup",
             "Title" => "Đăng ký tài khoản"
         ],
         "user");
+        }
     }
 
     function forgot()
     {
+        $url = $this->UrlProcess();
+        if (in_array($url[0], ['user'])){
         $this->view("single_layout", [
             "Page" => "auth/forgot",
             "Title" => "Khôi phục tài khoản",
         ],
         "user");
+        } else if(in_array($url[0], ['admin'])){
+            $this->view("single_layout", [
+                "Page" => "auth/forgot",
+                "Title" => "Khôi phục tài khoản",
+            ],
+            "admin");
+        }
     }
 
     function otp()
     {
-        $this->view("single_layout", [
-            "Page" => "auth/otp",
-            "Title" => "Nhập mã OTP",
-        ],
-        "user");
+        $url = $this->UrlProcess();
+        if (in_array($url[0], ['admin'])) {
+            $this->view("single_layout", [
+                "Page" => "auth/otp",
+                "Title" => "Nhập mã OTP",
+            ],
+            "admin");
+        } else if (in_array($url[0], ['user'])) {
+            $this->view("single_layout", [
+                "Page" => "auth/otp",
+                "Title" => "Nhập mã OTP",
+            ],
+            "user");
+        }
         // if (isset($_SESSION['checkMail'])) {
         //     $this->view("single_layout", [
         //         "Page" => "auth/otp",
@@ -82,11 +96,20 @@ class Auth extends Controller
 
     function resetpass()
     {
+        $url = $this->UrlProcess();
+        if (in_array($url[0], ['admin'])) {
             $this->view("single_layout", [
                 "Page" => "auth/resetpass",
                 "Title" => "Nhập mật khẩu mới"
             ],
-            "user");
+            "admin");
+        } else if (in_array($url[0], ['user'])) {
+            $this->view("single_layout", [
+                    "Page" => "auth/resetpass",
+                    "Title" => "Nhập mật khẩu mới"
+                ],
+                "user");
+        }
         // if (isset($_SESSION['checkMail'])) {
         //     $this->view("single_layout", [
         //         "Page" => "auth/resetpass",

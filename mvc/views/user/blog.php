@@ -1,129 +1,85 @@
-<section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('../public/images/bg_3.jpg');" data-stellar-background-ratio="0.5">
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
-          <div class="col-md-9 ftco-animate pb-5">
-          	<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Blog <i class="ion-ios-arrow-forward"></i></span></p>
-            <h1 class="mb-3 bread">Our Blog</h1>
-          </div>
+    <!-- Blog Hero Section -->
+    <section class="blog-hero bg-light py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 mx-auto text-center">
+                    <h1 class="display-4 mb-4">Blog Thuê Xe Cao Cấp</h1>
+                    <p class="lead mb-4">Cập nhật tin tức, bài viết và hướng dẫn về dịch vụ thuê xe cao cấp.</p>
+                    <form class="d-flex justify-content-center">
+                        <input type="text" class="form-control w-50 me-2" placeholder="Tìm kiếm bài viết...">
+                        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                    </form>
+                </div>
+            </div>
         </div>
-      </div>
     </section>
 
-    <section class="ftco-section">
-      <div class="container">
-        <div class="row d-flex justify-content-center">
-          <div class="col-md-12 text-center d-flex ftco-animate">
-          	<div class="blog-entry justify-content-end mb-md-5">
-              <a href="blog-single.html" class="block-20 img" style="background-image: url('../public/images/image_1.jpg');">
-              </a>
-              <div class="text px-md-5 pt-4">
-              	<div class="meta mb-3">
-                  <div><a href="#">Oct. 29, 2019</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+    <!-- Blog Posts Section -->
+    <section class="blog-posts py-5">
+        <div class="container">
+            <div class="row">
+                <!-- Blog Post 1 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <img src="../public/media/photos/blog1.jpg" class="card-img-top" alt="Blog Post 1">
+                        <div class="card-body">
+                            <h5 class="card-title">Cách chọn xe phù hợp cho chuyến đi</h5>
+                            <p class="card-text">Bài viết hướng dẫn cách chọn xe phù hợp với nhu cầu và ngân sách của
+                                bạn.</p>
+                            <a href="#" class="btn btn-primary">Đọc thêm</a>
+                        </div>
+                        <div class="card-footer text-muted">
+                            Đăng ngày: 10/10/2023
+                        </div>
+                    </div>
                 </div>
-                <h3 class="heading mt-2"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
-                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                <p><a href="blog-single.html" class="btn btn-primary">Continue <span class="icon-long-arrow-right"></span></a></p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-12 text-center d-flex ftco-animate">
-          	<div class="blog-entry justify-content-end mb-md-5">
-              <a href="blog-single.html" class="block-20 img" style="background-image: url('../public/images/image_2.jpg');">
-              </a>
-              <div class="text px-md-5 pt-4">
-              	<div class="meta mb-3">
-                  <div><a href="#">Oct. 29, 2019</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+                <!-- Blog Post 2 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <img src="../public/media/photos/blog2.jpg" class="card-img-top" alt="Blog Post 2">
+                        <div class="card-body">
+                            <h5 class="card-title">Những điều cần biết khi thuê xe tự lái</h5>
+                            <p class="card-text">Tìm hiểu các quy định và lưu ý khi thuê xe tự lái để có chuyến đi an
+                                toàn.</p>
+                            <a href="#" class="btn btn-primary">Đọc thêm</a>
+                        </div>
+                        <div class="card-footer text-muted">
+                            Đăng ngày: 05/10/2023
+                        </div>
+                    </div>
                 </div>
-                <h3 class="heading mt-2"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
-                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                <p><a href="blog-single.html" class="btn btn-primary">Continue <span class="icon-long-arrow-right"></span></a></p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-12 text-center d-flex ftco-animate">
-          	<div class="blog-entry">
-              <a href="blog-single.html" class="block-20 img" style="background-image: url('../public/images/image_3.jpg');">
-              </a>
-              <div class="text px-md-5 pt-4">
-              	<div class="meta mb-3">
-                  <div><a href="#">Oct. 29, 2019</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+                <!-- Blog Post 3 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <img src="../public/media/photos/blog3.jpg" class="card-img-top" alt="Blog Post 3">
+                        <div class="card-body">
+                            <h5 class="card-title">Top 5 xe sang được ưa chuộng nhất 2023</h5>
+                            <p class="card-text">Khám phá những dòng xe sang được khách hàng yêu thích nhất trong năm
+                                2023.</p>
+                            <a href="#" class="btn btn-primary">Đọc thêm</a>
+                        </div>
+                        <div class="card-footer text-muted">
+                            Đăng ngày: 01/10/2023
+                        </div>
+                    </div>
                 </div>
-                <h3 class="heading mt-2"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
-                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                <p><a href="blog-single.html" class="btn btn-primary">Continue <span class="icon-long-arrow-right"></span></a></p>
-              </div>
             </div>
-          </div>
-          <div class="col-md-12 text-center d-flex ftco-animate">
-          	<div class="blog-entry justify-content-end mb-md-5">
-              <a href="blog-single.html" class="block-20 img" style="background-image: url('../public/images/image_4.jpg');">
-              </a>
-              <div class="text px-md-5 pt-4">
-              	<div class="meta mb-3">
-                  <div><a href="#">Oct. 29, 2019</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                </div>
-                <h3 class="heading mt-2"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
-                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                <p><a href="blog-single.html" class="btn btn-primary">Continue <span class="icon-long-arrow-right"></span></a></p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-12 text-center d-flex ftco-animate">
-          	<div class="blog-entry justify-content-end mb-md-5">
-              <a href="blog-single.html" class="block-20 img" style="background-image: url('../public/images/image_5.jpg');">
-              </a>
-              <div class="text px-md-5 pt-4">
-              	<div class="meta mb-3">
-                  <div><a href="#">Oct. 29, 2019</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                </div>
-                <h3 class="heading mt-2"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
-                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                <p><a href="blog-single.html" class="btn btn-primary">Continue <span class="icon-long-arrow-right"></span></a></p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-12 text-center d-flex ftco-animate">
-          	<div class="blog-entry">
-              <a href="blog-single.html" class="block-20 img" style="background-image: url('../public/images/image_6.jpg');">
-              </a>
-              <div class="text px-md-5 pt-4">
-              	<div class="meta mb-3">
-                  <div><a href="#">Oct. 29, 2019</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                </div>
-                <h3 class="heading mt-2"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
-                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                <p><a href="blog-single.html" class="btn btn-primary">Continue <span class="icon-long-arrow-right"></span></a></p>
-              </div>
-            </div>
-          </div>
         </div>
-        <div class="row mt-5">
-          <div class="col text-center">
-            <div class="block-27">
-              <ul>
-                <li><a href="#">&lt;</a></li>
-                <li class="active"><span>1</span></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&gt;</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
+
+    <!-- Pagination -->
+    <nav class="py-5">
+        <div class="container">
+            <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Trước</a>
+                </li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Tiếp</a>
+                </li>
+            </ul>
+        </div>
+    </nav>

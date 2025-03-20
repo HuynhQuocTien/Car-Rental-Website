@@ -1,0 +1,26 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+}
+
+.pagination a {
+    color: rgb(32, 96, 95); /* Màu chữ */
+    padding: 8px 16px;
+    text-decoration: none;
+    border: 1px solid rgb(32, 96, 95); /* Đường viền */
+    margin: 0 4px;
+    border-radius: 4px; /* Bo góc */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination a:hover {
+    background-color: rgb(32, 96, 95); /* Màu nền khi hover */
+    color: white; /* Màu chữ khi hover */
+}
+
+.pagination a.active {
+    background-color: rgb(32, 96, 95); /* Màu nền cho trang hiện tại */
+    color: white; /* Màu chữ cho trang hiện tại */
+    border: 1px solid rgb(32, 96, 95); /* Đường viền cho trang hiện tại */
+}

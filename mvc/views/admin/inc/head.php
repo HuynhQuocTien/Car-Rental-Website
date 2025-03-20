@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
@@ -13,7 +14,8 @@
     <!-- Open Graph Meta -->
     <meta property="og:title" content="Dashmix - Bootstrap 5 Admin Template &amp; UI Framework">
     <meta property="og:site_name" content="Dashmix">
-    <meta property="og:description" content="Dashmix - Bootstrap 5 Admin Template &amp; UI Framework created by pixelcave">
+    <meta property="og:description"
+        content="Dashmix - Bootstrap 5 Admin Template &amp; UI Framework created by pixelcave">
     <meta property="og:type" content="website">
     <meta property="og:url" content="">
     <meta property="og:image" content="">
@@ -34,4 +36,4 @@
     <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
     <link rel="stylesheet" id="css-theme" href="../public/css/themes/xwork.min.css">
     <!-- END Stylesheets -->
-  </head>
+</head>

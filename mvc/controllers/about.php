@@ -1,10 +1,10 @@
 <?php
 
-class Home extends Controller {
+class About extends Controller {
     public function default() {
         $this->view("main_layout", [
-            "Title"=>" Home -  Car Rental",
-            "Page"=>"home"
+            "Title"=>"About - Car Rental",
+            "Page"=>"about"
         ],
         "user");
     }
