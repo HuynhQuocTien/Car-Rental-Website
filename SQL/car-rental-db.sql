@@ -8,6 +8,11 @@ CREATE TABLE `Vehicles` (
 	`Mileage` FLOAT,
 	`VIN` VARCHAR(255),
 	`VehicleType` INTEGER,
+	`Transmission` VARCHAR(255),
+	`Seats` INTEGER,
+	`FuelType` VARCHAR(255),
+	`FuelConsumption` VARCHAR(255),
+	`Description` VARCHAR(500),	
 	`Status` INTEGER,
 	`Is_Delete` INTEGER,
 	PRIMARY KEY(`VehiclesID`)
