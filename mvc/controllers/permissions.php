@@ -1,10 +1,10 @@
 <?php
 
-class Dashboard extends Controller {
+class Permissions extends Controller {
     public function default() {
         $this->view("main_layout", [
-            "Title"=>"Dashboard",
-            "Page"=>"dashboard"
+            "Title"=>"Permissions",
+            "Page"=>"permissions",
         ],
         "admin");
     }

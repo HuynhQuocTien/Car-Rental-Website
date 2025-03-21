@@ -14,7 +14,7 @@
     <div class="mt-3">
         <strong>Tổng cộng: 500.000đ</strong>
     </div>
-    <button class="btn btn-success w-100 mt-3">Thanh toán</button>
+    <button class="btn btn-primary w-100 mt-3">Thanh toán</button>
     <button class="btn btn-outline-danger w-100 mt-2" id="closeCart">Đóng</button>
 </div>
 <!-- END Mini Cart Sidebar -->

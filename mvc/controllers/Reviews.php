@@ -1,10 +1,10 @@
 <?php
 
-class Dashboard extends Controller {
+class Reviews extends Controller {
     public function default() {
         $this->view("main_layout", [
-            "Title"=>"Dashboard",
-            "Page"=>"dashboard"
+            "Title"=>"Reviews",
+            "Page"=>"reviews",
         ],
         "admin");
     }

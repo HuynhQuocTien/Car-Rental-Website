@@ -18,21 +18,21 @@ function getActiveNav($url, $pattern) {
                 </a>
             </li>
             <li class="nav-item me-1">
-                <a class="nav-link <?php echo getActiveNav($currentUrl, '/user/cars') ? 'active' : ''; ?>"
+                <a class="nav-link <?php echo getActiveNav($currentUrl, '/user/vehicles') ? 'active' : ''; ?>"
                     href="/user/cars">
-                    <i class="fa fa-car fa-fw"></i> <span class="d-none d-md-inline ms-1">Cars</span>
+                    <i class="fa fa-car fa-fw"></i> <span class="d-none d-md-inline ms-1">Vehicles</span>
                 </a>
             </li>
             <li class="nav-item me-1">
                 <a class="nav-link <?php echo getActiveNav($currentUrl, '/user/blog') ? 'active' : ''; ?>"
                     href="/user/blog">
-                    <i class="fa fa-car fa-fw"></i><span class="d-none d-md-inline ms-1">Blog</span>
+                    <i class="fa-solid fa-blog"></i><span class="d-none d-md-inline ms-1">Blog</span>
                 </a>
             </li>
             <li class="nav-item me-1">
                 <a class="nav-link <?php echo getActiveNav($currentUrl, '/user/about') ? 'active' : ''; ?>"
                     href="/user/about">
-                    <i class="fa fa-car fa-fw"></i><span class="d-none d-md-inline ms-1">About</span>
+                    <i class="fa fa-question-circle"></i><span class="d-none d-md-inline ms-1">About</span>
                 </a>
             </li>
             <li class="nav-item ms-md-auto">

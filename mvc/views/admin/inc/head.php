@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-    <title>Dashmix - Bootstrap 5 Admin Template &amp; UI Framework</title>
+    <title>Admin - <?php echo $data['Title'] ?></title>
 
     <meta name="description" content="Dashmix - Bootstrap 5 Admin Template &amp; UI Framework created by pixelcave">
     <meta name="author" content="pixelcave">
@@ -33,7 +33,5 @@
     <!-- <link rel="stylesheet" id="css-main" href="../public/css/dashmix.css"> -->
     <!-- <link rel="stylesheet" id="css-main" href="../public/css/custom.css"> -->
 
-    <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
-    <link rel="stylesheet" id="css-theme" href="../public/css/themes/xwork.min.css">
-    <!-- END Stylesheets -->
+    <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->    <!-- END Stylesheets -->
 </head>

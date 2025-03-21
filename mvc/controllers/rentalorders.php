@@ -1,10 +1,10 @@
 <?php
 
-class Dashboard extends Controller {
+class RentalOrders extends Controller {
     public function default() {
         $this->view("main_layout", [
-            "Title"=>"Dashboard",
-            "Page"=>"dashboard"
+            "Title"=>"Rental Orders",
+            "Page"=>"rentalorders",
         ],
         "admin");
     }
