@@ -11,6 +11,7 @@ CREATE TABLE `Vehicles` (
 	`Quantity` INTEGER COMMENT 'Tổng số lượng xe hãng và mẫu',
 	`Description` VARCHAR(500) COMMENT 'Mô tả',	
 	`Status` INTEGER COMMENT 'Trạng thái hết chưa hay còn (0: Hết, 1: Còn)',
+	`Is_Feature` INTEGER COMMENT 'Xe nổi bật',
 	`PromotionID` INTEGER COMMENT 'Mã khuyến mãi',
 	`Is_Delete` INTEGER COMMENT 'Xóa',
 	PRIMARY KEY(`VehicleID`)
