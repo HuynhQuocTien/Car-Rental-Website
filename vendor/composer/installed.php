@@ -3,7 +3,7 @@
         'name' => 'vendor/car-rental-website',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'fa9c75c7311f8e2a43b3b93e3f069529035fc011',
+        'reference' => '4847127411c88c77cac77c33c3cdf6d63171ad85',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -37,7 +37,7 @@
         'vendor/car-rental-website' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'fa9c75c7311f8e2a43b3b93e3f069529035fc011',
+            'reference' => '4847127411c88c77cac77c33c3cdf6d63171ad85',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
