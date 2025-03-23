@@ -22,16 +22,23 @@
 
     <!-- Icons -->
     <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
-    <link rel="shortcut icon" href="../public/media/favicons/favicon.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="../public/media/favicons/favicon-192x192.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="../public/media/favicons/apple-touch-icon-180x180.png">
+    <link rel="shortcut icon" href="<?= BASE_URL ?>/public/media/favicons/favicon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="<?= BASE_URL ?>/public/media/favicons/favicon-192x192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="<?= BASE_URL ?>/public/media/favicons/apple-touch-icon-180x180.png">
     <!-- END Icons -->
 
     <!-- Stylesheets -->
     <!-- Dashmix framework -->
-    <link rel="stylesheet" id="css-main" href="../public/css/dashmix.min.css">
+    <link rel="stylesheet" id="css-main" href="<?= BASE_URL ?>/public/css/dashmix.min.css">
+    <link rel="stylesheet" id="css-main" href="<?= BASE_URL ?>/public/css/custom.css">
     <!-- <link rel="stylesheet" id="css-main" href="../public/css/dashmix.css"> -->
     <!-- <link rel="stylesheet" id="css-main" href="../public/css/custom.css"> -->
+    <script src="<?= BASE_URL ?>/public/js/lib/jquery.min.js"></script>
+
+        
+    <link rel="stylesheet" href="<?= BASE_URL ?>/public/js/plugins/sweetalert2/sweetalert2.min.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/public/js/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/public/js/plugins/datatables-bs5/css/dataTables.bootstrap5.min.css">
 
     <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->    <!-- END Stylesheets -->
 </head>

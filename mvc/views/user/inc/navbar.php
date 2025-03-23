@@ -19,7 +19,7 @@ function getActiveNav($url, $pattern) {
             </li>
             <li class="nav-item me-1">
                 <a class="nav-link <?php echo getActiveNav($currentUrl, '/user/vehicles') ? 'active' : ''; ?>"
-                    href="/user/cars">
+                    href="/user/vehicles">
                     <i class="fa fa-car fa-fw"></i> <span class="d-none d-md-inline ms-1">Vehicles</span>
                 </a>
             </li>

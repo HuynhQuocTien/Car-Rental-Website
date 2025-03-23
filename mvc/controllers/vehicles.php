@@ -12,7 +12,7 @@ class Vehicles extends Controller {
         if($arrrs[0] == "admin"){
             $this->view("main_layout", [
                 "Title"=>"Vehicles",
-                "Page"=>"vehicles",
+                "Page"=>"/pages/vehicles/vehicles",
             ],
             "admin");
         } else {
@@ -22,6 +22,41 @@ class Vehicles extends Controller {
             ],
             "user");
         }
+    }
+    public function vehiclecategory() {
+        $this->view("main_layout", [
+            "Title"=>"Vehicle Category",
+            "Page"=>"/pages/vehicles/vehiclecategory"
+        ],
+        "admin");
+    }
+    public function colors() {
+        $this->view("main_layout", [
+            "Title"=>"Colors",
+            "Page"=>"/pages/vehicles/colors"
+        ],
+        "admin");
+    }
+    public function makes() {
+        $this->view("main_layout", [
+            "Title"=>"Makes",
+            "Page"=>"/pages/vehicles/makes"
+        ],
+        "admin");
+    }
+    public function models() {
+        $this->view("main_layout", [
+            "Title"=>"Models",
+            "Page"=>"/pages/vehicles/models"
+        ],
+        "admin");
+    }
+    public function addvehicle() {
+        $this->view("main_layout", [
+            "Title"=>"Add Vehicle",
+            "Page"=>"/pages/vehicles/addvehicle"
+        ],
+        "admin");
     }
 }
 ?>
