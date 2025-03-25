@@ -1,5 +1,8 @@
 RewriteEngine On
 
+# Kiểm tra nếu không phải file hay thư mục thật thì mới rewrite
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.+)$ index.php?url=$1 [L]
+
+# Đưa toàn bộ đường dẫn về index.php và truyền qua biến 'url'
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]

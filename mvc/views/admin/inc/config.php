@@ -25,8 +25,8 @@ $GLOBALS['sidebar'] = array(
             array(
                 'name'  => 'Vehicle Inspection',
                 'icon'  => 'fa-solid fa-check-to-slot',
-                'url'   => 'inpector',
-                'role' => 'inpector'
+                'url'   => 'inspector',
+                'role' => 'inspector'
             ),
             
         )
@@ -129,26 +129,12 @@ $GLOBALS['sidebar'] = array(
                 'icon'  => 'fa-solid fa-users',
                 'url'   => 'users',
                 'role' => 'users',
-                'subitem' => array(
-                    array(
-                        'name'  => 'All',
-                        'icon'  => 'fa fa-list-alt',
-                        'url'   => 'users',
-                        'role' => 'allusers'
-                    ),
-                    array(
-                        'name'  => 'Customers',
-                        'icon'  => 'fa-solid fa-circle-user',
-                        'url'   => 'users/customers',
-                        'role' => 'customers'
-                    ),
-                    array(
-                        'name'  => 'Staffs',
-                        'icon'  => 'fa-solid fa-circle-user',
-                        'url'   => 'users/staffs',
-                        'role' => 'staffs'
-                    ),
-                ),
+            ),
+            array(
+                'name'  => 'Customers',
+                'icon'  => 'fa-solid fa-circle-user',
+                'url'   => 'customers',
+                'role' => 'customers',
             ),
             array(
                 'name'  => 'Permissions',

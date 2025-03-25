@@ -6,8 +6,6 @@ class App{
 
     function __construct(){
         $arr = $this->UrlProcess();
-        // print_r($arr[2]);
-        // Nếu không có gì (localhost/), chuyển hướng thành localhost/user/home
         if (!$arr || empty($arr[0])) {
             header("Location: /user/home");
             exit;

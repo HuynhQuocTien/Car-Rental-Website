@@ -17,14 +17,6 @@ CREATE TABLE `Vehicles` (
 	PRIMARY KEY(`VehicleID`)
 ) COMMENT 'Thông tin xe cần cho thuê chung';
 
-CREATE TABLE `VehiclesQuanlity` (
-	`ID` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
-	`ColorID` INTEGER COMMENT 'Mã màu',
-	`VehicleID` INTEGER COMMENT 'Mã xe',
-	`Quantity` INTEGER COMMENT 'Số lượng xe theo màu',
-	PRIMARY KEY(`ID`)
-) COMMENT 'Số lượng xe theo màu';
-
 CREATE TABLE `VehicleDetails` (
 	`VehicleDetailID` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
 	`VehicleID` INTEGER,
@@ -79,8 +71,8 @@ CREATE TABLE `Models` (
 
 CREATE TABLE `RentalOrders` (
 	`OrderID` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
-	`UserID` INTEGER COMMENT 'Mã khách hàng',
-	`StaffID` INTEGER COMMENT 'Mã nhân viên xác nhận đơn hàng',
+	`CustomerID` INTEGER COMMENT 'Mã khách hàng',
+	`UserID` INTEGER COMMENT 'Mã nhân viên xác nhận đơn hàng',
 	`OrderDate` DATETIME COMMENT 'Ngày đặt xe',
 	`RentalDate` DATETIME COMMENT 'Ngày thuê xe',
 	`TotalAmount` DOUBLE COMMENT 'Tổng số tiền',
@@ -135,11 +127,10 @@ CREATE TABLE `Payments` (
 
 
 CREATE TABLE `Users` (
-	`UserID` INTEGER NOT NULL AUTO_INCREMENT UNIQUE COMMENT 'Mã người dùng (Khách hàng, nhân viên)',
+	`UserID` INTEGER NOT NULL AUTO_INCREMENT UNIQUE COMMENT 'Mã người dùng',
 	`FullName` VARCHAR(255) COMMENT 'Họ tên',
 	`PhoneNumber` VARCHAR(255),
 	`Sex` INTEGER COMMENT 'Giới tính (0: Nam, 1: Nữ)',
-	`License` VARCHAR(255) COMMENT 'Bằng lái',
 	`IdentityCard` VARCHAR(255),
 	`DateOfBirth` DATE COMMENT 'Ngày sinh',
 	`AccountID` INTEGER,
@@ -148,9 +139,41 @@ CREATE TABLE `Users` (
 	PRIMARY KEY(`UserID`)
 ) COMMENT 'Thông tin người dùng';
 
+CREATE TABLE `Customers` (
+	`CustomerID` INTEGER NOT NULL AUTO_INCREMENT UNIQUE COMMENT 'Mã khách hàng (CCCD)',
+	`FullName` VARCHAR(255) COMMENT 'Họ tên',
+	`PhoneNumber` VARCHAR(255) COMMENT 'Số điện thoại',
+	`Email` VARCHAR(255) COMMENT 'Email',
+	`DateOfBirth` DATE COMMENT 'Ngày sinh',
+	`IdentityCard` VARCHAR(255) COMMENT 'Số CCCD',
+	`IDCardBefore` VARCHAR(255) COMMENT 'Ảnh mặt trước CCCD',
+	`IDCardAfter` VARCHAR(255) COMMENT 'Ảnh mặt sau CCCD',
+	`Sex` INTEGER COMMENT 'Giới tính (0: Nam, 1: Nữ)',
+	`CreatedAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'Ngày tạo tài khoản',
+	`AccountID` INTEGER,
+	`TotalOrdered` INTEGER COMMENT 'Tổng số lần thuê xe',
+	`TotalFine` INTEGER COMMENT 'Tổng số lần bị phạt',
+	`TotalAmount` DOUBLE COMMENT 'Tổng số tiền',
+	`Active` INTEGER COMMENT 'Trạng thái khách hàng (0: Chưa kích hoạt, 1: Đã kích hoạt)',
+	`Is_Delete` INTEGER COMMENT 'Xóa',
+	PRIMARY KEY(`CustomerID`)
+) COMMENT 'Thông tin khách hàng';
+
+CREATE TABLE `Address` (
+	`AddressID` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
+	`CustomerID` INTEGER COMMENT 'Mã khách hàng',
+	`Address` VARCHAR(255),
+	`Ward` VARCHAR(255),
+	`District` VARCHAR(255),
+	`Province` VARCHAR(255),
+	`Is_Primary` INTEGER COMMENT 'Địa chỉ mặc định',
+	`Is_Delete` INTEGER COMMENT 'Xóa',
+	PRIMARY KEY(`AddressID`)
+) 	COMMENT 'Địa chỉ người dùng';
+
 CREATE TABLE `Reviews` (
 	`ReviewID` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
-	`UserID` INTEGER COMMENT 'Mã người dùng (Khách hàng)',
+	`CustomerID` INTEGER COMMENT 'Mã khách hàng',
 	`VehicleID` INTEGER,
 	`Rating` INTEGER,
 	`Comment` VARCHAR(255),
@@ -163,7 +186,7 @@ CREATE TABLE `Roles` (
 	`RoleID` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
 	`RoleName` VARCHAR(255),
 	PRIMARY KEY(`RoleID`)
-) COMMENT 'Vai trò (Admin, Nhân viên, Khách hàng)';
+) COMMENT 'Vai trò (Admin, Nhân viên)';
 
 
 CREATE TABLE `Permissions` (
@@ -173,27 +196,20 @@ CREATE TABLE `Permissions` (
 	PRIMARY KEY(`PermissionID`)
 ) COMMENT 'Quyền hạn (Thêm, Sửa, Xóa, Xem, thuê xe, kiểm tra xe)';
 
+CREATE TABLE `Functions` (
+	`FunctionID` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
+	`FunctionName` VARCHAR(255),
+	`Description` VARCHAR(255),
+	PRIMARY KEY(`FunctionID`)
+) COMMENT 'Chức năng (Quản lý xe, Quản lý đơn hàng, Quản lý khách hàng, Quản lý nhân viên)';
 
 CREATE TABLE `RolePermissions` (
 	`RolePermissionID` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
 	`RoleID` INTEGER,
-	`PermissionID` INTEGER,
+	`FunctionID` INTEGER COMMENT 'Mã chức năng',
+	`PermissionID` INTEGER COMMENT 'Mã quyền hạn',
 	PRIMARY KEY(`RolePermissionID`)
 ) COMMENT 'Phân quyền';
-
-
-CREATE TABLE `Address` (
-	`AddressID` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
-	`UserID` INTEGER COMMENT 'Mã người dùng (khách hàng)',
-	`Address` VARCHAR(255),
-	`Ward` VARCHAR(255),
-	`District` VARCHAR(255),
-	`Province` VARCHAR(255),
-	`Is_Primary` INTEGER COMMENT 'Địa chỉ mặc định',
-	`Is_Delete` INTEGER COMMENT 'Xóa',
-	PRIMARY KEY(`AddressID`)
-) 	COMMENT 'Địa chỉ người dùng';
-
 
 CREATE TABLE `Inspections` (
 	`InspectionID` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
@@ -248,6 +264,7 @@ CREATE TABLE `Accounts` (
 	`AccountID` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
 	`Username` VARCHAR(255),
 	`Password` VARCHAR(255),
+	`Token` VARCHAR(255),
 	`ProfilePicture` VARCHAR(255) COMMENT 'Ảnh đại diện',
 	`GoogleID` VARCHAR(255) UNIQUE COMMENT 'ID người dùng từ Google',
 	`CreatedAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'Ngày tạo tài khoản',
@@ -256,13 +273,15 @@ CREATE TABLE `Accounts` (
 	PRIMARY KEY(`AccountID`)
 ) COMMENT 'Tài khoản';
 
-CREATE TABLE `Promotion` (
+CREATE TABLE `Promotions` (
 	`PromotionID` INTEGER NOT NULL AUTO_INCREMENT UNIQUE COMMENT 'Mã khuyến mãi (0: Không có)', 
 	`PromotionName` VARCHAR(255) COMMENT 'Tên khuyến mãi',
 	`PromotionCode` VARCHAR(255) COMMENT 'Mã khuyến mãi',
 	`VehicleID` INTEGER COMMENT 'Mã xe (nếu có)',
 	`DiscountType` INTEGER COMMENT 'Loại giảm giá (0: %, 1: Số tiền)',
 	`DiscountValue` DOUBLE COMMENT 'Giá trị giảm giá',
+	`CreateAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'Ngày tạo',
+	`UserID` INTEGER COMMENT 'Mã người dùng tạo',
 	`StartDate` DATE COMMENT 'Ngày bắt đầu',
 	`EndDate` DATE COMMENT 'Ngày kết thúc',
 	`Description` VARCHAR(255) COMMENT 'Mô tả',
@@ -274,13 +293,16 @@ CREATE TABLE `Promotion` (
 
 
 ALTER TABLE `Address`
-ADD FOREIGN KEY(`UserID`) REFERENCES `Users`(`UserID`)
+ADD FOREIGN KEY(`CustomerID`) REFERENCES `Customers`(`CustomerID`)
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE `RentalOrderDetails`
 ADD FOREIGN KEY(`OrderID`) REFERENCES `RentalOrders`(`OrderID`)
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE `RentalOrders`
 ADD FOREIGN KEY(`UserID`) REFERENCES `Users`(`UserID`)
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE `RentalOrders`
+ADD FOREIGN KEY(`CustomerID`) REFERENCES `Customers`(`CustomerID`)
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE `Models`
 ADD FOREIGN KEY(`VehicleType`) REFERENCES `VehicleTypes`(`VehicleTypesID`)
@@ -289,7 +311,7 @@ ALTER TABLE `Reviews`
 ADD FOREIGN KEY(`VehicleID`) REFERENCES `Vehicles`(`VehicleID`)
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE `Reviews`
-ADD FOREIGN KEY(`UserID`) REFERENCES `Users`(`UserID`)
+ADD FOREIGN KEY(`CustomerID`) REFERENCES `Customers`(`CustomerID`)
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE `RolePermissions`
 ADD FOREIGN KEY(`RoleID`) REFERENCES `Roles`(`RoleID`)
@@ -330,6 +352,9 @@ ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE `Users`
 ADD FOREIGN KEY(`AccountID`) REFERENCES `Accounts`(`AccountID`)
 ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE `Customers`
+ADD FOREIGN KEY(`AccountID`) REFERENCES `Accounts`(`AccountID`)
+ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE `Accounts`
 ADD FOREIGN KEY(`RoleID`) REFERENCES `Roles`(`RoleID`)
 ON UPDATE NO ACTION ON DELETE NO ACTION;
@@ -348,18 +373,165 @@ ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE `VehicleImages`
 ADD FOREIGN KEY(`VehicleID`) REFERENCES `Vehicles`(`VehicleID`)
 ON UPDATE NO ACTION ON DELETE NO ACTION;
-ALTER TABLE `VehiclesQuanlity`
-ADD FOREIGN KEY(`ColorID`) REFERENCES `Colors`(`ColorID`)
-ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE `VehicleDetails`
 ADD FOREIGN KEY(`ColorID`) REFERENCES `Colors`(`ColorID`)
 ON UPDATE NO ACTION ON DELETE NO ACTION;
-ALTER TABLE `VehiclesQuanlity`
-ADD FOREIGN KEY(`VehicleID`) REFERENCES `Vehicles`(`VehicleID`)
-ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE `Vehicles`
-ADD FOREIGN KEY(`PromotionID`) REFERENCES `Promotion`(`PromotionID`)
+ADD FOREIGN KEY(`PromotionID`) REFERENCES `Promotions`(`PromotionID`)
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE `RentalOrders`
-ADD FOREIGN KEY(`PromotionID`) REFERENCES `Promotion`(`PromotionID`)
+ADD FOREIGN KEY(`PromotionID`) REFERENCES `Promotions`(`PromotionID`)
 ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE `Promotions`
+ADD FOREIGN KEY(`UserID`) REFERENCES `Users`(`UserID`)
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE `RolePermissions`
+ADD FOREIGN KEY(`FunctionID`) REFERENCES `Functions`(`FunctionID`)
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+-- INSERT DATA
+-- Nhập dữ liệu cho bảng Permissions
+INSERT INTO `Permissions` (`PermissionName`, `Description`) 
+VALUES 
+('Thêm', 'Thêm mới dữ liệu'),
+('Sửa', 'Chỉnh sửa dữ liệu'),
+('Xóa', 'Xóa dữ liệu'),
+('Xem', 'Xem dữ liệu'),
+('Duyệt đơn hàng', 'Duyệt đơn hàng'),
+('Kiểm tra xe', 'Kiểm tra tình trạng xe'),
+('Báo cáo', 'Xem báo cáo');
+
+-- Nhập dữ liệu cho bảng Functions
+INSERT INTO `Functions` (`FunctionName`, `Description`)
+VALUES 
+('dashboard', 'Quản lý thông tin tổng quan'),  -- 1
+('approval', 'Duyệt đơn hàng xe'), -- 2
+('inspector', 'Duyệt kiểm tra xe'), -- 3
+('vehicle', 'Quản lý xe'), -- 4
+('vehiclecategory','Quản lý loại xe'), -- 5
+('colors', 'Quản lý màu xe'), -- 6
+('makes', 'Quản lý hãng xe'), -- 7
+('models', 'Quản lý mẫu xe'), -- 8
+('rentalorders', 'Quản lý đơn hàng thuê xe'), -- 9
+('inspections', 'Quản lý kiểm tra xe'), -- 10
+('damagetypes', 'Quản lý loại hỏng hóc'), -- 11
+('deposits', 'Quản lý đặt cọc'), -- 12
+('reviews', 'Quản lý đánh giá'), -- 13
+('payments', 'Quản lý thanh toán'), -- 14
+('promotions', 'Quản lý khuyến mãi'), -- 15
+('users', 'Quản lý người dùng'), -- 16
+('customers', 'Quản lý khách hàng'), -- 17
+('permissions', 'Quản lý phân quyền linh động'); -- 18
+
+-- Nhập dữ liệu cho bảng Roles
+INSERT INTO `Roles` (`RoleName`) 
+VALUES ('Admin'), ('Nhân viên'), ('Nhân viên duyệt đơn'), ('Nhân viên kiểm tra xe');
+
+-- Nhập dữ liệu cho bảng RolePermissions
+INSERT INTO `RolePermissions` (`RoleID`, `FunctionID`, `PermissionID`)
+VALUES 
+		-- ADMIN
+		(1,1,7), 
+		(1,2,5),
+		(1,3,6),
+		(1,4,1), (1,4,2),(1,4,3),(1,4,4),
+		(1,5,1),(1,5,2),(1,5,3),(1,5,4),
+		(1,6,1),(1,6,2),(1,6,3),(1,6,4),
+		(1,7,1),(1,7,2),(1,7,3),(1,7,4),
+		(1,8,1),(1,8,2),(1,8,3),(1,8,4),
+		(1,9,1),(1,9,2),(1,9,3),(1,9,4),
+		(1,10,1),(1,10,2),(1,10,3),(1,10,4),
+		(1,11,1),(1,11,2),(1,11,3),(1,11,4),
+		(1,12,1),(1,12,2),(1,12,3),(1,12,4),
+		(1,13,1),(1,13,2),(1,13,3),(1,13,4),
+		(1,14,1),(1,14,2),(1,14,3),(1,14,4),
+		(1,15,1),(1,15,2),(1,15,3),(1,15,4),
+		(1,16,1),(1,16,2),(1,16,3),(1,16,4),
+		(1,17,1),(1,17,2),(1,17,3),(1,17,4),
+		(1,18,1),(1,18,2),(1,18,3),(1,18,4);
+
+-- Nhập dữ liệu cho bảng Accounts
+INSERT INTO `Accounts` (`Username`, `Password`,`Token`,`ProfilePicture`,`GoogleID`, `Email`, `RoleID`)
+VALUES 
+('admin', '$2y$10$F3FQFNZwijEhnKf4EVrkVeaJNtW0icztly.M4sNrHn2GDsT1DsARy',NULL,NULL,NULL, 'quoctien01062003@gmail.com',1);
+
+-- Nhập dữ liệu cho bảng Users
+INSERT INTO `Users` (`FullName`, `PhoneNumber`, `Sex`, `IdentityCard`, `DateOfBirth`, `AccountID`, `Active`, `Is_Delete`)
+VALUES 
+('Quoc Tien', '0961234567', 0, '123456789102', '2003-06-01', 1, 1, 0);
+
+
+-- Thêm dữ liệu vào bảng Makes
+INSERT INTO `Makes` (`MakeName`, `Country`) 
+VALUES ('Toyota', 'Japan'), ('Honda', 'Japan'), ('Ford', 'USA');
+
+-- Thêm dữ liệu vào bảng VehicleTypes
+INSERT INTO `VehicleTypes` (`NameType`) 
+VALUES ('Hạng sang'), ('Tầm trung'), ('Phổ thông');
+
+-- Thêm dữ liệu vào bảng Models
+INSERT INTO `Models` (`ModelName`, `MakeID`, `VehicleType`) 
+VALUES ('Camry', 1, 2), ('Civic', 2, 2), ('Mustang', 3, 1);
+
+-- Thêm dữ liệu vào bảng Colors
+INSERT INTO `Colors` (`ColorName`) 
+VALUES ('Đen'), ('Trắng'), ('Đỏ'),('Bạc');
+
+-- Thêm giá trị mặc định "Không có khuyến mãi"
+INSERT INTO `Promotions` (`PromotionID`, `PromotionName`, `PromotionCode`, `Description`, `Status`, `Is_Delete`) 
+VALUES (0, 'Không có khuyến mãi', 'NO_PROMO', 'Không áp dụng khuyến mãi', 1, 0);
+
+-- Thêm dữ liệu vào bảng Vehicles
+INSERT INTO `Vehicles` (`MakeID`, `ModelID`, `Seats`, `VehicleTypesID`, `HourlyPrice`, `DailyPrice`, `WeeklyPrice`, `MonthlyPrice`, `Quantity`, `Description`, `Status`, `Is_Feature`, `PromotionID`, `Is_Delete`) 
+VALUES 
+(1, 1, 5, 2, 10.5, 70, 450, 1500, 10, 'Toyota Camry tầm trung, tiết kiệm xăng', 1, 1, 0, 0),
+(2, 2, 5, 2, 9, 60, 400, 1400, 8, 'Honda Civic phong cách thể thao', 1, 0, 0, 0),
+(3, 3, 4, 1, 20, 150, 950, 3500, 5, 'Ford Mustang mạnh mẽ, đẳng cấp', 1, 1, 0, 0);
+
+-- Thêm dữ liệu vào bảng VehicleDetails
+INSERT INTO `VehicleDetails` (`VehicleID`, `ColorID`, `LicensePlateNumber`, `Mileage`, `Year`, `Transmission`, `FuelType`, `FuelConsumption`, `Status`, `Is_Delete`)
+VALUES 
+(1, 1, '59A-12345', 10000, 2020, 'Tự động', 'Xăng', '5.5', 1, 0),
+(1, 1, '59A-12350', 15000, 2021, 'Tự động', 'Xăng', '5.5', 1, 0),
+(1, 1, '59A-12351', 25000, 2022, 'Tự động', 'Xăng', '5.5', 1, 0),
+(1, 1, '59A-12352', 35000, 2023, 'Tự động', 'Xăng', '5.5', 1, 0),
+(1, 1, '59A-12353', 45000, 2024, 'Tự động', 'Xăng', '5.5', 1, 0),
+(1, 2, '59A-12346', 20000, 2019, 'Tự động', 'Xăng', '5.5', 1, 0),
+(1, 2, '59A-12354', 10000, 2020, 'Tự động', 'Xăng', '5.5', 1, 0),
+(1, 2, '59A-12355', 15000, 2021, 'Tự động', 'Xăng', '5.5', 1, 0),
+(1, 2, '59A-12356', 25000, 2022, 'Tự động', 'Xăng', '5.5', 1, 0),
+(1, 2, '59A-12357', 35000, 2023, 'Tự động', 'Xăng', '5.5', 1, 0),
+(1, 2, '59A-12358', 45000, 2024, 'Tự động', 'Xăng', '5.5', 1, 0),
+(1, 2, '59A-12359', 50000, 2025, 'Tự động', 'Xăng', '5.5', 1, 0),
+(2, 3, '59A-12347', 30000, 2018, 'Tự động', 'Xăng', '5.5', 1, 0),
+(3, 1, '59A-12348', 40000, 2017, 'Tự động', 'Xăng', '5.5', 1, 0),
+(3, 1, '59A-12349', 50000, 2016, 'Tự động', 'Xăng', '5.5', 1, 0),
+(3, 1, '59A-12360', 60000, 2015, 'Tự động', 'Xăng', '5.5', 1, 0),
+(3, 1, '59A-12361', 70000, 2014, 'Tự động', 'Xăng', '5.5', 1, 0),
+(3, 1, '59A-12362', 80000, 2013, 'Tự động', 'Xăng', '5.5', 1, 0),
+(3, 1, '59A-12363', 90000, 2012, 'Tự động', 'Xăng', '5.5', 1, 0),
+(3, 1, '59A-12364', 100000, 2011, 'Tự động', 'Xăng', '5.5', 1, 0);
+
+-- Thêm dữ liệu vào bảng DamageTypes
+INSERT INTO `DamageTypes` (`DamageName`, `FineAmount`, `VehicleTypesID`, `Is_Delete`)
+VALUES 
+('Xước nhẹ', 200, 1, 0),
+('Xước nhẹ', 150, 2, 0),
+('Xước nhẹ', 100, 3, 0),
+
+('Xước nặng', 500, 1, 0),
+('Xước nặng', 400, 2, 0),
+('Xước nặng', 300, 3, 0),
+
+('Hỏng đèn', 300, 1, 0),
+('Hỏng đèn', 200, 2, 0),
+('Hỏng đèn', 100, 3, 0),
+
+('Hỏng cửa', 400, 1, 0),
+('Hỏng cửa', 300, 2, 0),
+('Hỏng cửa', 200, 3, 0),
+
+('Móp biển số', 200, 1, 0),
+('Móp biển số', 100, 2, 0),
+('Móp biển số', 50, 3, 0);
+

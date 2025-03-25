@@ -146,7 +146,7 @@
                                 </div>
                                 <div class="modal-body p-4">
                                     <!-- Login Form -->
-                                    <form id="loginForm">
+                                    <form id="loginForm" method="POST">
                                         <div class="mb-3">
                                             <label for="username" class="form-label">Username</label>
                                             <input type="text" class="form-control" id="username"
@@ -160,7 +160,7 @@
                                         <button type="submit" class="btn btn-primary w-100">Sign In</button>
 
                                         <div class="text-end mt-2">
-                                            <a href="#" id="showForgotPassword">Forgot password?</a>
+                                            <a href="javascript:void(0)" id="showForgotPassword">Forgot password?</a>
                                         </div>
                                         <div class="text-center mt-3">
                                             <p class="mb-2">Or Sign in with</p>
@@ -171,30 +171,40 @@
                                                 Sign in with GitHub</button>
                                         </div>
                                         <div class="text-center mt-2">
-                                            Not a member yet? <a href="#" id="showRegister">Sign up now</a>
+                                            Not a member yet? <a href="javascript:void(0)" id="showRegister">Sign up now</a>
                                         </div>
                                     </form>
                                     <!-- Register Form -->
-                                    <form id="registerForm" class="d-none">
+                                    <form id="registerForm" class="js-validation-signup d-none" method="POST">
+                                        <div class="mb-3">
+                                            <label for="fullname" class="form-label">Full name</label>
+                                            <input type="text" class="form-control" id="signup-fullname"
+                                                placeholder="Input Full name" name="signup-fullname">
+                                        </div>
                                         <div class="mb-3">
                                             <label for="phone" class="form-label">Phone</label>
-                                            <input type="tel" class="form-control" id="phone"
-                                                placeholder="Input Phone number">
+                                            <input type="tel" class="form-control" id="signup-phone"
+                                                placeholder="Input Phone number" name="signup-phone">
                                         </div>
                                         <div class="mb-3">
-                                            <label for="newUsername" class="form-label">Username</label>
-                                            <input type="text" class="form-control" id="newUsername"
-                                                placeholder="Input Username">
+                                            <label for="email" class="form-label">Email</label>
+                                            <input type="text" class="form-control" id="signup-email"
+                                                placeholder="Input Email" name="signup-email">
                                         </div>
                                         <div class="mb-3">
-                                            <label for="newPassword" class="form-label">Password</label>
-                                            <input type="password" class="form-control" id="newPassword"
-                                                placeholder="Input Password">
+                                            <label for="signup-newUsername" class="form-label">Username</label>
+                                            <input type="text" class="form-control" id="signup-newUsername"
+                                                placeholder="Input Username" name="signup-newUsername">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="signup-newPassword" class="form-label">Password</label>
+                                            <input type="password" class="form-control" id="signup-newPassword"
+                                                placeholder="Input Password" name="signup-newPassword">
                                         </div>
                                         <div class="mb-3">
                                             <label for="renewPassword" class="form-label">Re-enter Password</label>
-                                            <input type="password" class="form-control" id="renewPassword"
-                                                placeholder="Re-enter Password">
+                                            <input type="password" class="form-control" id="signup-renewPassword"
+                                                placeholder="Re-enter Password" name="signup-renewPassword">
                                         </div>
                                         <button type="submit" class="btn btn-success w-100">Sign Up</button>
                                         <div class="text-center mt-2">
@@ -214,7 +224,7 @@
                                         <div class="text-center mt-2">
                                             <span id="resendOTP" class="text-muted">Resend OTP code after <span
                                                     id="countdown">60</span>s</span>
-                                            <a href="#" id="backToLoginFromForgot">Back to sign in</a>
+                                            <a href="javascript:void(0)" id="backToLoginFromForgot">Back to sign in</a>
                                         </div>
                                     </form>
 

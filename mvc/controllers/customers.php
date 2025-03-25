@@ -4,7 +4,7 @@ class Customers extends Controller {
     public function default() {
         $this->view("main_layout", [
             "Title"=>"Customers",
-            "Page"=>"customers",
+            "Page"=>"pages/customers",
         ],
         "admin");
     }

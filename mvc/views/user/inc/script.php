@@ -17,15 +17,20 @@
   <script src="../public/js/main.js"></script>
   <script src="../public/js/chat.js"></script> -->
 
-  <script src="../public/js/dashmix.app.min.js"></script>
+
+  <script src="../public/js/plugins/jquery-validation/jquery.validate.js"></script>
 
   <!-- jQuery (required for BS Datepicker plugin) -->
-  <script src="../public/js/lib/jquery.min.js"></script>
 
   <!-- Page JS Plugins -->
   <script src="../public/js/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
   <script src="../public/js/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
   <script src="../public/js/plugins/slick-carousel/slick.min.js"></script>
+  <script src="../public/js/plugins/sweetalert2/sweetalert2.min.js"></script>
+  <script src="../public/js/plugins/select2/js/select2.full.min.js"></script>
+  <script src="../public/js/plugins/datatables/jquery.dataTables.min.js"></script>
+  <script src="../public/js/plugins/bootstrap-notify/bootstrap-notify.js"></script>
+  <!-- <script src="../public/js/plugins/datatables-bs5/js/dataTables.bootstrap5.min.js"></script> -->
 
   <!-- Page JS Helpers (BS Datepicker plugin) -->
   <script>
@@ -85,15 +90,11 @@ $('.carousel').slick({
 </script>";
     }
   ?>
- <!-- Vehicle Management -->
- <script src="../public/js/plugins/sweetalert2/sweetalert2.min.js"></script>
-<script src="../public/js/plugins/select2/js/select2.full.min.js"></script>
-<script src="../public/js/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="../public/js/plugins/datatables-bs5/js/dataTables.bootstrap5.min.js"></script>
-<script>
+  <!-- Vehicle Management -->
+  <script>
 Dashmix.helpersOnLoad(['jq-select2']);
-</script>
-<script>
+  </script>
+  <script>
 let categories = [],
     colors = [],
     brands = [],
@@ -273,5 +274,7 @@ $(document).on("click", ".btn-delete", async function() {
         }
     }
 });
-</script>
-<!-- END Vehicle Management -->
+  </script>
+
+  <!-- END Vehicle Management -->
+  <script src="../public/js/pages/user/auth.js"></script>

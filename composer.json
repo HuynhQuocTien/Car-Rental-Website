@@ -4,7 +4,8 @@
   "type": "project",
   "require": {
     "php": ">=7.4",
-    "monolog/monolog": "^2.0"
+    "monolog/monolog": "^2.0",
+    "cloudinary/cloudinary_php": "^2"
   },
   "autoload": {
     "psr-4": {

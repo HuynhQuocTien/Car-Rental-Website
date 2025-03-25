@@ -2,7 +2,7 @@
 class AuthCore{
     public static function onLogin(){
         if(isset($_COOKIE['token'])){
-            $nguoidung = new NguoiDungModel();
+            $nguoidung = new AccountModel();
             $token = $_COOKIE['token'];
             if($nguoidung->validateToken($token) == true){
                 header("Location: ../Home");
@@ -11,10 +11,10 @@ class AuthCore{
     }
     public static function checkAuthentication(){
         $token = $_COOKIE['token'];
-        $nguoidung = new NguoiDungModel();
-        if(!isset($_COOKIE['token']) || $nguoidung->validateToken($token) == false){
+        $account = new AccountModel();
+        if(!isset($_COOKIE['token']) || $account->validateToken($token) == false){
             setcookie("token", "", time() - 3600);
-            $path = login_path;
+            $path = BASE_URL;
             header("Location: $path");
             exit;
         }
