@@ -143,7 +143,6 @@ CREATE TABLE `Customers` (
 	`CustomerID` INTEGER NOT NULL AUTO_INCREMENT UNIQUE COMMENT 'Mã khách hàng (CCCD)',
 	`FullName` VARCHAR(255) COMMENT 'Họ tên',
 	`PhoneNumber` VARCHAR(255) COMMENT 'Số điện thoại',
-	`Email` VARCHAR(255) COMMENT 'Email',
 	`DateOfBirth` DATE COMMENT 'Ngày sinh',
 	`IdentityCard` VARCHAR(255) COMMENT 'Số CCCD',
 	`IDCardBefore` VARCHAR(255) COMMENT 'Ảnh mặt trước CCCD',
@@ -266,10 +265,12 @@ CREATE TABLE `Accounts` (
 	`Password` VARCHAR(255),
 	`Token` VARCHAR(255),
 	`ProfilePicture` VARCHAR(255) COMMENT 'Ảnh đại diện',
-	`GoogleID` VARCHAR(255) UNIQUE COMMENT 'ID người dùng từ Google',
+	`GoogleID` VARCHAR(255) COMMENT 'ID người dùng từ Google',
 	`CreatedAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'Ngày tạo tài khoản',
 	`Email` VARCHAR(255),
 	`RoleID` INTEGER,
+	`Active` INTEGER COMMENT 'Trạng thái tài khoản (0: Chưa kích hoạt, 1: Đã kích hoạt)',
+	`Is_Delete` INTEGER COMMENT 'Xóa',
 	PRIMARY KEY(`AccountID`)
 ) COMMENT 'Tài khoản';
 
@@ -424,6 +425,9 @@ VALUES
 ('permissions', 'Quản lý phân quyền linh động'); -- 18
 
 -- Nhập dữ liệu cho bảng Roles
+INSERT INTO `Roles` (`RoleID`,`RoleName`) 
+VALUES (0,'Customer');
+
 INSERT INTO `Roles` (`RoleName`) 
 VALUES ('Admin'), ('Nhân viên'), ('Nhân viên duyệt đơn'), ('Nhân viên kiểm tra xe');
 

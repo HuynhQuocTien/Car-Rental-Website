@@ -179,32 +179,32 @@
                                         <div class="mb-3">
                                             <label for="fullname" class="form-label">Full name</label>
                                             <input type="text" class="form-control" id="signup-fullname"
-                                                placeholder="Input Full name" name="signup-fullname">
+                                                placeholder="Input Full name" name="signup-fullname" value="tienm ver2">
                                         </div>
                                         <div class="mb-3">
                                             <label for="phone" class="form-label">Phone</label>
                                             <input type="tel" class="form-control" id="signup-phone"
-                                                placeholder="Input Phone number" name="signup-phone">
+                                                placeholder="Input Phone number" name="signup-phone" value="0912345678">
                                         </div>
                                         <div class="mb-3">
                                             <label for="email" class="form-label">Email</label>
                                             <input type="text" class="form-control" id="signup-email"
-                                                placeholder="Input Email" name="signup-email">
+                                                placeholder="Input Email" name="signup-email" value="123213@gmail.com">
                                         </div>
                                         <div class="mb-3">
                                             <label for="signup-newUsername" class="form-label">Username</label>
                                             <input type="text" class="form-control" id="signup-newUsername"
-                                                placeholder="Input Username" name="signup-newUsername">
+                                                placeholder="Input Username" name="signup-newUsername" value="555">
                                         </div>
                                         <div class="mb-3">
                                             <label for="signup-newPassword" class="form-label">Password</label>
                                             <input type="password" class="form-control" id="signup-newPassword"
-                                                placeholder="Input Password" name="signup-newPassword">
+                                                placeholder="Input Password" name="signup-newPassword" value="123456">
                                         </div>
                                         <div class="mb-3">
                                             <label for="renewPassword" class="form-label">Re-enter Password</label>
                                             <input type="password" class="form-control" id="signup-renewPassword"
-                                                placeholder="Re-enter Password" name="signup-renewPassword">
+                                                placeholder="Re-enter Password" name="signup-renewPassword" value="123456">
                                         </div>
                                         <button type="submit" class="btn btn-success w-100">Sign Up</button>
                                         <div class="text-center mt-2">
@@ -365,3 +365,4 @@
             </div>
             <!-- END Header Loader -->
         </header>
+        <!-- END Header -->

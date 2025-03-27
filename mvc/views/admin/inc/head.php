@@ -39,8 +39,9 @@
     <link rel="stylesheet" href="<?= BASE_URL ?>/public/js/plugins/sweetalert2/sweetalert2.min.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/public/js/plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/public/js/plugins/datatables-bs5/css/dataTables.bootstrap5.min.css">
-    <script src="../public/js/lib/jquery.min.js">
-        var BaseUrl = "<?= BASE_URL ?>/admin/";
+    <script>
+        const BaseUrl = "<?= BASE_URL ?>/admin/";
     </script>
+    <script src="../public/js/lib/jquery.min.js"></script>
     <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->    <!-- END Stylesheets -->
 </head>

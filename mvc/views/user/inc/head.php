@@ -63,15 +63,16 @@
     <link rel="stylesheet" href="../public/js/plugins/slick-carousel/slick.css">
     <link rel="stylesheet" href="../public/js/plugins/slick-carousel/slick-theme.css">
     <link rel="stylesheet" id="css-main" href="../public/css/dashmix.min.css">
-    <link rel="stylesheet" id="css-main" href="../public/css/bootstrap.min.css">
     <link rel="stylesheet" id="css-main" href="../public/css/dashmix-custom.css">
+    <!-- <link rel="stylesheet" id="css-main" href="../public/css/bootstrap.min.css"> -->
     <!-- <link rel="stylesheet" id="css-main" href="../public/css/custom.css"> -->
 
     <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
     <link rel="stylesheet" id="css-theme" href="../public/css/themes/xinspire.min.css">
     <!-- END Stylesheets -->
-    <script src="../public/js/dashmix.app.min.js">
-        var BaseUrl = "<?php echo BASE_URL;?>/user/";
+    <script>
+        const BaseUrl = "<?php echo BASE_URL; ?>/user/";
     </script>
+    <script src="../public/js/dashmix.app.min.js"></script>
     <script src="../public/js/lib/jquery.min.js"></script>
 </head>

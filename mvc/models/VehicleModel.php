@@ -1,37 +1,60 @@
 <?php
 class VehicleModel extends Database {
 
-    public function createVehicle($make, $model, $year, $licensePlate, $color, $mileage, $vin, $vehicleType, $status) {
-        $sql = "INSERT INTO Vehicles (Make, Model, Year, LicensePlateNumber, Color, Mileage, VIN, VehicleType, Status, Is_Delete) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0)";
-        $stmt = $this->conn->prepare($sql);
-        return $stmt->execute([$make, $model, $year, $licensePlate, $color, $mileage, $vin, $vehicleType, $status]);
+    public function createVehicle($data) {
+        $query = "INSERT INTO Vehicles (MakeID, ModelID, Seats, VehicleTypesID, HourlyPrice, DailyPrice, WeeklyPrice, MonthlyPrice, Quantity, Description, Status, Is_Feature, PromotionID, Is_Delete) 
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)";
+        $stmt = mysqli_prepare($this->con, $query);
+        mysqli_stmt_bind_param($stmt, 'iiiiiiiiiisiii', 
+            $data['MakeID'], $data['ModelID'], $data['Seats'], $data['VehicleTypesID'], 
+            $data['HourlyPrice'], $data['DailyPrice'], $data['WeeklyPrice'], $data['MonthlyPrice'], 
+            $data['Quantity'], $data['Description'], $data['Status'], $data['Is_Feature'], $data['PromotionID']
+        );
+        return mysqli_stmt_execute($stmt);
     }
 
-    public function getVehicleById($vehicleId) {
-        $sql = "SELECT * FROM Vehicles WHERE VehiclesID = ? AND Is_Delete = 0";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute([$vehicleId]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+    public function updateVehicle($id, $data) {
+        $query = "UPDATE Vehicles SET MakeID = ?, ModelID = ?, Seats = ?, VehicleTypesID = ?, HourlyPrice = ?, DailyPrice = ?, WeeklyPrice = ?, MonthlyPrice = ?, Quantity = ?, Description = ?, Status = ?, Is_Feature = ?, PromotionID = ? WHERE VehicleID = ? AND Is_Delete = 0";
+        $stmt = mysqli_prepare($this->con, $query);
+        mysqli_stmt_bind_param($stmt, 'iiiiiiiiiisiiii', 
+            $data['MakeID'], $data['ModelID'], $data['Seats'], $data['VehicleTypesID'], 
+            $data['HourlyPrice'], $data['DailyPrice'], $data['WeeklyPrice'], $data['MonthlyPrice'], 
+            $data['Quantity'], $data['Description'], $data['Status'], $data['Is_Feature'], $data['PromotionID'], 
+            $id
+        );
+        return mysqli_stmt_execute($stmt);
     }
 
     public function getAllVehicles() {
-        $sql = "SELECT * FROM Vehicles WHERE Is_Delete = 0";
-        $stmt = $this->conn->query($sql);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $query = "SELECT * FROM Vehicles WHERE Is_Delete = 0";
+        $result = mysqli_query($this->con, $query);
+        return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 
-    public function updateVehicle($vehicleId, $make, $model, $year, $licensePlate, $color, $mileage, $vin, $vehicleType, $status) {
-        $sql = "UPDATE Vehicles SET Make = ?, Model = ?, Year = ?, LicensePlateNumber = ?, Color = ?, Mileage = ?, VIN = ?, VehicleType = ?, Status = ? 
-                WHERE VehiclesID = ? AND Is_Delete = 0";
-        $stmt = $this->conn->prepare($sql);
-        return $stmt->execute([$make, $model, $year, $licensePlate, $color, $mileage, $vin, $vehicleType, $status, $vehicleId]);
+    public function getVehicleById($id) {
+        $query = "SELECT * FROM Vehicles WHERE VehicleID = ? AND Is_Delete = 0";
+        $stmt = mysqli_prepare($this->con, $query);
+        mysqli_stmt_bind_param($stmt, 'i', $id);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        return mysqli_fetch_assoc($result);
     }
 
-    public function deleteVehicle($vehicleId) {
-        $sql = "UPDATE Vehicles SET Is_Delete = 1 WHERE VehiclesID = ?";
-        $stmt = $this->conn->prepare($sql);
-        return $stmt->execute([$vehicleId]);
+    public function getQuery($filter, $input, $args = []) {
+        $baseQuery = "SELECT * FROM Vehicles WHERE Is_Delete = 0";
+
+        if (!empty($filter) && !empty($input)) {
+            $baseQuery .= " AND $filter LIKE '%" . mysqli_real_escape_string($this->con, $input) . "%'";
+        }
+
+        if (!empty($args['sort'])) {
+            $baseQuery .= " ORDER BY " . mysqli_real_escape_string($this->con, $args['sort']);
+            if (!empty($args['order']) && in_array(strtoupper($args['order']), ['ASC', 'DESC'])) {
+                $baseQuery .= " " . strtoupper($args['order']);
+            }
+        }
+
+        return $baseQuery;
     }
 }
 

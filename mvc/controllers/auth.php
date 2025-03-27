@@ -4,6 +4,8 @@ class Auth extends Controller
 {
 
     public $userModel;
+    public $accountModel;
+    public $customerModel;
     public $googleAuth;
     public $mailAuth;
     function UrlProcess(){
@@ -14,227 +16,60 @@ class Auth extends Controller
     }
     function __construct()
     {
-        
-    }
-    function signin()
-    {
-        $url = $this->UrlProcess();
-        if (in_array($url[0], ['admin'])) {
-            $this->view("single_layout", [
-                "Page" => "auth/signin",
-                "Title" => "Đăng nhập Admin",
-            ],
-            "admin");
-        } else  if (in_array($url[0], ['user'])) {
-            $this->view("single_layout", [
-                "Page" => "auth/signin",
-                "Title" => "Đăng nhập",
-            ],
-            "user");
-        } else {
-            header("Location: ./auth/signin");
-        }
+        $this->userModel = $this->model("UserModel");
+        $this->accountModel = $this->model("AccountModel");
+        $this->customerModel = $this->model("CustomerModel");
     }
 
-
-    function signup()
-    {
-        $url = $this->UrlProcess();
-        if (in_array($url[0], ['user'])){
-        $this->view("single_layout", [
-            "Page" => "auth/signup",
-            "Title" => "Đăng ký tài khoản"
-        ],
-        "user");
-        }
-    }
-
-    function forgot()
-    {
-        $url = $this->UrlProcess();
-        if (in_array($url[0], ['user'])){
-        $this->view("single_layout", [
-            "Page" => "auth/forgot",
-            "Title" => "Khôi phục tài khoản",
-        ],
-        "user");
-        } else if(in_array($url[0], ['admin'])){
-            $this->view("single_layout", [
-                "Page" => "auth/forgot",
-                "Title" => "Khôi phục tài khoản",
-            ],
-            "admin");
-        }
-    }
-
-    function otp()
-    {
-        $url = $this->UrlProcess();
-        if (in_array($url[0], ['admin'])) {
-            $this->view("single_layout", [
-                "Page" => "auth/otp",
-                "Title" => "Nhập mã OTP",
-            ],
-            "admin");
-        } else if (in_array($url[0], ['user'])) {
-            $this->view("single_layout", [
-                "Page" => "auth/otp",
-                "Title" => "Nhập mã OTP",
-            ],
-            "user");
-        }
-        // if (isset($_SESSION['checkMail'])) {
-        //     $this->view("single_layout", [
-        //         "Page" => "auth/otp",
-        //         "Title" => "Nhập mã OTP",
-        //     ],
-        //     "user");
-        // } else {
-        //     header("Location: ./forgot");
-        // }
-    }
-
-    function resetpass()
-    {
-        $url = $this->UrlProcess();
-        if (in_array($url[0], ['admin'])) {
-            $this->view("single_layout", [
-                "Page" => "auth/resetpass",
-                "Title" => "Nhập mật khẩu mới"
-            ],
-            "admin");
-        } else if (in_array($url[0], ['user'])) {
-            $this->view("single_layout", [
-                    "Page" => "auth/resetpass",
-                    "Title" => "Nhập mật khẩu mới"
-                ],
-                "user");
-        }
-        // if (isset($_SESSION['checkMail'])) {
-        //     $this->view("single_layout", [
-        //         "Page" => "auth/resetpass",
-        //         "Title" => "Nhập mật khẩu mới"
-        //     ],
-        //     "user");
-        // } else {
-        //     header("Location: ./forgot");
-        // }
-    }
-
-    public function addUser()
-    {
-        AuthCore::checkAuthentication();
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    public function addCustomer()
+    {   
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            $phone = $_POST['phone'];
+            $username = $_POST['username'];
             $fullname = $_POST['fullname'];
             $email = $_POST['email'];
             $password = $_POST['password'];
-            $result = $this->userModel->create($email, $fullname, $password, "1990-01-01", 1, 1, 1);
-            echo $result;
+            $check = true;
+            $message = "";
+            $error_fields = [];
+            // Kiểm tra trùng username
+            if ($this->accountModel->exists('Username', $username)) {
+                $error_fields['username'] = "Username already exists.";
+                $check = false;
+                $message = "Username already exists.";
+            }
+
+            // Kiểm tra trùng email
+            if ($this->accountModel->exists('Email', $email)) {
+                $error_fields['email'] = "Email already exists.";
+                $check = false;
+                $message = "Email already exists.";
+            }
+
+            // Kiểm tra trùng số điện thoại
+            if ($this->customerModel->exists('PhoneNumber', $phone)) {
+                $error_fields['phone'] = "Phone number already exists.";
+                $check = false;
+                $message = "Phone number already exists.";
+            }
+
+            // Nếu không có dữ liệu trùng lặp, thêm vào database
+            if ($check) {
+                $acc = $this->accountModel->create($username, $password, NULL, NULL, NULL, $email, 0);
+                $accId = $this->accountModel->getMaxAccountID();
+                $result = $this->customerModel->create($fullname, $phone, '1990-01-01', NULL, NULL, NULL, 0, $accId, 0, 0, 0);
+
+                if (!$acc || !$result) {
+                    $check = false;
+                    $message = "Error creating account.";
+                } else {
+                    $message = "Account created successfully.";
+                }
+            }
+            echo json_encode(['success' => $check, 'message' => $message,'error_fields' => $error_fields ]);
         }
     }
 
-    public function getUser()
-    {
-        if (isset($_POST['email'])) {
-            $user = $this->userModel->getById($_POST['email']);
-            echo json_encode($user);
-        }
-    }
-
-    // public function checkLogin()
-    // {
-    //     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    //         $masinhvien = $_POST['masinhvien'];
-    //         $password = $_POST['password'];
-    //         $result = $this->userModel->checkLogin($masinhvien, $password);
-    //         echo $result;
-    //     }
-    // }
-    public function checkLogin()
-{
-    // Check if the request method is POST
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Use isset to avoid undefined index notices
-        $masinhvien = isset($_POST['masinhvien']) ? $_POST['masinhvien'] : '';
-        $password = isset($_POST['password']) ? $_POST['password'] : '';
-
-        // Basic validation
-        if (empty($masinhvien) || empty($password)) {
-            echo json_encode(['error' => 'Username and password are required.']);
-            return; // Exit if validation fails
-        }
-
-        // Assuming checkLogin returns a boolean or user data
-        $result = $this->userModel->checkLogin($masinhvien, $password);
-
-        // Provide a more informative response
-        if ($result) {
-            echo json_encode(['success' => 'Login successful!', 'data' => $result]);
-        } else {
-            echo json_encode(['error' => 'Invalid username or password.']);
-        }
-    } else {
-        // Handle other request methods if necessary
-        echo json_encode(['error' => 'Invalid request method.']);
-    }
-}
-
-
-    public function checkEmail()
-    {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $mail = $_POST['email'];
-            $check = $this->userModel->getByEmail($mail);
-            
-            echo json_encode($check);
-        }
-    }
-
-    public function checkOpt()
-    {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $opt = $_POST['opt'];
-            $email = $_SESSION['checkMail'];
-            $check = $this->userModel->checkOpt($email, $opt);
-            echo $check;
-        }
-    }
-
-    public function changePassword(){
-        AuthCore::checkAuthentication();
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $password = $_POST['password'];
-            $email = $_SESSION['checkMail'];
-            $check = $this->userModel->changePassword($email, $password);
-            $resetOTP = $this->userModel->updateOpt($email,"NULL");
-            session_destroy();
-            echo $check;
-        }
-    }
-
-    public function sendOptAuth()
-    {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $opt = rand(111111, 999999);
-            $email = $_POST['email'];
-            $sendOTP = $this->mailAuth->sendOpt($email, $opt);
-            $resultOTP = $this->userModel->updateOpt($email, $opt);
-                $_SESSION['checkMail'] = $email;
-            
-            echo $resultOTP;
-        }
-    }
-
-    public function logout()
-    {
-        AuthCore::checkAuthentication();
-        $email = $_SESSION['user_email'];
-        $result = $this->userModel->updateToken($email, NULL);
-        if ($result) {
-            session_destroy();
-            setcookie("token", "", time() - 10, '/');
-            header("Location: ../auth/signin");
-        }
-    }
+    
 }
 ?>
