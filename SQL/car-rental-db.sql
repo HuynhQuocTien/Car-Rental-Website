@@ -13,7 +13,7 @@ CREATE TABLE `Vehicles` (
 	`Status` INTEGER COMMENT 'Trạng thái hết chưa hay còn (0: Hết, 1: Còn)',
 	`Is_Feature` INTEGER COMMENT 'Xe nổi bật',
 	`PromotionID` INTEGER COMMENT 'Mã khuyến mãi',
-	`Is_Delete` INTEGER COMMENT 'Xóa',
+	`Is_Delete` INTEGER DEFAULT 0 COMMENT 'Xóa',
 	PRIMARY KEY(`VehicleID`)
 ) COMMENT 'Thông tin xe cần cho thuê chung';
 
@@ -27,8 +27,8 @@ CREATE TABLE `VehicleDetails` (
 	`Transmission` VARCHAR(255) COMMENT 'Hộp số',
 	`FuelType` VARCHAR(255) COMMENT 'Loại nhiên liệu',
 	`FuelConsumption` VARCHAR(255) COMMENT 'Mức tiêu hao nhiên liệu (L/100km)',
-	`Status` INTEGER COMMENT 'Trạng thái xe (0: Đang thuê, 1: Đang trống)',
-	`Is_Delete` INTEGER COMMENT 'Xóa',
+	`Status` INTEGER DEFAULT 1 COMMENT 'Trạng thái xe (0: Đang thuê, 1: Đang trống)',
+	`Is_Delete` INTEGER DEFAULT 0 COMMENT 'Xóa',
 	PRIMARY KEY(`VehicleDetailID`)
 ) COMMENT 'Thông tin chi tiết xe';
 
@@ -56,7 +56,6 @@ CREATE TABLE `Makes` (
 	`MakeID` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
 	`MakeName` VARCHAR(255) COMMENT 'Tên hãng xe',
 	`Country` VARCHAR(255) COMMENT 'Quốc gia',
-
 	PRIMARY KEY(`MakeID`)
 ) COMMENT 'Hãng xe (Toyota, Honda, Ford, ...)';
 
@@ -78,7 +77,7 @@ CREATE TABLE `RentalOrders` (
 	`TotalAmount` DOUBLE COMMENT 'Tổng số tiền',
 	`Address` VARCHAR(255) COMMENT 'Địa chỉ nhận xe',
 	`PromotionID` INTEGER COMMENT 'Mã khuyến mãi',
-	`Status` INTEGER COMMENT 'Trạng thái đơn hàng (0: Chưa trả xe, 1: Đã trả xe)',
+	`Status` INTEGER DEFAULT 1 COMMENT 'Trạng thái đơn hàng (0: Chưa trả xe, 1: Đã trả xe)',
 	`PaymentID` INTEGER,
 	PRIMARY KEY(`OrderID`)
 ) COMMENT 'Đơn hàng thuê xe';
@@ -94,10 +93,10 @@ CREATE TABLE `RentalOrderDetails` (
 	`DamagePenalty` DOUBLE COMMENT 'Phạt hỏng hóc',
 	`UserID` INTEGER COMMENT 'Nhân viên nhận xe',
 	`Notes` VARCHAR(255) COMMENT 'Ghi chú',
-	`Active` INTEGER COMMENT 'Khách hàng đã gia hạn thuê thêm vài ngày nữa chưa? 
+	`Active` INTEGER DEFAULT 0 COMMENT 'Khách hàng đã gia hạn thuê thêm vài ngày nữa chưa? 
 0 - Chưa gia hạn (Hiện thị nút Gia hạn)
 1 - Đã gia hạn rồi (Ẩn nút Gia Hạn)',
-	`Status` INTEGER COMMENT 'trạng thái trả xe chưa? (0: Chưa trả xe, 1: Đã trả xe)',
+	`Status` INTEGER DEFAULT 0 COMMENT 'trạng thái trả xe chưa? (0: Chưa trả xe, 1: Đã trả xe)',
 	PRIMARY KEY(`OrderDetailID`)
 ) COMMENT 'Chi tiết đơn hàng thuê xe';
 
@@ -109,7 +108,7 @@ CREATE TABLE `Deposits` (
     `VehicleInfo` VARCHAR(255) COMMENT 'Thông tin xe thế chấp (nếu có)' DEFAULT NULL,
     `DepositDate` DATETIME COMMENT 'Ngày đặt cọc',
 	`ReturnDate` DATETIME COMMENT 'Ngày hoàn trả cọc',
-	`Active` INTEGER COMMENT 'Trạng thái đặt cọc (0: Chưa nhận cọc, 1: Đã nhận cọc)',
+	`Active` INTEGER DEFAULT 0 COMMENT 'Trạng thái đặt cọc (0: Chưa nhận cọc, 1: Đã nhận cọc)',
     `Status` INTEGER DEFAULT 0 COMMENT 'Trạng thái trả cọc (0: Chưa trả cọc, 1: Đã hoàn trả)',
     PRIMARY KEY (`DepositID`),
     FOREIGN KEY (`OrderID`) REFERENCES `RentalOrders`(`OrderID`)
@@ -121,7 +120,7 @@ CREATE TABLE `Payments` (
 	`PaymentDate` DATETIME COMMENT 'Ngày thanh toán',
 	`PaymentMethod` INTEGER COMMENT 'Phương thức thanh toán (Tiền mặt, chuyển khoản) (0: Tiền mặt, 1: Chuyển khoản)',
 	`Amount` DOUBLE COMMENT 'Số tiền',
-	`Status` INTEGER COMMENT 'Trạng thái thanh toán (0: Chưa thanh toán, 1: Đã thanh toán)',
+	`Status` INTEGER DEFAULT 0 COMMENT 'Trạng thái thanh toán (0: Chưa thanh toán, 1: Đã thanh toán)',
 	PRIMARY KEY(`PaymentID`)
 ) COMMENT 'Thông tin thanh toán';
 
@@ -134,8 +133,8 @@ CREATE TABLE `Users` (
 	`IdentityCard` VARCHAR(255),
 	`DateOfBirth` DATE COMMENT 'Ngày sinh',
 	`AccountID` INTEGER,
-	`Active` INTEGER COMMENT 'Trạng thái tài khoản (0: Chưa kích hoạt, 1: Đã kích hoạt)',
-	`Is_Delete` INTEGER COMMENT 'Xóa',
+	`Active` INTEGER DEFAULT 1 COMMENT 'Trạng thái tài khoản (0: Chưa kích hoạt, 1: Đã kích hoạt)',
+	`Is_Delete` INTEGER DEFAULT 0 COMMENT 'Xóa',
 	PRIMARY KEY(`UserID`)
 ) COMMENT 'Thông tin người dùng';
 
@@ -153,8 +152,8 @@ CREATE TABLE `Customers` (
 	`TotalOrdered` INTEGER COMMENT 'Tổng số lần thuê xe',
 	`TotalFine` INTEGER COMMENT 'Tổng số lần bị phạt',
 	`TotalAmount` DOUBLE COMMENT 'Tổng số tiền',
-	`Active` INTEGER COMMENT 'Trạng thái khách hàng (0: Chưa kích hoạt, 1: Đã kích hoạt)',
-	`Is_Delete` INTEGER COMMENT 'Xóa',
+	`Active` INTEGER DEFAULT 1 COMMENT 'Trạng thái khách hàng (0: Chưa kích hoạt, 1: Đã kích hoạt)',
+	`Is_Delete` INTEGER DEFAULT 0 COMMENT 'Xóa',
 	PRIMARY KEY(`CustomerID`)
 ) COMMENT 'Thông tin khách hàng';
 
@@ -166,7 +165,7 @@ CREATE TABLE `Address` (
 	`District` VARCHAR(255),
 	`Province` VARCHAR(255),
 	`Is_Primary` INTEGER COMMENT 'Địa chỉ mặc định',
-	`Is_Delete` INTEGER COMMENT 'Xóa',
+	`Is_Delete` INTEGER DEFAULT 0 COMMENT 'Xóa',
 	PRIMARY KEY(`AddressID`)
 ) 	COMMENT 'Địa chỉ người dùng';
 
@@ -235,7 +234,7 @@ CREATE TABLE `VehicleCondition` (
 	`InspectionID` INTEGER COMMENT 'Mã tình trạng xe trước khi thuê',
 	`Description` VARCHAR(255) COMMENT 'Mô tả',
 	`Image` VARCHAR(255) COMMENT 'Hình ảnh',
-	`Status` INTEGER,
+	`Status` INTEGER DEFAULT 0 COMMENT 'Trạng thái (0: Chưa kiểm tra, 1: Đã kiểm tra)',
 	PRIMARY KEY(`ConditionID`)
 ) COMMENT 'Tình trạng xe trước khi thuê';
 
@@ -244,7 +243,7 @@ CREATE TABLE `DamageTypes` (
 	`DamageName` VARCHAR(255),
 	`FineAmount` DOUBLE COMMENT 'Số tiền phạt',
 	`VehicleTypesID` INTEGER COMMENT 'Mã loại xe áp dụng cho xe nào (Hạng sang, tầm trung, phổ thông)',
-	`Is_Delete` INTEGER COMMENT 'Xóa',
+	`Is_Delete` INTEGER DEFAULT 0 COMMENT 'Xóa',
 	PRIMARY KEY(`DamageTypeID`)
 ) COMMENT 'Loại hỏng hóc cố định cụ thể (Xước xe tầm trung: 200k, Xước xe hạng sang: 500k)';
 
@@ -269,8 +268,8 @@ CREATE TABLE `Accounts` (
 	`CreatedAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'Ngày tạo tài khoản',
 	`Email` VARCHAR(255),
 	`RoleID` INTEGER,
-	`Active` INTEGER COMMENT 'Trạng thái tài khoản (0: Chưa kích hoạt, 1: Đã kích hoạt)',
-	`Is_Delete` INTEGER COMMENT 'Xóa',
+	`Active` INTEGER DEFAULT 1 COMMENT 'Trạng thái tài khoản (0: Chưa kích hoạt, 1: Đã kích hoạt)',
+	`Is_Delete` INTEGER DEFAULT 0 COMMENT 'Xóa',
 	PRIMARY KEY(`AccountID`)
 ) COMMENT 'Tài khoản';
 
@@ -286,8 +285,8 @@ CREATE TABLE `Promotions` (
 	`StartDate` DATE COMMENT 'Ngày bắt đầu',
 	`EndDate` DATE COMMENT 'Ngày kết thúc',
 	`Description` VARCHAR(255) COMMENT 'Mô tả',
-	`Status` INTEGER COMMENT 'Trạng thái (0: Chưa áp dụng, 1: Đã áp dụng)',
-	`Is_Delete` INTEGER COMMENT 'Xóa',
+	`Status` INTEGER DEFAULT 1 COMMENT 'Trạng thái (0: Chưa áp dụng, 1: Đã áp dụng)',
+	`Is_Delete` INTEGER DEFAULT 0 COMMENT 'Xóa',
 	PRIMARY KEY(`PromotionID`)
 
 ) COMMENT 'Khuyến mãi';
@@ -435,7 +434,7 @@ VALUES ('Admin'), ('Nhân viên'), ('Nhân viên duyệt đơn'), ('Nhân viên 
 INSERT INTO `RolePermissions` (`RoleID`, `FunctionID`, `PermissionID`)
 VALUES 
 		-- ADMIN
-		(1,1,7), 
+		(1,1,7),
 		(1,2,5),
 		(1,3,6),
 		(1,4,1), (1,4,2),(1,4,3),(1,4,4),
