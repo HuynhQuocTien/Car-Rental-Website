@@ -6,8 +6,8 @@ class Auth extends Controller
     public $userModel;
     public $accountModel;
     public $customerModel;
-    public $googleAuth;
-    public $mailAuth;
+    public $googleModel;
+    public $mailModel;
     function UrlProcess(){
         if (isset($_GET["url"])) {
             return explode("/", filter_var(trim($_GET["url"], "/")));
@@ -19,6 +19,7 @@ class Auth extends Controller
         $this->userModel = $this->model("UserModel");
         $this->accountModel = $this->model("AccountModel");
         $this->customerModel = $this->model("CustomerModel");
+        $this->mailModel = $this->model("MailModel");
     }
 
     public function addCustomer()
@@ -70,6 +71,68 @@ class Auth extends Controller
         }
     }
 
-    
+    public function checkLogin(){
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $username = $_POST['username'];
+            $password = $_POST['password'];
+            $result = $this->accountModel->checkLogin($username, $password);
+            echo $result;
+        }
+    }
+
+    public function checkEmail(){
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $email = $_POST['email'];
+            $check = $this->accountModel->exists('Email', $email);
+            echo json_encode($check);
+        }
+    }
+
+    public function sendOTPAuth()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $otp = rand(111111, 999999);
+            $email = $_POST['email'];
+            $sendOTP = $this->mailModel->sendOTP($email, $otp);
+            $resultOTP = $this->accountModel->updateOTP($email, $otp);
+                $_SESSION['checkMail'] = $email;
+            
+            echo $resultOTP;
+        }
+    }
+
+    public function checkOTP()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $otp = $_POST['otp'];
+            $email = $_SESSION['checkMail'];
+            $result = $this->accountModel->checkOTP($email, $otp);
+            echo $result;
+        }
+    }
+
+    public function changePassword(){
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $password = $_POST['password'];
+            $email = $_SESSION['checkMail'];
+            $check = $this->accountModel->changePassword($email, $password);
+            $resetOTP = $this->accountModel->updateOTP($email,"NULL");
+            session_destroy();
+            echo $check;
+        }
+    }
+
+    //ADMIN
+    public function signin(){ 
+        $url = $this->UrlProcess();
+         if (in_array($url[0], ['admin'])) {
+             $this->view("single_layout", [
+                 "Page" => "auth/signin",
+                 "Script" => "signin",
+                 "Title" => "Đăng nhập Admin",
+             ],
+             "admin");
+         }
+    }
 }
 ?>

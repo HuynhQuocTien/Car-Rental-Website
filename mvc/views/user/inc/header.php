@@ -146,16 +146,16 @@
                                 </div>
                                 <div class="modal-body p-4">
                                     <!-- Login Form -->
-                                    <form id="loginForm" method="POST">
+                                    <form id="loginForm" class="js-validation-signin">
                                         <div class="mb-3">
-                                            <label for="username" class="form-label">Username</label>
-                                            <input type="text" class="form-control" id="username"
-                                                placeholder="Input Username">
+                                            <label for="login-username" class="form-label">Username</label>
+                                            <input type="text" class="form-control" id="login-username"
+                                                name="login-username" placeholder="Input Username">
                                         </div>
                                         <div class="mb-3">
-                                            <label for="password" class="form-label">Password</label>
-                                            <input type="password" class="form-control" id="password"
-                                                placeholder="Input Password">
+                                            <label for="login-password" class="form-label">Password</label>
+                                            <input type="password" class="form-control" id="login-password"
+                                                name="login-password" placeholder="Input Password">
                                         </div>
                                         <button type="submit" class="btn btn-primary w-100">Sign In</button>
 
@@ -171,7 +171,8 @@
                                                 Sign in with GitHub</button>
                                         </div>
                                         <div class="text-center mt-2">
-                                            Not a member yet? <a href="javascript:void(0)" id="showRegister">Sign up now</a>
+                                            Not a member yet? <a href="javascript:void(0)" id="showRegister">Sign up
+                                                now</a>
                                         </div>
                                     </form>
                                     <!-- Register Form -->
@@ -204,7 +205,8 @@
                                         <div class="mb-3">
                                             <label for="renewPassword" class="form-label">Re-enter Password</label>
                                             <input type="password" class="form-control" id="signup-renewPassword"
-                                                placeholder="Re-enter Password" name="signup-renewPassword" value="123456">
+                                                placeholder="Re-enter Password" name="signup-renewPassword"
+                                                value="123456">
                                         </div>
                                         <button type="submit" class="btn btn-success w-100">Sign Up</button>
                                         <div class="text-center mt-2">
@@ -213,30 +215,35 @@
                                     </form>
 
                                     <!-- Forgot Password Form -->
-                                    <form id="forgotPasswordForm" class="d-none">
+                                    <form id="forgotPasswordForm" class="js-validation-forgot d-none">
                                         <div class="mb-3">
-                                            <label for="forgotEmail" class="form-label">Email</label>
-                                            <input type="email" class="form-control" id="forgotEmail"
-                                                placeholder="Input email to receive OTP code">
+                                            <label for="forgotEmail" class="form-label" >Email</label>
+                                            <input type="email" class="form-control" id="forgotEmail" value="kacamhon123@gmail.com"
+                                                placeholder="Input email to receive OTP code" name="forgotEmail">
+
                                         </div>
                                         <button type="submit" class="btn btn-warning w-100" id="sendOTP">Send OTP
                                             Code</button>
                                         <div class="text-center mt-2">
-                                            <span id="resendOTP" class="text-muted">Resend OTP code after <span
-                                                    id="countdown">60</span>s</span>
-                                            <a href="javascript:void(0)" id="backToLoginFromForgot">Back to sign in</a>
+                                             <a href="javascript:void(0)" id="backToLoginFromForgot">Back to sign in</a>
                                         </div>
                                     </form>
 
                                     <!-- OTP Confirmation Form -->
                                     <form id="otpForm" class="d-none">
                                         <div class="mb-3">
+                                            <input type="text" name="saveEmail" id="saveEmail" hidden>
                                             <label for="otpCode" class="form-label">OTP Code</label>
-                                            <input type="text" class="form-control" id="otpCode"
+                                            <input type="text" class="form-control" id="otpCode" name="otpCode"
                                                 placeholder="Enter OTP code">
                                         </div>
                                         <button type="submit" class="btn btn-primary w-100"
                                             id="comfirmOTP">Confirm</button>
+                                            <div class="text-center mt-2">
+                                            <span id="resendOTP" class="text-muted">Resend OTP code after <span
+                                                    id="countdown">60</span>s</span>
+                                            <a href="javascript:void(0)" id="backToLoginFromForgot">Back to sign in</a>
+                                        </div>
                                     </form>
 
                                     <!-- Reset Password Form -->
@@ -248,16 +255,16 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="newPasswordReset" class="form-label">New Password</label>
-                                            <input type="password" class="form-control" id="newPasswordReset"
+                                            <input type="password" class="form-control" id="newPasswordReset" name="newPasswordReset"
                                                 placeholder="Input new password">
                                         </div>
                                         <div class="mb-3">
                                             <label for="confirmPasswordReset" class="form-label">Confirm new
                                                 password</label>
-                                            <input type="password" class="form-control" id="confirmPasswordReset"
+                                            <input type="password" class="form-control" id="confirmPasswordReset" name="confirmPasswordReset"
                                                 placeholder="Confirm new password">
                                         </div>
-                                        <button type="submit" class="btn btn-primary w-100">Reset Password</button>
+                                        <button type="submit" class="btn btn-primary w-100" id="btnReset">Reset Password</button>
                                     </form>
                                 </div>
                             </div>

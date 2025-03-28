@@ -5,7 +5,8 @@
   "require": {
     "php": ">=7.4",
     "monolog/monolog": "^2.0",
-    "cloudinary/cloudinary_php": "^2"
+    "cloudinary/cloudinary_php": "^2",
+    "phpmailer/phpmailer": "^6.9"
   },
   "autoload": {
     "psr-4": {

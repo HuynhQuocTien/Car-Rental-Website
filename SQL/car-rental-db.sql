@@ -263,6 +263,7 @@ CREATE TABLE `Accounts` (
 	`Username` VARCHAR(255),
 	`Password` VARCHAR(255),
 	`Token` VARCHAR(255),
+	`OTP` VARCHAR(255) COMMENT 'Mã OTP',
 	`ProfilePicture` VARCHAR(255) COMMENT 'Ảnh đại diện',
 	`GoogleID` VARCHAR(255) COMMENT 'ID người dùng từ Google',
 	`CreatedAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'Ngày tạo tài khoản',

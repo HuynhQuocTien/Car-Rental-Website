@@ -21,11 +21,15 @@
 		}else{
 			echo '
 			<link rel="stylesheet" id="css-main" href="../../public/css/dashmix.min.css">
+			<script src="../../public/js/dashmix.app.min.js"></script>
+			<script src="../../public/vendor/jquery/jquery-3.2.1.min.js"></script>
+
+
+
 			';
 		}
 ?>
 </head>
-<body>
 <?php
 
     if ($data['Page'] == "error/404" || $data['Page'] == "error/403") {
@@ -33,22 +37,24 @@
     } else{
         	include "./mvc/views/". $web ."/" .$data['Page'].".php" ;
     }
-    ?> 
-	<!--===============================================================================================-->
-	<script src="../../public/vendor/jquery/jquery-3.2.1.min.js"></script>
-	<!--===============================================================================================-->
+    ?>
+
+<?php
+		if($web == "user"){
+			echo '
 		<script src="../../public/vendor/animsition/js/animsition.min.js"></script>
-	<!--===============================================================================================-->
 		<script src="../../public/vendor/bootstrap/js/popper.js"></script>
 		<script src="../../public/vendor/bootstrap/js/bootstrap.min.js"></script>
-	<!--===============================================================================================-->
 		<script src="../../public/vendor/select2/select2.min.js"></script>
-	<!--===============================================================================================-->
 		<script src="../../public/vendor/daterangepicker/moment.min.js"></script>
 		<script src="../../public/vendor/daterangepicker/daterangepicker.js"></script>
-	<!--===============================================================================================-->
-		<script src="../../public/vendor/countdowntime/countdowntime.js"></script>
-	<!--===============================================================================================-->
-		<script src="../../public/js/auth.js"></script>
+		<script src="../../public/vendor/countdowntime/countdowntime.js"></script>';
+		}else{
+			echo '
+			   	 <script src="../../public/js/dashmix.app.min.js"></script>
+   				 <script src="../../public/js/plugins/jquery-validation/jquery.validate.min.js"></script>
+					<script src="../../public/js/pages/admin/auth.js"></script>';
+		}
+?>
 </body>
 </html>

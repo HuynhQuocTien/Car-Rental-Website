@@ -75,4 +75,6 @@
     </script>
     <script src="../public/js/dashmix.app.min.js"></script>
     <script src="../public/js/lib/jquery.min.js"></script>
+
+
 </head>

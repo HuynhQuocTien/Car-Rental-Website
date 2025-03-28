@@ -6,7 +6,6 @@ Dashmix.onLoad(() =>
             rules: {
               "login-username": {
                 required: !0,
-                digits: true,
               },
               "login-password": {
                 required: !0,
@@ -15,8 +14,7 @@ Dashmix.onLoad(() =>
             },
             messages: {
               "login-username": {
-                required: "Vui lòng nhập mã người dùng",
-                digits: "Mã người dùng phải là số",
+                required: "Vui lòng nhập tài khoản",
               },
               "login-password": {
                 required: "Vui lòng nhập mã mật khẩu",
@@ -30,3 +28,39 @@ Dashmix.onLoad(() =>
       }
     }.init()
   );
+
+
+  $(".js-validation-signin").off('submit').submit(function (e) {
+    e.preventDefault();
+    if ($(".js-validation-signin").valid()) {
+      $.ajax({
+        type: "POST",
+        url:  BaseUrl + "auth/checkLogin",
+        data: {
+          username: $("#login-username").val(),
+          password: $("#login-password").val(),
+        },
+        dataType: "json",
+        success: function (response) {
+          console.log(response.valid);
+          if (response.valid == "true") {
+            console.log(response);
+            Dashmix.helpers("jq-notify", {
+              type: "success",
+              icon: "fa fa-check me-1",
+              message: `Thành công`,
+              z_index: 9999
+            });
+          } else {
+            Dashmix.helpers("jq-notify", {
+              type: "danger",
+              icon: "fa fa-times me-1",
+              message: `${response.message}`,
+              z_index: 9999
+            });
+          }
+        },
+      });
+    }
+  });
+  

@@ -56,12 +56,12 @@ if (cartButtons.length > 0) {
         miniCart.style.transform = "translateX(100%)";
     });
 
-    // Đóng giỏ hàng khi click ngoài khu vực giỏ
-    document.addEventListener("click", (event) => {
-        if (!miniCart.contains(event.target) && !cartButton.contains(event.target)) {
-            miniCart.style.transform = "translateX(100%)";
-        }
-    });
+    // // Đóng giỏ hàng khi click ngoài khu vực giỏ
+    // document.addEventListener("click", (event) => {
+    //     if (!miniCart.contains(event.target) && !cartButton.contains(event.target)) {
+    //         miniCart.style.transform = "translateX(100%)";
+    //     }
+    // });
 } else {
     console.error("Không tìm thấy nút 'cartButton' nào!");
 };

@@ -35,67 +35,76 @@ class AccountModel extends Database {
         }
         return $check;
     }
-    public function createAccount($username, $password, $email, $roleId) {
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $sql = "INSERT INTO Accounts (Username, Password, Email, RoleID) VALUES (?, ?, ?, ?)";
-        $stmt = $this->con->prepare($sql);
-        return $stmt->execute([$username, $hashedPassword, $email, $roleId]);
-    }
-
-    public function getAccountById($accountId) {
-        $sql = "SELECT * FROM Accounts WHERE AccountID = ?";
-        $stmt = $this->con->prepare($sql);
-        $stmt->execute([$accountId]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-
-    public function getAccountByUsername($username) {
-        $sql = "SELECT * FROM Accounts WHERE Username = ?";
-        $stmt = $this->con->prepare($sql);
-        $stmt->execute([$username]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-
-    public function updateAccount($accountId, $username, $email, $roleId) {
-        $sql = "UPDATE Accounts SET Username = ?, Email = ?, RoleID = ? WHERE AccountID = ?";
-        $stmt = $this->con->prepare($sql);
-        return $stmt->execute([$username, $email, $roleId, $accountId]);
-    }
-
-    public function updatePassword($accountId, $newPassword) {
-        $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-        $sql = "UPDATE Accounts SET Password = ? WHERE AccountID = ?";
-        $stmt = $this->con->prepare($sql);
-        return $stmt->execute([$hashedPassword, $accountId]);
-    }
-
-    public function deleteAccount($accountId) {
-        $sql = "DELETE FROM Accounts WHERE AccountID = ?";
-        $stmt = $this->con->prepare($sql);
-        return $stmt->execute([$accountId]);
-    }
-
-    // Verify login credentials
-    public function verifyLogin($username, $password) {
-        $account = $this->getAccountByUsername($username);
-        if ($account && password_verify($password, $account['Password'])) {
-            return $account;
-        }
-        return false;
-    }
-    public function validateToken($token)
+    public function getByUsername($username)
     {
-        $sql = "SELECT * FROM `Accounts` WHERE `Token` = '$token'";
+        $sql = "SELECT * FROM `Accounts` WHERE `Username` = '$username' OR `Email` = '$username' OR `Phone` = '$username'";
+        $result = mysqli_query($this->con, $sql);
+        return mysqli_fetch_assoc($result);
+    }
+    public function updateToken($username, $token)
+    {
+        $valid = true;
+        $sql = "UPDATE `Accounts` SET `Token`='$token' WHERE `Username` = '$username'";
+        $result = mysqli_query($this->con, $sql);
+        if (!$result) $valid = false;
+        return $valid;
+    }
+    public function checkLogin($username, $password) {
+        $user = $this->getByUsername($username);
+        if ($user == '') {
+            return json_encode(["message" => "Tài khoản không tồn tại !", "valid" => "false"]);
+        } else if($user['RoleID'] != 0){
+            return json_encode(["message" => "Không đúng quyền hạn", "valid" => "false"]);
+        } 
+        else if ($user['Active'] == 0) {
+            return json_encode(["message" => "Tài khoản bị khóa !", "valid" => "false"]);
+        } else {
+            $result = password_verify($password, $user['Password']);
+            if ($result) {
+                $token = time() . password_hash($username, PASSWORD_DEFAULT);
+                $resultToken = $this->updateToken($username, $token);
+                if ($resultToken) {
+                    setcookie("token", $token, time() + 7 * 24 * 3600, "/");
+                    return json_encode(["message" => "Đăng nhập thành công !", "valid" => "true"]);
+                } else {
+                    return json_encode(["message" => "Đăng nhập không thành công !", "valid" => "false"]);
+                }
+            } else {
+                return json_encode(["message" => "Sai mật khẩu !", "valid" => "false"]);
+            }
+        }
+    }
+
+    public function updateOTP($email, $otp)
+    {
+        $valid = true;
+        $sql = "UPDATE `Accounts` SET `OTP`= $otp WHERE `Email`='$email'";
+        $result = mysqli_query($this->con, $sql);
+        if (!$result) $valid = false;
+        return $valid;
+    }
+
+    public function checkOTP($email, $otp)
+    {
+        $sql = "SELECT * FROM `Accounts` WHERE `Email` = '$email' AND `OTP` = $otp";
         $result = mysqli_query($this->con, $sql);
         if (mysqli_num_rows($result) > 0) {
-            $row = mysqli_fetch_assoc($result);
-            $_SESSION['AccountID'] = $row['AccountID'];
-            $_SESSION['Email'] = $row['Email'];
-            $_SESSION['ProfilePicture'] = $row['ProfilePicture'];
             return true;
+        } else {
+            return false;
         }
-        return false;
     }
+
+    public function changePassword($email, $new_password)
+    {
+        $password = password_hash($new_password, PASSWORD_DEFAULT);
+        $sql = "UPDATE `Accounts` SET `Password`='$password' WHERE `Email` = '$email'";
+        $check = true;
+        $result = mysqli_query($this->con, $sql);
+        if (!$result) $check = false;
+        return $check;
+    }
+
 }
 
 ?>

@@ -1,64 +1,94 @@
 $(document).ready(function () {
-    // Function to toggle form visibility
+    // Cache DOM elements
+    const $authModal = $('#authModal');
+    const $forms = $('#loginForm, #registerForm, #forgotPasswordForm, #otpForm, #resetPasswordForm');
+    const $scriptContainer = $('head');
+    const $specialInputs = $('#usernameReset, #saveEmail'); // Các input cần xử lý đặc biệt
+    const scriptMap = {
+        'login': '../public/js/pages/user/signin.js',
+        'register': '../public/js/pages/user/signup.js',
+        'otp': '../public/js/pages/user/sendOTP.js'
+    };
+
+    // Function to reset all input fields in a form (except hidden and special inputs)
+    function resetFormInputs(formId) {
+        $(formId).find('input:not([type="hidden"]):not(#usernameReset):not(#saveEmail), textarea, select').val('');
+    }
+
+    // Function to clear special inputs (usernameReset and saveEmail)
+    function clearSpecialInputs() {
+        $specialInputs.val('');
+    }
+
+    // Function to toggle form visibility and reset inputs
     function toggleForm(showFormId) {
-        $('#loginForm, #registerForm, #forgotPasswordForm, #otpForm, #resetPasswordForm').addClass('d-none');
+        // Reset all forms first (except special inputs)
+        $forms.each(function() {
+            resetFormInputs('#' + this.id);
+        });
+        
+        // Hide all forms and show the requested one
+        $forms.addClass('d-none');
         $(showFormId).removeClass('d-none');
     }
 
-    // Function to dynamically load scripts
+    // Function to load script dynamically
     function loadScript(formType) {
-        // Remove any existing signin.js or signup.js scripts before adding a new one
-        $('script[src*="signin.js"], script[src*="signup.js"]').remove();
-
-        var scriptSrc = formType === 'login' 
-            ? '../public/js/pages/user/signin.js' 
-            : '../public/js/pages/user/signup.js';
-
-        console.log("Loading script:", scriptSrc);
-
-        var script = $('<script>', {
-            type: 'text/javascript',
-            src: scriptSrc
-        });
-
-        $('head').append(script);
+        // Remove previous scripts
+        $('script[src*="user/"]').remove();
+        
+        const scriptSrc = scriptMap[formType];
+        if (scriptSrc) {
+            $scriptContainer.append($('<script>', {
+                type: 'text/javascript',
+                src: scriptSrc
+            }));
+        }
     }
 
-    // When modal is shown for the first time, load signin.js by default
-    $('#authModal').on('shown.bs.modal', function () {
-        loadScript('login');
-    });
+    // Event handlers
+    function bindEvents() {
+        // Modal shown event
+        $authModal.on('shown.bs.modal', function () {
+            toggleForm('#loginForm');
+            loadScript('login');
+        });
 
-    // Sign In button
-    $('#btnLogin').on('click', function () {
-        toggleForm('#loginForm');
-        loadScript('login');
-    });
+        // Modal hidden event - reset everything when closed
+        $authModal.on('hidden.bs.modal', function () {
+            toggleForm('#loginForm');
+            clearSpecialInputs(); // Xóa cả special inputs khi đóng modal
+        });
 
-    // Sign Up button
-    $('#showRegister').on('click', function () {
-        toggleForm('#registerForm');
-        loadScript('register');
-    });
+        // Button events
+        $('#btnLogin').on('click', function () {
+            toggleForm('#loginForm');
+            loadScript('login');
+            clearSpecialInputs(); // Xóa special inputs khi chuyển về form đăng nhập
+        });
 
-    // Forgot Password button
-    $('#showForgotPassword').on('click', function () {
-        toggleForm('#forgotPasswordForm');
-    });
+        $('#showRegister').on('click', function () {
+            toggleForm('#registerForm');
+            loadScript('register');
+        });
 
-    // Send OTP button
-    $('#sendOTP').on('click', function () {
-        toggleForm('#otpForm');
-    });
+        $('#showForgotPassword').on('click', function () {
+            toggleForm('#forgotPasswordForm');
+            loadScript('otp');
+        });
 
-    // Confirm OTP button
-    $('#confirmOTP').on('click', function () {
-        toggleForm('#resetPasswordForm');
-    });
+        $('#confirmOTP').on('click', function () {
+            loadScript('otp');
+            // KHÔNG xóa special inputs khi confirm OTP
+        });
 
-    // Back to Login from various pages
-    $('#backToLogin, #backToLoginFromForgot').on('click', function () {
-        toggleForm('#loginForm');
-        loadScript('login');
-    });
+        $('#backToLogin, #backToLoginFromForgot').on('click', function () {
+            toggleForm('#loginForm');
+            loadScript('login');
+            clearSpecialInputs(); // Xóa special inputs khi quay lại form đăng nhập
+        });
+    }
+
+    // Initialize
+    bindEvents();
 });

@@ -159,7 +159,7 @@ Dashmix.onLoad((() => class {
 }.init()));
 
 
-$(".js-validation-signup").submit(function (e) {
+$(".js-validation-signup").off('submit').submit(function (e) {
     e.preventDefault();
     if ($(".js-validation-signup").valid()) {
         $.ajax({
@@ -179,7 +179,7 @@ $(".js-validation-signup").submit(function (e) {
                 $(".invalid-feedback").remove();
                 console.log(response);
                 if (response.success) {
-                    Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: "Account created successfully" });
+                    Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: "Account created successfully",z_index: 9999 });
                 } else {
                     response.error_fields['username'].length != 0 ? showError("#signup-newUsername", response.error_fields['username']) : null;
                     response.error_fields['email'].length != 0 ? showError("#signup-email", response.error_fields['email']) : null;
@@ -187,7 +187,7 @@ $(".js-validation-signup").submit(function (e) {
                 }
             },
             error: function () {
-                Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: "An error occurred. Please try again." });
+                Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: "An error occurred. Please try again.",z_index: 9999 });
             }
         });
     }
