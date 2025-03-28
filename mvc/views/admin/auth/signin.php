@@ -24,7 +24,7 @@
             <form class="js-validation-signin">
               <div class="mb-4">
                 <div class="input-group input-group-lg">
-                  <input type="text" class="form-control" id="login-username" name="login-username" placeholder="Username">
+                  <input type="text" class="form-control" id="login-username" name="login-username" placeholder="Username or Email">
                   <span class="input-group-text">
                     <i class="fa fa-user-circle"></i>
                   </span>
@@ -44,7 +44,7 @@
                   <label class="form-check-label" for="login-remember-me">Remember Me</label>
                 </div>
                 <div class="fw-semibold fs-sm py-1">
-                  <a href="javascript:void(0)">Forgot Password?</a>
+                  <a href="./forgot">Forgot Password?</a>
                 </div>
               </div>
               <div class="text-center mb-4">
@@ -54,19 +54,6 @@
               </div>
             </form>
             <!-- END Sign In Form -->
-          </div>
-          <div class="block-content bg-body">
-            <div class="d-flex justify-content-center text-center push">
-              <a class="item item-circle item-tiny me-1 bg-default" data-toggle="theme" data-theme="default" href="#"></a>
-              <a class="item item-circle item-tiny me-1 bg-xwork" data-toggle="theme" data-theme="../../public/css/themes/xwork.min.css" href="#"></a>
-              <a class="item item-circle item-tiny me-1 bg-xmodern" data-toggle="theme" data-theme="../../public/css/themes/xmodern.min.css" href="#"></a>
-              <a class="item item-circle item-tiny me-1 bg-xeco" data-toggle="theme" data-theme="../../public/css/themes/xeco.min.css" href="#"></a>
-              <a class="item item-circle item-tiny me-1 bg-xsmooth" data-toggle="theme" data-theme="../../public/css/themes/xsmooth.min.css" href="#"></a>
-              <a class="item item-circle item-tiny me-1 bg-xinspire" data-toggle="theme" data-theme="../../public/css/themes/xinspire.min.css" href="#"></a>
-              <a class="item item-circle item-tiny me-1 bg-xdream" data-toggle="theme" data-theme="../../public/css/themes/xdream.min.css" href="#"></a>
-              <a class="item item-circle item-tiny me-1 bg-xpro" data-toggle="theme" data-theme="../../public/css/themes/xpro.min.css" href="#"></a>
-              <a class="item item-circle item-tiny bg-xplay" data-toggle="theme" data-theme="../../public/css/themes/xplay.min.css" href="#"></a>
-            </div>
           </div>
         </div>
         <!-- END Sign In Block -->

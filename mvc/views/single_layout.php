@@ -20,6 +20,9 @@
 	<link rel="stylesheet" type="text/css" href="../../public/css/auth.css">';
 		}else{
 			echo '
+			    <script>
+				 	const BaseUrl = "'.BASE_URL .'/admin/";	
+				</script>
 			<link rel="stylesheet" id="css-main" href="../../public/css/dashmix.min.css">
 			<script src="../../public/js/dashmix.app.min.js"></script>
 			<script src="../../public/vendor/jquery/jquery-3.2.1.min.js"></script>
@@ -53,7 +56,10 @@
 			echo '
 			   	 <script src="../../public/js/dashmix.app.min.js"></script>
    				 <script src="../../public/js/plugins/jquery-validation/jquery.validate.min.js"></script>
-					<script src="../../public/js/pages/admin/auth.js"></script>';
+					<script src="../../public/js/plugins/bootstrap-notify/bootstrap-notify.js"></script>';
+		}
+		if(isset($data["Script"]) && $web == "admin") {
+			echo '<script src="' .BASE_URL.'/public/js/pages/admin/'.$data["Script"].'.js"></script>';
 		}
 ?>
 </body>

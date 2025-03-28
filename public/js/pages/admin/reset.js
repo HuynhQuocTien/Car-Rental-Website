@@ -2,18 +2,23 @@ Dashmix.onLoad(() =>
     class {
       static initValidation() {
         Dashmix.helpers("jq-validation"),
-          jQuery(".js-validation-reminder").validate({
-            rules: { "forgotEmail": { required: !0, emailWithDot: !0 } },
+
+        jQuery(".js-validation-reminder").validate({
+            rules: { 
+                "sentOTP": { 
+                required: true,
+                emailWithDot: true,
+            } },
             messages: {
-              "forgotEmail": {
-                required: "Vui lòng nhập địa chỉ email !",
+              "sentOTP": {
+                required: "Please enter email address!",
                 emailWithDot: "Địa chỉ email phải đúng định dạng!",
               },
             },
           });
-        jQuery("#otpForm").validate({
+        jQuery("#formOpt").validate({
           rules: {
-            otpCode: {
+            txtOpt: {
               required: true,
               digits: true,
               minlength: 6,
@@ -21,31 +26,31 @@ Dashmix.onLoad(() =>
             },
           },
           messages: {
-            otpCode: {
-              required: "Vui lòng nhập mã OTP!",
+            txtOpt: {
+              required: "Vui lòng nhập mã OPT!",
               digits: "Mã OTP chỉ bao gồm chữ số!",
               minlength: "Mã OTP phải có ít nhất 6 chữ số!",
               maxlength: "Mã OTP chỉ được phép có tối đa 6 chữ số!",
             },
           },
         });
-        jQuery("#resetPasswordForm").validate({
+        jQuery("#changepass").validate({
           rules: {
-            newPasswordReset: {
+            passwordNew: {
               required: true,
               minlength: 6,
             },
-            confirmPasswordReset: {
+            comfirm: {
               required: true,
-              equalTo: "#newPasswordReset",
+              equalTo: "#passwordNew",
             },
           },
           messages: {
-            newPasswordReset: {
+            passwordNew: {
               required: "Vui lòng không để trống",
               minlength: "Mật khẩu ít nhất 6 ký tự",
             },
-            confirmPasswordReset: {
+            comfirm: {
               required: "Vui lòng không để trống",
               equalTo: "Mật khẩu không trùng khớp",
             },
@@ -58,10 +63,10 @@ Dashmix.onLoad(() =>
     }.init()
   );
   
-  $("#sendOTP").off('submit').click(function (e) {
+  $("#btn-reminder").click(function (e) {
     e.preventDefault();
-    if ($(".js-validation-forgot").valid()) {
-      let mail = $("#forgotEmail").val();
+    if ($(".js-validation-reminder").valid()) {
+      let mail = $("#sentOTP").val();
       $.ajax({
         type: "post",
         url: BaseUrl + "auth/checkEmail",
@@ -70,26 +75,21 @@ Dashmix.onLoad(() =>
         },
         dataType: 'json',
         success: function (response) {
+          // let res = JSON.parse(response);
+          console.log(response);
+          
           if (!response.valid) {
-            showError("#forgotEmail", response.message);
+            showError("#sentOTP",response.message); 
           } 
           else {
             $.ajax({
               type: "post",
-              url: BaseUrl + "auth/sendOTPAuth",
+              url:  BaseUrl + "auth/sendOTPAuth",
               data: {
                 email: mail,
               },
-              success: function (res) {
-                Dashmix.helpers("jq-notify", {
-                  type: "success",
-                  icon: "fa fa-times me-1",
-                  message: `OTP code sent successfully!`,
-                  z_index: 9999
-                });
-                $("#saveEmail").val(mail);
-                $("#otpForm").removeClass("d-none");
-                $("#forgotPasswordForm").addClass("d-none");
+              success: function (response) {
+                console.log(response);
               },
             });
           }
@@ -98,51 +98,52 @@ Dashmix.onLoad(() =>
     }
   });
   
-  $("#comfirmOTP").click(function (e) {
+  $("#opt").click(function (e) {
     e.preventDefault();
-    if ($("#otpForm").valid()) {
-      let otp = $("#otpCode").val();
+    if ($("#formOpt").valid()) {
+      let opt = $("#txtOpt").val();
       $.ajax({
         type: "post",
-        url:  BaseUrl +  "auth/checkOTP",
+        url: "./auth/checkOpt",
         data: {
-          otp: otp,
+          opt: opt,
         },
         success: function (response) {
           let data = response;
           console.log(response);
           if (data == 0) {
-            showError("#otpCode", "OTP code is incorrect!");
+            Dashmix.helpers("jq-notify", {
+              type: "danger",
+              icon: "fa fa-times me-1",
+              message: `Mã OPT không đúng`,
+            });
           } else {
-            $("#usernameReset").val($("#saveEmail").val());
-            $("#resetPasswordForm").removeClass("d-none");
-            $("#otpForm").addClass("d-none");
+            location.href = `./auth/changepass`;
           }
         },
       });
     }
   });
   
-  $("#btnReset").click(function (e) {
+  $("#btnChange").click(function (e) {
     e.preventDefault();
-    if ($("#resetPasswordForm").valid()) {
-      let passwordNew = $("#newPasswordReset").val();
+    if ($("#changepass").valid()) {
+      let passwordNew = $("#passwordNew").val();
       $.ajax({
         type: "post",
-        url: BaseUrl + "auth/changePassword",
+        url: "./auth/changePassword",
         data: {
           password: passwordNew,
         },
         success: function (response) {
           if (response == 1) {
             Dashmix.helpers("jq-notify", {
-                type: "success",
-                icon: "fa fa-times me-1",
-                message: `Thay đổi mật khẩu thành công!`,
-                z_index: 9999
+              type: "success",
+              icon: "fa fa-times me-1",
+              message: `Thay đổi mật khẩu thành công!`,
             });
             setTimeout(function () {
-              location.href = `/`;
+              location.href = `./auth/signin`;
             }, 3000);
           }
         },
@@ -150,9 +151,13 @@ Dashmix.onLoad(() =>
     }
   });
 
-  // Hàm hiển thị lỗi tại input
 function showError(selector, message) {
-    $(selector).parent().find('.invalid-feedback').remove();
-    $(selector).addClass("is-invalid");
-    $(selector).after(`<div class="invalid-feedback">${message}</div>`);
+  // Xóa thông báo lỗi cũ trước khi thêm mới
+  $(selector).parent().find('.invalid-feedback').remove();
+  
+  // Thêm lớp is-invalid (nếu chưa có)
+  $(selector).addClass("is-invalid");
+  
+  // Thêm thông báo lỗi mới
+  $(selector).parent().append(`<div class="invalid-feedback">${message}</div>`);
 }

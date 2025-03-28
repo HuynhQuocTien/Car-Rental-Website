@@ -1,22 +1,24 @@
 <?php
-class AccountModel extends Database {
+class AccountModel extends Database
+{
 
     public function exists($column, $value)
     {
-        $query = "SELECT COUNT(*) AS count FROM Accounts WHERE $column = '$value'";
+        $query = "SELECT COUNT(*) AS count FROM Accounts WHERE $column = '$value';";
         $stmt = mysqli_query($this->con, $query);
-    
+
         if ($stmt) {
-            $row = $stmt->fetch_assoc();  
+            $row = $stmt->fetch_assoc();
             return $row['count'] > 0;
         } else {
             return false;
         }
     }
-    public function getMaxAccountID() {
+    public function getMaxAccountID()
+    {
         $sql = "SELECT MAX(AccountID) AS maxAccountID FROM `Accounts`";
         $result = mysqli_query($this->con, $sql);
-        
+
         if ($result) {
             $row = mysqli_fetch_assoc($result);
             return $row['maxAccountID'];
@@ -24,7 +26,8 @@ class AccountModel extends Database {
             return false; // Nếu có lỗi xảy ra khi thực thi truy vấn
         }
     }
-    public function create($username, $password, $token, $pictureAvatar, $googleID, $email, $roleId) {
+    public function create($username, $password, $token, $pictureAvatar, $googleID, $email, $roleId)
+    {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         $sql = "INSERT INTO `Accounts` (`Username`, `Password`, `Token`, `ProfilePicture`, `GoogleID`, `Email`, `RoleID`,`Active`, `Is_Delete`) 
         VALUES ('$username', '$hashedPassword', '$token', '$pictureAvatar', '$googleID', '$email', '$roleId',1,0)";
@@ -37,7 +40,7 @@ class AccountModel extends Database {
     }
     public function getByUsername($username)
     {
-        $sql = "SELECT * FROM `Accounts` WHERE `Username` = '$username' OR `Email` = '$username' OR `Phone` = '$username'";
+        $sql = "SELECT * FROM `Accounts` WHERE `Username` = '$username' OR `Email` = '$username'";
         $result = mysqli_query($this->con, $sql);
         return mysqli_fetch_assoc($result);
     }
@@ -46,17 +49,20 @@ class AccountModel extends Database {
         $valid = true;
         $sql = "UPDATE `Accounts` SET `Token`='$token' WHERE `Username` = '$username'";
         $result = mysqli_query($this->con, $sql);
-        if (!$result) $valid = false;
+        if (!$result)
+            $valid = false;
         return $valid;
     }
-    public function checkLogin($username, $password) {
+    public function checkLogin($username, $password, $web)
+    {
         $user = $this->getByUsername($username);
         if ($user == '') {
             return json_encode(["message" => "Tài khoản không tồn tại !", "valid" => "false"]);
-        } else if($user['RoleID'] != 0){
-            return json_encode(["message" => "Không đúng quyền hạn", "valid" => "false"]);
-        } 
-        else if ($user['Active'] == 0) {
+        } else if ($user['RoleID'] != 0 && $web == "user") {
+            return json_encode(["message" => "Không có quyền hạn để truy cập", "valid" => "false"]);
+        } else if ($user["RoleID"] == 0 && $web == "admin") {
+            return json_encode(["message" => "Không có quyền hạn để truy cập", "valid" => "false"]);
+        } else if ($user['Active'] == 0) {
             return json_encode(["message" => "Tài khoản bị khóa !", "valid" => "false"]);
         } else {
             $result = password_verify($password, $user['Password']);
@@ -80,7 +86,8 @@ class AccountModel extends Database {
         $valid = true;
         $sql = "UPDATE `Accounts` SET `OTP`= $otp WHERE `Email`='$email'";
         $result = mysqli_query($this->con, $sql);
-        if (!$result) $valid = false;
+        if (!$result)
+            $valid = false;
         return $valid;
     }
 
@@ -101,8 +108,54 @@ class AccountModel extends Database {
         $sql = "UPDATE `Accounts` SET `Password`='$password' WHERE `Email` = '$email'";
         $check = true;
         $result = mysqli_query($this->con, $sql);
-        if (!$result) $check = false;
+        if (!$result)
+            $check = false;
         return $check;
+    }
+    public function validateToken($token)
+    {
+        $sql = "SELECT * FROM `Accounts` WHERE `Token` = '$token'";
+        $result = mysqli_query($this->con, $sql);
+        if (mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_assoc($result);
+            $_SESSION['AccountID'] = $row['AccountID'];
+            $_SESSION['Username'] = $row['Username'];
+            $_SESSION['Email'] = $row['Email'];
+            $_SESSION['ProfilePicture'] = $row['ProfilePicture'];
+            $_SESSION['Role'] = $this->getRole($row['RoleID']);
+            return true;
+        }
+        return false;
+    }
+    public function getRole($roleId)
+    {
+        $sql = "SELECT rp.RoleID, f.FunctionName, p.PermissionName, p.Description AS PermissionDescription
+                FROM 
+                    RolePermissions rp
+                JOIN 
+                    Functions f ON rp.FunctionID = f.FunctionID
+                JOIN 
+                    Permissions p ON rp.PermissionID = p.PermissionID
+                WHERE 
+                    rp.RoleID = $roleId
+                ORDER BY 
+                    f.FunctionName, p.PermissionName;";
+        $result = mysqli_query($this->con, $sql);
+        $rows = array();
+        while ($row = mysqli_fetch_assoc($result)) {
+            $rows[] = $row;
+        }
+        $roles = array();
+        foreach ($rows as $item) {
+            $function = $item['FunctionName']; //Chức năng
+            $permission = $item['PermissionName']; //hành động được làm
+            if (!isset($roles[$function])) {
+                $roles[$function] = array($permission);
+            } else {
+                array_push($roles[$function], $permission);
+            }
+        }
+        return $roles;
     }
 
 }

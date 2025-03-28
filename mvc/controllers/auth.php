@@ -8,6 +8,7 @@ class Auth extends Controller
     public $customerModel;
     public $googleModel;
     public $mailModel;
+    public $url;
     function UrlProcess(){
         if (isset($_GET["url"])) {
             return explode("/", filter_var(trim($_GET["url"], "/")));
@@ -20,6 +21,9 @@ class Auth extends Controller
         $this->accountModel = $this->model("AccountModel");
         $this->customerModel = $this->model("CustomerModel");
         $this->mailModel = $this->model("MailModel");
+
+        $this->url = $this->UrlProcess(); 
+        parent::__construct();
     }
 
     public function addCustomer()
@@ -72,20 +76,70 @@ class Auth extends Controller
     }
 
     public function checkLogin(){
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $username = $_POST['username'];
-            $password = $_POST['password'];
-            $result = $this->accountModel->checkLogin($username, $password);
-            echo $result;
+        if (in_array($this->url[0], ['user'])) {
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $username = $_POST['username'];
+                $password = $_POST['password'];
+                $result = $this->accountModel->checkLogin($username, $password,'user');
+                echo $result;
+            }
+        } else if (in_array($this->url[0], ['admin'])) {
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $username = $_POST['username'];
+                $password = $_POST['password'];
+                $result = $this->accountModel->checkLogin($username, $password,'admin');
+                echo $result;
+            }
         }
     }
 
     public function checkEmail(){
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $email = $_POST['email'];
-            $check = $this->accountModel->exists('Email', $email);
-            echo json_encode($check);
+        $check = [];
+        if (in_array($this->url[0], ['user', 'admin'])) {
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $email = $_POST['email'];
+                $user = $this->accountModel->getByUsername($email);
+                
+                if ($user == '') {
+                    $check = ["message" => "Email does not exist!", "valid" => false];
+                    echo json_encode($check);
+                    return;
+                }
+
+                if ($this->url[0] == 'user' && $user['RoleID'] != 0) {
+                    $check = ["message" => "No permission to access", "valid" => false];
+                    echo json_encode($check);
+                    return;
+                } else if ($this->url[0] == 'admin' && $user['RoleID'] == 0) {
+                    $check = ["message" => "No permission to access", "valid" => false];
+                    echo json_encode($check);
+                    return;
+                }
+                
+                if ($user['Active'] == 0) {
+                    $check = ["message" => "Account locked!", "valid" => false];
+                    echo json_encode($check);
+                    return;
+                }
+                
+                if ($user['Is_Delete'] == 1) {
+                    $check = ["message" => "Account has been deleted!", "valid" => false];
+                    echo json_encode($check);
+                    return;
+                }
+                
+                if ($this->url[0] == 'user' && $user['RoleID'] == 0) {
+                    $check = ["message" => "Correct account", "valid" => true];
+                    echo json_encode($check);
+                    return;
+                } elseif ($this->url[0] == 'admin' && $user['RoleID'] != 0) {
+                    $check = ["message" => "Correct account", "valid" => true];
+                    echo json_encode($check);
+                    return;
+                }
+            }
         }
+        echo json_encode($check);
     }
 
     public function sendOTPAuth()
@@ -112,27 +166,71 @@ class Auth extends Controller
     }
 
     public function changePassword(){
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $password = $_POST['password'];
-            $email = $_SESSION['checkMail'];
-            $check = $this->accountModel->changePassword($email, $password);
-            $resetOTP = $this->accountModel->updateOTP($email,"NULL");
-            session_destroy();
-            echo $check;
+        if (in_array($this->url[0], ['user'])) {
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $password = $_POST['password'];
+                $email = $_SESSION['checkMail'];
+                $check = $this->accountModel->changePassword($email, $password);
+                $resetOTP = $this->accountModel->updateOTP($email,"NULL");
+                session_destroy();
+                echo $check;
+            }
+        } else if (in_array($this->url[0], ['admin'])) {
+            AuthCore::onLogin();
+            if (isset($_SESSION['checkMail'])) {
+                $this->view("single_layout", [
+                    "Page" => "auth/changePass",
+                    "Title" => "Nhập mật khẩu mới",
+                    "Script" => "reset",
+                ]);
+            } else {
+                header("Location: ./forgot");
+            }
         }
+        
     }
 
     //ADMIN
-    public function signin(){ 
-        $url = $this->UrlProcess();
-         if (in_array($url[0], ['admin'])) {
-             $this->view("single_layout", [
-                 "Page" => "auth/signin",
-                 "Script" => "signin",
-                 "Title" => "Đăng nhập Admin",
-             ],
-             "admin");
+    public function signin() {
+         if (in_array($this->url[0], ['admin'])) {
+            AuthCore::onLogin();
+            $this->view("single_layout", [
+                "Page" => "auth/signin",
+                "Script" => "signin",
+                "Title" => "Đăng nhập Admin",
+            ],
+            "admin");
          }
     }
+    function forgot()
+    {
+        AuthCore::onLogin();
+        if (in_array($this->url[0], ['admin'])) {
+            $this->view("single_layout", [
+                "Page" => "auth/forgot",
+                "Title" => "Khôi phục tài khoản",
+                "Script" => "reset",
+            ],
+            "admin");
+        }
+    }
+
+    function otp()
+    {
+        AuthCore::onLogin();
+        if (in_array($this->url[0], ['admin'])) {
+            if (isset($_SESSION['checkMail'])) {
+                $this->view("single_layout", [
+                    "Page" => "auth/otp",
+                    "Title" => "Nhập mã OTP",
+                    "Script" => "reset",
+                ],
+                "admin");
+            } else {
+                header("Location: ./forgot");
+            }
+        }
+    }
+
 }
 ?>
