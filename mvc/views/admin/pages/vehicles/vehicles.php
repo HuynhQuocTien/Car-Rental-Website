@@ -18,7 +18,7 @@
         <div class="block-header block-header-default">
             <h3 class="block-title">List <?php echo $data['Title'] ?></h3>
             <div class="block-options">
-                <a class="btn btn-hero btn-primary" asp-action="Create">
+                <a class="btn btn-hero btn-primary" href="<?php echo BASE_URL; ?>/admin/vehicles/addvehicles">
                     <i class="fa-regular fa-plus"></i> Add
                 </a>
             </div>
@@ -31,17 +31,20 @@
             <div class="row filters_listing_1">
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="dropdown">
-                        <a href="#" data-bs-toggle="dropdown" class="drop">Categories</a>
+                        <a href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside" class="drop">Makes</a>
                         <div class="dropdown-menu">
                             <div class="filter_type">
                                 <ul>
-                                    <li>
-                                        <label class="container_check">
-                                            Name
-                                            <input type="checkbox" name="categories" value="@c.Id">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </li>
+                                    <?php foreach ($data['Makes'] as $c){
+                                        echo '                                        
+                                        <li>
+                                            <label class="container_check">
+                                                '.$c['MakeName'].'
+                                                <input type="checkbox" name="makes" value="'.$c['MakeID'].'">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </li>';
+                                    } ?>
                                 </ul>
                             </div>
                         </div>
@@ -50,17 +53,56 @@
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="dropdown">
-                        <a href="#" data-bs-toggle="dropdown" class="drop">Color</a>
+                        <a href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside" class="drop">Models</a>
                         <div class="dropdown-menu">
                             <div class="filter_type">
                                 <ul>
                                     <li>
                                         <label class="container_check">
-                                            Color
-                                            <input type="checkbox" name="colors" value="@c.Id">
+                                            All Models
+                                            <input type="checkbox" name="models" value="0">
                                             <span class="checkmark"></span>
                                         </label>
                                     </li>
+                                    <?php foreach ($data['Models'] as $c){
+                                        echo '                                        
+                                        <li>
+                                            <label class="container_check">
+                                                '.$c['ModelName'].'
+                                                <input type="checkbox" name="models" value="'.$c['ModelID'].'">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </li>';
+                                    } ?>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /dropdown -->
+                </div>
+                <div class="col-lg-2 col-md-6 col-sm-6">
+                    <div class="dropdown">
+                        <a href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside" class="drop">Colors</a>
+                        <div class="dropdown-menu">
+                            <div class="filter_type">
+                                <ul>
+                                    <li>
+                                        <label class="container_check">
+                                            All Colors
+                                            <input type="checkbox" name="colors" value="0">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </li>
+                                    <?php foreach ($data['Colors'] as $c){
+                                        echo '                                        
+                                        <li>
+                                            <label class="container_check">
+                                                '.$c['ColorName'].'
+                                                <input type="checkbox" name="colors" value="'.$c['ColorID'].'">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </li>';
+                                    } ?>                                
                                 </ul>
                             </div>
                         </div>
@@ -68,27 +110,8 @@
                     <!-- /dropdown -->
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="dropdown">
-                        <a href="#" data-bs-toggle="dropdown" class="drop">Brand</a>
-                        <div class="dropdown-menu">
-                            <div class="filter_type">
-                                <ul>
-                                    <li>
-                                        <label class="container_check">
-                                            Type
-                                            <input type="checkbox" name="brands" value="@c.Id">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /dropdown -->
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="dropdown">
-                        <a href="#" data-bs-toggle="dropdown" class="drop">Price</a>
+                    <!-- <div class="dropdown">
+                        <a href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside" class="drop">Vehicle Type</a>
                         <div class="dropdown-menu">
                             <div class="filter_type">
                                 <ul>
@@ -123,8 +146,35 @@
                                 </ul>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- /dropdown -->
+                    <div class="dropdown">
+                        <a href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside" class="drop">Type</a>
+                        <div class="dropdown-menu">
+                            <div class="filter_type">
+                                <ul>
+                                    <li>
+                                        <label class="container_check">
+                                            All Vehicle Types
+                                            <input type="checkbox" name="vehicle_types" value="0">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </li>
+                                    <?php foreach ($data['VehicleTypes'] as $c){
+                                        echo '                                        
+                                        <li>
+                                            <label class="container_check">
+                                                '.$c['NameType'].'
+                                                <input type="checkbox" name="vehicle_types" value="'.$c['VehicleTypesID'].'">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </li>';
+                                    } ?>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>

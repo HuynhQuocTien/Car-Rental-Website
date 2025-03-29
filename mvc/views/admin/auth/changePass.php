@@ -19,18 +19,24 @@
               <!-- END Header -->
 
               <!-- Forgot Password Form -->
-              <form class="js-validation-forgot">
+              <!-- <form class="js-validation-forgot"> -->
+              <form id="changepass" action="" method="">
                 <div class="mb-4">
+                  <label class="form-label" for="passwordNew">Password new</label>
                   <div class="input-group input-group-lg">
-                    <input type="email" class="form-control" id="reset-email" name="reset-email" placeholder="Enter your email address">
-                    <span class="input-group-text">
-                      <i class="fa fa-envelope"></i>
-                    </span>
+                    <input type="password" class="form-control" id="passwordNew" name="passwordNew"
+                      placeholder="Enter pasword new">
                   </div>
                 </div>
-                <div class="text-center mb-4">
-                  <button type="submit" class="btn btn-hero btn-primary">
-                    <i class="fa fa-fw fa-paper-plane opacity-50 me-1"></i> Send Reset Link
+                <div class="mb-4">
+                  <label class="form-label" for="comfirm">Comfirm password</label>
+                  <div class="input-group input-group-lg">
+                    <input type="password" class="form-control" id="comfirm" name="comfirm" placeholder="Enter comfirm">
+                  </div>
+                </div>
+                <div class="text-center mb-4 add-btn-otp">
+                  <button id="btnChange" class="btn btn-hero btn-primary">
+                    <i class="fa fa-fw fa-reply opacity-50 me-1"></i> Change Password
                   </button>
                 </div>
               </form>

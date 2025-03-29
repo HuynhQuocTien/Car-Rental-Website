@@ -16,9 +16,9 @@ Dashmix.onLoad(() =>
               },
             },
           });
-        jQuery("#formOpt").validate({
+        jQuery("#formOtp").validate({
           rules: {
-            txtOpt: {
+            txtOtp: {
               required: true,
               digits: true,
               minlength: 6,
@@ -26,7 +26,7 @@ Dashmix.onLoad(() =>
             },
           },
           messages: {
-            txtOpt: {
+            txtOtp: {
               required: "Vui lòng nhập mã OPT!",
               digits: "Mã OTP chỉ bao gồm chữ số!",
               minlength: "Mã OTP phải có ít nhất 6 chữ số!",
@@ -75,7 +75,6 @@ Dashmix.onLoad(() =>
         },
         dataType: 'json',
         success: function (response) {
-          // let res = JSON.parse(response);
           console.log(response);
           
           if (!response.valid) {
@@ -89,7 +88,7 @@ Dashmix.onLoad(() =>
                 email: mail,
               },
               success: function (response) {
-                console.log(response);
+                location.href = `./auth/otp`;
               },
             });
           }
@@ -98,15 +97,15 @@ Dashmix.onLoad(() =>
     }
   });
   
-  $("#opt").click(function (e) {
+  $("#otp").click(function (e) {
     e.preventDefault();
-    if ($("#formOpt").valid()) {
-      let opt = $("#txtOpt").val();
+    if ($("#formOtp").valid()) {
+      let otp = $("#txtOtp").val();
       $.ajax({
         type: "post",
-        url: "./auth/checkOpt",
+        url: BaseUrl + "auth/checkOpt",
         data: {
-          opt: opt,
+          otp: otp,
         },
         success: function (response) {
           let data = response;
@@ -117,8 +116,9 @@ Dashmix.onLoad(() =>
               icon: "fa fa-times me-1",
               message: `Mã OPT không đúng`,
             });
-          } else {
-            location.href = `./auth/changepass`;
+          }
+           else {
+            location.href = BaseUrl + `auth/changePass`;
           }
         },
       });

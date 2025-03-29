@@ -182,7 +182,8 @@ class Auth extends Controller
                     "Page" => "auth/changePass",
                     "Title" => "Nhập mật khẩu mới",
                     "Script" => "reset",
-                ]);
+                ],
+                "admin");
             } else {
                 header("Location: ./forgot");
             }

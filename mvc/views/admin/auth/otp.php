@@ -22,24 +22,15 @@
               <!-- END Header -->
 
               <!-- Two Factor Form -->
-              <form id="form-2fa" class="text-center">
-                <div class="d-flex items-center justify-content-center gap-2 mb-4">
-                  <input type="text" class="form-control form-control-lg text-center px-0" id="num1" name="num1"
-                    maxlength="1" style="width: 38px;">
-                  <input type="text" class="form-control form-control-lg text-center px-0" id="num2" name="num2"
-                    maxlength="1" style="width: 38px;">
-                  <input type="text" class="form-control form-control-lg text-center px-0" id="num3" name="num3"
-                    maxlength="1" style="width: 38px;">
-                  <span class="d-flex align-items-center">-</span>
-                  <input type="text" class="form-control form-control-lg text-center px-0" id="num4" name="num4"
-                    maxlength="1" style="width: 38px;">
-                  <input type="text" class="form-control form-control-lg text-center px-0" id="num5" name="num5"
-                    maxlength="1" style="width: 38px;">
-                  <input type="text" class="form-control form-control-lg text-center px-0" id="num6" name="num6"
-                    maxlength="1" style="width: 38px;">
+              <form id="formOtp" class="text-center">
+                <div class="mb-4">
+                  <div class="input-group input-group-lg">
+                    <input type="text" class="form-control" id="txtOtp" name="txtOtp"
+                      placeholder="Enter confirmation code">
+                  </div>
                 </div>
                 <div>
-                  <button type="submit" class="btn btn-lg btn-hero btn-primary mb-4">
+                  <button type="submit" class="btn btn-lg btn-hero btn-primary mb-4" id="otp">
                     <i class="fa fa-fw fa-lock-open opacity-50 me-1"></i> Submit
                   </button>
                 </div>
