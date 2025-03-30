@@ -41,7 +41,6 @@ class Vehicles extends Controller {
                 "Models"=>$this->modelModel->getAll(),
                 "VehicleTypes"=>$this->vehicleTypeModel->getAll(),
 
-
             ],
             "admin");
         } else {
