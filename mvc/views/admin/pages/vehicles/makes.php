@@ -19,25 +19,49 @@
         <div class="block-header block-header-default">
             <h3 class="block-title">List Makes</h3>
             <div class="block-options">
-                <a class="btn btn-hero btn-primary" data-bs-toggle="modal" data-bs-target="#addMakeModal">
+                <a class="btn btn-hero btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#addMakeModal">
                     <i class="fa-regular fa-plus"></i> Add
                 </a>
             </div>
+        </div>
+        <div class="block block-rounded pb-2">
+            <div class="block-content bg-body-light">
+            <form action="#" id="search-form" onsubmit="return false;">
+                <div class="row mb-4">
+                    <div class="input-group justify-content-center">
+                        <div class="col-md-6 d-flex gap-3">
+                            <input type="text" class="form-control form-control-alt" id="search-input"
+                                name="search-input" placeholder="Tìm kiếm...">
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
         <div class="block-content pb-4">
             <table class="table table-bordered table-striped table-vcenter" id="make-table">
                 <thead>
                     <tr>
-                        <th style="width: 80px;">
+                        <th style="width: 10%;">
                             ID
                         </th>
-                        <th style="width: 75%">
+                        <th style="width: 35%">
                             Name
                         </th>
-                        <th class="text-center">Action</th>
+                        <th style="width: 35%">
+                            Country
+                        </th>
+                        <th class="text-center" style="width: 20%">Action</th>
                     </tr>
                 </thead>
+                <tbody id="list-make">
+                    <!-- Data will be populated here by JavaScript -->
+                </tbody>
             </table>
+        </div>
+        <div class="block block-rounded pb-2 bg-body-light">
+            <div class="block-content bg-body-light">
+                <?php require "./mvc/views/admin/inc/pagination.php" ?>
+            </div>
         </div>
     </div>
 </div>
@@ -52,69 +76,32 @@
             </div>
             <div class="modal-body">
                 <form id="addMakeForm">
+                    <!-- Hidden ID for editing mode -->
+                    <div class="mb-3 d-none" id="makeIdContainer">
+                        <label for="makeId" class="form-label">ID</label>
+                        <input type="text" class="form-control" id="makeId" name="makeId" readonly
+                            style="cursor: not-allowed; background-color: #f8f9fa;">
+                    </div>
+                    <!-- Make Name -->
                     <div class="mb-3">
-                        <label for="makeName" class="form-label">Make Name</label>
-                        <input type="text" class="form-control" id="makeName" name="makeName" required>
+                        <label for="makeName" class="form-label">Make Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="makeName" name="makeName" required
+                            placeholder="e.g. Toyota, Honda, Ford">
+                    </div>
+                    <!-- Country -->
+                    <div class="mb-3">
+                        <label for="country" class="form-label">Country <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="country" name="country" required
+                            placeholder="e.g. Japan, USA, Germany">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-primary" id="saveMakeBtn">Save</button>
+                <button type="button" class="btn btn-primary" id="updateMakeBtn" data-id="">Update</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- JavaScript -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Xử lý khi nhấn nút Save cho Make
-    document.getElementById('saveMakeBtn').addEventListener('click', function() {
-        const makeName = document.getElementById('makeName').value;
-        const makeLogo = document.getElementById('makeLogo').files[0];
-        
-        // Kiểm tra dữ liệu
-        if (!makeName) {
-            alert('Please enter make name');
-            return;
-        }
-        
-        // Tạo FormData để gửi cả file (nếu có)
-        const formData = new FormData();
-        formData.append('makeName', makeName);
-        if (makeLogo) {
-            formData.append('makeLogo', makeLogo);
-        }
-        
-        // Gửi dữ liệu bằng AJAX (tuỳ chỉnh theo backend của bạn)
-        fetch('/makes/add', {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest'
-                // Không đặt Content-Type khi dùng FormData, trình duyệt sẽ tự thiết lập
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // Đóng modal và làm mới trang hoặc cập nhật bảng
-                bootstrap.Modal.getInstance(document.getElementById('addMakeModal')).hide();
-                location.reload(); // hoặc cập nhật bảng bằng JavaScript
-            } else {
-                alert('Error: ' + data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('An error occurred');
-        });
-    });
-    
-    // Reset form khi modal đóng
-    document.getElementById('addMakeModal').addEventListener('hidden.bs.modal', function () {
-        document.getElementById('addMakeForm').reset();
-    });
-});
-</script>

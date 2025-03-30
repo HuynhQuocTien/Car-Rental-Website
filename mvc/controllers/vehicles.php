@@ -89,6 +89,7 @@ class Vehicles extends Controller {
         $this->view("main_layout", [
             "Title"=>"Colors",
             "Page"=>"/pages/vehicles/colors",
+            "Script"=> "colors",
             "Colors"=>$this->colorModel->getAll(),
 
         ],
@@ -97,14 +98,16 @@ class Vehicles extends Controller {
     public function makes() {
         $this->view("main_layout", [
             "Title"=>"Makes",
-            "Page"=>"/pages/vehicles/makes"
+            "Page"=>"/pages/vehicles/makes",
+            "Script"=> "makes",
         ],
         "admin");
     }
     public function models() {
         $this->view("main_layout", [
             "Title"=>"Models",
-            "Page"=>"/pages/vehicles/models"
+            "Page"=>"/pages/vehicles/models",
+            "Script"=> "models",
         ],
         "admin");
     }
@@ -131,28 +134,65 @@ class Vehicles extends Controller {
             echo $result;
         }
     }
+    public function addColor()
+    {
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $name = $_POST["name"];
+            $result = $this->colorModel->create($name);
+            echo $result;
+        }
+    }
+    public function updateColor() {
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $id = $_POST["id"];
+            $name = $_POST["name"];
+            $result = $this->colorModel->update($id,$name);
+            echo $result;
+        }
+    }
+    public function addMake()
+    {
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $name = $_POST["name"];
+            $country = $_POST["country"];
+            $result = $this->makeModel->create($name,$country);
+            echo $result;
+        }
+    }
+    public function updateMake() {
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $id = $_POST["id"];
+            $name = $_POST["name"];
+            $country = $_POST["country"];
+            $result = $this->makeModel->update($id,$name,$country);
+            echo $result;
+        }
+    }
 
     public function getQuery($filter, $input, $args) {
-        $lastURL = "VehicleTypes";
-        // switch ($lastURL) {
-        //     case "vehiclecategory":
-        //         $lastURL = "VehicleTypes";
-        //         break;
-        //     case "colors":
-        //         $lastURL = "Colors";
-        //         break;
-        //     case "makes":
-        //         $lastURL = "Makes";
-        //         break;
-        //     case "models":
-        //         $lastURL = "Models";
-        //         break;
-        //     case "vehicles":
-        //         $lastURL = "Vehicles";
-        //         break;
-        // }
-
-        $query = $this->vehicleTypeModel->getQuery($filter, $input, $args, $lastURL);
+        $lastURL = "Vehicles";
+        switch ($lastURL) {
+            case "vehiclecategory":
+                $lastURL = "VehicleTypes";
+                $query = $this->vehicleTypeModel->getQuery($filter, $input, $args, $lastURL);
+                break;
+            case "colors":
+                $lastURL = "Colors";
+                $query = $this->colorModel->getQuery($filter, $input, $args, $lastURL);
+                break;
+            case "makes":
+                $lastURL = "Makes";
+                $query = $this->makeModel->getQuery($filter, $input, $args, $lastURL);
+                break;
+            case "models":
+                $lastURL = "Models";
+                $query = $this->modelModel->getQuery($filter, $input, $args, $lastURL);
+                break;
+            case "vehicles":
+                $lastURL = "Vehicles";
+                $query = $this->vehicleModel->getQuery($filter, $input, $args, $lastURL);
+                break;
+        }
         return $query;
     }
 }

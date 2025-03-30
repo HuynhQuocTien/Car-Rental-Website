@@ -38,14 +38,16 @@ class VehicleTypeModel extends Database {
     }
     public function getQuery($filter, $input, $args,$lastURL)
     {
-        if($lastURL != "vehiclecategory") {
+        if($lastURL == "vehiclecategory") {
             $lastURL = "VehicleTypes";
         }
         $query = "SELECT * FROM $lastURL ";
         if ($input) {
-            $query = $query . "WHERE (NameType LIKE N'%{$input}%' OR VehicleTypesID LIKE '%{$input}%')";
+            $query = $query . " WHERE (NameType LIKE N'%{$input}%' OR VehicleTypesID LIKE '%{$input}%')";
         }
-        $query = $query . " ORDER BY VehicleTypesID ASC";
+        $query = $query . " ORDER BY VehicleTypesID ASC ";
+        // echo $query;
+        // echo $lastURL;
         return $query;
     }
     

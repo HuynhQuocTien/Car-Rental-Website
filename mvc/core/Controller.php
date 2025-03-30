@@ -21,7 +21,7 @@ class Controller{
             if (isset($_POST["args"])) {
                 $args = json_decode($_POST["args"], true);
             }
-            if (isset($_POST["lastURL"])) {
+            if (isset($_POST["lastUrlSegment"])) {
                 $lastUrlSegment = $_POST["lastUrlSegment"];
             }
             $pagination = new Pagination($args["model"]);
@@ -36,7 +36,7 @@ class Controller{
             if (isset($_POST["args"])) {
                 $args = json_decode($_POST["args"], true);
             }
-            if (isset($_POST["lastURL"])) {
+            if (isset($_POST["lastUrlSegment"])) {
                 $lastUrlSegment = $_POST["lastUrlSegment"];
             }
             $pagination = new Pagination($args["model"]);
