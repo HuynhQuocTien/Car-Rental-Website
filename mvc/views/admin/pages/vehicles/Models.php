@@ -13,35 +13,8 @@
     </div>
 </div>
 <!-- END Hero -->
-
-<div class="content">
-    <div class="block block-rounded">
-        <div class="block-header block-header-default">
-            <h3 class="block-title">List Models</h3>
-            <div class="block-options">
-                <button class="btn btn-hero btn-primary" data-bs-toggle="modal" data-bs-target="#addModelModal">
-                    <i class="fa-regular fa-plus"></i> Add
-                </button>
-            </div>
-        </div>
-        <div class="block-content pb-4">
-            <table class="table table-bordered table-striped table-vcenter" id="model-table">
-                <thead>
-                    <tr>
-                        <th style="width: 80px;">ID</th>
-                        <th>Name</th>
-                        <th>Make</th>
-                        <th class="text-center">Action</th>
-                    </tr>
-                </thead>
-            </table>
-        </div>
-    </div>
-</div>
-
-<!-- Add Model Modal -->
 <div class="modal fade" id="addModelModal" tabindex="-1" aria-labelledby="addModelModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="addModelModalLabel">Add New Model</h5>
@@ -49,158 +22,93 @@
             </div>
             <div class="modal-body">
                 <form id="addModelForm">
-                    <div class="row mb-3">
-                        <div class="col-md-9">
-                            <label for="modelName" class="form-label">Model Name</label>
-                            <input type="text" class="form-control" id="modelName" name="modelName" required>
-                        </div>
-                        <div class="col-md-3">
-                            <label for="modelYear" class="form-label">Year</label>
-                            <input type="number" class="form-control" id="modelYear" name="modelYear" min="1900" max="2099" value="<?php echo date('Y'); ?>">
-                        </div>
+                    <!-- Hidden ID for editing mode -->
+                    <div class="mb-3 d-none" id="modelIdContainer">
+                        <label for="modelId" class="form-label">ID</label>
+                        <input type="text" class="form-control" id="modelId" name="modelId" readonly
+                            style="cursor: not-allowed; background-color: #f8f9fa;">
                     </div>
-                    
+                    <!-- Model Name -->
                     <div class="mb-3">
-                        <label for="makeId" class="form-label">Make</label>
-                        <div class="input-group">
-                            <select class="form-select" id="makeId" name="makeId" required>
-                                <option value="">Select Make</option>
-                                <?php foreach ($data['Makes'] as $make): ?>
-                                    <option value="<?php echo $make['id']; ?>"><?php echo $make['name']; ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#quickAddMakeModal">
-                                <i class="fa fa-plus"></i> Add New
-                            </button>
-                        </div>
+                        <label for="modelName" class="form-label">Model Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="modelName" name="modelName" required
+                            placeholder="e.g. Camry, Civic, Fortuner">
                     </div>
-                    
-                    <!-- Các trường khác nếu cần -->
+                    <!-- Make Selection -->
                     <div class="mb-3">
-                        <label for="modelDescription" class="form-label">Description (Optional)</label>
-                        <textarea class="form-control" id="modelDescription" name="modelDescription" rows="3"></textarea>
+                        <label for="makeId" class="form-label">Make <span class="text-danger">*</span></label>
+                        <select class="form-select" id="makeId" name="makeId" required>
+                            <option value="">Select Make</option>
+                            <?php foreach ($data['Makes'] as $make) : ?>
+                                <option value="<?php echo $make['MakeID'] ?>"><?php echo $make['MakeName'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="saveModelBtn">Save Model</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Quick Add Make Modal (Nested) -->
-<div class="modal fade" id="quickAddMakeModal" tabindex="-1" aria-labelledby="quickAddMakeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="quickAddMakeModalLabel">Quick Add Make</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="quickAddMakeForm">
+                    <!-- Vehicle Type -->
                     <div class="mb-3">
-                        <label for="quickMakeName" class="form-label">Make Name</label>
-                        <input type="text" class="form-control" id="quickMakeName" name="quickMakeName" required>
+                        <label for="vehicleType" class="form-label">Vehicle Type <span class="text-danger">*</span></label>
+                        <select class="form-select" id="vehicleType" name="vehicleType">
+                            <option value="">Select Type</option>
+                            <?php foreach ($data['VehicleTypes'] as $type) : ?>
+                                <option value="<?php echo $type['VehicleTypesID'] ?>"><?php echo $type['NameType'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" id="saveQuickMakeBtn">Save & Select</button>
+                <button type="button" class="btn btn-primary" id="saveModelBtn">Save</button>
+                <button type="button" class="btn btn-primary" id="updateModelBtn" data-id="">Update</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- JavaScript -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Xử lý khi nhấn nút Save Model
-    document.getElementById('saveModelBtn').addEventListener('click', function() {
-        const modelData = {
-            name: document.getElementById('modelName').value,
-            year: document.getElementById('modelYear').value,
-            makeId: document.getElementById('makeId').value,
-            description: document.getElementById('modelDescription').value
-        };
-        
-        if (!modelData.name || !modelData.makeId) {
-            alert('Please fill all required fields');
-            return;
-        }
-        
-        fetch('/models/add', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Requested-With': 'XMLHttpRequest'
-            },
-            body: JSON.stringify(modelData)
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                bootstrap.Modal.getInstance(document.getElementById('addModelModal')).hide();
-                location.reload();
-            } else {
-                alert('Error: ' + data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('An error occurred');
-        });
-    });
-    
-    // Xử lý khi nhấn nút Save Quick Make
-    document.getElementById('saveQuickMakeBtn').addEventListener('click', function() {
-        const makeName = document.getElementById('quickMakeName').value;
-        
-        if (!makeName) {
-            alert('Please enter make name');
-            return;
-        }
-        
-        fetch('/makes/quick-add', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Requested-With': 'XMLHttpRequest'
-            },
-            body: JSON.stringify({ name: makeName })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // Thêm option mới vào select
-                const makeSelect = document.getElementById('makeId');
-                const newOption = new Option(makeName, data.id, true, true);
-                makeSelect.add(newOption);
-                
-                // Đóng modal quick add
-                bootstrap.Modal.getInstance(document.getElementById('quickAddMakeModal')).hide();
-                
-                // Reset form
-                document.getElementById('quickAddMakeForm').reset();
-            } else {
-                alert('Error: ' + data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('An error occurred');
-        });
-    });
-    
-    // Reset form khi modal đóng
-    document.getElementById('addModelModal').addEventListener('hidden.bs.modal', function() {
-        document.getElementById('addModelForm').reset();
-    });
-    
-    document.getElementById('quickAddMakeModal').addEventListener('hidden.bs.modal', function() {
-        document.getElementById('quickAddMakeForm').reset();
-    });
-});
-</script>
+
+<div class="content">
+    <div class="block block-rounded">
+        <div class="block-header block-header-default">
+            <h3 class="block-title">List Models</h3>
+            <div class="block-options">
+                <button class="btn btn-hero btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#addModelModal">
+                    <i class="fa-regular fa-plus"></i> Add
+                </button>
+            </div>
+        </div>
+        <div class="block block-rounded pb-2">
+            <div class="block-content bg-body-light">
+            <form action="#" id="search-form" onsubmit="return false;">
+                <div class="row mb-4">
+                    <div class="input-group justify-content-center">
+                        <div class="col-md-6 d-flex gap-3">
+                            <input type="text" class="form-control form-control-alt" id="search-input"
+                                name="search-input" placeholder="Tìm kiếm...">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="block-content pb-4">
+            <table class="table table-bordered table-striped table-vcenter" id="model-table">
+                <thead>
+                    <tr>
+                        <th style="width: 5%;">ID</th>
+                        <th style="width: 30%;">Name</th>
+                        <th style="width: 25%;">Make</th>
+                        <th style="width: 20%;">Vehicle Type</th>
+                        <th class="text-center" style="width: 20%;">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="list-model">
+                </tbody>
+                    
+            </table>
+        </div>
+        <div class="block block-rounded pb-2 bg-body-light">
+            <div class="block-content bg-body-light">
+                <?php require "./mvc/views/admin/inc/pagination.php" ?>
+            </div>
+        </div>
+    </div>
+</div>

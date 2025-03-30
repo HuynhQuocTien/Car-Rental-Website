@@ -108,6 +108,8 @@ class Vehicles extends Controller {
             "Title"=>"Models",
             "Page"=>"/pages/vehicles/models",
             "Script"=> "models",
+            "Makes"=>$this->makeModel->getAll(),
+            "VehicleTypes"=>$this->vehicleTypeModel->getAll(),
         ],
         "admin");
     }
@@ -165,6 +167,27 @@ class Vehicles extends Controller {
             $name = $_POST["name"];
             $country = $_POST["country"];
             $result = $this->makeModel->update($id,$name,$country);
+            echo $result;
+        }
+    }
+
+    public function addModel()
+    {
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $name = $_POST["name"];
+            $makeId = $_POST["makeId"];
+            $vehicleType = $_POST["vehicleType"];
+            $result = $this->modelModel->create($name,$makeId,$vehicleType);
+            echo $result;
+        }
+    }
+    public function updateModel() {
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $id = $_POST["id"];
+            $name = $_POST["name"];
+            $makeId = $_POST["makeId"];
+            $vehicleType = $_POST["vehicleType"];
+            $result = $this->modelModel->update($id,$name,$makeId,$vehicleType);
             echo $result;
         }
     }
