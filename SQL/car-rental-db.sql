@@ -66,7 +66,7 @@ CREATE TABLE `Models` (
 	`ModelID` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,       
 	`ModelName` VARCHAR(255) COMMENT 'Tên mẫu xe',           
 	`MakeID` INTEGER COMMENT 'Mã hãng xe',                                        
-	`VehicleType` INTEGER COMMENT 'Loại xe (Hạng sang, tầm trung, phổ thông)',
+	`VehicleTypesID` INTEGER COMMENT 'Loại xe (Hạng sang, tầm trung, phổ thông)',
 	`Is_Delete` INTEGER DEFAULT 0 COMMENT 'Xóa',
 	PRIMARY KEY(`ModelID`),
 	FOREIGN KEY(`MakeID`) REFERENCES `Makes`(`MakeID`)
@@ -310,7 +310,7 @@ ALTER TABLE `RentalOrders`
 ADD FOREIGN KEY(`CustomerID`) REFERENCES `Customers`(`CustomerID`)
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE `Models`
-ADD FOREIGN KEY(`VehicleType`) REFERENCES `VehicleTypes`(`VehicleTypesID`)
+ADD FOREIGN KEY(`VehicleTypesID`) REFERENCES `VehicleTypes`(`VehicleTypesID`)
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE `Reviews`
 ADD FOREIGN KEY(`VehicleID`) REFERENCES `Vehicles`(`VehicleID`)
@@ -478,7 +478,7 @@ INSERT INTO `VehicleTypes` (`NameType`)
 VALUES ('Hạng sang'), ('Tầm trung'), ('Phổ thông');
 
 -- Thêm dữ liệu vào bảng Models
-INSERT INTO `Models` (`ModelName`, `MakeID`, `VehicleType`) 
+INSERT INTO `Models` (`ModelName`, `MakeID`, `VehicleTypesID`) 
 VALUES ('Camry', 1, 2), ('Civic', 2, 2), ('Mustang', 3, 1);
 
 -- Thêm dữ liệu vào bảng Colors
