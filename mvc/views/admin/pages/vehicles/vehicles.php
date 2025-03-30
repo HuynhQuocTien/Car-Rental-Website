@@ -22,6 +22,16 @@
                     <i class="fa-regular fa-plus"></i> Add
                 </a>
             </div>
+            <div class="block-options ">
+                <button class="btn btn-hero btn-primary btn-import">
+                <i class="fa fa-download"></i> Import
+                </button>
+            </div>
+            <div class="block-options ">
+                <button class="btn btn-hero btn-primary btn-export" >
+                    <i class="fa fa-upload"></i> Export
+                </button>
+            </div>
         </div>
         <div class="block-content">
             <div class="mb-1">

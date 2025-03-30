@@ -3,7 +3,7 @@
 class Vehicles extends Controller {
     public $vehicleModel;
     public $colorModel;
-    public $modoelModel;
+    public $modelModel;
     public $makeModel;
     public $vehicleTypeModel;
 
@@ -13,12 +13,21 @@ class Vehicles extends Controller {
         }
         return null;
     }
+    public function UrlProcessLast() {
+        if (isset($_GET["url"])) {
+            $urlParts = explode("/", filter_var(trim($_GET["url"], "/")));
+            return end($urlParts); // Lấy phần tử cuối cùng của mảng
+        }
+        return null;
+    }
     public function __construct(){
         $this->vehicleModel = $this->model("VehicleModel");;
         $this->colorModel = $this->model("ColorModel");
-        $this->modoelModel = $this->model("ModelModel");
+        $this->modelModel = $this->model("ModelModel");
         $this->makeModel = $this->model("MakeModel");
         $this->vehicleTypeModel = $this->model("VehicleTypeModel");
+        parent::__construct();
+        require_once "./mvc/core/Pagination.php";
     }
     public function default() {
         $arrrs = $this->UrlProcess();
@@ -29,7 +38,7 @@ class Vehicles extends Controller {
                 "Page"=>"/pages/vehicles/vehicles",
                 "Colors"=>$this->colorModel->getAll(),
                 "Makes"=>$this->makeModel->getAll(),
-                "Models"=>$this->modoelModel->getAll(),
+                "Models"=>$this->modelModel->getAll(),
                 "VehicleTypes"=>$this->vehicleTypeModel->getAll(),
 
 
@@ -52,7 +61,7 @@ class Vehicles extends Controller {
                 "Page"=>"/pages/vehicles/addvehicles",
                 "Colors"=>$this->colorModel->getAll(),
                 "Makes"=>$this->makeModel->getAll(),
-                "Models"=>$this->modoelModel->getAll(),
+                "Models"=>$this->modelModel->getAll(),
                 "VehicleTypes"=>$this->vehicleTypeModel->getAll(),
 
 
@@ -70,6 +79,7 @@ class Vehicles extends Controller {
     public function vehiclecategory() {
         $this->view("main_layout", [
             "Title"=>"Vehicle Category",
+            "Script"=> "vehiclecategory",
             "Page"=>"/pages/vehicles/vehiclecategory",
             "VehicleTypes"=>$this->vehicleTypeModel->getAll(),
 
@@ -105,6 +115,46 @@ class Vehicles extends Controller {
             "Page"=>"/pages/vehicles/addvehicle",
         ],
         "admin");
+    }
+    public function addVehicleType()
+    {
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $typeName = $_POST["name"];
+            $result = $this->vehicleTypeModel->create($typeName);
+            echo $result;
+        }
+    }
+    public function updateVehicleType() {
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $id = $_POST["id"];
+            $typeName = $_POST["name"];
+            $result = $this->vehicleTypeModel->update($id,$typeName);
+            echo $result;
+        }
+    }
+
+    public function getQuery($filter, $input, $args) {
+        $lastURL = "VehicleTypes";
+        // switch ($lastURL) {
+        //     case "vehiclecategory":
+        //         $lastURL = "VehicleTypes";
+        //         break;
+        //     case "colors":
+        //         $lastURL = "Colors";
+        //         break;
+        //     case "makes":
+        //         $lastURL = "Makes";
+        //         break;
+        //     case "models":
+        //         $lastURL = "Models";
+        //         break;
+        //     case "vehicles":
+        //         $lastURL = "Vehicles";
+        //         break;
+        // }
+
+        $query = $this->vehicleTypeModel->getQuery($filter, $input, $args, $lastURL);
+        return $query;
     }
 }
 ?>

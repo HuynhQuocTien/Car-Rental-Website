@@ -42,6 +42,4 @@
     <script>
         const BaseUrl = "<?= BASE_URL ?>/admin/";
     </script>
-    <script src="../public/js/lib/jquery.min.js"></script>
-    <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->    <!-- END Stylesheets -->
 </head>

@@ -43,12 +43,14 @@ CREATE TABLE `VehicleImages` (
 CREATE TABLE `VehicleTypes` (
 	`VehicleTypesID` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
 	`NameType` VARCHAR(255) COMMENT 'Tên loại xe (Hạng sang, tầm trung, phổ thông)',
+	`Is_Delete` INTEGER DEFAULT 0 COMMENT 'Xóa',
 	PRIMARY KEY(`VehicleTypesID`)
 ) COMMENT 'Loại xe (Hạng sang, tầm trung, phổ thông)';
 
 CREATE TABLE `Colors` (
 	`ColorID` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
 	`ColorName` VARCHAR(255) COMMENT 'Tên màu',
+	`Is_Delete` INTEGER DEFAULT 0 COMMENT 'Xóa',
 	PRIMARY KEY(`ColorID`)
 ) COMMENT 'Màu xe';
 
@@ -56,6 +58,7 @@ CREATE TABLE `Makes` (
 	`MakeID` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
 	`MakeName` VARCHAR(255) COMMENT 'Tên hãng xe',
 	`Country` VARCHAR(255) COMMENT 'Quốc gia',
+	`Is_Delete` INTEGER DEFAULT 0 COMMENT 'Xóa',
 	PRIMARY KEY(`MakeID`)
 ) COMMENT 'Hãng xe (Toyota, Honda, Ford, ...)';
 
@@ -64,6 +67,7 @@ CREATE TABLE `Models` (
 	`ModelName` VARCHAR(255) COMMENT 'Tên mẫu xe',           
 	`MakeID` INTEGER COMMENT 'Mã hãng xe',                                        
 	`VehicleType` INTEGER COMMENT 'Loại xe (Hạng sang, tầm trung, phổ thông)',
+	`Is_Delete` INTEGER DEFAULT 0 COMMENT 'Xóa',
 	PRIMARY KEY(`ModelID`),
 	FOREIGN KEY(`MakeID`) REFERENCES `Makes`(`MakeID`)
 ) COMMENT 'Mẫu xe (Camry, Civic, Fortuner, ...)';

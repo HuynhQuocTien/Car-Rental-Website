@@ -15,7 +15,7 @@ class Database{
 
     public function pagination($query, $limit, $start_from)
     {
-        $sql = "$query LIMIT $start_from, $limit";
+        $sql = "SELECT * FROM $query LIMIT $start_from, $limit";
         $result = mysqli_query($this->con, $sql);
         $rows = array();
         while ($row = mysqli_fetch_assoc($result)) {
