@@ -10,9 +10,9 @@ CREATE TABLE `Vehicles` (
 	`MonthlyPrice` DOUBLE COMMENT 'Giá thuê theo tháng',
 	`Quantity` INTEGER COMMENT 'Tổng số lượng xe hãng và mẫu',
 	`Description` VARCHAR(500) COMMENT 'Mô tả',	
-	`Status` INTEGER COMMENT 'Trạng thái hết chưa hay còn (0: Hết, 1: Còn)',
 	`Is_Feature` INTEGER COMMENT 'Xe nổi bật',
 	`PromotionID` INTEGER COMMENT 'Mã khuyến mãi',
+	`Active` INTEGER DEFAULT 1 COMMENT 'Trạng thái xe (0: Ngừng hoạt đông, 1: Đang hoạt động)',
 	`Is_Delete` INTEGER DEFAULT 0 COMMENT 'Xóa',
 	PRIMARY KEY(`VehicleID`)
 ) COMMENT 'Thông tin xe cần cho thuê chung';
