@@ -38,7 +38,7 @@ class ModelModel extends Database {
     }    public function delete($id)
     {
         $valid = true;
-        $sql = "DELETE FROM `Models` WHERE `MakeID` = '$id'";
+        $sql = "UPDATE `Models` SET `Is_Delete` = 1 WHERE `ModelID` = '$id'";
         $result = mysqli_query($this->con, $sql);
         if (!$result) $valid = false;
         return $valid;

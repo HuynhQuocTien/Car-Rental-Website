@@ -111,8 +111,7 @@
                         <div class="col-md-6">
                             <label for="promotionID" class="form-label">Promotion ID</label>
                             <select class="form-select" id="promotionID" name="promotionID" required style="width: 100%;">
-                                <option value="">Select Promotion</option>
-                                <option value="0">0 - No Promotion </option>
+                                <option value="0" selected>0 - No Promotion </option>
                             </select>                        </div>
                     </div>
                     <div class="mb-3">
@@ -120,10 +119,10 @@
                         <textarea class="form-control" id="description" name="description" rows="3"></textarea>
                     </div>
                     <div class="d-flex align-items-center justify-content-sm-center gap-4 my-2">
-                        <label for="status" class="form-label">Status</label>
+                        <label for="active" class="form-label">Active</label>
                         <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="status" checked>
-                            <label class="form-check-label" for="status"></label>
+                            <input class="form-check-input" type="checkbox" id="active" checked>
+                            <label class="form-check-label" for="active"></label>
                         </div>
                         <label for="feature" class="form-label ms-md-3">Feature</label>
                         <div class="form-check form-switch">
@@ -135,7 +134,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" id="saveVehicleBtn">Save</button>
+                <button type="button" class="btn btn-primary btn-add-vehicle" id="saveVehicleBtn">Save</button>
+                <button type="button" class="btn btn-primary" id="updateVehicleBtn" data-id="">Update</button>
             </div>
         </div>
     </div>
@@ -320,14 +320,16 @@
             <table class="table align-middle" id="vehicle-table">
                 <thead>
                     <tr>
+                        <th>*</th>
                         <th>ID</th>
-                        <th>Name</th>
                         <th>Make</th>
                         <th>Model</th>
                         <th>Seats</th>
                         <th>VehicleType</th>
+                        <th>Hourly Price</th>
+                        <th>Daily Price</th>
                         <th>Quantity</th>
-                        <th>Status</th>
+                        <th>Active</th>
                         <th class="text-center">Action</th>
                     </tr>
                 </thead>

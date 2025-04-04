@@ -63,17 +63,9 @@ class Vehicles extends Controller {
                 "Models"=>$this->modelModel->getAll(),
                 "VehicleTypes"=>$this->vehicleTypeModel->getAll(),
 
-
             ],
             "admin");
-        } else {
-            $this->view("main_layout", [
-                "Title"=>"Vehicles",
-                "Page"=>"vehicles",
-            ],
-            "user");
         }
-
     }
     public function vehiclecategory() {
         $this->view("main_layout", [
@@ -113,13 +105,91 @@ class Vehicles extends Controller {
         ],
         "admin");
     }
-    public function addvehicle() {
-        $this->view("main_layout", [
-            "Title"=>"Add Vehicle",
-            "Page"=>"/pages/vehicles/addvehicle",
-        ],
-        "admin");
+    public function getVehicle(){
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $vehicleID = $_POST["id"] ?? null;
+            
+            if (!$vehicleID) {
+                echo json_encode(['success' => false, 'message' => 'Vehicle ID is required']);
+                return;
+            }
+
+            $result = $this->vehicleModel->getById($vehicleID);
+            
+            echo json_encode(['success' => true, 'data' => $result]);
+        }
     }
+    public function add() {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $data = [
+                'makeID' => $_POST["makeID"] ?? null,
+                'modelID' => $_POST["modelID"] ?? null,
+                'vehicleTypeID' => $_POST["vehicleTypeID"] ?? null,
+                'seats' => $_POST["seats"] ?? null,
+                'hourlyPrice' => $_POST["hourlyPrice"] ?? 0,
+                'dailyPrice' => $_POST["dailyPrice"] ?? 0,
+                'weeklyPrice' => $_POST["weeklyPrice"] ?? 0,
+                'monthlyPrice' => $_POST["monthlyPrice"] ?? 0,
+                'weeklyDiscount' => $_POST["weeklyDiscount"] ?? 0,
+                'monthlyDiscount' => $_POST["monthlyDiscount"] ?? 0,
+                'promotionID' => $_POST["promotionID"] ?? 0,
+                'description' => $_POST["description"] ?? '',
+                'active' => isset($_POST["active"]) && $_POST["active"] == "1" ? 1 : 0,
+                'feature' => isset($_POST["feature"]) && $_POST["feature"] == "1" ? 1 : 0
+            ];
+            $result = $this->vehicleModel->create($data);
+            echo json_encode(['success' => $result]);
+        }
+    }
+    
+    public function update() {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $vehicleID = $_POST["vehicleID"] ?? null;
+            
+            if (!$vehicleID) {
+                echo json_encode(['success' => false, 'message' => 'Vehicle ID is required']);
+                return;
+            }
+
+            $data = [
+                'makeID' => $_POST["makeID"] ?? null,
+                'modelID' => $_POST["modelID"] ?? null,
+                'vehicleTypeID' => $_POST["vehicleTypeID"] ?? null,
+                'seats' => $_POST["seats"] ?? null,
+                'hourlyPrice' => $_POST["hourlyPrice"] ?? 0,
+                'dailyPrice' => $_POST["dailyPrice"] ?? 0,
+                'weeklyPrice' => $_POST["weeklyPrice"] ?? 0,
+                'monthlyPrice' => $_POST["monthlyPrice"] ?? 0,
+                'weeklyDiscount' => $_POST["weeklyDiscount"] ?? 0,
+                'monthlyDiscount' => $_POST["monthlyDiscount"] ?? 0,
+                'promotionID' => $_POST["promotionID"] ?? 0,
+                'description' => $_POST["description"] ?? '',
+                'active' => isset($_POST["active"]) && $_POST["active"] == "1" ? 1 : 0,
+                'feature' => isset($_POST["feature"]) && $_POST["feature"] == "1" ? 1 : 0
+            ];
+
+            $result = $this->vehicleModel->update($vehicleID, $data);
+            echo json_encode(['success' => $result]);
+        }
+    }
+    
+    public function delete() {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $vehicleID = $_POST["id"] ?? null;
+            
+            if (!$vehicleID) {
+                header('Content-Type: application/json');
+                echo json_encode(['success' => false, 'message' => 'Vehicle ID is required']);
+                return;
+            }
+
+            $result = $this->vehicleModel->delete($vehicleID);
+            
+            header('Content-Type: application/json');
+            echo json_encode(['success' => $result]);
+        }
+    }
+    
     public function addVehicleType()
     {
         if($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -188,6 +258,13 @@ class Vehicles extends Controller {
             $makeId = $_POST["makeId"];
             $vehicleType = $_POST["vehicleType"];
             $result = $this->modelModel->update($id,$name,$makeId,$vehicleType);
+            echo $result;
+        }
+    }
+    public function deleteModel() {
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $id = $_POST["id"];
+            $result = $this->modelModel->delete($id);
             echo $result;
         }
     }

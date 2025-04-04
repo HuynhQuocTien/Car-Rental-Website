@@ -490,11 +490,11 @@ INSERT INTO `Promotions` (`PromotionID`, `PromotionName`, `PromotionCode`, `Desc
 VALUES (0, 'Không có khuyến mãi', 'NO_PROMO', 'Không áp dụng khuyến mãi', 1, 0);
 
 -- Thêm dữ liệu vào bảng Vehicles
-INSERT INTO `Vehicles` (`MakeID`, `ModelID`, `Seats`, `VehicleTypesID`, `HourlyPrice`, `DailyPrice`, `WeeklyPrice`, `MonthlyPrice`, `Quantity`, `Description`, `Status`, `Is_Feature`, `PromotionID`, `Is_Delete`) 
+INSERT INTO `Vehicles` (`MakeID`, `ModelID`, `Seats`, `VehicleTypesID`, `HourlyPrice`, `DailyPrice`, `WeeklyPrice`, `MonthlyPrice`, `Quantity`, `Description`, `Is_Feature`, `PromotionID`, `Is_Delete`) 
 VALUES 
-(1, 1, 5, 2, 10.5, 70, 450, 1500, 10, 'Toyota Camry tầm trung, tiết kiệm xăng', 1, 1, 0, 0),
-(2, 2, 5, 2, 9, 60, 400, 1400, 8, 'Honda Civic phong cách thể thao', 1, 0, 0, 0),
-(3, 3, 4, 1, 20, 150, 950, 3500, 5, 'Ford Mustang mạnh mẽ, đẳng cấp', 1, 1, 0, 0);
+(1, 1, 5, 2, 10.5, 70, 450, 1500, 10, 'Toyota Camry tầm trung, tiết kiệm xăng', 1, 0, 0),
+(2, 2, 5, 2, 9, 60, 400, 1400, 8, 'Honda Civic phong cách thể thao', 0, 0, 0),
+(3, 3, 4, 1, 20, 150, 950, 3500, 5, 'Ford Mustang mạnh mẽ, đẳng cấp',1, 0, 0);
 
 -- Thêm dữ liệu vào bảng VehicleDetails
 INSERT INTO `VehicleDetails` (`VehicleID`, `ColorID`, `LicensePlateNumber`, `Mileage`, `Year`, `Transmission`, `FuelType`, `FuelConsumption`, `Status`, `Is_Delete`)

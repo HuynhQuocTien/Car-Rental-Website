@@ -33,7 +33,6 @@ Dashmix.onLoad((() => class {
   }.init()));
   
   const renderData = function (models) {
-    console.log(models);
     let html = "";
     models.forEach((model) => {
       html += `<tr>
@@ -160,7 +159,8 @@ Dashmix.onLoad((() => class {
         },
         dataType: "json",
         success: function (response) {
-          if (response.success) {
+          console.log(response);
+          if (response) {
             $("#addModelModal").modal("hide");
             Dashmix.helpers('jq-notify', { 
               type: 'success', 
@@ -173,7 +173,7 @@ Dashmix.onLoad((() => class {
             Dashmix.helpers('jq-notify', { 
               type: 'danger', 
               icon: 'fa fa-times me-1', 
-              message: response.message || 'Update model failed!'
+              message: 'Update model failed!'
             });
           }
         },
@@ -200,7 +200,7 @@ Dashmix.onLoad((() => class {
         data: { id: id },
         dataType: "json",
         success: function (response) {
-          if (response.success) {
+          if (response) {
             Dashmix.helpers('jq-notify', { 
               type: 'success', 
               icon: 'fa fa-check me-1', 
@@ -232,6 +232,6 @@ Dashmix.onLoad((() => class {
 const mainPagePagination = new Pagination();
 mainPagePagination.option.controller = "vehicles";
 mainPagePagination.option.model = "ModelModel";
-mainPagePagination.option.limit = 5;
+mainPagePagination.option.limit = 10;
 mainPagePagination.option.filter = {};
 mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
