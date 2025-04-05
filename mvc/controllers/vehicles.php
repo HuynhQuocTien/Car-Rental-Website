@@ -54,15 +54,19 @@ class Vehicles extends Controller {
     public function addvehicles() {
         $arrrs = $this->UrlProcess();
         if($arrrs[0] == "admin"){
+            if (!isset($_SESSION['add_vehicle_id'])) {
+                // Không có quyền truy cập nếu chưa bấm nút js-add-detail
+                header("Location: /index.php");
+                exit;
+            }
+            
+            $vehicleId = $_SESSION['add_vehicle_id'];
+
             $this->view("main_layout", [
                 "Title"=>"Add Vehicles",
                 "Script"=> "vehicle",
                 "Page"=>"/pages/vehicles/addvehicles",
-                "Colors"=>$this->colorModel->getAll(),
-                "Makes"=>$this->makeModel->getAll(),
-                "Models"=>$this->modelModel->getAll(),
-                "VehicleTypes"=>$this->vehicleTypeModel->getAll(),
-
+                "Vehicle"=>$this->vehicleModel->getById($vehicleId),
             ],
             "admin");
         }
@@ -294,6 +298,15 @@ class Vehicles extends Controller {
                 break;
         }
         return $query;
+    }
+
+    public function saveVehicleID() {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['vehicle_id'])) {
+            $_SESSION['add_vehicle_id'] = $_POST['vehicle_id'];
+            echo json_encode(['success' => true,'data'=> $_SESSION['add_vehicle_id']]);
+        } else {
+            echo json_encode(['success' => false, 'data' => 'No data']);
+        }
     }
 }
 ?>
