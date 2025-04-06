@@ -434,3 +434,80 @@ $("#dailyPrice, #weeklyDiscount, #monthlyDiscount").on(
   "input",
   calculateDiscountedPrices
 );
+
+//add
+$(document).ready(function() {
+  const $uploadInput = $('#upload-image');
+  const $previewContainer = $('#image-preview-container');
+  const $initialUpload = $('#initial-upload');
+  
+  // Tạo container preview list nếu chưa có
+  if ($previewContainer.children('.preview-list').length === 0) {
+      $previewContainer.append($('<div>').addClass('preview-list'));
+  }
+  
+  $uploadInput.on('change', function(e) {
+      const files = e.target.files;
+      
+      if (files.length > 0) {
+          $initialUpload.hide();
+          const $previewList = $previewContainer.find('.preview-list');
+          
+          $.each(files, function(i, file) {
+              if (!file.type.match('image.*')) return;
+              
+              const reader = new FileReader();
+              
+              reader.onload = function(event) {
+                  const $previewItem = $('<div>').addClass('preview-item');
+                  
+                  // Tạo preview và thông tin ảnh
+                  const $imageInfo = $('<div>').addClass('image-info');
+                  const $imgPreview = $('<img>').addClass('image-preview')
+                      .attr('src', event.target.result);
+                  const $imageName = $('<div>').addClass('image-name')
+                      .text(file.name);
+                  
+                  $imageInfo.append($imgPreview, $imageName);
+                  
+                  // Tạo nút action
+                  const $actionButtons = $('<div>').addClass('action-buttons');
+                  
+                  // Nút thêm ảnh
+                  const $addBtn = $('<button>')
+                      .addClass('add-btn')
+                      .html('<i class="fas fa-plus"></i> Add image')
+                      .on('click', function() {
+                          $uploadInput.click();
+                      });
+                  
+                  // Nút xóa ảnh
+                  const $deleteBtn = $('<button>')
+                      .addClass('delete-btn')
+                      .html('<i class="fas fa-times"></i> Delete')
+                      .on('click', function() {
+                          $previewItem.remove();
+                          if ($previewList.children().length === 0) {
+                              $initialUpload.show();
+                          }
+                      });
+                  
+                  $actionButtons.append($addBtn, $deleteBtn);
+                  $previewItem.append($imageInfo, $actionButtons);
+                  $previewList.append($previewItem);
+              };
+              
+              reader.readAsDataURL(file);
+          });
+          
+          // Reset input
+          $uploadInput.val('');
+      }
+  });
+  
+  // Click to initial upload box
+  $initialUpload.on('click', function(e) {
+    e.preventDefault();
+    $uploadInput.click();
+  });
+});

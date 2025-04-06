@@ -67,6 +67,7 @@ class Vehicles extends Controller {
                 "Script"=> "vehicle",
                 "Page"=>"/pages/vehicles/addvehicles",
                 "Vehicle"=>$this->vehicleModel->getById($vehicleId),
+                "Colors"=>$this->colorModel->getAll(),
             ],
             "admin");
         }
