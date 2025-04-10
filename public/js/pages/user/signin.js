@@ -27,7 +27,7 @@ Dashmix.onLoad(() =>
         this.initValidation();
       }
     }.init()
-  );
+);
 
 
   $(".js-validation-signin").off('submit').submit(function (e) {
@@ -35,7 +35,7 @@ Dashmix.onLoad(() =>
     if ($(".js-validation-signin").valid()) {
       $.ajax({
         type: "POST",
-        url:  BaseUrl + "auth/checkLogin",
+        url:  BaseUrl + "auth/checkLogin", //locahost/user/auth/checkLogin
         data: {
           username: $("#login-username").val(),
           password: $("#login-password").val(),

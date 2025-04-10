@@ -41,12 +41,12 @@ class MakeModel extends Database {
     public function getQuery($filter, $input, $args,$lastURL)
     {
         if($lastURL === "makes") {
-            $lastURL = "Makes";
+            $lastURL = "Makes"; //DB table Make
         }
         $query = "SELECT * FROM $lastURL ";
         if ($input) {
             $query = $query . " WHERE (MakeName LIKE N'%{$input}%'  OR MakeID LIKE '%{$input}%' OR Country LIKE '%{$input}%')";
-        }
+        } 
         $query = $query . " ORDER BY MakeID ASC";
         return $query;
     }

@@ -6,7 +6,7 @@ class Home extends Controller {
             "Title"=>" Home -  Car Rental",
             "Page"=>"home"
         ],
-        "user");
+        "user"); //User hay admin
     }
     function signin()
     {

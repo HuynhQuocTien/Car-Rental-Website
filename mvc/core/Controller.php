@@ -15,7 +15,7 @@ class Controller{
 
     }
 
-        public function pagination() {
+    public function pagination() {
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $lastUrlSegment = '';
             if (isset($_POST["args"])) {

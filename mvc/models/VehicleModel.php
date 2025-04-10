@@ -100,6 +100,11 @@ class VehicleModel extends Database {
                             md.ModelName LIKE '%{$input}%' OR 
                             vt.NameType LIKE '%{$input}%')";
         }
+        if($filter){
+            $query.= " AND (v.MakeID = '{$filter['makeID']}' OR 
+                            v.ModelID = '{$filter['modelID']}' OR 
+                            v.VehicleTypesID = '{$filter['vehicleTypeID']}')";
+        }
         
         $query .= " ORDER BY v.VehicleID ASC";
         return $query;

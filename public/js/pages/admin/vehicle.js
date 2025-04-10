@@ -422,7 +422,7 @@ $(document).on("click", ".js-add-detail", function () {
 const vehiclePagination = new Pagination();
 vehiclePagination.option.controller = "vehicles";
 vehiclePagination.option.model = "VehicleModel";
-vehiclePagination.option.limit = 10;
+vehiclePagination.option.limit = 2;
 vehiclePagination.option.filter = {};
 vehiclePagination.getPagination(
   vehiclePagination.option,

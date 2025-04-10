@@ -1,11 +1,11 @@
 <?php
 class App{
     protected $controller = "Home";
-    protected $action = "default";
+    protected $action = "default"; //Lấy hàm trong controller
     protected $params = [];
 
     function __construct(){
-        $arr = $this->UrlProcess();
+        $arr = $this->UrlProcess(); //Localhost/user/home => ['user', 'home'] localhost/admin hoặc localhost/user
         if (!$arr || empty($arr[0])) {
             header("Location: /user/home");
             exit;
