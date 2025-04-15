@@ -504,7 +504,7 @@ VALUES
 INSERT INTO `VehicleDetails` (
     `VehicleID`, `ColorID`, `LicensePlateNumber`, `Mileage`, `Year`, `Transmission`, `FuelType`,
     `HourlyPrice`, `DailyPrice`, `WeeklyPrice`, `MonthlyPrice`,
-    `FuelConsumption`, `Status`, `Is_Delete`
+    `FuelConsumption`, `Active`, `Is_Delete`
 ) VALUES 
 -- VehicleID = 1 (giá gốc: 10.5 | 70 | 450 | 1500)
 (1, 1, '59A12345', 10000, 2020, 'Tự động', 'Xăng', 10.8, 72, 459, 1530, '5.5', 1, 0),
