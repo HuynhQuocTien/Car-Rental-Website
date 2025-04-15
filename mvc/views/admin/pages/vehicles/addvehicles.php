@@ -15,13 +15,29 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>License Plate</th>
-                        <th>Color</th>
-                        <th>Mileage (km)</th>
-                        <th>Year</th>
-                        <th>Transmission</th>
-                        <th>Fuel Type</th>
-                        <th>Status</th>
+                        <th>
+                            <div class="fw-semibold">Vehicle Name</div>
+                            <div class="text-muted small">Year - Color</div>
+                        </th>
+                        <th>
+                            <div class="fw-semibold">License Plate</div>
+                            <div class="text-muted small">Mileage (km)</div>
+                        </th>
+                        <th>
+
+                        </th>
+                        <th>
+                            <div class="fw-semibold">Hourly Price</div>
+                            <div class="text-muted small">Daily Price</div>
+                        </th>
+                        <th>
+                            <div class="fw-semibold">Monthly Price</div>
+                            <div class="text-muted small">Weekly Price</div>
+                        </th>
+                        <th>
+                            <div class="fw-semibold">Status</div>
+                            <div class="text-muted small">Active</div>
+                        </th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -60,7 +76,7 @@
                             <div class="input-group">
                                 <span class="input-group-text">$</span>
                                 <input type="number" class="form-control" id="default-hourly-price"
-                                    name="default-hourly-price" placeholder="Default" disabled>
+                                    name="default-hourly-price" placeholder="Default" disabled value="<?= $data['Vehicle']['HourlyPrice'] ?>">
                                 <span class="input-group-text">-</span>
                                 <input type="number" class="form-control" id="discount-hourly" name="discount-hourly"
                                     placeholder="Discount (%)" min="0" max="100">
@@ -76,7 +92,7 @@
                             <div class="input-group">
                                 <span class="input-group-text">$</span>
                                 <input type="number" class="form-control" id="default-daily-price"
-                                    name="default-daily-price" disabled>
+                                    name="default-daily-price" disabled value="<?= $data['Vehicle']['DailyPrice'] ?>">
                                 <span class="input-group-text">-</span>
                                 <input type="number" class="form-control" id="discount-daily" name="discount-daily"
                                     placeholder="Discount (%)" min="0" max="100">
@@ -92,7 +108,7 @@
                             <div class="input-group">
                                 <span class="input-group-text">$</span>
                                 <input type="number" class="form-control" id="default-weekly-price"
-                                    name="default-weekly-price" disabled>
+                                    name="default-weekly-price" disabled value="<?= $data['Vehicle']['WeeklyPrice'] ?>">
                                 <span class="input-group-text">-</span>
                                 <input type="number" class="form-control" id="discount-weekly" name="discount-weekly"
                                     placeholder="Discount (%)" min="0" max="100">
@@ -177,10 +193,7 @@
                 <!-- Pricing & Meta Data -->
                 <div class="block block-rounded">
                     <div class="block-content">
-                        <div class="mb-4">
-                            <label class="form-label" for="license-plate">License Plate Number</label>
-                            <input type="text" class="form-control" id="license-plate" name="license-plate">
-                        </div>
+
                         <div class="mb-4">
                             <label class="form-label" for="fuel-consumption">Fuel Consumption (L/100km)</label>
                             <input type="text" class="form-control" id="fuel-consumption" name="fuel-consumption">
@@ -205,11 +218,6 @@
                                 <option value="Hybrid">Hybrid</option>
                             </select>
                         </div>
-
-                        <div class="mb-4">
-                            <label class="form-label" for="mileage">Mileage (km)</label>
-                            <input type="number" class="form-control" id="mileage" name="mileage" step="0.1">
-                        </div>
                         <div class="mb-4">
                             <label class="form-label" for="year">Year</label>
                             <input type="number" class="form-control" id="year" name="year" min="1900"
@@ -230,7 +238,7 @@
                             </div>
                         </div>
 
-                        
+
                         <div class="mb-4">
                             <button type="submit" class="btn btn-primary btn-hero" id="btn-save-vehicle">Save
                                 Vehicle
@@ -260,6 +268,10 @@
                 <div class="block-content">
                     <form id="form-image" onsubmit="return false;">
                         <div class="mb-4">
+                            <label class="form-label" for="license-plate">License Plate Number</label>
+                            <input type="text" class="form-control" id="license-plate" name="license-plate">
+                        </div>
+                        <div class="mb-4">
                             <label class="form-label" for="color-id">Color</label>
                             <select class="js-select2 form-select" id="color-id" name="color-id" style="width: 100%;"
                                 data-container="#modal-image" data-placeholder="Choose one..">
@@ -268,6 +280,11 @@
                                     <option value="<?= $color['ColorID'] ?>"><?= $color['ColorName'] ?></option>
                                 <?php endforeach; ?>
                             </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label" for="mileage">Mileage (km)</label>
+                            <input type="number" class="form-control" id="mileage" name="mileage" step="0.1">
                         </div>
                         <div class="mb-4">
                             <label class="form-label">Images</label>

@@ -104,9 +104,10 @@ class VehicleDetailModel extends Database {
 
     public function getQuery($input = null, $filter = [], $lastURL = 'VehicleDetails')
     {
-        $query = "SELECT vd.*, c.ColorName
-                  FROM $lastURL vd
-                  LEFT JOIN Colors c ON vd.ColorID = c.ColorID
+        $query = "SELECT vd.*, c.*,
+                  FROM VehicleDetails vd
+                    JOIN Colors c ON vd.ColorID = c.ColorID
+                    JOIN VehicleImages vi ON vd.VehicleDetailID = vi.VehicleDetailID
                   WHERE vd.Is_Delete = 0";
 
         if ($input) {
