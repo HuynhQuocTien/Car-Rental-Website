@@ -28,6 +28,7 @@ CREATE TABLE `VehicleDetails` (
 	`FuelType` VARCHAR(255) COMMENT 'Loại nhiên liệu',
 	`FuelConsumption` VARCHAR(255) COMMENT 'Mức tiêu hao nhiên liệu (L/100km)',
 	`Status` INTEGER DEFAULT 1 COMMENT 'Trạng thái xe (0: Đang thuê, 1: Đang trống)',
+	`Active` INTEGER DEFAULT 1 COMMENT 'Trạng thái xe (0: Ngừng hoạt động, 1: Đang hoạt động)',
 	`Is_Delete` INTEGER DEFAULT 0 COMMENT 'Xóa',
 	PRIMARY KEY(`VehicleDetailID`)
 ) COMMENT 'Thông tin chi tiết xe';
