@@ -3,7 +3,7 @@
     <!-- Vehicle Details List -->
     <div class="block block-rounded">
         <div class="block-header block-header-default">
-            <h2 class="block-title">Vehicle Details List</h2>
+            <h2 class="block-header"><?php echo $data['Vehicle']['MakeName'] . " - " . $data['Vehicle']['ModelName'] . " ( " . $data['Vehicle']['NameType'] . ")"?> </h2>
         </div>
 
         <div class="block-content">
@@ -16,8 +16,8 @@
                     <tr>
                         <th>ID</th>
                         <th>
-                            <div class="fw-semibold">Vehicle Name</div>
-                            <div class="text-muted small">Year - Color</div>
+                            <div class="fw-semibold">Color</div>
+                            <div class="text-muted small">Year</div>
                         </th>
                         <th>
                             <div class="fw-semibold">License Plate</div>
@@ -35,17 +35,12 @@
                             <div class="text-muted small">Weekly Price</div>
                         </th>
                         <th>
-                            <div class="fw-semibold">Status</div>
-                            <div class="text-muted small">Active</div>
+                            Status
                         </th>
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody id="vehicle-details-list">
-                    <!-- Dữ liệu sẽ được load bằng JavaScript -->
-                    <tr>
-                        <td colspan="9" class="text-center">No vehicle details found</td>
-                    </tr>
+                <tbody id="vehicle-details-list">                
                 </tbody>
             </table>
         </div>
@@ -61,7 +56,7 @@
                 <!-- Basic Info -->
                 <div class="block block-rounded">
                     <div class="block-header block-header-default">
-                        <h3 class="block-title">Add Vehicle Detail</h3>
+                        <h3 class="block-header">Add Vehicle Detail</h3>
                     </div>
                     <div class="block-content">
                         <div class="mb-4">
@@ -123,7 +118,7 @@
                             <label class="form-label">Monthly Price</label>
                             <div class="input-group">
                                 <span class="input-group-text">$</span>
-                                <input type="number" class="form-control" id="default-monthly-price"
+                                <input type="number" class="form-control" id="default-monthly-price" value="<?= $data['Vehicle']['MonthlyPrice'] ?>"
                                     name="default-monthly-price" disabled>
                                 <span class="input-group-text">-</span>
                                 <input type="number" class="form-control" id="discount-monthly" name="discount-monthly"
@@ -315,7 +310,7 @@
     </div>
 </div>
 <!-- END Page Content -->
-<style>
+ <style>
     .upload-image-container {
         border: 2px dashed #ddd;
         border-radius: 8px;
@@ -421,4 +416,112 @@
         color: white;
         border: none;
     }
+    .default-checkbox-container {
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+    position: relative;
+}
+
+.default-checkbox {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    margin-right: 8px;
+}
+
+.default-label {
+    font-size: 13px;
+    color: #555;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Style khi checkbox được chọn */
+.preview-item.checked-as-default {
+    border-color: #4CAF50;
+    background-color: #f8fff8;
+    box-shadow: 0 0 0 1px #4CAF50;
+}
+
+/* Hiệu ứng hover cho item */
+.preview-item:hover {
+    background-color: #f5f5f5;
+}
+
+/* Transition mượt mà */
+.preview-item,
+.upload-box,
+.action-buttons button {
+    transition: all 0.2s ease-in-out;
+}
+
+/* Style cho button khi hover */
+.add-btn:hover {
+    background: #3e8e41;
+    transform: translateY(-1px);
+}
+
+.delete-btn:hover {
+    background: #d32f2f;
+    transform: translateY(-1px);
+}
+
+/* Responsive cho mobile */
+@media (max-width: 576px) {
+    .preview-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .image-info {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    .action-buttons {
+        width: 100%;
+        justify-content: flex-end;
+    }
+    
+    .default-checkbox-container {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+}
+
+/* Animation khi thêm ảnh mới */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.preview-item {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Style cho placeholder khi không có ảnh */
+.empty-placeholder {
+    color: #888;
+    font-size: 14px;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Custom scrollbar cho container nếu cần */
+.upload-image-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.upload-image-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.upload-image-container::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+.upload-image-container::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
 </style>

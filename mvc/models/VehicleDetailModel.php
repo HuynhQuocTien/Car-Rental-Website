@@ -104,27 +104,11 @@ class VehicleDetailModel extends Database {
 
     public function getQuery($input = null, $filter = [], $lastURL = 'VehicleDetails')
     {
-        $query = "SELECT vd.*, c.*,
-                  FROM VehicleDetails vd
-                    JOIN Colors c ON vd.ColorID = c.ColorID
-                    JOIN VehicleImages vi ON vd.VehicleDetailID = vi.VehicleDetailID
+        $query = "SELECT vd.*, c.ColorName, vi.ImageID, vi.ImageID,  vi.ImageURL, vi.IsPrimary 
+                    FROM VehicleDetails vd
+                    LEFT JOIN Colors c ON vd.ColorID = c.ColorID
+                    LEFT JOIN VehicleImages vi ON vd.VehicleDetailID = vi.VehicleDetailID
                   WHERE vd.Is_Delete = 0";
-
-        if ($input) {
-            $query .= " AND (
-                vd.LicensePlateNumber LIKE '%{$input}%' OR
-                vd.Transmission LIKE '%{$input}%' OR
-                vd.FuelType LIKE '%{$input}%'
-            )";
-        }
-
-        if (!empty($filter)) {
-            foreach ($filter as $key => $value) {
-                if ($value !== '') {
-                    $query .= " AND vd." . $key . " = '$value'";
-                }
-            }
-        }
 
         $query .= " ORDER BY vd.VehicleDetailID ASC";
         return $query;
