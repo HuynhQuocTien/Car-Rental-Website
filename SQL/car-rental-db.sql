@@ -4,10 +4,10 @@ CREATE TABLE `Vehicles` (
 	`ModelID` INTEGER COMMENT ' Mã mẫu xe',
 	`Seats` INTEGER COMMENT 'Số chỗ ngồi',
 	`VehicleTypesID` INTEGER COMMENT 'Loại xe (Hạng sang, tầm trung, phổ thông)',
-	`HourlyPrice` DOUBLE COMMENT 'Giá thuê theo giờ',
-	`DailyPrice` DOUBLE COMMENT 'Giá thuê theo ngày',
-	`WeeklyPrice` DOUBLE COMMENT 'Giá thuê theo tuần',
-	`MonthlyPrice` DOUBLE COMMENT 'Giá thuê theo tháng',
+	`HourlyPrice` DOUBLE COMMENT 'Giá thuê theo giờ mặc định',
+	`DailyPrice` DOUBLE COMMENT 'Giá thuê theo ngày mặc định',
+	`WeeklyPrice` DOUBLE COMMENT 'Giá thuê theo tuần mặc định',
+	`MonthlyPrice` DOUBLE COMMENT 'Giá thuê theo tháng mặc định',
 	`Quantity` INTEGER COMMENT 'Tổng số lượng xe hãng và mẫu',
 	`Description` VARCHAR(500) COMMENT 'Mô tả',	
 	`Is_Feature` INTEGER COMMENT 'Xe nổi bật',
@@ -26,6 +26,10 @@ CREATE TABLE `VehicleDetails` (
 	`Year` INTEGER COMMENT 'Năm sản xuất',
 	`Transmission` VARCHAR(255) COMMENT 'Hộp số',
 	`FuelType` VARCHAR(255) COMMENT 'Loại nhiên liệu',
+	`HourlyPrice` DOUBLE NULL COMMENT 'Giá thuê theo giờ (override, nếu khác Vehicles)',
+	`DailyPrice` DOUBLE NULL COMMENT 'Giá thuê theo ngày (override)',
+	`WeeklyPrice` DOUBLE NULL COMMENT 'Giá thuê theo tuần (override)',
+	`MonthlyPrice` DOUBLE NULL COMMENT 'Giá thuê theo tháng (override)',
 	`FuelConsumption` VARCHAR(255) COMMENT 'Mức tiêu hao nhiên liệu (L/100km)',
 	`Status` INTEGER DEFAULT 1 COMMENT 'Trạng thái xe (0: Đang thuê, 1: Đang trống)',
 	`Active` INTEGER DEFAULT 1 COMMENT 'Trạng thái xe (0: Ngừng hoạt động, 1: Đang hoạt động)',
@@ -497,29 +501,39 @@ VALUES
 (2, 2, 5, 2, 9, 60, 400, 1400, 8, 'Honda Civic phong cách thể thao', 0, 0, 0),
 (3, 3, 4, 1, 20, 150, 950, 3500, 5, 'Ford Mustang mạnh mẽ, đẳng cấp',1, 0, 0);
 
--- Thêm dữ liệu vào bảng VehicleDetails
-INSERT INTO `VehicleDetails` (`VehicleID`, `ColorID`, `LicensePlateNumber`, `Mileage`, `Year`, `Transmission`, `FuelType`, `FuelConsumption`, `Status`, `Is_Delete`)
-VALUES 
-(1, 1, '59A-12345', 10000, 2020, 'Tự động', 'Xăng', '5.5', 1, 0),
-(1, 1, '59A-12350', 15000, 2021, 'Tự động', 'Xăng', '5.5', 1, 0),
-(1, 1, '59A-12351', 25000, 2022, 'Tự động', 'Xăng', '5.5', 1, 0),
-(1, 1, '59A-12352', 35000, 2023, 'Tự động', 'Xăng', '5.5', 1, 0),
-(1, 1, '59A-12353', 45000, 2024, 'Tự động', 'Xăng', '5.5', 1, 0),
-(1, 2, '59A-12346', 20000, 2019, 'Tự động', 'Xăng', '5.5', 1, 0),
-(1, 2, '59A-12354', 10000, 2020, 'Tự động', 'Xăng', '5.5', 1, 0),
-(1, 2, '59A-12355', 15000, 2021, 'Tự động', 'Xăng', '5.5', 1, 0),
-(1, 2, '59A-12356', 25000, 2022, 'Tự động', 'Xăng', '5.5', 1, 0),
-(1, 2, '59A-12357', 35000, 2023, 'Tự động', 'Xăng', '5.5', 1, 0),
-(1, 2, '59A-12358', 45000, 2024, 'Tự động', 'Xăng', '5.5', 1, 0),
-(1, 2, '59A-12359', 50000, 2025, 'Tự động', 'Xăng', '5.5', 1, 0),
-(2, 3, '59A-12347', 30000, 2018, 'Tự động', 'Xăng', '5.5', 1, 0),
-(3, 1, '59A-12348', 40000, 2017, 'Tự động', 'Xăng', '5.5', 1, 0),
-(3, 1, '59A-12349', 50000, 2016, 'Tự động', 'Xăng', '5.5', 1, 0),
-(3, 1, '59A-12360', 60000, 2015, 'Tự động', 'Xăng', '5.5', 1, 0),
-(3, 1, '59A-12361', 70000, 2014, 'Tự động', 'Xăng', '5.5', 1, 0),
-(3, 1, '59A-12362', 80000, 2013, 'Tự động', 'Xăng', '5.5', 1, 0),
-(3, 1, '59A-12363', 90000, 2012, 'Tự động', 'Xăng', '5.5', 1, 0),
-(3, 1, '59A-12364', 100000, 2011, 'Tự động', 'Xăng', '5.5', 1, 0);
+-- Thêm dữ liệu vào VehicleDetails với giá chênh lệch từ 2-5% so với mặc định
+INSERT INTO `VehicleDetails` (
+    `VehicleID`, `ColorID`, `LicensePlateNumber`, `Mileage`, `Year`, `Transmission`, `FuelType`,
+    `HourlyPrice`, `DailyPrice`, `WeeklyPrice`, `MonthlyPrice`,
+    `FuelConsumption`, `Status`, `Is_Delete`
+) VALUES 
+-- VehicleID = 1 (giá gốc: 10.5 | 70 | 450 | 1500)
+(1, 1, '59A-12345', 10000, 2020, 'Tự động', 'Xăng', 10.8, 72, 459, 1530, '5.5', 1, 0),
+(1, 1, '59A-12350', 15000, 2021, 'Tự động', 'Xăng', 10.71, 71.4, 456, 1515, '5.5', 1, 0),
+(1, 1, '59A-12351', 25000, 2022, 'Tự động', 'Xăng', 10.29, 68.6, 441, 1470, '5.5', 1, 0),
+(1, 1, '59A-12352', 35000, 2023, 'Tự động', 'Xăng', 10.71, 71.4, 459, 1515, '5.5', 1, 0),
+(1, 1, '59A-12353', 45000, 2024, 'Tự động', 'Xăng', 10.29, 68.6, 441, 1470, '5.5', 1, 0),
+(1, 2, '59A-12346', 20000, 2019, 'Tự động', 'Xăng', 10.71, 71.4, 459, 1515, '5.5', 1, 0),
+(1, 2, '59A-12354', 10000, 2020, 'Tự động', 'Xăng', 10.29, 68.6, 441, 1470, '5.5', 1, 0),
+(1, 2, '59A-12355', 15000, 2021, 'Tự động', 'Xăng', 10.5, 70, 450, 1500, '5.5', 1, 0),
+(1, 2, '59A-12356', 25000, 2022, 'Tự động', 'Xăng', 10.71, 71.4, 459, 1515, '5.5', 1, 0),
+(1, 2, '59A-12357', 35000, 2023, 'Tự động', 'Xăng', 10.5, 70, 450, 1500, '5.5', 1, 0),
+(1, 2, '59A-12358', 45000, 2024, 'Tự động', 'Xăng', 10.29, 68.6, 441, 1470, '5.5', 1, 0),
+(1, 2, '59A-12359', 50000, 2025, 'Tự động', 'Xăng', 10.8, 72, 459, 1530, '5.5', 1, 0),
+
+-- VehicleID = 2 (giá gốc: 9 | 60 | 400 | 1400)
+(2, 3, '59A-12347', 30000, 2018, 'Tự động', 'Xăng', 9.36, 62.4, 408, 1430, '5.5', 1, 0),
+
+-- VehicleID = 3 (giá gốc: 20 | 150 | 950 | 3500)
+(3, 1, '59A-12348', 40000, 2017, 'Tự động', 'Xăng', 20.4, 153, 969, 3570, '5.5', 1, 0),
+(3, 1, '59A-12349', 50000, 2016, 'Tự động', 'Xăng', 19.8, 147, 931, 3430, '5.5', 1, 0),
+(3, 1, '59A-12360', 60000, 2015, 'Tự động', 'Xăng', 20.2, 151.5, 969, 3540, '5.5', 1, 0),
+(3, 1, '59A-12361', 70000, 2014, 'Tự động', 'Xăng', 19.6, 145.5, 931, 3430, '5.5', 1, 0),
+(3, 1, '59A-12362', 80000, 2013, 'Tự động', 'Xăng', 20.4, 153, 969, 3570, '5.5', 1, 0),
+(3, 1, '59A-12363', 90000, 2012, 'Tự động', 'Xăng', 20.2, 151.5, 950, 3540, '5.5', 1, 0),
+(3, 1, '59A-12364', 100000, 2011, 'Tự động', 'Xăng', 19.6, 147, 931, 3430, '5.5', 1, 0);
+
+
 
 -- Thêm dữ liệu vào bảng DamageTypes
 INSERT INTO `DamageTypes` (`DamageName`, `FineAmount`, `VehicleTypesID`, `Is_Delete`)
