@@ -31,7 +31,6 @@ CREATE TABLE `VehicleDetails` (
 	`WeeklyPrice` DOUBLE NULL COMMENT 'Giá thuê theo tuần (override)',
 	`MonthlyPrice` DOUBLE NULL COMMENT 'Giá thuê theo tháng (override)',
 	`FuelConsumption` VARCHAR(255) COMMENT 'Mức tiêu hao nhiên liệu (L/100km)',
-	`Status` INTEGER DEFAULT 1 COMMENT 'Trạng thái xe (0: Đang thuê, 1: Đang trống)',
 	`Active` INTEGER DEFAULT 1 COMMENT 'Trạng thái xe (0: Ngừng hoạt động, 1: Đang hoạt động)',
 	`Is_Delete` INTEGER DEFAULT 0 COMMENT 'Xóa',
 	PRIMARY KEY(`VehicleDetailID`)
