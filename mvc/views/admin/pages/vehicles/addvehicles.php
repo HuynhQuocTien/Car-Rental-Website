@@ -1,13 +1,9 @@
-<?php
-echo $_SESSION['add_vehicle_id'];
-?>
-
 <!-- Page Content -->
 <div class="content">
     <!-- Vehicle Details List -->
     <div class="block block-rounded">
         <div class="block-header block-header-default">
-            <h3 class="block-title">Vehicle Details List</h3>
+            <h2 class="block-title">Vehicle Details List</h2>
         </div>
 
         <div class="block-content">
@@ -58,66 +54,68 @@ echo $_SESSION['add_vehicle_id'];
                                 value="<?= $data['Vehicle']['MakeName'] . "- " . $data['Vehicle']['ModelName'] . " ( " . $data['Vehicle']['NameType'] . ")" ?>"
                                 disabled>
                         </div>
-
-                        <div class="row mb-4">
-                            <div class="col-md-6">
-                                <label class="form-label" for="license-plate">License Plate Number</label>
-                                <input type="text" class="form-control" id="license-plate" name="license-plate">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label" for="color-id">Color</label>
-                                <select class="form-select" id="color-id" name="color-id">
-                                    <option value="">Select color</option>
-                                    <?php foreach ($data['Colors'] as $color): ?>
-                                        <option value="<?= $color['ColorID'] ?>"><?= $color['ColorName'] ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="row mb-4">
-                            <div class="col-md-4">
-                                <label class="form-label" for="mileage">Mileage (km)</label>
-                                <input type="number" class="form-control" id="mileage" name="mileage" step="0.1">
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label" for="year">Year</label>
-                                <input type="number" class="form-control" id="year" name="year" min="1900"
-                                    max="<?= date('Y') + 1 ?>">
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label" for="status">Status</label>
-                                <select class="form-select" id="status" name="status">
-                                    <option value="1">Available</option>
-                                    <option value="0">Rented</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="row mb-4">
-                            <div class="col-md-6">
-                                <label class="form-label" for="transmission">Transmission</label>
-                                <select class="form-select" id="transmission" name="transmission">
-                                    <option value="">Select transmission</option>
-                                    <option value="Automatic">Automatic</option>
-                                    <option value="Manual">Manual</option>
-                                    <option value="Semi-Automatic">Semi-Automatic</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label" for="fuel-type">Fuel Type</label>
-                                <select class="form-select" id="fuel-type" name="fuel-type">
-                                    <option value="">Select fuel type</option>
-                                    <option value="Gasoline">Gasoline</option>
-                                    <option value="Diesel">Diesel</option>
-                                    <option value="Electric">Electric</option>
-                                    <option value="Hybrid">Hybrid</option>
-                                </select>
-                            </div>
-                        </div>
+                        <!-- Hourly Price -->
                         <div class="mb-4">
-                            <label class="form-label" for="fuel-consumption">Fuel Consumption (L/100km)</label>
-                            <input type="text" class="form-control" id="fuel-consumption" name="fuel-consumption">
+                            <label class="form-label">Hourly Price</label>
+                            <div class="input-group">
+                                <span class="input-group-text">$</span>
+                                <input type="number" class="form-control" id="default-hourly-price"
+                                    name="default-hourly-price" placeholder="Default" disabled>
+                                <span class="input-group-text">-</span>
+                                <input type="number" class="form-control" id="discount-hourly" name="discount-hourly"
+                                    placeholder="Discount (%)" min="0" max="100">
+                                <span class="input-group-text">=</span>
+                                <input type="number" class="form-control" id="final-hourly-price" name="hourly-price"
+                                    placeholder="Final Price" readonly>
+                            </div>
+                        </div>
+
+                        <!-- Lặp lại tương tự cho Daily, Weekly, Monthly -->
+                        <div class="mb-4">
+                            <label class="form-label">Daily Price</label>
+                            <div class="input-group">
+                                <span class="input-group-text">$</span>
+                                <input type="number" class="form-control" id="default-daily-price"
+                                    name="default-daily-price" disabled>
+                                <span class="input-group-text">-</span>
+                                <input type="number" class="form-control" id="discount-daily" name="discount-daily"
+                                    placeholder="Discount (%)" min="0" max="100">
+                                <span class="input-group-text">=</span>
+                                <input type="number" class="form-control" id="final-daily-price" name="daily-price"
+                                    readonly>
+                            </div>
+                        </div>
+
+                        <!-- Weekly -->
+                        <div class="mb-4">
+                            <label class="form-label">Weekly Price</label>
+                            <div class="input-group">
+                                <span class="input-group-text">$</span>
+                                <input type="number" class="form-control" id="default-weekly-price"
+                                    name="default-weekly-price" disabled>
+                                <span class="input-group-text">-</span>
+                                <input type="number" class="form-control" id="discount-weekly" name="discount-weekly"
+                                    placeholder="Discount (%)" min="0" max="100">
+                                <span class="input-group-text">=</span>
+                                <input type="number" class="form-control" id="final-weekly-price" name="weekly-price"
+                                    readonly>
+                            </div>
+                        </div>
+
+                        <!-- Monthly -->
+                        <div class="mb-4">
+                            <label class="form-label">Monthly Price</label>
+                            <div class="input-group">
+                                <span class="input-group-text">$</span>
+                                <input type="number" class="form-control" id="default-monthly-price"
+                                    name="default-monthly-price" disabled>
+                                <span class="input-group-text">-</span>
+                                <input type="number" class="form-control" id="discount-monthly" name="discount-monthly"
+                                    placeholder="Discount (%)" min="0" max="100">
+                                <span class="input-group-text">=</span>
+                                <input type="number" class="form-control" id="final-monthly-price" name="monthly-price"
+                                    readonly>
+                            </div>
                         </div>
 
                         <div class="mb-4">
@@ -180,61 +178,62 @@ echo $_SESSION['add_vehicle_id'];
                 <div class="block block-rounded">
                     <div class="block-content">
                         <div class="mb-4">
-                            <label class="form-label" for="vehicle-price">Price ($)</label>
-                            <input type="number" class="form-control" id="vehicle-price" name="vehicle-price">
+                            <label class="form-label" for="license-plate">License Plate Number</label>
+                            <input type="text" class="form-control" id="license-plate" name="license-plate">
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label" for="fuel-consumption">Fuel Consumption (L/100km)</label>
+                            <input type="text" class="form-control" id="fuel-consumption" name="fuel-consumption">
                         </div>
 
                         <div class="mb-4">
-                            <label class="form-label" for="vehicle-price-sale">Sale Price ($)</label>
-                            <input type="number" class="form-control" id="vehicle-price-sale" name="vehicle-price-sale">
+                            <label class="form-label" for="transmission">Transmission</label>
+                            <select class="form-select" id="transmission" name="transmission">
+                                <option value="">Select transmission</option>
+                                <option value="Automatic">Automatic</option>
+                                <option value="Manual">Manual</option>
+                                <option value="Semi-Automatic">Semi-Automatic</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label" for="fuel-type">Fuel Type</label>
+                            <select class="form-select" id="fuel-type" name="fuel-type">
+                                <option value="">Select fuel type</option>
+                                <option value="Gasoline">Gasoline</option>
+                                <option value="Diesel">Diesel</option>
+                                <option value="Electric">Electric</option>
+                                <option value="Hybrid">Hybrid</option>
+                            </select>
                         </div>
 
+                        <div class="mb-4">
+                            <label class="form-label" for="mileage">Mileage (km)</label>
+                            <input type="number" class="form-control" id="mileage" name="mileage" step="0.1">
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label" for="year">Year</label>
+                            <input type="number" class="form-control" id="year" name="year" min="1900"
+                                max="<?= date('Y') + 1 ?>">
+                        </div>
                         <div class="d-flex justify-content-between align-items-center mb-4">
-                            <label class="form-label">Is featured?</label>
+                            <label class="form-label">Active?</label>
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="is-featured" name="is-featured">
-                                <label class="form-check-label" for="is-featured"></label>
+                                <input class="form-check-input" type="checkbox" id="is-active" name="is-active" checked>
+                                <label class="form-check-label" for="is-active"></label>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <label class="form-label">Status?</label>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="is-status" name="is-status" checked>
+                                <label class="form-check-label" for="is-status"></label>
                             </div>
                         </div>
 
+                        
                         <div class="mb-4">
-                            <label class="form-label" for="vehicle-slug">Slug</label>
-                            <input type="text" class="form-control" id="vehicle-slug" name="vehicle-slug">
-                        </div>
-
-                        <div class="mb-4">
-                            <label class="form-label" for="vehicle-label">Label</label>
-                            <select class="form-select" id="vehicle-label" name="vehicle-label">
-                                <option value="0">No label</option>
-                                <option value="1">New</option>
-                                <option value="2">Hot</option>
-                            </select>
-                        </div>
-
-                        <div class="mb-4">
-                            <label class="form-label" for="brand-id">Brand</label>
-                            <select class="form-select" id="brand-id" name="brand-id">
-                                <option value="">Select brand</option>
-                                @foreach (var brand in ViewBag.Brands)
-                                {
-                                <option value="@brand.Id">@brand.Name</option>
-                                }
-                            </select>
-                        </div>
-
-                        <div class="mb-4">
-                            <label class="form-label" for="category-id">Category</label>
-                            <select class="form-select" id="category-id" name="category-id">
-                                <option value="">Select category</option>
-                                @foreach (var category in ViewBag.Categories)
-                                {
-                                <option value="@category.Id">@category.Name</option>
-                                }
-                            </select>
-                        </div>
-
-                        <div class="mb-4">
-                            <button type="submit" class="btn btn-primary btn-hero" id="btn-save-vehicle">Save Vehicle
+                            <button type="submit" class="btn btn-primary btn-hero" id="btn-save-vehicle">Save
+                                Vehicle
                                 Detail</button>
                         </div>
                     </div>
@@ -264,35 +263,12 @@ echo $_SESSION['add_vehicle_id'];
                             <label class="form-label" for="color-id">Color</label>
                             <select class="js-select2 form-select" id="color-id" name="color-id" style="width: 100%;"
                                 data-container="#modal-image" data-placeholder="Choose one..">
-                                <option></option>
-                                @foreach (var color in ViewBag.Colors)
-                                {
-                                <option value="@color.Id">@color.Name</option>
-                                }
+                                <option value="">Select color</option>
+                                <?php foreach ($data['Colors'] as $color): ?>
+                                    <option value="<?= $color['ColorID'] ?>"><?= $color['ColorName'] ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
-                        <div class="mb-4">
-                            <label class="form-label" for="size-id">Size</label>
-                            <select class="js-select2 form-select" id="size-id" name="size-id" style="width: 100%;"
-                                data-placeholder="Choose many.." data-container="#modal-image" multiple>
-                                <option></option>
-                                @foreach (var size in ViewBag.Sizes)
-                                {
-                                <option value="@size.Id">@size.Name</option>
-                                }
-                            </select>
-                        </div>
-                        <!-- <div class="mb-4">
-                            <label class="form-label" for="upload-image">Images</label>
-                            <div class="upload-image-container">
-                                <input type="file" id="upload-image" name="upload-image" class="upload-image-input" hidden multiple />
-                                <div class="no-image">
-                                    <p>Select files to upload</p>
-                                </div>
-                                <div class="has-image">
-                                </div>
-                            </div>
-                        </div> -->
                         <div class="mb-4">
                             <label class="form-label">Images</label>
                             <div class="upload-image-container">
@@ -323,26 +299,27 @@ echo $_SESSION['add_vehicle_id'];
 </div>
 <!-- END Page Content -->
 <style>
-   .upload-image-container {
+    .upload-image-container {
         border: 2px dashed #ddd;
         border-radius: 8px;
         padding: 15px;
         background: #f9f9f9;
     }
-    
+
     .preview-list {
         display: flex;
         flex-direction: column;
         gap: 15px;
     }
-    
-    .upload-box, .preview-item {
+
+    .upload-box,
+    .preview-item {
         width: 100%;
         min-height: 60px;
         border-radius: 8px;
         position: relative;
     }
-    
+
     .upload-box {
         border: 2px dashed #ccc;
         display: flex;
@@ -352,12 +329,12 @@ echo $_SESSION['add_vehicle_id'];
         transition: all 0.3s;
         padding: 15px;
     }
-    
+
     .upload-box:hover {
         border-color: #999;
         background: #f0f0f0;
     }
-    
+
     .upload-label {
         display: flex;
         flex-direction: column;
@@ -366,12 +343,12 @@ echo $_SESSION['add_vehicle_id'];
         cursor: pointer;
         text-align: center;
     }
-    
+
     .upload-label i {
         font-size: 24px;
         margin-bottom: 8px;
     }
-    
+
     .preview-item {
         border: 1px solid #eee;
         background: #fff;
@@ -380,32 +357,33 @@ echo $_SESSION['add_vehicle_id'];
         align-items: center;
         justify-content: space-between;
     }
-    
+
     .image-info {
         display: flex;
         align-items: center;
         gap: 10px;
         flex-grow: 1;
     }
-    
+
     .image-preview {
         width: 50px;
         height: 50px;
         object-fit: cover;
         border-radius: 4px;
     }
-    
+
     .image-name {
         font-size: 14px;
         word-break: break-all;
     }
-    
+
     .action-buttons {
         display: flex;
         gap: 10px;
     }
-    
-    .add-btn, .delete-btn {
+
+    .add-btn,
+    .delete-btn {
         padding: 5px 10px;
         border-radius: 4px;
         font-size: 12px;
@@ -414,13 +392,13 @@ echo $_SESSION['add_vehicle_id'];
         align-items: center;
         gap: 5px;
     }
-    
+
     .add-btn {
         background: #4CAF50;
         color: white;
         border: none;
     }
-    
+
     .delete-btn {
         background: #f44336;
         color: white;

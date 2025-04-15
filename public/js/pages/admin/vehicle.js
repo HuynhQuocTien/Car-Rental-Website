@@ -394,7 +394,7 @@ $(document).on("click", ".js-delete-vehicle", function () {
   }
 });
 
-$(document).on("click", ".js-add-detail", function () {
+$(document).on("click", ".js-detail-vehicle", function () {
     var vehicleId = $(this).data("id");
     // console.log(vehicleId);
     $.ajax({

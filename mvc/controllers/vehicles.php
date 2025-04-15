@@ -64,7 +64,7 @@ class Vehicles extends Controller {
 
             $this->view("main_layout", [
                 "Title"=>"Add Vehicles",
-                "Script"=> "vehicle",
+                "Script"=> "addvehicles",
                 "Page"=>"/pages/vehicles/addvehicles",
                 "Vehicle"=>$this->vehicleModel->getById($vehicleId),
                 "Colors"=>$this->colorModel->getAll(),
