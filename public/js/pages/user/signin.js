@@ -35,7 +35,7 @@ Dashmix.onLoad(() =>
     if ($(".js-validation-signin").valid()) {
       $.ajax({
         type: "POST",
-        url:  BaseUrl + "auth/checkLogin", //locahost/user/auth/checkLogin
+        url:  BaseUrl + "auth/checkLogin",
         data: {
           username: $("#login-username").val(),
           password: $("#login-password").val(),
@@ -51,6 +51,12 @@ Dashmix.onLoad(() =>
               message: `Thành công`,
               z_index: 9999
             });
+            $('#authModal').modal('hide');
+            $('#authModal').find('form').trigger('reset');
+            setTimeout(function () {
+              location.reload();
+            }, 500);
+            
           } else {
             Dashmix.helpers("jq-notify", {
               type: "danger",

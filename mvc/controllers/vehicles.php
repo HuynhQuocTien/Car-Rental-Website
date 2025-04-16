@@ -54,6 +54,7 @@ class Vehicles extends Controller {
         } else {
             $this->view("main_layout", [
                 "Title"=>"Vehicles",
+                "Script"=> "vehicle",
                 "Page"=>"vehicles",
             ],
             "user");

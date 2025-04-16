@@ -233,5 +233,18 @@ class Auth extends Controller
         }
     }
 
+    public function logout()
+    {
+        AuthCore::checkAuthentication();
+        
+        $username = $_SESSION['Username'];
+        $result = $this->accountModel->updateToken($username, NULL);
+        if ($result) {
+            session_destroy();
+            setcookie("token", "", time() - 10, '/');
+            header("Location: ../home");
+        }
+    }
+
 }
 ?>

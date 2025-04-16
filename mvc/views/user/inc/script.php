@@ -7,6 +7,7 @@
   
   <script src="../public/js/plugins/bootstrap-notify/bootstrap-notify.js"></script>
   <script src="../public/js/plugins/sweetalert2/sweetalert2.min.js"></script>
+  <script src=" <?= BASE_URL ?>/public/js/pages/pagination.js"></script>
   <!-- <script src="../public/js/plugins/datatables-bs5/js/dataTables.bootstrap5.min.js"></script> -->
 
   <!-- Page JS Helpers (BS Datepicker plugin) -->
@@ -15,5 +16,10 @@ Dashmix.helpersOnLoad(['jq-datepicker', 'jq-rangeslider', 'jq-slick']);
   </script>
   
   <script src="../public/js/pages/user/auth.js"></script>
+<?php
+    if(isset($data["Script"])) {
+        echo '<script src="' .BASE_URL.'/public/js/pages/user/'.$data["Script"].'.js"></script>';
+    }
+?>
   
  

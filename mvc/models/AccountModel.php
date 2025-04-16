@@ -114,7 +114,7 @@ class AccountModel extends Database
     }
     public function validateToken($token)
     {
-        $sql = "SELECT * FROM `Accounts` WHERE `Token` = '$token'";
+        $sql = "SELECT *  FROM `Accounts` WHERE `Token` = '$token'";
         $result = mysqli_query($this->con, $sql);
         if (mysqli_num_rows($result) > 0) {
             $row = mysqli_fetch_assoc($result);
@@ -122,6 +122,7 @@ class AccountModel extends Database
             $_SESSION['Username'] = $row['Username'];
             $_SESSION['Email'] = $row['Email'];
             $_SESSION['ProfilePicture'] = $row['ProfilePicture'];
+            $_SESSION['RoleID'] = $row['RoleID'];
             $_SESSION['Role'] = $this->getRole($row['RoleID']);
             return true;
         }
