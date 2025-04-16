@@ -114,13 +114,23 @@ class AccountModel extends Database
     }
     public function validateToken($token)
     {
-        $sql = "SELECT *  FROM `Accounts` WHERE `Token` = '$token'";
+        $sql = "SELECT 
+        a.*,
+        u.FullName AS UserFullName,
+        c.FullName AS CustomerFullName
+        FROM `Accounts` a
+        LEFT JOIN `Users` u ON a.AccountID = u.AccountID
+        LEFT JOIN `Customers` c ON a.AccountID = c.AccountID
+        WHERE a.Token = '$token' AND a.Is_Delete = 0";
         $result = mysqli_query($this->con, $sql);
         if (mysqli_num_rows($result) > 0) {
             $row = mysqli_fetch_assoc($result);
             $_SESSION['AccountID'] = $row['AccountID'];
             $_SESSION['Username'] = $row['Username'];
             $_SESSION['Email'] = $row['Email'];
+            $_SESSION['FullName'] = !empty($row['UserFullName']) 
+                                        ? $row['UserFullName'] 
+                                        : $row['CustomerFullName'];
             $_SESSION['ProfilePicture'] = $row['ProfilePicture'];
             $_SESSION['RoleID'] = $row['RoleID'];
             $_SESSION['Role'] = $this->getRole($row['RoleID']);

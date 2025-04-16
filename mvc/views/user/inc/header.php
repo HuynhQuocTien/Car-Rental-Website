@@ -281,8 +281,8 @@
                echo '<div class="dropdown d-inline-block">
                 <button type="button" class="btn btn-alt-secondary dropdown-toggle" id="page-header-user-dropdown"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="img-avatar img-avatar32 img-avatar-thumb" src="https://res.cloudinary.com/dapudsvwl/image/upload/v1744791892/vsiyugvt3hge2stnysgw.jpg" alt="">
-                    <span class="d-none d-sm-inline ms-1">Jessica</span>
+                    <img class="img-avatar img-avatar32 img-avatar-thumb" src="'. $avatar .'" alt="">
+                    <span class="d-none d-sm-inline ms-1">'.$_SESSION['FullName'].'</span>
                     <span class="badge rounded-pill bg-warning ms-1">.genius</span>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg p-0"
@@ -293,7 +293,7 @@
                             <img class="img-avatar img-avatar-thumb" src="'.$avatar.'" alt="">
                         </div>
                         <div class="p-3 bg-black-75">
-                            <a class="text-white fw-semibold" href="">'. $_SESSION['Username'] .'</a>
+                            <a class="text-white fw-semibold" href="">'. $_SESSION['FullName'] .'</a>
                             <div class="text-white-75">'.$_SESSION['Email'].'</div>
                         </div>
                     </div>
