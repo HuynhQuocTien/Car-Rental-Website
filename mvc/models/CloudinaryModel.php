@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . 'vendor/autoload.php';
+require_once 'vendor/autoload.php';
 
 use Dotenv\Dotenv;
 use Cloudinary\Cloudinary;
@@ -8,7 +8,7 @@ class CloudinaryModel extends Database{
     private $cloudinary;
 
     public function __construct() {
-        $dotenv = Dotenv::createImmutable(__DIR__);
+        $dotenv = Dotenv::createImmutable(__DIR__ . '/../..');
         $dotenv->load();
         $this->cloudinary = new Cloudinary([
             'cloud' => [

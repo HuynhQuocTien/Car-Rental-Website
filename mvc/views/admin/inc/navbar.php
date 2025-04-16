@@ -2,12 +2,12 @@
       <!-- Side Overlay-->
       <aside id="side-overlay">
         <!-- Side Header -->
-        <div class="bg-image" style="background-image: url('assets/media/various/bg_side_overlay_header.jpg');">
+        <div class="bg-image" style="background-image: url('');">
           <div class="bg-primary-op">
             <div class="content-header">
               <!-- User Avatar -->
               <a class="img-link me-1" href="be_pages_generic_profile.html">
-                <img class="img-avatar img-avatar48" src="../public/media/avatars/avatar10.jpg" alt="">
+                <img class="img-avatar img-avatar48" src="" alt="">
               </a>
               <!-- END User Avatar -->
 
@@ -193,7 +193,7 @@
                       <li>
                         <a class="d-flex py-2" href="be_pages_generic_profile.html">
                           <div class="flex-shrink-0 mx-3 overlay-container">
-                            <img class="img-avatar img-avatar48" src="assets/media/avatars/avatar1.jpg" alt="">
+                            <img class="img-avatar img-avatar48" src="" alt="">
                             <span class="overlay-item item item-tiny item-circle border border-2 border-white bg-success"></span>
                           </div>
                           <div class="flex-grow-1">
@@ -205,7 +205,7 @@
                       <li>
                         <a class="d-flex py-2" href="be_pages_generic_profile.html">
                           <div class="flex-shrink-0 mx-3 overlay-container">
-                            <img class="img-avatar img-avatar48" src="assets/media/avatars/avatar14.jpg" alt="">
+                            <img class="img-avatar img-avatar48" src="" alt="">
                             <span class="overlay-item item item-tiny item-circle border border-2 border-white bg-success"></span>
                           </div>
                           <div class="flex-grow-1">
@@ -217,7 +217,7 @@
                       <li>
                         <a class="d-flex py-2" href="be_pages_generic_profile.html">
                           <div class="flex-shrink-0 mx-3 overlay-container">
-                            <img class="img-avatar img-avatar48" src="assets/media/avatars/avatar4.jpg" alt="">
+                            <img class="img-avatar img-avatar48" src="" alt="">
                             <span class="overlay-item item item-tiny item-circle border border-2 border-white bg-success"></span>
                           </div>
                           <div class="flex-grow-1">
@@ -239,7 +239,7 @@
                       <li>
                         <a class="d-flex py-2" href="be_pages_generic_profile.html">
                           <div class="flex-shrink-0 mx-3 overlay-container">
-                            <img class="img-avatar img-avatar48" src="assets/media/avatars/avatar7.jpg" alt="">
+                            <img class="img-avatar img-avatar48" src="" alt="">
                             <span class="overlay-item item item-tiny item-circle border border-2 border-white bg-danger"></span>
                           </div>
                           <div class="flex-grow-1">
@@ -261,7 +261,7 @@
                       <li>
                         <a class="d-flex py-2" href="be_pages_generic_profile.html">
                           <div class="flex-shrink-0 mx-3 overlay-container">
-                            <img class="img-avatar img-avatar48" src="assets/media/avatars/avatar9.jpg" alt="">
+                            <img class="img-avatar img-avatar48" src="" alt="">
                             <span class="overlay-item item item-tiny item-circle border border-2 border-white bg-warning"></span>
                           </div>
                           <div class="flex-grow-1">
@@ -273,7 +273,7 @@
                       <li>
                         <a class="d-flex py-2" href="be_pages_generic_profile.html">
                           <div class="flex-shrink-0 mx-3 overlay-container">
-                            <img class="img-avatar img-avatar48" src="assets/media/avatars/avatar8.jpg" alt="">
+                            <img class="img-avatar img-avatar48" src="" alt="">
                             <span class="overlay-item item item-tiny item-circle border border-2 border-white bg-warning"></span>
                           </div>
                           <div class="flex-grow-1">
@@ -295,7 +295,7 @@
                       <li>
                         <a class="d-flex py-2" href="be_pages_generic_profile.html">
                           <div class="flex-shrink-0 mx-3 overlay-container">
-                            <img class="img-avatar img-avatar48" src="assets/media/avatars/avatar10.jpg" alt="">
+                            <img class="img-avatar img-avatar48" src="" alt="">
                             <span class="overlay-item item item-tiny item-circle border border-2 border-white bg-muted"></span>
                           </div>
                           <div class="flex-grow-1">
@@ -307,7 +307,7 @@
                       <li>
                         <a class="d-flex py-2" href="be_pages_generic_profile.html">
                           <div class="flex-shrink-0 mx-3 overlay-container">
-                            <img class="img-avatar img-avatar48" src="assets/media/avatars/avatar6.jpg" alt="">
+                            <img class="img-avatar img-avatar48" src="" alt="">
                             <span class="overlay-item item item-tiny item-circle border border-2 border-white bg-muted"></span>
                           </div>
                           <div class="flex-grow-1">
@@ -319,7 +319,7 @@
                       <li>
                         <a class="d-flex py-2" href="be_pages_generic_profile.html">
                           <div class="flex-shrink-0 mx-3 overlay-container">
-                            <img class="img-avatar img-avatar48" src="assets/media/avatars/avatar1.jpg" alt="">
+                            <img class="img-avatar img-avatar48" src="" alt="">
                             <span class="overlay-item item item-tiny item-circle border border-2 border-white bg-muted"></span>
                           </div>
                           <div class="flex-grow-1">
@@ -331,7 +331,7 @@
                       <li>
                         <a class="d-flex py-2" href="be_pages_generic_profile.html">
                           <div class="flex-shrink-0 mx-3 overlay-container">
-                            <img class="img-avatar img-avatar48" src="assets/media/avatars/avatar14.jpg" alt="">
+                            <img class="img-avatar img-avatar48" src="" alt="">
                             <span class="overlay-item item item-tiny item-circle border border-2 border-white bg-muted"></span>
                           </div>
                           <div class="flex-grow-1">

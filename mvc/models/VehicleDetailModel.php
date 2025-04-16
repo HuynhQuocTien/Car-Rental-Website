@@ -46,38 +46,49 @@ class VehicleDetailModel extends Database {
     public function create($data)
     {
         $valid = true;
+    
         $sql = "INSERT INTO VehicleDetails (
                     VehicleID, ColorID, LicensePlateNumber, Mileage,
-                    Year, Transmission, FuelType, FuelConsumption,
-                    Status, Is_Delete
+                    Year, Transmission, FuelType, HourlyPrice,
+                    DailyPrice, WeeklyPrice, MonthlyPrice, FuelConsumption,
+                    Active, Is_Delete
                 ) VALUES (
-                    '{$data['vehicleID']}', '{$data['colorID']}', '{$data['licensePlateNumber']}', '{$data['mileage']}',
-                    '{$data['year']}', '{$data['transmission']}', '{$data['fuelType']}', '{$data['fuelConsumption']}',
-                    '{$data['status']}', 0
+                    '{$data['VehicleID']}', '{$data['ColorID']}', '{$data['LicensePlateNumber']}', '{$data['Mileage']}',
+                    '{$data['Year']}', '{$data['Transmission']}', '{$data['FuelType']}', '{$data['HourlyPrice']}',
+                    '{$data['DailyPrice']}', '{$data['WeeklyPrice']}', '{$data['MonthlyPrice']}', '{$data['FuelConsumption']}',
+                    '{$data['Active']}', 0
                 )";
+    
         $result = mysqli_query($this->con, $sql);
         if (!$result) $valid = false;
         return $valid;
     }
-
+    
     public function update($vehicleDetailID, $data)
     {
         $valid = true;
+    
         $sql = "UPDATE VehicleDetails SET 
-                    VehicleID = '{$data['vehicleID']}',
-                    ColorID = '{$data['colorID']}',
-                    LicensePlateNumber = '{$data['licensePlateNumber']}',
-                    Mileage = '{$data['mileage']}',
-                    Year = '{$data['year']}',
-                    Transmission = '{$data['transmission']}',
-                    FuelType = '{$data['fuelType']}',
-                    FuelConsumption = '{$data['fuelConsumption']}',
-                    Status = '{$data['status']}'
+                    VehicleID = '{$data['VehicleID']}',
+                    ColorID = '{$data['ColorID']}',
+                    LicensePlateNumber = '{$data['LicensePlateNumber']}',
+                    Mileage = '{$data['Mileage']}',
+                    Year = '{$data['Year']}',
+                    Transmission = '{$data['Transmission']}',
+                    FuelType = '{$data['FuelType']}',
+                    HourlyPrice = '{$data['HourlyPrice']}',
+                    DailyPrice = '{$data['DailyPrice']}',
+                    WeeklyPrice = '{$data['WeeklyPrice']}',
+                    MonthlyPrice = '{$data['MonthlyPrice']}',
+                    FuelConsumption = '{$data['FuelConsumption']}',
+                    Active = '{$data['Active']}'
                 WHERE VehicleDetailID = '$vehicleDetailID'";
+    
         $result = mysqli_query($this->con, $sql);
         if (!$result) $valid = false;
         return $valid;
     }
+    
 
     public function delete($id)
     {
@@ -113,5 +124,65 @@ class VehicleDetailModel extends Database {
         $query .= " ORDER BY vd.VehicleDetailID ASC";
         return $query;
     }
+    public function getIDMax()
+    {
+        $sql = "SELECT MAX(VehicleDetailID) AS MaxID FROM VehicleDetails";
+        $result = mysqli_query($this->con, $sql);
+        
+        if (!$result) {
+            // Ghi log lỗi nếu cần
+            error_log("Database error: " . mysqli_error($this->con));
+            return false; // hoặc return 0 tùy logic ứng dụng
+        }
+        
+        if (mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_assoc($result);
+            return (int)$row['MaxID']; // Ép kiểu về integer
+        }
+        
+        return 0; // Trả về 0 nếu bảng rỗng
+    }
+    public function checkLicensePlateNumber($licensePlateNumber, $excludeId = null)
+{
+    // Chuẩn hóa đầu vào (loại bỏ khoảng trắng thừa và chuyển đổi thành chữ hoa/thường nếu cần)
+    $licensePlateNumber = trim($licensePlateNumber);
+    
+    // Tạo câu truy vấn kiểm tra
+    $sql = "SELECT COUNT(*) AS count 
+            FROM VehicleDetails 
+            WHERE LicensePlateNumber = ? AND Is_Delete = 0";
+    
+    // Nếu có ID cần loại trừ (trường hợp update)
+    if ($excludeId !== null) {
+        $sql .= " AND VehicleDetailID != ?";
+    }
+    
+    // Sử dụng prepared statement để tránh SQL injection
+    $stmt = mysqli_prepare($this->con, $sql);
+    if (!$stmt) {
+        return false; // hoặc throw exception tùy theo thiết kế hệ thống
+    }
+    
+    // Bind parameters
+    if ($excludeId !== null) {
+        mysqli_stmt_bind_param($stmt, "si", $licensePlateNumber, $excludeId);
+    } else {
+        mysqli_stmt_bind_param($stmt, "s", $licensePlateNumber);
+    }
+    
+    // Thực thi truy vấn
+    if (!mysqli_stmt_execute($stmt)) {
+        mysqli_stmt_close($stmt);
+        return false; // hoặc throw exception
+    }
+    
+    // Lấy kết quả
+    $result = mysqli_stmt_get_result($stmt);
+    $row = mysqli_fetch_assoc($result);
+    mysqli_stmt_close($stmt);
+    
+    return $row['count'] == 0; // Trả về true nếu biển số chưa tồn tại, false nếu đã tồn tại
+}
+    
 }
 ?>

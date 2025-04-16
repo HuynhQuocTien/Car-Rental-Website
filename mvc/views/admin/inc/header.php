@@ -30,13 +30,13 @@
               </button>
               <div class="dropdown-menu dropdown-menu-end p-0" aria-labelledby="page-header-user-dropdown">
                 <div class="bg-primary-dark rounded-top fw-semibold text-white text-center p-3">
-                  <img class="img-avatar img-avatar48 img-avatar-thumb" src="../public/media/avatars/avatar10.jpg" alt="">
+                  <img class="img-avatar img-avatar48 img-avatar-thumb" src="" alt="">
                   <div class="pt-2">
-                    <a class="text-white fw-semibold" href="be_pages_generic_profile.html">George Taylor</a>
+                    <a class="text-white fw-semibold" href="">George Taylor</a>
                   </div>
                 </div>
                 <div class="p-2">
-                  <a class="dropdown-item" href="be_pages_generic_profile.html">
+                  <a class="dropdown-item" href="">
                     <i class="far fa-fw fa-user me-1"></i> Profile
                   </a>
                   <a class="dropdown-item d-flex align-items-center justify-content-between" href="be_pages_generic_inbox.html">
