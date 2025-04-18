@@ -39,6 +39,7 @@ CREATE TABLE `VehicleDetails` (
 CREATE TABLE `VehicleImages` (
 	`ImageID` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
 	`VehicleDetailID` INTEGER COMMENT 'Mã chi tiết xe liên kết Vehicles',
+	'VehicleID' INTEGER COMMENT 'Mã xe liên kết Vehicles',
 	`ImageURL` VARCHAR(255) COMMENT 'Đường dẫn ảnh',
 	`IsPrimary` INTEGER COMMENT 'Ảnh chính',
 	PRIMARY KEY(`ImageID`)
@@ -381,6 +382,9 @@ ADD FOREIGN KEY(`VehicleID`) REFERENCES `Vehicles`(`VehicleID`)
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE `VehicleImages`
 ADD FOREIGN KEY(`VehicleDetailID`) REFERENCES `VehicleDetails`(`VehicleDetailID`)
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE `VehicleImages`
+ADD FOREIGN KEY(`VehicleID`) REFERENCES `Vehicles`(`VehicleID`)
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE `VehicleDetails`
 ADD FOREIGN KEY(`ColorID`) REFERENCES `Colors`(`ColorID`)

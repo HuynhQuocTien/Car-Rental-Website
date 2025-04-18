@@ -425,8 +425,8 @@ vehiclePagination.option.model = "VehicleModel";
 vehiclePagination.option.limit = 10;
 vehiclePagination.option.filter = {};
 vehiclePagination.getPagination(
-  vehiclePagination.option,
-  vehiclePagination.valuePage.curPage
+vehiclePagination.option,
+vehiclePagination.valuePage.curPage
 );
 
 // Event listeners for price calculations

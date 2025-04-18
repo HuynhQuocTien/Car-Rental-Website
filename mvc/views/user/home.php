@@ -49,36 +49,22 @@
     <div class="container">
         <h2 class="text-center mb-5">Khám phá các dòng xe của chúng tôi</h2>
         <div class="row">
+        <?php foreach($data['FeatureVehicles'] as $vehicle): ?>
             <div class="col-md-4 mb-4">
                 <div class="card h-100">
-                    <img src="../public/media/photos/car1.jpg" class="card-img-top" alt="Car 1">
+                    <img src="<?= $vehicle['ImageURL'] ?>" class="card-img-top" alt="<?= $vehicle['MakeName']. ' ' .$vehicle['ModelName'] ?>">
                     <div class="card-body">
-                        <h5 class="card-title">Mercedes-Benz S-Class</h5>
-                        <p class="card-text">Giá từ: <strong>2,000,000 VNĐ/ngày</strong></p>
-                        <a href="#" class="btn btn-primary">Xem chi tiết</a>
+                        <h5 class="card-title"><?= $vehicle['MakeName']. ' ' .$vehicle['ModelName'] ?></h5>
+                        <p class="card-text">Price per day: <?= $vehicle['DailyPrice'] ?> $/Day</p>
+                        <p class="card-text">Seat Number: <?= $vehicle['Seats'] ?></p>
+                        <p class="card-text">Type: <?= $vehicle['NameType'] ?></p>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card h-100">
-                    <img src="../public/media/photos/car2.jpg" class="card-img-top" alt="Car 2">
-                    <div class="card-body">
-                        <h5 class="card-title">BMW X5</h5>
-                        <p class="card-text">Giá từ: <strong>1,800,000 VNĐ/ngày</strong></p>
-                        <a href="#" class="btn btn-primary">Xem chi tiết</a>
+                    <div class="card-footer text-center">
+                        <a href="#" class="btn btn-primary">View Detail</a>
                     </div>
-                </div>
+                </div>    
             </div>
-            <div class="col-md-4 mb-4">
-                <div class="card h-100">
-                    <img src="../public/media/photos/car3.jpg" class="card-img-top" alt="Car 3">
-                    <div class="card-body">
-                        <h5 class="card-title">Audi A8</h5>
-                        <p class="card-text">Giá từ: <strong>1,900,000 VNĐ/ngày</strong></p>
-                        <a href="#" class="btn btn-primary">Xem chi tiết</a>
-                    </div>
-                </div>
-            </div>
+        <?php endforeach; ?>
         </div>
     </div>
 </section>
