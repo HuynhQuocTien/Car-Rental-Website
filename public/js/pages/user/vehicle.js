@@ -16,7 +16,7 @@ const renderData = function (vehicles) {
                     </a>
                 </div>
                 <div class="block-content">
-                    <h4 class="h6 mb-2">${vehicle.MakeName} ${vehicle.ModelName}</h4>
+                    <h4 class="h6 mb-2">${vehicle.MakeName} ${vehicle.ModelName}  ${vehicle.Year}</h4>
                     <h5 class="h2 fw-light push">
                         $${vehicle.DailyPrice} <span class="fs-3 text-muted">per day</span>
                     </h5>
@@ -68,6 +68,90 @@ const renderData = function (vehicles) {
 
     $("#list-vehicles").html(html);
 };
+
+$('input[name="vehicle-type"]').change(function () {
+    // Bỏ active cũ
+    $('input[name="vehicle-type"]').closest('.form-check').removeClass('active');
+    // Thêm active mới
+    $(this).closest('.form-check').addClass('active');
+    
+    let vehicleTypeID = +$(this).val();
+    if (vehicleTypeID === 0) {
+        delete vehiclePagination.option.filter.vehicleType;
+    } else {
+        vehiclePagination.option.filter.vehicleType = vehicleTypeID;
+    }
+
+    vehiclePagination.getPagination(
+        vehiclePagination.option,
+        vehiclePagination.valuePage.curPage
+    );
+});
+
+$('#db-travel-price').ionRangeSlider({
+    type: 'double',
+    min: 0,
+    max: 1000,
+    from: 0,
+    to: 1000,
+    prefix: '$',
+    onFinish: function (data) {
+      // Cập nhật filter
+      vehiclePagination.option.filter.price = {
+        from: data.from,
+        to: data.to
+      };
+      vehiclePagination.getPagination(
+        vehiclePagination.option,
+        vehiclePagination.valuePage.curPage
+      );
+    }
+  });
+
+  $('#vehicle-seats').change(function () {
+    const seats = $(this).val();
+  
+    if (!seats) {
+      delete vehiclePagination.option.filter.seats;
+    } else {
+      vehiclePagination.option.filter.seats = +seats;
+    }
+  
+    vehiclePagination.getPagination(
+      vehiclePagination.option,
+      vehiclePagination.valuePage.curPage
+    );
+  });
+
+  $('#vehicle-fuel').change(function () {
+    const fuel = $(this).val();
+  
+    if (!fuel) {
+      delete vehiclePagination.option.filter.fuel;
+    } else {
+      vehiclePagination.option.filter.fuel = fuel;
+    }
+  
+    vehiclePagination.getPagination(
+      vehiclePagination.option,
+      vehiclePagination.valuePage.curPage
+    );
+  });
+  $('#vehicle-transmission').change(function () {
+    const transmission = $(this).val();
+  
+    if (!transmission) {
+      delete vehiclePagination.option.filter.transmission;
+    } else {
+      vehiclePagination.option.filter.transmission = transmission;
+    }
+  
+    vehiclePagination.getPagination(
+      vehiclePagination.option,
+      vehiclePagination.valuePage.curPage
+    );
+  });
+    
 
 // Initialize pagination for vehicles
 const vehiclePagination = new Pagination();

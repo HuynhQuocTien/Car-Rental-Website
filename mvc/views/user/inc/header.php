@@ -350,14 +350,13 @@
     <!-- Header Search -->
     <div id="page-header-search" class="overlay-header bg-header-dark">
         <div class="content-header">
-            <form class="w-100" action="be_pages_generic_search.html" method="POST">
+            <form class="w-100" onsubmit="return false;" id="search-form">
                 <div class="input-group">
-                    <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
                     <button type="button" class="btn btn-primary" data-toggle="layout" data-action="header_search_off">
                         <i class="fa fa-fw fa-times-circle"></i>
                     </button>
-                    <input type="text" class="form-control" placeholder="Search..." id="page-header-search-input"
-                        name="page-header-search-input">
+                    <input type="text" class="form-control" placeholder="Search..." id="search-input"
+                        name="search-input" data-id="page-header-search-input">
                 </div>
             </form>
         </div>

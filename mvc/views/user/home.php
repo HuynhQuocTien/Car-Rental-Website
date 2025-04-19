@@ -52,9 +52,9 @@
         <?php foreach($data['FeatureVehicles'] as $vehicle): ?>
             <div class="col-md-4 mb-4">
                 <div class="card h-100">
-                    <img src="<?= $vehicle['ImageURL'] ?>" class="card-img-top" alt="<?= $vehicle['MakeName']. ' ' .$vehicle['ModelName'] ?>">
+                    <img src="https://res.cloudinary.com/dapudsvwl/image/upload/v1745000059/dvgjjnwwutuqdrqnpatz.jpg" class="card-img-top" alt="<?= $vehicle['MakeName']. ' ' .$vehicle['ModelName'] ?>">
                     <div class="card-body">
-                        <h5 class="card-title"><?= $vehicle['MakeName']. ' ' .$vehicle['ModelName'] ?></h5>
+                        <h5 class="card-title"><?= $vehicle['MakeName']. ' ' .$vehicle['ModelName'] . ' ' . $vehicle['Year'] ?></h5>
                         <p class="card-text">Price per day: <?= $vehicle['DailyPrice'] ?> $/Day</p>
                         <p class="card-text">Seat Number: <?= $vehicle['Seats'] ?></p>
                         <p class="card-text">Type: <?= $vehicle['NameType'] ?></p>

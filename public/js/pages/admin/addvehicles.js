@@ -190,6 +190,7 @@ $(document).ready(function () {
     formData.append("license-plate", $("#license-plate").val());
     formData.append("color-id", $("#color-id").val());
     formData.append("mileage", $("#mileage").val());
+    formData.append("feature", $("#feature").is(":checked") ? 1 : 0);
     formData.append("is-active", $("#is-active").is(":checked") ? 1 : 0);
 
     const primaryIndex = $('input[name="default-image"]:checked')

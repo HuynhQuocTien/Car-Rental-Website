@@ -110,9 +110,11 @@
                         </div>
                         <div class="col-md-6">
                             <label for="promotionID" class="form-label">Promotion ID</label>
-                            <select class="form-select" id="promotionID" name="promotionID" required style="width: 100%;">
+                            <select class="form-select" id="promotionID" name="promotionID" required
+                                style="width: 100%;">
                                 <option value="0" selected>0 - No Promotion </option>
-                            </select>                        </div>
+                            </select>
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="description" class="form-label">Description</label>
@@ -123,11 +125,6 @@
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="active" checked>
                             <label class="form-check-label" for="active"></label>
-                        </div>
-                        <label for="feature" class="form-label ms-md-3">Feature</label>
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="feature">
-                            <label class="form-check-label" for="feature"></label>
                         </div>
                     </div>
                 </form>
@@ -162,10 +159,13 @@
             </div>
         </div>
         <div class="block-content">
-            <div class="mb-1">
-                <input type="text" class="form-control form-control-alt" id="vehicle-query" name="vehicle-query"
-                    placeholder="Search all vehicles..">
-            </div>
+            <!-- <form action="" id="search-form">
+                <div class="mb-1">
+                    <input type="text" class="form-control form-control-alt" id="search-input" name="search-input"
+                        placeholder="Search all vehicles..">
+                </div>
+            </form> -->
+
             <div class="row filters_listing_1">
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="dropdown">

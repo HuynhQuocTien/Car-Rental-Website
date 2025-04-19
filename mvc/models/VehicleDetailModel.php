@@ -133,7 +133,7 @@ class VehicleDetailModel extends Database {
         return $rows;
     }
 
-    public function getQuery($input = null, $filter = [], $lastURL = 'VehicleDetails')
+    public function getQuery( $filter,$input, $lastURL = 'VehicleDetails')
     {
         $query = "SELECT v.VehicleID, v.Quantity,v.PromotionID,v.Active,v.Seats,
          m.MakeName,mo.ModelName, vt.NameType ,
@@ -145,8 +145,44 @@ class VehicleDetailModel extends Database {
                     LEFT JOIN VehicleTypes vt ON v.VehicleTypesID = vt.VehicleTypesID
                     LEFT JOIN Colors c ON vd.ColorID = c.ColorID
                     LEFT JOIN VehicleImages vi ON vd.VehicleDetailID = vi.VehicleDetailID
-                  WHERE vd.Is_Delete = 0";
+                  WHERE vd.Is_Delete = 0 ";
+        if ($input) {
+            $query = $query. " AND (m.MakeName LIKE '%{$input}%' OR 
+                            mo.ModelName LIKE '%{$input}%' OR 
+                            vd.Year LIKE '%{$input}%')";
+        }
+        if(isset($filter) && !empty($filter)) {
+            // Vehicle Type
+            if (!empty($filter['vehicleType'])) {
+                $vehicleType = intval($filter['vehicleType']);
+                $query .= " AND v.VehicleTypesID = '{$vehicleType}'";
+            }
 
+            // Price Range (giá nằm trong VehicleDetails.Price)
+            if (!empty($filter['price']['from']) || !empty($filter['price']['to'])) {
+                $from = isset($filter['price']['from']) ? floatval($filter['price']['from']) : 0;
+                $to = isset($filter['price']['to']) ? floatval($filter['price']['to']) : 1000000;
+                $query .= " AND vd.DailyPrice BETWEEN {$from} AND {$to}";
+            }
+
+            // Seats
+            if (!empty($filter['seats'])) {
+                $seats = intval($filter['seats']);
+                $query .= " AND v.Seats = {$seats}";
+            }
+
+            // Fuel Type
+            if (!empty($filter['fuel'])) {
+                $fuel = addslashes($filter['fuel']);
+                $query .= " AND vd.FuelType = '{$fuel}'";
+            }
+
+            // Transmission
+            if (!empty($filter['transmission'])) {
+                $trans = addslashes($filter['transmission']);
+                $query .= " AND vd.Transmission = '{$trans}'";
+            }
+        }
         $query .= " ORDER BY vd.VehicleDetailID ASC";
         return $query;
     }

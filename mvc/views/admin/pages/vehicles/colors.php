@@ -56,7 +56,7 @@
                 </a>
             </div>
         </div>
-        <div class="block block-rounded pb-2">
+        <!-- <div class="block block-rounded pb-2">
             <div class="block-content bg-body-light">
             <form action="#" id="search-form" onsubmit="return false;">
                 <div class="row mb-4">
@@ -68,7 +68,7 @@
                     </div>
                 </div>
             </form>
-        </div>
+        </div> -->
     </div>
 
         <div class="block-content pb-4">

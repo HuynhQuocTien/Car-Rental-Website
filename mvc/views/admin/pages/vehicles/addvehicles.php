@@ -82,8 +82,8 @@
                                 <input type="number" class="form-control" id="discount-hourly" name="discount-hourly"
                                     placeholder="Discount (%)" min="-100" max="100" value="0">
                                 <span class="input-group-text">=</span>
-                                <input type="number" class="form-control" id="final-hourly-price" name="hourly-price" value="<?= $data['Vehicle']['HourlyPrice'] ?>"
-                                    placeholder="Final Price" readonly>
+                                <input type="number" class="form-control" id="final-hourly-price" name="hourly-price"
+                                    value="<?= $data['Vehicle']['HourlyPrice'] ?>" placeholder="Final Price" readonly>
                             </div>
                         </div>
 
@@ -98,8 +98,8 @@
                                 <input type="number" class="form-control" id="discount-daily" name="discount-daily"
                                     placeholder="Discount (%)" min="-100" max="100" value="0">
                                 <span class="input-group-text">=</span>
-                                <input type="number" class="form-control" id="final-daily-price" name="daily-price" value="<?= $data['Vehicle']['DailyPrice'] ?>"
-                                    readonly>
+                                <input type="number" class="form-control" id="final-daily-price" name="daily-price"
+                                    value="<?= $data['Vehicle']['DailyPrice'] ?>" readonly>
                             </div>
                         </div>
 
@@ -114,8 +114,8 @@
                                 <input type="number" class="form-control" id="discount-weekly" name="discount-weekly"
                                     placeholder="Discount (%)" min="-100" max="100" value="0">
                                 <span class="input-group-text">=</span>
-                                <input type="number" class="form-control" id="final-weekly-price" name="weekly-price" value="<?= $data['Vehicle']['WeeklyPrice'] ?>"
-                                    readonly>
+                                <input type="number" class="form-control" id="final-weekly-price" name="weekly-price"
+                                    value="<?= $data['Vehicle']['WeeklyPrice'] ?>" readonly>
                             </div>
                         </div>
 
@@ -131,8 +131,8 @@
                                 <input type="number" class="form-control" id="discount-monthly" name="discount-monthly"
                                     placeholder="Discount (%)" min="-100" max="100" value="0">
                                 <span class="input-group-text">=</span>
-                                <input type="number" class="form-control" id="final-monthly-price" name="monthly-price" value="<?= $data['Vehicle']['MonthlyPrice'] ?>"
-                                    readonly>
+                                <input type="number" class="form-control" id="final-monthly-price" name="monthly-price"
+                                    value="<?= $data['Vehicle']['MonthlyPrice'] ?>" readonly>
                             </div>
                         </div>
 
@@ -154,7 +154,8 @@
                         </div>
                         <div class="upload-image-container">
                             <input type="text" id="saveImage" name="saveImage" hidden>
-                            <input type="file" id="upload-image" name="upload-image[]" class="upload-image-input" hidden accept="image/*" multiple />
+                            <input type="file" id="upload-image" name="upload-image[]" class="upload-image-input" hidden
+                                accept="image/*" multiple />
                             <div id="image-preview-container">
                                 <!-- Initial upload box -->
                                 <div class="upload-box" id="initial-upload">
@@ -164,7 +165,8 @@
                                     </label>
                                 </div>
                             </div>
-                            <label id="upload-image[]-error" class="error" for="upload-image[]" style="display: none;"></label>
+                            <label id="upload-image[]-error" class="error" for="upload-image[]"
+                                style="display: none;"></label>
                         </div>
                     </div>
                 </div>
@@ -228,6 +230,11 @@
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" id="is-active" name="is-active" checked>
                                 <label class="form-check-label" for="is-active"></label>
+                            </div>
+                            <label for="feature" class="form-label ms-md-3">Feature</label>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="feature">
+                                <label class="form-check-label" for="feature"></label>
                             </div>
                         </div>
 

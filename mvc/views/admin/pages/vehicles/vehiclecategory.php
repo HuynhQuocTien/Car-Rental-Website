@@ -47,7 +47,7 @@
     </div>
 </div>
 <div class="content">
-    <div class="block block-rounded pb-2 bg-body-dark">
+    <!-- <div class="block block-rounded pb-2 bg-body-dark">
         <div class="block-content bg-body-dark">
             <form action="#" id="search-form" onsubmit="return false;">
                 <div class="row mb-4">
@@ -60,7 +60,7 @@
                 </div>
             </form>
         </div>
-    </div>
+    </div> -->
     <div class="block block-rounded pb-2">
         <div class="block-header block-header-default">
             <h3 class="block-title">List Vehicle Types</h3>

@@ -94,12 +94,12 @@ class VehicleModel extends Database {
                   WHERE v.Is_Delete = 0";
         
         if ($input) {
-            $query .= " AND (mk.MakeName LIKE '%{$input}%' OR 
+            $query = $query. " AND (mk.MakeName LIKE '%{$input}%' OR 
                             md.ModelName LIKE '%{$input}%' OR 
                             vt.NameType LIKE '%{$input}%')";
         }
         if($filter){
-            $query.= " AND (v.MakeID = '{$filter['makeID']}' OR 
+            $query= $query ." AND (v.MakeID = '{$filter['makeID']}' OR 
                             v.ModelID = '{$filter['modelID']}' OR 
                             v.VehicleTypesID = '{$filter['vehicleTypeID']}')";
         }

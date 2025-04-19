@@ -56,6 +56,8 @@ class Vehicles extends Controller {
                 "Title"=>"Vehicles",
                 "Script"=> "vehicle",
                 "Page"=>"vehicles",
+                "VehicleTypes"=>$this->vehicleTypeModel->getAll(),
+
             ],
             "user");
         }
