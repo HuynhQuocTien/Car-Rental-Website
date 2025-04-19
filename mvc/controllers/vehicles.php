@@ -147,9 +147,7 @@ class Vehicles extends Controller {
                 'weeklyDiscount' => $_POST["weeklyDiscount"] ?? 0,
                 'monthlyDiscount' => $_POST["monthlyDiscount"] ?? 0,
                 'promotionID' => $_POST["promotionID"] ?? 0,
-                'description' => $_POST["description"] ?? '',
                 'active' => isset($_POST["active"]) && $_POST["active"] == "1" ? 1 : 0,
-                'feature' => isset($_POST["feature"]) && $_POST["feature"] == "1" ? 1 : 0
             ];
             $result = $this->vehicleModel->create($data);
             echo json_encode(['success' => $result]);
@@ -177,9 +175,7 @@ class Vehicles extends Controller {
                 'weeklyDiscount' => $_POST["weeklyDiscount"] ?? 0,
                 'monthlyDiscount' => $_POST["monthlyDiscount"] ?? 0,
                 'promotionID' => $_POST["promotionID"] ?? 0,
-                'description' => $_POST["description"] ?? '',
                 'active' => isset($_POST["active"]) && $_POST["active"] == "1" ? 1 : 0,
-                'feature' => isset($_POST["feature"]) && $_POST["feature"] == "1" ? 1 : 0
             ];
 
             $result = $this->vehicleModel->update($vehicleID, $data);

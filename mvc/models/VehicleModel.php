@@ -45,9 +45,7 @@ class VehicleModel extends Database {
                 WeeklyPrice = '{$data['weeklyPrice']}',
                 MonthlyPrice = '{$data['monthlyPrice']}',
                 PromotionID = '{$data['promotionID']}',
-                Description = '{$data['description']}',
                 Active = '{$data['active']}',
-                Is_Feature = '{$data['feature']}'
                 WHERE VehicleID = '$vehicleID'";
     
         $result = mysqli_query($this->con, $sql);
@@ -62,11 +60,11 @@ class VehicleModel extends Database {
         $sql = "INSERT INTO `Vehicles` (
                 `MakeID`, `ModelID`, `VehicleTypesID`, `Seats`,
                 `HourlyPrice`, `DailyPrice`, `WeeklyPrice`, `MonthlyPrice`, `Quantity`,
-                 `PromotionID`, `Description`, `Active`, `Is_Feature`
+                 `PromotionID`, `Active`
                 ) VALUES (
                 '{$data['makeID']}', '{$data['modelID']}', '{$data['vehicleTypeID']}', '{$data['seats']}',
                 '{$data['hourlyPrice']}', '{$data['dailyPrice']}', '{$data['weeklyPrice']}', '{$data['monthlyPrice']}','0',
-                 '{$data['promotionID']}', '{$data['description']}', '{$data['active']}', '{$data['feature']}'
+                 '{$data['promotionID']}', '{$data['active']}'
                 )";
         $result = mysqli_query($this->con, $sql);
         if (!$result) $valid = false;

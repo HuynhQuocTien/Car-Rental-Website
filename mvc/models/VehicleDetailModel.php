@@ -20,9 +20,9 @@ class VehicleDetailModel extends Database {
     }
     public function getAllFeature()
     {
-        $sql = "SELECT v.VehicleID, v.Quantity,v.Is_Feature,v.PromotionID,v.Active,v.Seats,
+        $sql = "SELECT v.VehicleID, v.Quantity,v.PromotionID,v.Active,v.Seats,
          m.MakeName,mo.ModelName, vt.NameType ,
-         vd.*, c.ColorName, vi.ImageID, vi.ImageID,  vi.ImageURL, vi.IsPrimary 
+         vd.*, c.ColorName, vi.ImageID,  vi.ImageURL, vi.IsPrimary 
                     FROM VehicleDetails vd
                     LEFT JOIN Vehicles v ON vd.VehicleID = v.VehicleID
                     LEFT JOIN Makes m ON v.MakeID = m.MakeID
@@ -30,7 +30,7 @@ class VehicleDetailModel extends Database {
                     LEFT JOIN VehicleTypes vt ON v.VehicleTypesID = vt.VehicleTypesID
                     LEFT JOIN Colors c ON vd.ColorID = c.ColorID
                     LEFT JOIN VehicleImages vi ON vd.VehicleDetailID = vi.VehicleDetailID
-                  WHERE vd.Is_Delete = 0 AND v.Is_Feature = 1";
+                  WHERE vd.Is_Delete = 0 AND vd.Is_Feature = 1";
         $result = mysqli_query($this->con, $sql);
         $rows = array();
         while($row = mysqli_fetch_assoc($result)) {
@@ -135,7 +135,7 @@ class VehicleDetailModel extends Database {
 
     public function getQuery($input = null, $filter = [], $lastURL = 'VehicleDetails')
     {
-        $query = "SELECT v.VehicleID, v.Quantity,v.Is_Feature,v.PromotionID,v.Active,v.Seats,
+        $query = "SELECT v.VehicleID, v.Quantity,v.PromotionID,v.Active,v.Seats,
          m.MakeName,mo.ModelName, vt.NameType ,
          vd.*, c.ColorName, vi.ImageID, vi.ImageID,  vi.ImageURL, vi.IsPrimary 
                     FROM VehicleDetails vd

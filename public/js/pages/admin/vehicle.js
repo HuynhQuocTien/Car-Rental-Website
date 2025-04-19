@@ -176,9 +176,7 @@ $("#saveVehicleBtn").on("click", function (e) {
       weeklyPrice: $("#weeklyPrice").val(),
       monthlyPrice: $("#monthlyPrice").val(),
       promotionID: $("#promotionID").val() || 0,
-      description: $("#description").val(),
       active: $("#active").is(":checked") ? 1 : 0,
-      feature: $("#feature").is(":checked") ? 1 : 0,
     };
 
     $.ajax({
@@ -252,9 +250,7 @@ $(document).on("click", ".js-edit-vehicle", function () {
           ) || 0
         );
         $("#promotionID").val(vehicle.PromotionID || 0);
-        $("#description").val(vehicle.Description || "");
         $("#active").prop("checked", vehicle.Active == 1);
-        $("#feature").prop("checked", vehicle.Feature == 1);
       }
     },
     error: function () {
@@ -311,9 +307,7 @@ $("#updateVehicleBtn").on("click", function (e) {
       weeklyDiscount: $("#weeklyDiscount").val() || 0,
       monthlyDiscount: $("#monthlyDiscount").val() || 0,
       promotionID: $("#promotionID").val(),
-      description: $("#description").val(),
       active: $("#active").is(":checked") ? 1 : 0,
-      feature: $("#feature").is(":checked") ? 1 : 0,
     };
 
     $.ajax({
