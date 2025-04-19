@@ -9,8 +9,6 @@ CREATE TABLE `Vehicles` (
 	`WeeklyPrice` DOUBLE COMMENT 'Giá thuê theo tuần mặc định',
 	`MonthlyPrice` DOUBLE COMMENT 'Giá thuê theo tháng mặc định',
 	`Quantity` INTEGER COMMENT 'Tổng số lượng xe hãng và mẫu',
-	`Description` VARCHAR(500) COMMENT 'Mô tả',	
-	`Is_Feature` INTEGER COMMENT 'Xe nổi bật',
 	`PromotionID` INTEGER COMMENT 'Mã khuyến mãi',
 	`Active` INTEGER DEFAULT 1 COMMENT 'Trạng thái xe (0: Ngừng hoạt đông, 1: Đang hoạt động)',
 	`Is_Delete` INTEGER DEFAULT 0 COMMENT 'Xóa',
@@ -31,6 +29,8 @@ CREATE TABLE `VehicleDetails` (
 	`WeeklyPrice` DOUBLE NULL COMMENT 'Giá thuê theo tuần (override)',
 	`MonthlyPrice` DOUBLE NULL COMMENT 'Giá thuê theo tháng (override)',
 	`FuelConsumption` VARCHAR(255) COMMENT 'Mức tiêu hao nhiên liệu (L/100km)',
+	`Description` VARCHAR(500) COMMENT 'Mô tả',	
+	`Is_Feature` INTEGER DEFAULT 0 COMMENT 'Xe nổi bật',
 	`Active` INTEGER DEFAULT 1 COMMENT 'Trạng thái xe (0: Ngừng hoạt động, 1: Đang hoạt động)',
 	`Is_Delete` INTEGER DEFAULT 0 COMMENT 'Xóa',
 	PRIMARY KEY(`VehicleDetailID`)
@@ -498,11 +498,11 @@ INSERT INTO `Promotions` (`PromotionID`, `PromotionName`, `PromotionCode`, `Desc
 VALUES (0, 'Không có khuyến mãi', 'NO_PROMO', 'Không áp dụng khuyến mãi', 1, 0);
 
 -- Thêm dữ liệu vào bảng Vehicles
-INSERT INTO `Vehicles` (`MakeID`, `ModelID`, `Seats`, `VehicleTypesID`, `HourlyPrice`, `DailyPrice`, `WeeklyPrice`, `MonthlyPrice`, `Quantity`, `Description`, `Is_Feature`, `PromotionID`, `Is_Delete`) 
+INSERT INTO `Vehicles` (`MakeID`, `ModelID`, `Seats`, `VehicleTypesID`, `HourlyPrice`, `DailyPrice`, `WeeklyPrice`, `MonthlyPrice`, `Quantity`,  `PromotionID`, `Is_Delete`) 
 VALUES 
-(1, 1, 5, 2, 10.5, 70, 450, 1500, 10, 'Toyota Camry tầm trung, tiết kiệm xăng', 1, 0, 0),
-(2, 2, 5, 2, 9, 60, 400, 1400, 8, 'Honda Civic phong cách thể thao', 0, 0, 0),
-(3, 3, 4, 1, 20, 150, 950, 3500, 5, 'Ford Mustang mạnh mẽ, đẳng cấp',1, 0, 0);
+(1, 1, 5, 2, 10.5, 70, 450, 1500, 10, 0, 0),
+(2, 2, 5, 2, 9, 60, 400, 1400, 8, 0, 0),
+(3, 3, 4, 1, 20, 150, 950, 3500, 5, 0, 0);
 
 -- Thêm dữ liệu vào VehicleDetails với giá chênh lệch từ 2-5% so với mặc định
 INSERT INTO `VehicleDetails` (
