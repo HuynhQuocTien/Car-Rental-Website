@@ -43,7 +43,7 @@ const renderData = function (vehicles) {
                     <div class="row">
                         <div class="col-6">
                             <a class="btn btn-sm btn-primary w-100" href="javascript:void(0)">
-                                Rent
+                                Rent now
                             </a>
                         </div>
                         <div class="col-6">

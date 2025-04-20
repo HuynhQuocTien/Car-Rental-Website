@@ -374,3 +374,42 @@
     <!-- END Header Loader -->
 </header>
 <!-- END Header -->
+<script>
+    // 🔍 Hàm lấy cookie theo tên (jQuery style)
+    function getCookie(name) {
+        const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+        return match ? match[2] : null;
+    }
+
+    $(document).ready(function () {
+        const token = getCookie("token");
+
+        // Sự kiện click nút giỏ hàng
+        $(".cartButton").on("click", function (e) {
+            e.stopPropagation();
+            if (token) {
+                $("#miniCart").css("transform", "translateX(0)");
+            } else {
+                const $loginForm = $("#loginForm");
+                const $modal = $loginForm.closest(".modal");
+                if ($modal.length) {
+                    $modal.modal("show");
+                } else {
+                    console.error("Không tìm thấy modal chứa form đăng nhập!");
+                }
+            }
+        });
+
+        // Sự kiện đóng giỏ hàng
+        $("#closeCart, #closeCartBottom").on("click", function () {
+            $("#miniCart").css("transform", "translateX(100%)");
+        });
+
+        // Đóng giỏ hàng nếu click ngoài vùng miniCart
+        $(document).on("click", function (e) {
+            if (!$(e.target).closest("#miniCart, .cartButton").length) {
+                $("#miniCart").css("transform", "translateX(100%)");
+            }
+        });
+    });
+</script>

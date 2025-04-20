@@ -35,12 +35,12 @@ function getActiveNav($url, $pattern) {
                     <i class="fa fa-question-circle"></i><span class="d-none d-md-inline ms-1">About</span>
                 </a>
             </li>
-            <li class="nav-item ms-md-auto">
+            <!-- <li class="nav-item ms-md-auto">
                 <a class="nav-link" href="db_booking.html">
                     <i class="fa fa-star text-warning fa-fw"></i> <span class="d-none d-md-inline ms-1">Special
                         Offers</span>
                 </a>
-            </li>
+            </li> -->
         </ul>
     </div>
 </div>

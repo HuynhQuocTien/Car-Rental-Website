@@ -1,69 +1,73 @@
 <!-- Mini Cart Sidebar -->
-<div id="miniCart" class="position-fixed top-0 end-0 h-100 bg-light shadow-lg p-3" style="z-index: 9999; width: 300px; transform: translateX(100%); transition: transform 0.4s ease;">
-    <h5 class="mb-4">🛒 Giỏ hàng của bạn</h5>
-    <ul class="list-group">
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-            Sản phẩm 1
-            <span class="badge bg-primary rounded-pill">1x</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-            Sản phẩm 2
-            <span class="badge bg-primary rounded-pill">1x</span>
-        </li>
-    </ul>
-    <div class="mt-3">
-        <strong>Tổng cộng: 500.000đ</strong>
+<div id="miniCart" class="position-fixed top-0 end-0 bg-white border-start shadow-lg d-flex flex-column p-4"
+    style="z-index: 1050; width: 320px; height: 100vh; transform: translateX(100%); transition: transform 0.3s ease-in-out;">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h5 class="mb-0">🛒 Giỏ hàng</h5>
+        <button class="btn btn-sm btn-light" id="closeCart">
+            <i class="fa fa-times"></i>
+        </button>
     </div>
-    <button class="btn btn-primary w-100 mt-3">Thanh toán</button>
-    <button class="btn btn-outline-danger w-100 mt-2" id="closeCart">Đóng</button>
+
+    <ul class="list-group flex-grow-1 overflow-auto">
+        <li class="list-group-item">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <strong>Xe ô tô 4 chỗ</strong><br>
+                    <small>
+                        Màu: Đỏ • Số tự động • Xăng • 5 chỗ<br>
+                        Năm: 2021 • Biển số: 51A-123.45
+                    </small>
+                </div>
+                <div class="text-end">
+                    <span class="badge bg-primary rounded-pill">2x</span><br>
+                    <small class="text-muted">Giá: 800.000đ/ngày</small>
+                </div>
+            </div>
+        </li>
+
+    </ul>
+
+    <div class="mt-4">
+        <div class="mb-3 fs-5 text-end">
+            <strong>Tổng: 1.200.000đ</strong>
+        </div>
+        <button class="btn btn-primary w-100 mb-2">Thanh toán</button>
+        <button class="btn btn-outline-secondary w-100" id="closeCartBottom">Đóng</button>
+    </div>
 </div>
 <!-- END Mini Cart Sidebar -->
-   <!-- Script điều khiển -->
+
+<!-- END Mini Cart Sidebar -->
+<!-- Script điều khiển -->
 <script>
-    // const cartButton = document.getElementById("cartButton");
-    // const miniCart = document.getElementById("miniCart");
-    // const closeCart = document.getElementById("closeCart");
-
-    // cartButton.addEventListener("click", () => {
-    //     miniCart.style.transform = "translateX(0)";
-    // });
-
-    // closeCart.addEventListener("click", () => {
-    //     miniCart.style.transform = "translateX(100%)";
-    // });
-
-    // // Đóng khi click ngoài cart
-    // document.addEventListener("click", (event) => {
-    //     if (!miniCart.contains(event.target) && event.target !== cartButton) {
-    //         miniCart.style.transform = "translateX(100%)";
-    //     }
-    // });
     const cartButtons = document.getElementsByClassName("cartButton");
-const miniCart = document.getElementById("miniCart");
-const closeCart = document.getElementById("closeCart");
+    const miniCart = document.getElementById("miniCart");
+    const closeCart = document.getElementById("closeCart");
+    const closeCartBottom = document.getElementById("closeCartBottom");
 
-// Kiểm tra xem nút có tồn tại không
-if (cartButtons.length > 0) {
-    const cartButton = cartButtons[0]; // Lấy nút đầu tiên
+    if (cartButtons.length > 0) {
+        const cartButton = cartButtons[0];
 
-    // Sự kiện mở giỏ hàng, chấp nhận cả nút và icon bên trong
-    cartButton.addEventListener("click", (event) => {
-        event.stopPropagation(); // Ngăn chặn nổi bọt sự kiện
-        miniCart.style.transform = "translateX(0)";
-    });
+        cartButton.addEventListener("click", (event) => {
+            event.stopPropagation();
+            miniCart.style.transform = "translateX(0)";
+        });
 
-    closeCart.addEventListener("click", () => {
-        miniCart.style.transform = "translateX(100%)";
-    });
+        const closeMiniCart = () => {
+            miniCart.style.transform = "translateX(100%)";
+        };
 
-    // // Đóng giỏ hàng khi click ngoài khu vực giỏ
-    // document.addEventListener("click", (event) => {
-    //     if (!miniCart.contains(event.target) && !cartButton.contains(event.target)) {
-    //         miniCart.style.transform = "translateX(100%)";
-    //     }
-    // });
-} else {
-    console.error("Không tìm thấy nút 'cartButton' nào!");
-};
+        closeCart.addEventListener("click", closeMiniCart);
+        closeCartBottom.addEventListener("click", closeMiniCart);
 
+        // Optional: đóng khi click bên ngoài cart
+        document.addEventListener("click", (event) => {
+            if (!miniCart.contains(event.target) && !cartButton.contains(event.target)) {
+                closeMiniCart();
+            }
+        });
+    } else {
+        console.error("Không tìm thấy nút 'cartButton'!");
+    }
 </script>
