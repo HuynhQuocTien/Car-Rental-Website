@@ -34,7 +34,7 @@ const renderData = function (vehicles) {
                             <p class="py-3 mb-0">
                                 <!-- Icon fuel -->
                                 <svg width="32" height="32" ...></svg>
-                                <strong>RON 95</strong>
+                                <strong>${vehicle.FuelType}</strong>
                             </p>
                         </div>
                     </div>
@@ -47,7 +47,7 @@ const renderData = function (vehicles) {
                             </a>
                         </div>
                         <div class="col-6">
-                            <a class="btn btn-sm btn-alt-primary w-100 js-detail-vehicle" 
+                            <a class="btn btn-sm btn-alt-primary w-100 js-detail-vehicle"  href="${BaseUrl}vehicles/viewDetail&id=${vehicle.VehicleDetailID}"
                                data-id="${vehicle.VehicleDetailID}">
                                 View
                             </a>
@@ -68,6 +68,139 @@ const renderData = function (vehicles) {
 
     $("#list-vehicles").html(html);
 };
+
+$(".js-detail-vehicle").click(function () {
+    const vehicleDetailId = $(this).data("id");
+    $.ajax({
+        url: BaseUrl + "vehicles/save_id_detail_vehicle",
+        type: "POST",
+        dataType: "json",
+        data: {
+            id: vehicleDetailId,
+        },
+        success: function (response) {
+            if (response.success) {
+                window.location.href = BaseUrl + "vehicles/viewDetail";
+            }
+          }
+        });
+      });
+
+// Khởi tạo datepicker và xử lý khi chọn ngày
+// const renderData = function (vehicles) {
+//   const priceType = $("#price-type").val(); // lấy lựa chọn giá hiện tại
+//   let html = "";
+
+//   // Map label + key field dựa theo price type
+//   const priceMap = {
+//       hour: {
+//           field: "HourlyPrice",
+//           label: "per hour"
+//       },
+//       day: {
+//           field: "DailyPrice",
+//           label: "per day"
+//       },
+//       week: {
+//           field: "WeeklyPrice",
+//           label: "per week"
+//       },
+//       month: {
+//           field: "MonthlyPrice",
+//           label: "per month"
+//       }
+//   };
+
+//   vehicles.forEach((vehicle) => {
+//       const priceField = priceMap[priceType].field;
+//       const priceLabel = priceMap[priceType].label;
+//       const priceValue = vehicle[priceField] ?? 0;
+
+//       html += `
+//       <div class="col-md-6 col-xl-4">
+//           <!-- Vehicle -->
+//           <div class="block block-rounded">
+//               <div class="block-content p-0 overflow-hidden">
+//                   <a class="img-link img-fluid-100" data-toggle="layout"
+//                       data-action="side_overlay_open" href="javascript:void(0)">
+//                       <img class="img-fluid rounded-top" src="https://res.cloudinary.com/dapudsvwl/image/upload/v1745000059/dvgjjnwwutuqdrqnpatz.jpg"
+//                           alt="">
+//                   </a>
+//               </div>
+//               <div class="block-content">
+//                   <h4 class="h6 mb-2">${vehicle.MakeName} ${vehicle.ModelName}  ${vehicle.Year}</h4>
+//                   <h5 class="h2 fw-light push">
+//                       $${priceValue} <span class="fs-3 text-muted">${priceLabel}</span>
+//                   </h5>
+//               </div>
+//               <div class="block-content p-0">
+//                   <div class="row text-center m-0 border-top border-bottom bg-body-light">
+//                       <div class="col-6 border-end">
+//                           <p class="py-3 mb-0">
+//                               <!-- Icon seats -->
+//                               <svg width="30" height="30" ...></svg>
+//                               <strong>${vehicle.Seats}</strong> Seats
+//                           </p>
+//                       </div>
+//                       <div class="col-6">
+//                           <p class="py-3 mb-0">
+//                               <!-- Icon fuel -->
+//                               <svg width="32" height="32" ...></svg>
+//                               <strong>RON 95</strong>
+//                           </p>
+//                       </div>
+//                   </div>
+//               </div>
+//               <div class="block-content block-content-full">
+//                   <div class="row">
+//                       <div class="col-6">
+//                           <a class="btn btn-sm btn-primary w-100" href="javascript:void(0)">
+//                               Rent
+//                           </a>
+//                       </div>
+//                       <div class="col-6">
+//                           <a class="btn btn-sm btn-alt-primary w-100 js-detail-vehicle" 
+//                              data-id="${vehicle.VehicleDetailID}">
+//                               View
+//                           </a>
+//                       </div>
+//                   </div>
+//                   <div class="row mt-2">
+//                       <div class="col-12">
+//                           <a class="btn btn-sm btn-outline-primary w-100 js-add-detail" 
+//                              data-id="${vehicle.VehicleDetailID}">
+//                               Add to Cart
+//                           </a>
+//                       </div>
+//                   </div>
+//               </div>
+//           </div>
+//       </div>`;
+//   });
+
+//   $("#list-vehicles").html(html);
+// };
+
+$('#db-travel-from, #db-travel-to').datepicker({
+  format: 'mm/dd/yyyy',
+  autoclose: true,
+  todayHighlight: true
+}).on('changeDate', function () {
+  const fromDate = $('#db-travel-from').val();
+  const toDate = $('#db-travel-to').val();
+
+  if (fromDate && toDate) {
+    vehiclePagination.option.filter.rentalDate = {
+      from: fromDate,
+      to: toDate
+    };
+    vehiclePagination.getPagination(
+      vehiclePagination.option,
+      vehiclePagination.valuePage.curPage
+    );
+  }
+});
+
 
 $('input[name="vehicle-type"]').change(function () {
     // Bỏ active cũ

@@ -62,6 +62,25 @@ class Vehicles extends Controller {
             "user");
         }
     }
+    public function viewDetail() {
+        $arrrs = $this->UrlProcess();
+        $id = isset($_GET['id']) ? $_GET['id'] : null;
+        if($arrrs[0] == "user" && $id != null){
+            $this->view("main_layout", [
+                "Title"=>"Detail Vehicles",
+                "Script"=> "vehicleDetail",
+                "Page"=>"detail-vehicle",
+                "Vehicle"=>$this->vehicleDetailModel->getVehicleDetails($id),
+                "VehicleImages"=>[1,2,3,4,5],
+                "id"=>$id,
+
+            ],
+            "user");
+        } else $this->view("single_layout", ["Page" => "error/404","Title" => "Lỗi !"]);
+    }
+    public function getVehicleTest(){
+
+    }
     public function addvehicles() {
         $arrrs = $this->UrlProcess();
         if($arrrs[0] == "admin"){

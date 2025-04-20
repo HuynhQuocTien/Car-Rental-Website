@@ -132,6 +132,22 @@ class VehicleDetailModel extends Database {
         }
         return $rows;
     }
+    public function getVehicleDetails($id){
+        $sql = "SELECT v.VehicleID, v.Quantity,v.PromotionID,v.Active,v.Seats,
+         m.MakeName,mo.ModelName, vt.NameType ,
+         vd.*, c.ColorName, vi.ImageID, vi.ImageID,  vi.ImageURL, vi.IsPrimary 
+                    FROM VehicleDetails vd
+                    LEFT JOIN Vehicles v ON vd.VehicleID = v.VehicleID
+                    LEFT JOIN Makes m ON v.MakeID = m.MakeID
+                    LEFT JOIN Models mo ON v.ModelID = mo.ModelID
+                    LEFT JOIN VehicleTypes vt ON v.VehicleTypesID = vt.VehicleTypesID
+                    LEFT JOIN Colors c ON vd.ColorID = c.ColorID
+                    LEFT JOIN VehicleImages vi ON vd.VehicleDetailID = vi.VehicleDetailID
+                  WHERE vd.Is_Delete = 0 AND vd.VehicleDetailID = '$id'";
+        $result = mysqli_query($this->con, $sql);
+        $row = mysqli_fetch_assoc($result);
+        return $row;
+    }
 
     public function getQuery( $filter,$input, $lastURL = 'VehicleDetails')
     {
@@ -152,6 +168,22 @@ class VehicleDetailModel extends Database {
                             vd.Year LIKE '%{$input}%')";
         }
         if(isset($filter) && !empty($filter)) {
+            // Lọc theo ngày thuê
+            if (!empty($filter['rentalDate']['from']) && !empty($filter['rentalDate']['to'])) {
+                $fromDate = date('Y-m-d', strtotime($filter['rentalDate']['from']));
+                $toDate = date('Y-m-d', strtotime($filter['rentalDate']['to']));
+            
+                $query .= " AND vd.VehicleDetailID NOT IN (
+                    SELECT rod.VehicleDetailID
+                    FROM RentalOrderDetails rod
+                    JOIN RentalOrders ro ON rod.OrderID = ro.OrderID
+                    WHERE ro.Status IN ('Approved', 'Processing') 
+                    AND NOT (
+                        rod.ReturnDate < '{$fromDate}' OR ro.RentalDate > '{$toDate}'
+                    )
+                )";
+            }
+            
             // Vehicle Type
             if (!empty($filter['vehicleType'])) {
                 $vehicleType = intval($filter['vehicleType']);

@@ -51,6 +51,24 @@
 <div class="row g-0 flex-md-grow-1">
     <div class="col-lg-5 col-xl-3">
         <div class="content">
+            <!-- Price Type -->
+            <!-- <div class="block block-rounded">
+                <div class="block-header block-header-default">
+                    <h3 class="block-title">
+                        <i class="fa fa-fw fa-clock opacity-25 me-1"></i> Price By
+                    </h3>
+                </div>
+                <div class="block-content pb-3">
+                    <select class="form-control" id="price-type" name="price-type">
+                        <option value="hour" >Per Hour</option>
+                        <option value="day" selected>Per Day</option>
+                        <option value="week">Per Week</option>
+                        <option value="month">Per Month</option>
+                    </select>
+                </div>
+            </div> -->
+            <!-- END Price Type -->
+
             <!-- Search Travel -->
             <form class="push" method="POST" onsubmit="return false;">
                 <div class="mb-4">
@@ -198,6 +216,7 @@
         </div>
     </div>
     <div class="col-lg-7 col-xl-9 bg-body-dark">
+
         <!-- Main Content -->
         <div class="content">
             <div class="row" id="list-vehicles">

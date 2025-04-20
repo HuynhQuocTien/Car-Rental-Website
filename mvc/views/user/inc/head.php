@@ -52,29 +52,29 @@
 
     <!-- Icons -->
     <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
-    <link rel="shortcut icon" href="../public/media/favicons/favicon.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="../public/media/favicons/favicon-192x192.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="../public/media/favicons/apple-touch-icon-180x180.png">
+    <link rel="shortcut icon" href="<?= BASE_URL ?>/public/media/favicons/favicon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="<?= BASE_URL ?>/public/media/favicons/favicon-192x192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="<?= BASE_URL ?>/public/media/favicons/apple-touch-icon-180x180.png">
     <!-- END Icons -->
     <!-- Stylesheets -->
     <!-- Dashmix framework -->
-    <link rel="stylesheet" href="../public/js/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css">
-    <link rel="stylesheet" href="../public/js/plugins/ion-rangeslider/css/ion.rangeSlider.css">
-    <link rel="stylesheet" href="../public/js/plugins/slick-carousel/slick.css">
-    <link rel="stylesheet" href="../public/js/plugins/slick-carousel/slick-theme.css">
-    <link rel="stylesheet" id="css-main" href="../public/css/dashmix.min.css">
-    <link rel="stylesheet" id="css-main" href="../public/css/dashmix-custom.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/public/js/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/public/js/plugins/ion-rangeslider/css/ion.rangeSlider.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/public/js/plugins/slick-carousel/slick.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/public/js/plugins/slick-carousel/slick-theme.css">
+    <link rel="stylesheet" id="css-main" href="<?= BASE_URL ?>/public/css/dashmix.min.css">
+    <link rel="stylesheet" id="css-main" href="<?= BASE_URL ?>/public/css/dashmix-custom.css">
     <!-- <link rel="stylesheet" id="css-main" href="../public/css/bootstrap.min.css"> -->
     <!-- <link rel="stylesheet" id="css-main" href="../public/css/custom.css"> -->
 
     <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
-    <link rel="stylesheet" id="css-theme" href="../public/css/themes/xinspire.min.css">
+    <link rel="stylesheet" id="css-theme" href="<?= BASE_URL ?>/public/css/themes/xinspire.min.css">
     <!-- END Stylesheets -->
     <script>
         const BaseUrl = "<?php echo BASE_URL; ?>/user/";
     </script>
-    <script src="../public/js/dashmix.app.min.js"></script>
-    <script src="../public/js/lib/jquery.min.js"></script>
+    <script src="<?= BASE_URL ?>/public/js/dashmix.app.min.js"></script>
+    <script src="<?= BASE_URL ?>/public/js/lib/jquery.min.js"></script>
 
 
 </head>
