@@ -40,6 +40,7 @@ class Vehicles extends Controller {
     public function default() {
         $arrrs = $this->UrlProcess();
         if($arrrs[0] == "admin"){
+            AuthCore::checkAuthentication();
             $this->view("main_layout", [
                 "Title"=>"Vehicles",
                 "Script"=> "vehicle",

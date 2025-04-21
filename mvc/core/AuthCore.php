@@ -8,7 +8,7 @@ class AuthCore{
             $token = $_COOKIE['token'];
             if($accountModel->validateToken($token) == true){
                 if($web[0] == "admin"){
-                    header("Location: ../Welcome");
+                    header("Location: ../auth/signin");
                 }else if($web[0] == "user"){
                     header("Location: ../home");
                 }
@@ -16,13 +16,14 @@ class AuthCore{
         }
     }
     public static function checkAuthentication(){
-        $token = $_COOKIE['token'];
+        $web = isset($_GET["url"]) ? explode("/", filter_var(trim($_GET["url"], "/"))) : null;
+        $token = $_COOKIE['token'] ?? null;
         $accountModel = new AccountModel();
         if(!isset($_COOKIE['token']) || $accountModel->validateToken($token) == false){
             setcookie("token", "", time() - 3600);
-            $path = BASE_URL;
-            header("Location: $path");
-            exit;
+            if($web[0] == "admin"){
+                header("Location: ./auth/signin");
+            }
         }
     }
 }

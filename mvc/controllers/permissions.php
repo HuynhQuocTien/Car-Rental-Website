@@ -10,6 +10,7 @@ class Permissions extends Controller {
 
     }
     public function default() {
+        AuthCore::checkAuthentication();
         $this->view("main_layout", [
             "Title"=>"Permissions",
             "Page"=>"pages/permissions",

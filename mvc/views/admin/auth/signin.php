@@ -21,7 +21,7 @@
             <!-- Sign In Form -->
             <!-- jQuery Validation (.js-validation-signin class is initialized in js/pages/op_auth_signin.min.js which was auto compiled from _js/pages/op_auth_signin.js) -->
             <!-- For more info and examples you can check out https://github.com/jzaefferer/jquery-validation -->
-            <form class="js-validation-signin">
+            <form class="js-validation-signin" onsubmit="return false" >
               <div class="mb-4">
                 <div class="input-group input-group-lg">
                   <input type="text" class="form-control" id="login-username" name="login-username" placeholder="Username or Email">

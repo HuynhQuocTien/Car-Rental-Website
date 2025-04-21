@@ -43,12 +43,7 @@ Dashmix.onLoad(() =>
         success: function (response) {
           console.log(response);
           if (response.valid == "true") {
-            Dashmix.helpers("jq-notify", {
-                type: "success",
-                icon: "fa fa-times me-1",
-                message: `${response.message}`,
-                z_index: 9999,
-              });
+            location.href = BaseUrl + "Welcome";
           } else {
             Dashmix.helpers("jq-notify", {
               type: "danger",

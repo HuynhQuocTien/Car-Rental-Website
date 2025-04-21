@@ -15,7 +15,7 @@ class App{
         if (in_array($arr[0], ['admin', 'user'])) {
             // Nếu chỉ có 'user/' hoặc 'admin/', tự động chuyển đến 'home'
             if (count($arr) == 1) {
-                header("Location: /" . $arr[0]  .($arr[0] == "user" ? "/home" : "/welcome"));
+                header("Location: /" . $arr[0]  .($arr[0] == "user" ? "/home" : "/auth/signin"));
                 exit;
             }
         } else {
