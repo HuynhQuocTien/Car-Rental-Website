@@ -192,6 +192,7 @@ CREATE TABLE `Reviews` (
 CREATE TABLE `Roles` (
 	`RoleID` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
 	`RoleName` VARCHAR(255),
+	`Is_Delete` INTEGER DEFAULT 0 COMMENT 'Xóa',
 	PRIMARY KEY(`RoleID`)
 ) COMMENT 'Vai trò (Admin, Nhân viên)';
 
