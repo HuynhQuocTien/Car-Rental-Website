@@ -4,6 +4,7 @@ class Home extends Controller {
     public $vehicleDetailModel;
     public $vehicleModel;
     public function __construct() {
+        parent::__construct();
         $this->vehicleDetailModel = $this->model("VehicleDetailModel");
         $this->vehicleModel = $this->model("VehicleModel");
     }

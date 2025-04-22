@@ -180,6 +180,9 @@ $(".js-validation-signup").off('submit').submit(function (e) {
                 console.log(response);
                 if (response.success) {
                     Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: "Account created successfully",z_index: 9999 });
+                    setTimeout(function () {
+                        location.reload();
+                      }, 500);
                 } else {
                     response.error_fields['username'].length != 0 ? showError("#signup-newUsername", response.error_fields['username']) : null;
                     response.error_fields['email'].length != 0 ? showError("#signup-email", response.error_fields['email']) : null;
