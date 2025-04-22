@@ -8,7 +8,7 @@ class AuthCore{
             $token = $_COOKIE['token'];
             if($accountModel->validateToken($token) == true){
                 if($web[0] == "admin"){
-                    header("Location: ../auth/signin");
+                    header("Location: ../welcome");
                 }else if($web[0] == "user"){
                     header("Location: ../home");
                 }
