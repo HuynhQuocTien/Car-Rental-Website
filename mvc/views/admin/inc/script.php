@@ -6,6 +6,8 @@
 <script src="<?= BASE_URL ?>/public/js/plugins/ckeditor5-classic/build/ckeditor.js"></script>
 <script src="<?= BASE_URL ?>/public/js/plugins/chart.js/chart.umd.js"></script>
 <script src=" <?= BASE_URL ?>/public/js/pages/pagination.js"></script>
+<script src="<?= BASE_URL ?>/public/js/plugins/flatpickr/flatpickr.min.js"></script>
+<script src="<?= BASE_URL ?>/public/js/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <?php
     if(isset($data["Script"])) {
         echo '<script src="' .BASE_URL.'/public/js/pages/admin/'.$data["Script"].'.js"></script>';

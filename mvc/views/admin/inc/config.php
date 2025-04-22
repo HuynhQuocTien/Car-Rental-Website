@@ -8,7 +8,7 @@ $GLOBALS['sidebar'] = array(
                 'name'  => 'Dashboard',
                 'icon'  => 'fa fa-tachometer',
                 'url'   => 'dashboard',
-                'role' => 'dashboard'
+                'role' => '1'
             )
         )
     ),
@@ -20,13 +20,13 @@ $GLOBALS['sidebar'] = array(
                 'name'  => 'Order Approval',
                 'icon'  => 'fa-solid fa-sack-dollar',
                 'url'   => 'approval',
-                'role' => 'approval',
+                'role' => '2',
             ),
             array(
                 'name'  => 'Vehicle Inspection',
                 'icon'  => 'fa-solid fa-check-to-slot',
                 'url'   => 'inspector',
-                'role' => 'inspector'
+                'role' => '3'
             ),
             
         )
@@ -39,7 +39,7 @@ $GLOBALS['sidebar'] = array(
                 'name'  => 'Vehicles',
                 'icon'  => 'fa fa-car',
                 'url'   => 'vehicles',
-                'role' => 'vehicles',
+                'role' => '4',
                 'subitem' => array(
                     array(
                         'name'  => 'All',
@@ -51,25 +51,25 @@ $GLOBALS['sidebar'] = array(
                         'name'  => 'Categories',
                         'icon'  => 'fa fa-list-alt',
                         'url'   => 'vehicles/vehiclecategory',
-                        'role' => 'vehiclecategory'
+                        'role' => '5'
                     ),
                     array(
                         'name'  => 'Colors',
                         'icon'  => 'fa fa-list-alt',
                         'url'   => 'vehicles/colors',
-                        'role' => 'colors'
+                        'role' => '6'
                     ),
                     array(
                         'name'  => 'Makes',
                         'icon'  => 'fa fa-list-alt',
                         'url'   => 'vehicles/makes',
-                        'role' => 'makes'
+                        'role' => '7'
                     ),
                     array(
                         'name'  => 'Models',
                         'icon'  => 'fa fa-list-alt',
                         'url'   => 'vehicles/models',
-                        'role' => 'models'
+                        'role' => '8'
                     ),
                 ),
             ),
@@ -77,13 +77,13 @@ $GLOBALS['sidebar'] = array(
                 'name'  => 'Rental Orders',
                 'icon'  => 'fa fa-receipt',
                 'url'   => 'rentalorders',
-                'role' => 'rentalorders',
+                'role' => '9',
             ),
             array(
                 'name'  => 'Inspections',
                 'icon'  => 'fa-solid fa-fire',
                 'url'   => 'inspections',
-                'role' => 'inspections',
+                'role' => '10',
                 'subitem' => array(
                     array(
                         'name'  => 'All',
@@ -95,13 +95,13 @@ $GLOBALS['sidebar'] = array(
                         'name'  => 'Damage Types',
                         'icon'  => 'fa-solid fa-keyboard',
                         'url'   => 'inspections/damagetypes',
-                        'role' => 'damagetypes'
+                        'role' => '11'
                     ),
                     array(
                         'name'  => 'Deposits',
                         'icon'  => 'fa-solid fa-keyboard',
                         'url'   => 'inspections/deposits',
-                        'role' => 'deposits'
+                        'role' => '12'
                     ),
                 ),
             ),
@@ -109,13 +109,13 @@ $GLOBALS['sidebar'] = array(
                 'name'  => 'Reviews',
                 'icon'  => 'fa-solid fa-star',
                 'url'   => 'reviews',
-                'role' => 'reviews',                
+                'role' => '13',                
             ),
             array(
                 'name'  => 'Promotions',
                 'icon'  => 'fa-solid fa-ticket',
                 'url'   => 'promotions',
-                'role' => 'promotions',                
+                'role' => '15',                
             ),
             
         )
@@ -128,19 +128,19 @@ $GLOBALS['sidebar'] = array(
                 'name'  => 'Users',
                 'icon'  => 'fa-solid fa-users',
                 'url'   => 'users',
-                'role' => 'users',
+                'role' => '16',
             ),
             array(
                 'name'  => 'Customers',
                 'icon'  => 'fa-solid fa-circle-user',
                 'url'   => 'customers',
-                'role' => 'customers',
+                'role' => '17',
             ),
             array(
                 'name'  => 'Permissions',
                 'icon'  => 'fa-solid fa-users-gear',
                 'url'   => 'permissions',
-                'role' => 'permissions'
+                'role' => '18'
             ),
             
         )
@@ -161,15 +161,20 @@ function getActiveSub() {
 }
 function build_Sidebar() {
     // Loại bỏ các sidebar item không có trong session nhóm quyền
-    // foreach($GLOBALS['sidebar'] as $key => $sidebarItem) {
-    //     if(isset($sidebar['sidebarItem'])) {
-    //         foreach ($sidebar['sidebarItem'] as $key1 => $sidebarItem) {
-    //             if(!array_key_exists($sidebarItem['role'],$_SESSION['user_role'])) {
-    //                 unset($GLOBALS['sidebarbar'][$key]['sidebarItem'][$key1]);
-    //             }
-    //         }
-    //     }
-    // }
+    foreach($GLOBALS['sidebar'] as $key => &$sidebarGroup) {
+        if (isset($sidebarGroup['sidebarItem'])) {
+            foreach ($sidebarGroup['sidebarItem'] as $key1 => $item) {
+                if (!isset($_SESSION['Roles'][$item['role']])) {
+                    unset($sidebarGroup['sidebarItem'][$key1]);
+                }
+            }
+            // Nếu nhóm không còn item nào thì xoá luôn
+            if (empty($sidebarGroup['sidebarItem'])) {
+                unset($GLOBALS['sidebar'][$key]);
+            }
+        }
+    }
+    
     
     // Sau khi xoá các sidebarbar item không có trong session nhóm quyền thì duyệt mảng tạo sidebarbar
     $html = '';

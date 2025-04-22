@@ -133,24 +133,18 @@ class AccountModel extends Database
                                         : $row['CustomerFullName'];
             $_SESSION['ProfilePicture'] = $row['ProfilePicture'];
             $_SESSION['RoleID'] = $row['RoleID'];
-            $_SESSION['Role'] = $this->getRole($row['RoleID']);
+            $_SESSION['Roles'] = $this->getRole($row['RoleID']);
             return true;
         }
         return false;
     }
     public function getRole($roleId)
     {
-        $sql = "SELECT rp.RoleID, f.FunctionName, p.PermissionName, p.Description AS PermissionDescription
+        $sql = "SELECT rp.*
                 FROM 
                     RolePermissions rp
-                JOIN 
-                    Functions f ON rp.FunctionID = f.FunctionID
-                JOIN 
-                    Permissions p ON rp.PermissionID = p.PermissionID
                 WHERE 
-                    rp.RoleID = $roleId
-                ORDER BY 
-                    f.FunctionName, p.PermissionName;";
+                    rp.RoleID = $roleId;";
         $result = mysqli_query($this->con, $sql);
         $rows = array();
         while ($row = mysqli_fetch_assoc($result)) {
@@ -158,8 +152,8 @@ class AccountModel extends Database
         }
         $roles = array();
         foreach ($rows as $item) {
-            $function = $item['FunctionName']; //Chức năng
-            $permission = $item['PermissionName']; //hành động được làm
+            $function = $item['FunctionID']; //Chức năng
+            $permission = $item['PermissionID']; //hành động được làm 1: Thêm, 2: Sửa, 3: Xóa, 4: Xem, 5:Duyệt, 6: KT, 7:Báo cáo
             if (!isset($roles[$function])) {
                 $roles[$function] = array($permission);
             } else {

@@ -6,6 +6,7 @@ class Users extends Controller {
         $this->view("main_layout", [
             "Title"=>"Users",
             "Page"=>"pages/users",
+            "Script"=>"users",
         ],
         "admin");
     }

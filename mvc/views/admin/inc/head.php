@@ -35,7 +35,8 @@
     <!-- <link rel="stylesheet" id="css-main" href="../public/css/custom.css"> -->
     <script src="<?= BASE_URL ?>/public/js/lib/jquery.min.js"></script>
 
-        
+    <link rel="stylesheet" href="<?= BASE_URL ?>/public/js/plugins/flatpickr/flatpickr.min.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/public/js/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/public/js/plugins/sweetalert2/sweetalert2.min.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/public/js/plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/public/js/plugins/datatables-bs5/css/dataTables.bootstrap5.min.css">
