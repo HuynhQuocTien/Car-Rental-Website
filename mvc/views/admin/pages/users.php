@@ -21,7 +21,7 @@
             <h3 class="block-title">User List</h3>
             <div class="block-options">
                 <button type="button" class="btn btn-hero btn-primary me-2" data-bs-toggle="modal"
-                    data-bs-target="#modal-user" id="btn-add">
+                    data-bs-target="#addModelForm" id="btn-add">
                     Add User
                 </button>
             </div>
@@ -57,7 +57,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="modal-user" tabindex="-1" role="dialog" aria-labelledby="modal-user" aria-hidden="true">
+<div class="modal fade" id="addModelForm" tabindex="-1" role="dialog" aria-labelledby="addModelForm" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header block-header block-header-default">
@@ -132,85 +132,7 @@
                 <button type="submit" class="btn btn-sm btn-primary add-user-element" id="btn-add-user">
                     Add
                 </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="modal-edit-user" tabindex="-1" role="dialog" aria-labelledby="modal-user"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="block-header bg-primary-dark text-white">
-                <h3 class="block-title">Edit User</h3>
-                <div class="block-options">
-                    <button type="button" class="btn-block-option" data-bs-dismiss="modal" aria-label="Close">
-                        <i class="fa fa-fw fa-times"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="block-content">
-                <form novalidate="novalidate" onsubmit="return false;" class="js-validation-edit" tabindex="0">
-                    <input type="hidden" id="val-userid-edit" name="val-userid-edit">
-                    <div class="mb-2">
-                        <label class="form-label" for="val-fullname-edit">Full Name <span
-                                class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="val-fullname-edit" name="val-fullname-edit"
-                            placeholder="Enter full name..">
-                    </div>
-                    <div class="mb-2">
-                        <label class="form-label" for="val-phone-edit">Phone <span class="text-danger">*</span></label>
-                        <input class="form-control" id="val-phone-edit" name="val-phone-edit"
-                            placeholder="Enter phone number..">
-                    </div>
-                    <div class="mb-2">
-                        <label class="form-label" for="val-identity-edit">Identity Card <span
-                                class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="val-identity-edit" name="val-identity-edit"
-                            placeholder="Enter identity card number..">
-                    </div>
-                    <div class="mb-2">
-                        <label for="val-birthday-edit" class="form-label">Date of Birth <span
-                                class="text-danger">*</span></label>
-                        <input type="text" class="js-flatpickr form-control form-control-alt" id="val-birthday-edit"
-                            name="val-birthday-edit" placeholder="Select date of birth...">
-                    </div>
-                    <div class="mb-2">
-                        <label class="form-label" for="val-role-edit">Role <span class="text-danger">*</span></label>
-                        <select class="form-select" id="val-role-edit" name="val-role-edit">
-                            <option value="">Please select</option>
-                            <option value="1">Admin</option>
-                            <option value="2">Staff</option>
-                        </select>
-                    </div>
-                    <div class="mb-2 d-flex gap-4">
-                        <label for="gender-male-edit" class="form-label">Gender</label>
-                        <div class="space-x-2">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" id="gender-male-edit"
-                                    name="user_gender-edit" value="0" checked>
-                                <label class="form-check-label" for="gender-male-edit">Male</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" id="gender-female-edit"
-                                    name="user_gender-edit" value="1">
-                                <label class="form-check-label" for="gender-female-edit">Female</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-5">
-                        <label for="user_status-edit" class="form-label">Status</label>
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="user_status-edit">
-                            <label class="form-check-label" for="user_status-edit"></label>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer block-content block-content-full text-end bg-body">
-                <button type="button" class="btn btn-sm btn-alt-secondary me-1" data-bs-dismiss="modal">
-                    Exit
-                </button>
+                
                 <button type="submit" class="btn btn-sm btn-primary add-user-element" id="btn-edit-user">
                     Update
                 </button>
