@@ -118,7 +118,8 @@ class Users extends Controller {
                 'message' => $result ? 'User deleted successfully!' : 'Failed to delete user!'
             ]);
         }
-    }    
+    }
+    
     public function checkUserName() {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $username = $_POST['Username'] ?? '';

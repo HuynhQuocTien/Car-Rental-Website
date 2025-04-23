@@ -172,14 +172,16 @@ const renderData = function (users) {
         <div class="btn-group">
           <button class="btn btn-sm btn-alt-secondary js-view-user"
                   data-id="${user.UserID}" title="View details">
-           <i class="fa fa-eye opacity-50 me-1"></i>
+           <i class="fa fa-eye me-1"></i>
           </button>
           <button class="btn btn-sm btn-alt-secondary js-edit-user"
                   data-id="${user.UserID}" title="Edit">
             <i class="fa fa-pencil-alt"></i>
           </button>
           <button class="btn btn-sm btn-alt-secondary js-delete-user"
-                  data-id="${user.UserID}" data-accountid="${user.AccountID}" title="Delete">
+                  data-id="${user.UserID}" data-accountid="${
+      user.AccountID
+    }" title="Delete">
             <i class="fa fa-times"></i>
           </button>
         </div>
@@ -221,25 +223,29 @@ $("#btn-remove-picture").on("click", function () {
 
 // Xử lý nút Add
 $("#btn-add").on("click", function (e) {
-  $("#userId").val("0");
-  $("#val-fullname").val("");
-  $("#val-phone").val("");
-  $("#val-identity").val("");
-  $("#val-role").val("");
-  $("#val-birthday").val("");
-  $("#val-email").val("");
-  $("#val-password").val("");
-  $("#val-username").val("");
-  $("#val-profile-picture").val("");
+  $("#view-profile-div").hide(); // Ẩn thẻ div đầu tiên
+  $("#edit-profile-div").show();
+  $("#userId").val("0").prop("disabled", false);
+  $("#accountId").val("0").prop("disabled", false);
+  $("#val-fullname").val("").prop("disabled", false);
+  $("#val-phone").val("").prop("disabled", false);
+  $("#val-identity").val("").prop("disabled", false);
+  $("#val-role").val("").prop("disabled", false);
+  $("#val-birthday").val("").prop("disabled", false);
+  $("#val-email").val("").prop("disabled", false);
+  $("#val-password").val("").prop("disabled", false);
+  $("#val-username").val("").prop("disabled", false);
+  $("#val-profile-picture").val("").prop("disabled", false);
   $("#addUserForm")[0].reset();
-  $("#profile-preview").attr("src", userDefaultImg); 
+  $("#profile-preview").attr("src", userDefaultImg);
   $("#val-profile-picture").val("");
-  $("#btn-add-picture").show(); 
+  $("#btn-add-picture").show();
   $("#btn-remove-picture").hide();
   $("#btn-add-user").show();
   $("#btn-edit-user").hide();
   $(".title-add").show();
   $(".title-update").hide();
+  $(".title-view").hide();
   $("#addModelForm").modal("show");
 });
 
@@ -305,15 +311,17 @@ $("#btn-add-user").on("click", function (e) {
   }
 });
 // Xử lý nút Edit show modal
-$(document).on("click", ".js-edit-user", function () {
+$(document).on("click", ".js-edit-user ", function () {
   let id = $(this).data("id");
   console.log(id);
   $("#addUserForm")[0].reset();
-
+  $("#view-profile-div").hide(); // Ẩn thẻ div đầu tiên
+  $("#edit-profile-div").show();
   $("#userId").val(id);
 
   $(".title-add").hide();
   $(".title-update").show();
+  $(".title-view").hide();
   $("#btn-add-user").hide();
   $("#btn-edit-user").show();
   $.ajax({
@@ -326,26 +334,94 @@ $(document).on("click", ".js-edit-user", function () {
     success: function (response) {
       if (response.success) {
         const user = response.data;
-        $("#accountId").val(user.AccountID);
-        $("#val-fullname").val(user.FullName);
-        $("#val-phone").val(user.PhoneNumber);
-        $("#val-identity").val(user.IdentityCard);
-        $("#val-role").val(user.RoleID);
-        $("#val-birthday").val(user.DateOfBirth);
+
+        $("#accountId").val(user.AccountID).prop("disabled", false);
+        $("#val-profile-picture").prop("disabled", false);
+        $("#val-fullname").val(user.FullName).prop("disabled", false);
+        $("#val-phone").val(user.PhoneNumber).prop("disabled", false);
+        $("#val-identity").val(user.IdentityCard).prop("disabled", false);
+        $("#val-role").val(user.RoleID).prop("disabled", false);
+        $("#val-birthday").val(user.DateOfBirth).prop("disabled", false);
         $("input[name='Sex'][value='" + user.Sex + "']").prop("checked", true);
-        $("#user_active").prop("checked", user.Active == 1);
-        $("#val-email").val(user.Email);
-        $("#val-username").val(user.Username);
+        $("input[name='Sex']").prop("disabled", false);
+
+        $("#user_active")
+          .prop("checked", user.Active == 1)
+          .prop("disabled", false);
+        $("#val-email").val(user.Email).prop("disabled", false);
+        $("#val-username").val(user.Username).prop("disabled", false);
         $("#val-password").val("**********");
         $("#val-repassword").val("**********");
         $("#val-password").attr("readonly", true);
         $("#val-repassword").attr("readonly", true);
         $("#val-password").attr("disabled", true);
         $("#val-repassword").attr("disabled", true);
-        $("#profile-preview").attr("src", user.ProfilePicture ?? userDefaultImg).show();
+        $("#profile-preview")
+          .attr("src", user.ProfilePicture ?? userDefaultImg)
+          .show();
 
         $("#btn-add-user").hide();
         $("#btn-edit-user").show();
+
+        $("#addModelForm").modal("show");
+      }
+    },
+    error: function () {
+      Dashmix.helpers("jq-notify", {
+        type: "danger",
+        icon: "fa fa-times me-1",
+        message: "Error occurred while fetching user details",
+      });
+    },
+  });
+});
+
+// Xử lý nút view detail modal
+$(document).on("click", ".js-view-user", function () {
+  let id = $(this).data("id");
+  console.log(id);
+  $("#addUserForm")[0].reset();
+
+  $("#userId").val(id);
+
+  $(".title-add").hide();
+  $(".title-update").show();
+  $(".title-view").hide();
+  $("#btn-add-user").hide();
+  $("#btn-edit-user").hide();
+  $.ajax({
+    type: "POST",
+    url: BaseUrl + `users/get`,
+    data: {
+      UserID: id,
+    },
+    dataType: "json",
+    success: function (response) {
+      if (response.success) {
+        const user = response.data;
+        $("#view-profile-div").show(); // Hiển thị thẻ div đầu tiên
+        $("#edit-profile-div").hide();
+        $("#accountId").val(user.AccountID).prop("disabled", true);
+        $("#val-fullname").val(user.FullName).prop("disabled", true);
+        $("#val-phone").val(user.PhoneNumber).prop("disabled", true);
+        $("#val-identity").val(user.IdentityCard).prop("disabled", true);
+        $("#val-role").val(user.RoleID).prop("disabled", true);
+        $("#val-birthday").val(user.DateOfBirth).prop("disabled", true);
+        $("input[name='Sex']").prop("disabled", true);
+        $("#user_active")
+          .prop("checked", user.Active == 1)
+          .prop("disabled", true);
+        $("#val-email").val(user.Email).prop("disabled", true);
+        $("#val-username").val(user.Username).prop("disabled", true);
+        $("#val-password").val("**********").prop("disabled", true);
+        $("#val-repassword").val("**********").prop("disabled", true);
+        $("#profile-view")
+          .attr("src", user.ProfilePicture ?? userDefaultImg)
+          .show();
+        $("#btn-add-picture").hide(); // Ẩn nút "+"
+        $("#btn-remove-picture").hide(); // Ẩn nút "x"
+        $("#btn-add-user").hide();
+        $("#btn-edit-user").hide();
 
         $("#addModelForm").modal("show");
       }
@@ -434,7 +510,7 @@ $(document).on("click", ".js-delete-user", function () {
     $.ajax({
       type: "POST",
       url: BaseUrl + "users/deleteUser",
-      data: { 
+      data: {
         UserID: id,
         AccountID: $(this).data("accountid"),
       },

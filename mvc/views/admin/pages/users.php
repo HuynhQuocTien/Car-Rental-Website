@@ -70,6 +70,7 @@
             <div class="modal-header block-header block-header-default">
                 <h3 class="block-title title-add">Add User</h3>
                 <h3 class="block-title title-update">Update User</h3>
+                <h3 class="block-title title-view">View detail user</h3>
                 <div class="block-options">
                     <button type="button" class="btn-block-option" data-bs-dismiss="modal" aria-label="Close">
                         <i class="fa fa-fw fa-times"></i>
@@ -85,13 +86,30 @@
                             <input type="file" class="form-control" id="val-profile-picture" name="ProfilePicture" accept="image/*">
                         </div>
                     </div> -->
-                    <div class="mb-3 text-center position-relative">
+                    <div id="view-profile-div" class="mb-3 text-center position-relative" style="display: none;">
+                        <div class="position-relative d-inline-block">
+                            <!-- Preview hình ảnh -->
+                            <img id="profile-view"
+                                src="https://res.cloudinary.com/dapudsvwl/image/upload/v1744802442/sdh1er6okrxz39xpr8vp.jpg"
+                                alt="Profile View" class="img-thumbnail" style="width: 100px; height: 100px;">
+                            <!-- Nút "+" trong trường hợp không có hình -->
+                            <div id="btn-add-picture-disabled"
+                                class="position-absolute top-50 start-50 translate-middle text-center"
+                                style="font-size: 24px; color: #6c757d; cursor: default; display: none;">
+                                +
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="edit-profile-div" class="mb-3 text-center position-relative" style="display: none;">
                         <input type="text" id="userId" hidden name="UserID" value="0">
                         <input type="text" id="accountId" hidden name="AccountID" value="0">
                         <div class="position-relative d-inline-block">
                             <!-- Preview hình ảnh -->
-                            <img id="profile-preview" src="https://res.cloudinary.com/dapudsvwl/image/upload/v1744802442/sdh1er6okrxz39xpr8vp.jpg" alt="Profile Preview"
-                                class="img-thumbnail" style="width: 100px; height: 100px; cursor: pointer;">
+                            <img id="profile-preview"
+                                src="https://res.cloudinary.com/dapudsvwl/image/upload/v1744802442/sdh1er6okrxz39xpr8vp.jpg"
+                                alt="Profile Preview" class="img-thumbnail"
+                                style="width: 100px; height: 100px; cursor: pointer;">
                             <!-- Nút "X" để xóa -->
                             <button id="btn-remove-picture" type="button"
                                 class="btn btn-danger btn-sm position-absolute top-0 end-0"
@@ -160,7 +178,8 @@
                             placeholder="Enter password..">
                     </div>
                     <div class="mb-2">
-                        <label class="form-label" for="val-repassword">Re-enter Password <span class="text-danger">*</span></label>
+                        <label class="form-label" for="val-repassword">Re-enter Password <span
+                                class="text-danger">*</span></label>
                         <input type="password" class="form-control" id="val-repassword" name="RePassword"
                             placeholder="Re-enter password..">
                     </div>
