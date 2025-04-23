@@ -404,7 +404,6 @@
         $("#closeCart, #closeCartBottom").on("click", function () {
             $("#miniCart").css("transform", "translateX(100%)");
         });
-
         // Đóng giỏ hàng nếu click ngoài vùng miniCart
         $(document).on("click", function (e) {
             if (!$(e.target).closest("#miniCart, .cartButton").length) {
