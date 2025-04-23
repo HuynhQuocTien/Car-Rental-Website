@@ -163,6 +163,25 @@ class AccountModel extends Database
         return $roles;
     }
 
+    public function checkEmail($email,$userID)
+    {
+        $sql = "SELECT *  FROM Users
+            JOIN Accounts ON Users.AccountID = Accounts.AccountID
+        WHERE (Email = '$email' AND Users.UserID != $userID)";
+        $result = mysqli_query($this->con, $sql);
+        $data = mysqli_fetch_assoc($result);
+        return $data['Email'] ?? null;
+    }
+    public function checkUsername($username,$userID)
+    {
+        $sql = "SELECT *  FROM Users
+            JOIN Accounts ON Users.AccountID = Accounts.AccountID
+        WHERE (Username = '$username' AND Users.UserID != $userID)";
+        $result = mysqli_query($this->con, $sql);
+        $data = mysqli_fetch_assoc($result);
+        return $data['Username'] ?? null;
+    }
+
 }
 
 ?>

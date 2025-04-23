@@ -53,6 +53,15 @@ class RoleModel extends Database {
         }
         return false;
     }
+    public function getAll(){
+        $sql = "SELECT * FROM `Roles` WHERE Is_Delete = 0 AND RoleID != 0";
+        $result = mysqli_query($this->con,$sql);
+        $rows = array();
+        while($row = mysqli_fetch_assoc($result)) {
+            $rows[] = $row;
+        }
+        return $rows;
+    }
     public function getPermissions($roleID){
         $sql = "SELECT rp.PermissionID, rp.FunctionID FROM RolePermissions rp
         WHERE rp.RoleID = $roleID";

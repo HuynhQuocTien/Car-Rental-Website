@@ -104,7 +104,7 @@ const renderData = function (vehicles) {
             ${
               vehicle.Active == 1
                 ? '<span class="badge bg-success">Active</span>'
-                : "Inactive"
+                : '<span class="badge bg-danger">InActive</span>'
             }
           </td>
           <td class="text-center">
