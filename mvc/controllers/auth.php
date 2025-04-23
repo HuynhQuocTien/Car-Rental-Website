@@ -243,13 +243,16 @@ class Auth extends Controller
     public function logout()
     {
         AuthCore::checkAuthentication();
-        
         $username = $_SESSION['Username'];
         $result = $this->accountModel->updateToken($username, NULL);
         if ($result) {
             session_destroy();
             setcookie("token", "", time() - 10, '/');
-            header("Location: ../home");
+            if(isset($_SESSION['RoleID']) && $_SESSION['RoleID'] > 0){
+                header("Location: " .BASE_URL."/admin/auth/signin");
+            }else if(isset($_SESSION['RoleID']) && $_SESSION['RoleID'] == 0){
+                header("Location: " .BASE_URL."/user/home");
+            }
         }
     }
 

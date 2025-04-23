@@ -37,7 +37,7 @@ class Users extends Controller {
                 'Password' => password_hash($_POST['Password'] ?? '', PASSWORD_DEFAULT), // Băm mật khẩu
                 'Sex' => $_POST['Sex'] ?? 0,
                 'Active' => isset($_POST['Active']) ? 1 : 0,
-                'ProfilePicture' => null // Sẽ cập nhật sau khi upload ảnh
+                'ProfilePicture' =>  "https://res.cloudinary.com/dapudsvwl/image/upload/v1744802442/sdh1er6okrxz39xpr8vp.jpg" // Sẽ cập nhật sau khi upload ảnh
             ];
     
             // Kiểm tra ảnh đại diện
@@ -76,7 +76,7 @@ class Users extends Controller {
                 'Email' => $_POST['Email'] ?? '',                
                 'Sex' => $_POST['Sex'] ?? 0,
                 'Active' => isset($_POST['Active']) ? 1 : 0,
-                'ProfilePicture' => null // Sẽ cập nhật sau nếu có upload ảnh
+                'ProfilePicture' =>  "https://res.cloudinary.com/dapudsvwl/image/upload/v1744802442/sdh1er6okrxz39xpr8vp.jpg" // Sẽ cập nhật sau khi upload ảnh
             ];
     
             // Kiểm tra ảnh đại diện
@@ -88,11 +88,7 @@ class Users extends Controller {
                 } catch (Exception $e) {
                     error_log("Lỗi khi upload ảnh: " . $e->getMessage());
                 }
-            } else {
-                // Nếu không có ảnh tải lên, lấy ảnh hiện tại từ database
-                $currentUser = $this->userModel->get($data['UserID']);
-                $data['ProfilePicture'] = $currentUser['ProfilePicture'] ?? null;
-            }    
+            } 
             // Cập nhật dữ liệu người dùng
             $result = $this->userModel->update($data);
     
@@ -106,8 +102,17 @@ class Users extends Controller {
     }
     public function deleteUser() {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $id = $_POST['UserID'] ?? '0';
-            $result = $this->userModel->delete($id);
+            $userId = $_POST['UserID'] ?? null;
+            $accId = $_POST['AccountID'] ?? null;
+            if(empty($userId) || empty($accId)) {
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Invalid user ID or account ID!'
+                ]);
+                return;
+            }
+            // Kiểm tra xem người dùng có quyền xóa không
+            $result = $this->userModel->delete($userId,$accId);
             echo json_encode([
                 'success' => $result,
                 'message' => $result ? 'User deleted successfully!' : 'Failed to delete user!'

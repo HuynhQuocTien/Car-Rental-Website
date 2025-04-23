@@ -74,15 +74,14 @@ class UserModel extends Database {
     
         return true;
     }
-    
-    public function delete($userID) {
+    public function delete($userID,$accId) {
         // Đánh dấu là đã xóa trong bảng Accounts
-        $sql = "UPDATE Accounts SET Is_Delete = 1 WHERE AccountID = {$userID}";
+        $sql = "UPDATE Accounts SET Is_Delete = 1 WHERE AccountID = {$accId} ";
         $result = mysqli_query($this->con, $sql);
     
         if ($result) {
             // Đánh dấu là đã xóa trong bảng Users
-            $sql = "UPDATE Users SET Is_Delete = 1 WHERE AccountID = {$userID}";
+            $sql = "UPDATE Users SET Is_Delete = 1 WHERE UserID = {$userID}";
             $result = mysqli_query($this->con, $sql);
     
             if (!$result) {

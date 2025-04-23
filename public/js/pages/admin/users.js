@@ -179,7 +179,7 @@ const renderData = function (users) {
             <i class="fa fa-pencil-alt"></i>
           </button>
           <button class="btn btn-sm btn-alt-secondary js-delete-user"
-                  data-id="${user.UserID}" title="Delete">
+                  data-id="${user.UserID}" data-accountid="${user.AccountID}" title="Delete">
             <i class="fa fa-times"></i>
           </button>
         </div>
@@ -232,6 +232,10 @@ $("#btn-add").on("click", function (e) {
   $("#val-username").val("");
   $("#val-profile-picture").val("");
   $("#addUserForm")[0].reset();
+  $("#profile-preview").attr("src", userDefaultImg); 
+  $("#val-profile-picture").val("");
+  $("#btn-add-picture").show(); 
+  $("#btn-remove-picture").hide();
   $("#btn-add-user").show();
   $("#btn-edit-user").hide();
   $(".title-add").show();
@@ -300,131 +304,6 @@ $("#btn-add-user").on("click", function (e) {
     });
   }
 });
-
-function checkUsername(username) {
-  $.ajax({
-    type: "POST",
-    url: BaseUrl + "users/checkUsername",
-    data: {
-      Username: username,
-      UserID: $("#userId").val(), // Thêm UserID để kiểm tra trùng lặp
-    },
-    dataType: "json",
-    success: function (response) {
-      if (response.exists) {
-        $("#val-username").addClass("is-invalid");
-        $("#val-username")
-          .next(".invalid-feedback")
-          .text("Username already exists")
-          .show();
-      } else {
-        $("#val-username").removeClass("is-invalid");
-        $("#val-username").next(".invalid-feedback").hide();
-      }
-    },
-    error: function () {
-      Dashmix.helpers("jq-notify", {
-        type: "danger",
-        icon: "fa fa-times me-1",
-        message: "Error occurred while checking username",
-      });
-    },
-  });
-}
-
-function checkEmail(email) {
-  $.ajax({
-    type: "POST",
-    url: BaseUrl + "users/checkEmail",
-    data: {
-      Email: email,
-      UserID: $("#userId").val(), // Thêm UserID để kiểm tra trùng lặp
-    },
-    dataType: "json",
-    success: function (response) {
-      if (response.exists) {
-        $("#val-email").addClass("is-invalid");
-        $("#val-email")
-          .next(".invalid-feedback")
-          .text("Email already exists")
-          .show();
-      } else {
-        $("#val-email").removeClass("is-invalid");
-        $("#val-email").next(".invalid-feedback").hide();
-      }
-    },
-    error: function () {
-      Dashmix.helpers("jq-notify", {
-        type: "danger",
-        icon: "fa fa-times me-1",
-        message: "Error occurred while checking email",
-      });
-    },
-  });
-}
-
-function checkPhoneNumber(phoneNumber) {
-  $.ajax({
-    type: "POST",
-    url: BaseUrl + "users/checkPhoneNumber",
-    data: {
-      PhoneNumber: phoneNumber,
-      UserID: $("#userId").val(), // Thêm UserID để kiểm tra trùng lặp},
-    },
-    dataType: "json",
-    success: function (response) {
-      if (response.exists) {
-        $("#val-phone").addClass("is-invalid");
-        $("#val-phone")
-          .next(".invalid-feedback")
-          .text("Phone number already exists")
-          .show();
-      } else {
-        $("#val-phone").removeClass("is-invalid");
-        $("#val-phone").next(".invalid-feedback").hide();
-      }
-    },
-    error: function () {
-      Dashmix.helpers("jq-notify", {
-        type: "danger",
-        icon: "fa fa-times me-1",
-        message: "Error occurred while checking phone number",
-      });
-    },
-  });
-}
-
-function checkIdentityCard(identityCard) {
-  $.ajax({
-    type: "POST",
-    url: BaseUrl + "users/checkIdentityCard",
-    data: {
-      IdentityCard: identityCard,
-      UserID: $("#userId").val(), // Thêm UserID để kiểm tra trùng lặp
-    },
-    dataType: "json",
-    success: function (response) {
-      if (response.exists) {
-        $("#val-identity").addClass("is-invalid");
-        $("#val-identity")
-          .next(".invalid-feedback")
-          .text("Identity card already exists")
-          .show();
-      } else {
-        $("#val-identity").removeClass("is-invalid");
-        $("#val-identity").next(".invalid-feedback").hide();
-      }
-    },
-    error: function () {
-      Dashmix.helpers("jq-notify", {
-        type: "danger",
-        icon: "fa fa-times me-1",
-        message: "Error occurred while checking identity card",
-      });
-    },
-  });
-}
-
 // Xử lý nút Edit show modal
 $(document).on("click", ".js-edit-user", function () {
   let id = $(this).data("id");
@@ -555,7 +434,10 @@ $(document).on("click", ".js-delete-user", function () {
     $.ajax({
       type: "POST",
       url: BaseUrl + "users/deleteUser",
-      data: { UserID: id },
+      data: { 
+        UserID: id,
+        AccountID: $(this).data("accountid"),
+      },
       dataType: "json",
       success: function (response) {
         if (response.success) {

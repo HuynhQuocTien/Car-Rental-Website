@@ -470,7 +470,8 @@ VALUES
 -- Nhập dữ liệu cho bảng Accounts
 INSERT INTO `Accounts` (`Username`, `Password`,`Token`,`ProfilePicture`,`GoogleID`, `Email`, `RoleID`)
 VALUES 
-('admin', '$2y$10$F3FQFNZwijEhnKf4EVrkVeaJNtW0icztly.M4sNrHn2GDsT1DsARy',NULL,NULL,NULL, 'quoctien01062003@gmail.com',1);
+('admin', '$2y$10$F3FQFNZwijEhnKf4EVrkVeaJNtW0icztly.M4sNrHn2GDsT1DsARy',NULL,
+'https://res.cloudinary.com/dapudsvwl/image/upload/v1744802442/sdh1er6okrxz39xpr8vp.jpg',NULL, 'quoctien01062003@gmail.com',1);
 
 -- Nhập dữ liệu cho bảng Users
 INSERT INTO `Users` (`FullName`, `PhoneNumber`, `Sex`, `IdentityCard`, `DateOfBirth`, `AccountID`, `Active`, `Is_Delete`)

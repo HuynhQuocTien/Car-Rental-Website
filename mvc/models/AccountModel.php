@@ -58,12 +58,12 @@ class AccountModel extends Database
         $user = $this->getByUsername($username);
         if ($user == '') {
             return json_encode(["message" => "Tài khoản không tồn tại !", "valid" => "false"]);
-        } else if ($user['RoleID'] != 0 && $web == "user") {
-            return json_encode(["message" => "Không có quyền hạn để truy cập", "valid" => "false"]);
+        } else if ($user['RoleID'] > 0 && $web == "user") {
+            return json_encode(["message" => "Không có quyền hạn để truy cập", "valid" => "false","user" => $user]);
         } else if ($user["RoleID"] == 0 && $web == "admin") {
-            return json_encode(["message" => "Không có quyền hạn để truy cập", "valid" => "false"]);
+            return json_encode(["message" => "Không có quyền hạn để truy cập", "valid" => "false","user" => $user]);
         } else if ($user['Active'] == 0) {
-            return json_encode(["message" => "Tài khoản bị khóa !", "valid" => "false"]);
+            return json_encode(["message" => "Tài khoản bị khóa !", "valid" => "false","user" => $user]);
         } else {
             $result = password_verify($password, $user['Password']);
             if ($result) {
