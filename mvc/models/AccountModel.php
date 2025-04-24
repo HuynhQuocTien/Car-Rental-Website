@@ -170,6 +170,33 @@ class AccountModel extends Database
         }
         return $roles;
     }
+    public function updateUserProfile($newEmail, $token) {
+        $sql = "UPDATE `Accounts` SET `Email` = ? WHERE `Token` = ?";
+        $stmt = mysqli_prepare($this->con, $sql);
+    
+        if ($stmt) {
+            mysqli_stmt_bind_param($stmt, "ss", $newEmail, $token);
+            if (mysqli_stmt_execute($stmt)) {
+                return json_encode([
+                    "success" => true,
+                    "message" => "Cập nhật email thành công"
+                ]);
+            } else {
+                return json_encode([
+                    "success" => false,
+                    "message" => "Lỗi khi cập nhật: " . mysqli_error($this->con)
+                ]);
+            }
+        } else {
+            return json_encode([
+                "success" => false,
+                "message" => "Không thể chuẩn bị truy vấn: " . mysqli_error($this->con)
+            ]);
+        }
+    }
+    
+    
+    
 
 }
 

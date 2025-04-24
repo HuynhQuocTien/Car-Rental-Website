@@ -34,6 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function bindEvents() {
+    loadScript("profile");
     document
       .getElementById("account-profile-tab")
       .addEventListener("click", function () {
