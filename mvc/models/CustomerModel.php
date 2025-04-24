@@ -13,7 +13,14 @@ class CustomerModel extends Database {
             return false;
         }
     }
-
+    public function getByAccountID($accountID){
+        $sql = "SELECT * FROM `Customers` WHERE `AccountID` = '$accountID'";
+        $result = mysqli_query($this->con, $sql);
+        if ($row = mysqli_fetch_assoc($result)) {
+            return $row;  // Trả về một dòng duy nhất
+        }
+        return null; 
+    }
     public function getMaxCustomerID() {
         $sql = "SELECT MAX(CustomerID) AS maxCustomerID FROM Customers";
         $stmt = $this->con->query($sql);

@@ -26,7 +26,7 @@ class Vehicles extends Controller {
         return null;
     }
     public function __construct(){
-        $this->vehicleModel = $this->model("VehicleModel");;
+        $this->vehicleModel = $this->model("VehicleModel");
         $this->colorModel = $this->model("ColorModel");
         $this->modelModel = $this->model("ModelModel");
         $this->makeModel = $this->model("MakeModel");

@@ -11,11 +11,10 @@
   <!-- <script src="../public/js/plugins/datatables-bs5/js/dataTables.bootstrap5.min.js"></script> -->
 
   <!-- Page JS Helpers (BS Datepicker plugin) -->
-  <script>
-Dashmix.helpersOnLoad(['jq-datepicker', 'jq-rangeslider', 'jq-slick']);
-  </script>
+  <script>Dashmix.helpersOnLoad(['jq-datepicker', 'jq-rangeslider', 'jq-slick']);</script>
   
   <script src="<?= BASE_URL ?>/public/js/pages/user/auth.js"></script>
+  <script src="<?= BASE_URL ?>/public/js/pages/user/updateCustomer.js"></script>
 <?php
     if(isset($data["Script"])) {
         echo '<script src="' .BASE_URL.'/public/js/pages/user/'.$data["Script"].'.js"></script>';

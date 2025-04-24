@@ -19,6 +19,14 @@ class UserModel extends Database {
         $query = $query . " ORDER BY u.UserID ASC";
         return $query;
     }   
+    public function getByAccountID($accountID){
+        $sql = "SELECT * FROM `Users` WHERE `AccountID` = '$accountID'";
+        $result = mysqli_query($this->con, $sql);
+        if ($row = mysqli_fetch_assoc($result)) {
+            return $row;  // Trả về một dòng duy nhất
+        }
+        return null; 
+    }
 }
 
 ?>

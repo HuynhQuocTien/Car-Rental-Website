@@ -44,6 +44,14 @@ class AccountModel extends Database
         $result = mysqli_query($this->con, $sql);
         return mysqli_fetch_assoc($result);
     }
+    public function getByToken($token){
+        $sql = "SELECT * FROM `Accounts` WHERE `Token` = '$token'";
+        $result = mysqli_query($this->con, $sql);
+        if ($row = mysqli_fetch_assoc($result)) {
+            return $row;  // Trả về một dòng duy nhất
+        }
+        return null; 
+    }
     public function updateToken($username, $token)
     {
         $valid = true;
