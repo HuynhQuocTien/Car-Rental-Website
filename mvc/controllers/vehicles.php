@@ -57,6 +57,9 @@ class Vehicles extends Controller {
                 "Title"=>"Vehicles",
                 "Script"=> "vehicle",
                 "Page"=>"vehicles",
+                "Colors"=>$this->colorModel->getAll(),
+                "Makes"=>$this->makeModel->getAll(),
+                "Models"=>$this->modelModel->getAll(),
                 "VehicleTypes"=>$this->vehicleTypeModel->getAll(),
 
             ],
@@ -67,17 +70,25 @@ class Vehicles extends Controller {
         $arrrs = $this->UrlProcess();
         $id = isset($_GET['id']) ? $_GET['id'] : null;
         if($arrrs[0] == "user" && $id != null){
+            if(isset($_SESSION["RoleID"]) && $_SESSION["RoleID"] != 0){
+                $this->view("single_layout", ["Page" => "error/403","Title" => "Forbidden!"]);
+                exit;
+            }
             $this->view("main_layout", [
                 "Title"=>"Detail Vehicles",
                 "Script"=> "vehicleDetail",
                 "Page"=>"detail-vehicle",
+                "Colors"=>$this->colorModel->getAll(),
+                "Makes"=>$this->makeModel->getAll(),
+                "Models"=>$this->modelModel->getAll(),
                 "Vehicle"=>$this->vehicleDetailModel->getVehicleDetails($id),
-                "VehicleImages"=>[1,2,3,4,5],
+                "VehicleImages"=>$this->vehicleDetailModel->getImages($id),
+                "ImageIsPrimary"=>$this->vehicleDetailModel->getImageIsPrimary($id),
                 "id"=>$id,
 
             ],
             "user");
-        } else $this->view("single_layout", ["Page" => "error/404","Title" => "Lỗi !"]);
+        } else $this->view("single_layout", ["Page" => "error/404","Title" => "ERROR !"]);
     }
     public function getVehicleTest(){
 

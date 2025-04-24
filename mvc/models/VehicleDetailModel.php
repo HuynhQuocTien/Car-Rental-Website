@@ -48,6 +48,29 @@ class VehicleDetailModel extends Database {
         $result = mysqli_query($this->con, $sql);
         return mysqli_fetch_assoc($result);
     }
+    public function getImages($id){
+        $sql = "SELECT *
+                    FROM VehicleImages
+                    WHERE VehicleDetailID = $id
+                      AND ImageURL IS NOT NULL
+                      AND ImageURL != '';";
+        $result = mysqli_query($this->con, $sql);
+        $rows = array();
+        while($row = mysqli_fetch_assoc($result))
+            $rows[] = $row;
+        return $rows;
+    }
+    public function getImageIsPrimary($id){
+        $sql = "SELECT *
+                    FROM VehicleImages
+                    WHERE VehicleDetailID = $id
+                    AND IsPrimary = 1 
+                    AND ImageURL IS NOT NULL
+                    AND ImageURL != '';";
+        $result = mysqli_query($this->con, $sql);
+        $row = mysqli_fetch_assoc($result);
+        return $row;
+    }
 
     public function getByVehicleId($vehicleId)
     {
@@ -135,14 +158,13 @@ class VehicleDetailModel extends Database {
     public function getVehicleDetails($id){
         $sql = "SELECT v.VehicleID, v.Quantity,v.PromotionID,v.Active,v.Seats,
          m.MakeName,mo.ModelName, vt.NameType ,
-         vd.*, c.ColorName, vi.ImageID, vi.ImageID,  vi.ImageURL, vi.IsPrimary 
+         vd.*, c.ColorName 
                     FROM VehicleDetails vd
                     LEFT JOIN Vehicles v ON vd.VehicleID = v.VehicleID
                     LEFT JOIN Makes m ON v.MakeID = m.MakeID
                     LEFT JOIN Models mo ON v.ModelID = mo.ModelID
                     LEFT JOIN VehicleTypes vt ON v.VehicleTypesID = vt.VehicleTypesID
                     LEFT JOIN Colors c ON vd.ColorID = c.ColorID
-                    LEFT JOIN VehicleImages vi ON vd.VehicleDetailID = vi.VehicleDetailID
                   WHERE vd.Is_Delete = 0 AND vd.VehicleDetailID = '$id'";
         $result = mysqli_query($this->con, $sql);
         $row = mysqli_fetch_assoc($result);
@@ -152,16 +174,15 @@ class VehicleDetailModel extends Database {
     public function getQuery( $filter,$input, $lastURL = 'VehicleDetails')
     {
         $query = "SELECT v.VehicleID, v.Quantity,v.PromotionID,v.Active,v.Seats,
-         m.MakeName,mo.ModelName, vt.NameType ,
-         vd.*, c.ColorName, vi.ImageID, vi.ImageID,  vi.ImageURL, vi.IsPrimary 
+         m.MakeName,mo.ModelName, vt.NameType , vd.*, c.ColorName, vi.ImageURL,vi.IsPrimary
                     FROM VehicleDetails vd
                     LEFT JOIN Vehicles v ON vd.VehicleID = v.VehicleID
                     LEFT JOIN Makes m ON v.MakeID = m.MakeID
                     LEFT JOIN Models mo ON v.ModelID = mo.ModelID
                     LEFT JOIN VehicleTypes vt ON v.VehicleTypesID = vt.VehicleTypesID
                     LEFT JOIN Colors c ON vd.ColorID = c.ColorID
-                    LEFT JOIN VehicleImages vi ON vd.VehicleDetailID = vi.VehicleDetailID
-                  WHERE vd.Is_Delete = 0 ";
+                    LEFT JOIN VehicleImages vi ON vi.VehicleDetailID = vd.VehicleDetailID
+                  WHERE vd.Is_Delete = 0 AND vi.IsPrimary = 1 ";
         if ($input) {
             $query = $query. " AND (m.MakeName LIKE '%{$input}%' OR 
                             mo.ModelName LIKE '%{$input}%' OR 
@@ -182,6 +203,26 @@ class VehicleDetailModel extends Database {
                         rod.ReturnDate < '{$fromDate}' OR ro.RentalDate > '{$toDate}'
                     )
                 )";
+            }
+            // make
+            if (!empty($filter['make'])) {
+                $make = intval($filter['make']);
+                $query .= " AND v.MakeID = {$make}";
+            }
+            // model
+            if (!empty($filter['model'])) {
+                $model = intval($filter['model']);
+                $query .= " AND v.ModelID = {$model}";
+            }
+            // year
+            if (!empty($filter['year'])) {
+                $year = intval($filter['year']);
+                $query .= " AND vd.Year = {$year}";
+            }
+            // Color
+            if (!empty($filter["color"])) {
+                $color = intval($filter['color']);
+                $query .= " AND vd.ColorID = {$color}";
             }
             
             // Vehicle Type

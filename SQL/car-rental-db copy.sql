@@ -485,7 +485,7 @@ VALUES ('Toyota', 'Japan'), ('Honda', 'Japan'), ('Ford', 'USA');
 
 -- Thêm dữ liệu vào bảng VehicleTypes
 INSERT INTO `VehicleTypes` (`NameType`) 
-VALUES ('Luxury'), ('Mid-range'), ('Popular'), ('SUV') ;
+VALUES ('Luxury'), ('Mid-range'), ('Popular');
 
 -- Thêm dữ liệu vào bảng Models
 INSERT INTO `Models` (`ModelName`, `MakeID`, `VehicleTypesID`) 
@@ -499,67 +499,26 @@ VALUES ('Black'), ('White'), ('Red'),('Silver'), ('Blue'), ('Green'), ('Yellow')
 INSERT INTO `Promotions` (`PromotionID`, `PromotionName`, `PromotionCode`, `Description`, `Status`, `Is_Delete`) 
 VALUES (0, 'Không có khuyến mãi', 'NO_PROMO', 'Không áp dụng khuyến mãi', 1, 0);
 
--- Thêm dữ liệu vào bảng Vehicles
-INSERT INTO `Vehicles` (`MakeID`, `ModelID`, `Seats`, `VehicleTypesID`, `HourlyPrice`, `DailyPrice`, `WeeklyPrice`, `MonthlyPrice`, `Quantity`,  `PromotionID`, `Is_Delete`) 
-VALUES 
-(1, 1, 5, 2, 10.5, 70, 450, 1500, 10, 0, 0),
-(2, 2, 5, 2, 9, 60, 400, 1400, 8, 0, 0),
-(3, 3, 4, 1, 20, 150, 950, 3500, 5, 0, 0);
-
--- Thêm dữ liệu vào VehicleDetails với giá chênh lệch từ 2-5% so với mặc định
-INSERT INTO `VehicleDetails` (
-    `VehicleID`, `ColorID`, `LicensePlateNumber`, `Mileage`, `Year`, `Transmission`, `FuelType`,
-    `HourlyPrice`, `DailyPrice`, `WeeklyPrice`, `MonthlyPrice`,
-    `FuelConsumption`,`Is_Feature`, `Active`, `Is_Delete`
-) VALUES 
--- VehicleID = 1 (giá gốc: 10.5 | 70 | 450 | 1500)
-(1, 1, '59A12345', 10000, 2020, 'Automatic', 'Gasoline', 10.8, 72, 459, 1530, '5.5',1, 1, 0),
-(1, 1, '59A12350', 15000, 2021, 'Automatic', 'Gasoline', 10.71, 71.4, 456, 1515, '5.5',0, 1, 0),
-(1, 1, '59A12351', 25000, 2022, 'Automatic', 'Gasoline', 10.29, 68.6, 441, 1470, '5.5',0, 1, 0),
-(1, 1, '59A12352', 35000, 2023, 'Automatic', 'Gasoline', 10.71, 71.4, 459, 1515, '5.5',0, 1, 0),
-(1, 1, '59A12353', 45000, 2024, 'Automatic', 'Gasoline', 10.29, 68.6, 441, 1470, '5.5',0, 1, 0),
-(1, 2, '59A12346', 20000, 2019, 'Automatic', 'Gasoline', 10.71, 71.4, 459, 1515, '5.5',0, 1, 0),
-(1, 2, '59A12354', 10000, 2020, 'Automatic', 'Gasoline', 10.29, 68.6, 441, 1470, '5.5',0, 1, 0),
-(1, 2, '59A12355', 15000, 2021, 'Automatic', 'Gasoline', 10.5, 70, 450, 1500, '5.5',0, 1, 0),
-(1, 2, '59A12356', 25000, 2022, 'Automatic', 'Gasoline', 10.71, 71.4, 459, 1515, '5.5',0, 1, 0),
-(1, 2, '59A12357', 35000, 2023, 'Automatic', 'Gasoline', 10.5, 70, 450, 1500, '5.5', 1,0, 0),
-(1, 2, '59A12358', 45000, 2024, 'Automatic', 'Gasoline', 10.29, 68.6, 441, 1470, '5.5',0, 1, 0),
-(1, 2, '59A12359', 50000, 2025, 'Automatic', 'Gasoline', 10.8, 72, 459, 1530, '5.5',0, 1, 0),
-
--- VehicleID = 2 (giá gốc: 9 | 60 | 400 | 1400)
-(2, 3, '59A12347', 30000, 2018, 'Automatic', 'Gasoline', 9.36, 62.4, 408, 1430, '5.5', 1,1, 0),
-
--- VehicleID = 3 (giá gốc: 20 | 150 | 950 | 3500)
-(3, 1, '59A12348', 40000, 2017, 'Automatic', 'Gasoline', 20.4, 153, 969, 3570, '5.5', 1,1, 0),
-(3, 1, '59A12349', 50000, 2016, 'Automatic', 'Gasoline', 19.8, 147, 931, 3430, '5.5',0, 1, 0),
-(3, 1, '59A12360', 60000, 2015, 'Automatic', 'Gasoline', 20.2, 151.5, 969, 3540, '5.5',0, 1, 0),
-(3, 1, '59A12361', 70000, 2014, 'Automatic', 'Gasoline', 19.6, 145.5, 931, 3430, '5.5',0, 1, 0),
-(3, 1, '59A12362', 80000, 2013, 'Automatic', 'Gasoline', 20.4, 153, 969, 3570, '5.5',0, 1, 0),
-(3, 1, '59A12363', 90000, 2012, 'Automatic', 'Gasoline', 20.2, 151.5, 950, 3540, '5.5',0, 1, 0),
-(3, 1, '59A12364', 100000, 2011, 'Automatic', 'Gasoline', 19.6, 147, 931, 3430, '5.5',0, 1, 0);
-
-
-
 -- Thêm dữ liệu vào bảng DamageTypes
 INSERT INTO `DamageTypes` (`DamageName`, `FineAmount`, `VehicleTypesID`, `Is_Delete`)
 VALUES 
-('Light scratches', 200, 1, 0),
-('Light scratches', 150, 2, 0),
-('Light scratches', 100, 3, 0),
+('Xước nhẹ', 200, 1, 0),
+('Xước nhẹ', 150, 2, 0),
+('Xước nhẹ', 100, 3, 0),
 
-('Severe scratches', 500, 1, 0),
-('Severe scratches', 400, 2, 0),
-('Severe scratches', 300, 3, 0),
+('Xước nặng', 500, 1, 0),
+('Xước nặng', 400, 2, 0),
+('Xước nặng', 300, 3, 0),
 
-('Broken light', 300, 1, 0),
-('Broken light', 200, 2, 0),
-('Broken light', 100, 3, 0),
+('Hỏng đèn', 300, 1, 0),
+('Hỏng đèn', 200, 2, 0),
+('Hỏng đèn', 100, 3, 0),
 
-('Broken door', 400, 1, 0),
-('Broken door', 300, 2, 0),
-('Broken door', 200, 3, 0),
+('Hỏng cửa', 400, 1, 0),
+('Hỏng cửa', 300, 2, 0),
+('Hỏng cửa', 200, 3, 0),
 
-('Dented license plate', 200, 1, 0),
-('Dented license plate', 100, 2, 0),
-('Dented license plate', 50, 3, 0);
+('Móp biển số', 200, 1, 0),
+('Móp biển số', 100, 2, 0),
+('Móp biển số', 50, 3, 0);
 

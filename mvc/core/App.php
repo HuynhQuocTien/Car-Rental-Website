@@ -52,7 +52,10 @@ class App{
         }
 
         // Params
-        $this->params = $arr ? array_values($arr) : [];
+        // $this->params = $arr ? array_values($arr) : [];
+        // Bỏ qua phần controller và action đầu tiên
+        $this->params = array_slice($arr, 1) ? array_values(array_slice($arr, 1)) : [];
+
 
         // Gọi Controller + Action
         try {

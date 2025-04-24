@@ -21,7 +21,7 @@
             <h3 class="block-title">User List</h3>
             <div class="block-options">
                 <button type="button" class="btn btn-hero btn-primary me-2" data-bs-toggle="modal"
-                    data-bs-target="#addModelForm" id="btn-add">
+                    data-bs-target="#addModelForm" id="btn-add" data-role="add">
                     Add User
                 </button>
             </div>
