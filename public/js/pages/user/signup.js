@@ -13,7 +13,9 @@ $(document).ready(function () {
           success: function (response) {
             console.log(response);
             if (response.valid == "true") {
-              location.href = "./dashboard";
+                setTimeout(function () {
+                    location.reload();
+                  }, 500);
             } else {
               Dashmix.helpers("jq-notify", {
                 type: "danger",
