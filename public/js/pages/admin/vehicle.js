@@ -95,21 +95,12 @@ function calculateDiscountedPrices() {
 const renderData = function (vehicles) {
   let html = "";
   vehicles.forEach((vehicle) => {
-    html += `<tr>
-            <td class="text-center">
-                <div class="btn-group">
-                    <button class="btn btn-sm btn-alt-secondary js-add-detail" 
-                            data-id="${vehicle.VehicleID}"
-                            title="Add Detail">
-                        <i class="fa fa-plus"></i>
-                    </button>
-                </div>
-            </td>
+    html += `<tr>            
             <td>${vehicle.VehicleID}</td>
             <td>${vehicle.MakeName}</td>
             <td>${vehicle.ModelName}</td>
-            <td>${vehicle.NameType}</td>
             <td>${vehicle.Seats}</td>
+            <td>${vehicle.NameType}</td>
             <td>${vehicle.HourlyPrice}</td>
             <td>${vehicle.DailyPrice}</td>
             <td>${vehicle.Quantity}</td>
@@ -121,11 +112,11 @@ const renderData = function (vehicles) {
                 }             </td>
             <td class="text-center">
                 <div class="btn-group">
-                    <button class="btn btn-sm btn-alt-secondary js-detail-vehicle" 
+                    <a class="btn btn-sm btn-alt-secondary js-detail-vehicle"  href="${BaseUrl}vehicles/addvehicles&id=${vehicle.VehicleID}"
                             data-id="${vehicle.VehicleID}"
                             title="Show Details">
                         <i class="fa fa-rectangle-list"></i>
-                    </button>
+                    </a>
                     <button class="btn btn-sm btn-alt-secondary js-edit-vehicle" 
                             data-id="${vehicle.VehicleID}"
                             title="Edit">
@@ -351,7 +342,16 @@ $("#updateVehicleBtn").on("click", function (e) {
 $(document).on("click", ".js-delete-vehicle", function () {
   const id = $(this).data("id");
 
-  if (confirm("Are you sure you want to delete this vehicle?")) {
+  Swal.fire({
+    title: 'Confirm Delete',
+    text: 'Are you sure you want to delete data?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, Delete',
+    cancelButtonText: 'Cancel',
+    reverseButtons: true
+}).then((result) => {
+  if (result.isConfirmed) {
     $.ajax({
       type: "post",
       url: BaseUrl + "vehicles/delete",
@@ -387,30 +387,31 @@ $(document).on("click", ".js-delete-vehicle", function () {
     });
   }
 });
-
-$(document).on("click", ".js-detail-vehicle", function () {
-    var vehicleId = $(this).data("id");
-    // console.log(vehicleId);
-    $.ajax({
-        url: BaseUrl + "vehicles/saveVehicleID",
-        method: "POST",
-        data: { 
-            vehicle_id: vehicleId 
-        },
-        dataType: "json",
-        success: function (response) {
-          if (response.success) {
-            console.log(response.data);
-            window.location.href = BaseUrl + "vehicles/addvehicles";
-          } else {
-            alert("Không thể lưu VehicleID vào session.");
-          }
-        },
-        error: function () {
-          alert("Có lỗi khi gửi request đến server.");
-        },
-    });
 });
+
+// $(document).on("click", ".js-detail-vehicle", function () {
+//     var vehicleId = $(this).data("id");
+//     // console.log(vehicleId);
+//     $.ajax({
+//         url: BaseUrl + "vehicles/saveVehicleID",
+//         method: "POST",
+//         data: { 
+//             vehicle_id: vehicleId 
+//         },
+//         dataType: "json",
+//         success: function (response) {
+//           if (response.success) {
+//             console.log(response.data);
+//             window.location.href = BaseUrl + "vehicles/addvehicles";
+//           } else {
+//             alert("Không thể lưu VehicleID vào session.");
+//           }
+//         },
+//         error: function () {
+//           alert("Có lỗi khi gửi request đến server.");
+//         },
+//     });
+// });
 
 // Initialize pagination for vehicles
 const vehiclePagination = new Pagination();

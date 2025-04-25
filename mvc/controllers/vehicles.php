@@ -96,13 +96,13 @@ class Vehicles extends Controller {
     public function addvehicles() {
         $arrrs = $this->UrlProcess();
         if($arrrs[0] == "admin"){
-            if (!isset($_SESSION['add_vehicle_id'])) {
-                // Không có quyền truy cập nếu chưa bấm nút js-add-detail
-                header("Location: /index.php");
-                exit;
-            }
+            // if (!isset($_GET['id'])) {
+            //     // Không có quyền truy cập nếu chưa bấm nút js-add-detail
+            //     header("Location: /index.php");
+            //     exit;
+            // }
             
-            $vehicleId = $_SESSION['add_vehicle_id'];
+            $vehicleId = $_GET['id'];
 
             $this->view("main_layout", [
                 "Title"=>"Add Vehicles",
@@ -110,8 +110,37 @@ class Vehicles extends Controller {
                 "Page"=>"/pages/vehicles/addvehicles",
                 "Vehicle"=>$this->vehicleModel->getById($vehicleId),
                 "Colors"=>$this->colorModel->getAll(),
+                "VehicleTypes"=>$this->vehicleTypeModel->getAll(),
             ],
             "admin");
+        }
+    }
+    public function getImages(){
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $vehicleID = $_POST["id"] ?? null;
+            
+            if (!$vehicleID) {
+                echo json_encode(['success' => false, 'message' => 'Vehicle ID is required']);
+                return;
+            }
+
+            $result = $this->vehicleDetailModel->getImages($vehicleID);
+            
+            echo json_encode(['success' => true, 'data' => $result]);
+        }
+    }
+    public function getVehicleDetail() {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $vehicleID = $_POST["id"] ?? null;
+            
+            if (!$vehicleID) {
+                echo json_encode(['success' => false, 'message' => 'Vehicle ID is required']);
+                return;
+            }
+
+            $result = $this->vehicleDetailModel->getVehicleDetails($vehicleID);
+            
+            echo json_encode(['success' => true, 'data' => $result]);
         }
     }
     public function vehiclecategory() {
@@ -590,7 +619,7 @@ class Vehicles extends Controller {
                 return;
             }
 
-            $result = $this->vehicleModel->delete($vehicleID);
+            $result = $this->vehicleDetailModel->delete($vehicleID);
             
             header('Content-Type: application/json');
             echo json_encode(['success' => $result]);

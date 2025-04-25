@@ -224,11 +224,16 @@ class VehicleDetailModel extends Database {
                 $color = intval($filter['color']);
                 $query .= " AND vd.ColorID = {$color}";
             }
+            // License Plate
+            if (!empty($filter["licensePlate"])) {
+                $licensePlate = intval($filter['licensePlate']);
+                $query .= " AND vd.LicensePlateNumber LIKE '%{$licensePlate}%'";
+            }
             
             // Vehicle Type
             if (!empty($filter['vehicleType'])) {
                 $vehicleType = intval($filter['vehicleType']);
-                $query .= " AND v.VehicleTypesID = '{$vehicleType}'";
+                $query .= " AND v.VehicleTypesID = {$vehicleType} ";
             }
 
             // Price Range (giá nằm trong VehicleDetails.Price)
@@ -255,8 +260,17 @@ class VehicleDetailModel extends Database {
                 $trans = addslashes($filter['transmission']);
                 $query .= " AND vd.Transmission = '{$trans}'";
             }
+            if (!empty($filter['sort']['sort']) && !empty($filter['sort']['sortDirection'])) {
+                $validFields = ['VehicleDetailID', 'HourlyPrice', 'DailyPrice', 'WeeklyPrice', 'MonthlyPrice', 'Year'];
+                $sortField = in_array($filter['sort']['sort'], $validFields) ? $filter['sort']['sort'] : 'VehicleDetailID';
+                $sortDirection = strtoupper($filter['sort']['sortDirection']) == 'DESC' ? 'DESC' : 'ASC';
+                $query .= " ORDER BY vd.{$sortField} {$sortDirection}";
+            }
+        } else{
+            $query .= " ORDER BY vd.VehicleDetailID ASC";
+
         }
-        $query .= " ORDER BY vd.VehicleDetailID ASC";
+        
         return $query;
     }
     public function getIDMax()
