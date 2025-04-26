@@ -1,6 +1,14 @@
 <?php
 
 class Approval extends Controller {
+    public $orderApprovalModel;
+    public function __construct() {
+        parent::__construct();
+
+        $this->orderApprovalModel = $this->model("OrderApprovalModel");
+        
+        require_once "./mvc/core/Pagination.php";
+    }
     public function default() {
         AuthCore::checkAuthentication();
         $this->view("main_layout", [
@@ -11,21 +19,28 @@ class Approval extends Controller {
         "admin");
     }
 
-    function confirmOrderInDatabase($orderId) {
-        return true;
+    public function detail() {
+        $this->view("main_layout", [
+            "Title"=>"About - Car Rental",
+            "Page"=>"pages/orders/detail",
+            "Script"=> "orders/detail",
+        ],
+        "admin");
     }
 
+    function confirmOrderInDatabase($orderId, $userId) {
+        return $this->orderApprovalModel->confirmOrder($orderId, $userId);
+    }
     // Phương thức xác nhận đơn hàng
     function confirmOrder() {
         // Lấy dữ liệu POST (ID đơn hàng)
         $data = json_decode(file_get_contents("php://input"), true);
-
+        $accountToken = $_COOKIE['token'];
+        $userId = $this->orderApprovalModel->getUserIDByToken($accountToken);
         if (isset($data['id'])) {
             $orderId = $data['id']; // Lấy ID từ body request
-
             // Giả sử bạn có hàm kiểm tra và xác nhận đơn hàng
-            $result = $this->confirmOrderInDatabase($orderId);
-
+            $result = $this->confirmOrderInDatabase($orderId, $userId);
             // Kiểm tra kết quả xác nhận
             if ($result) {
                 // Trả về JSON với thông tin thành công

@@ -1,9 +1,14 @@
 <!-- Hero -->
 <?php 
-    foreach( $data['rentalOrder'] as $key => $value) {
-        echo ' '. $key .' '. $value .' ';
-        echo '<br>';
+    if(isset($data['rentalOrder'])) {
+        foreach( $data['rentalOrder'] as $key => $value) {
+            echo ' '. $key .' '. $value .' ';
+            echo '<br>';
+        }
+    } else {
+        echo "No data found!";
     }
+   
 ?>
 <div class="bg-body-light ">
     <div class="content content-full py-2">

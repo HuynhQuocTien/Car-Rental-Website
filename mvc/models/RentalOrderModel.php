@@ -24,7 +24,6 @@ class RentalOrderModel extends Database {
             LEFT JOIN `Makes` m ON m.MakeID = v.MakeID
             LEFT JOIN `Models` mo ON mo.ModelID = v.ModelID 
             LEFT JOIN `VehicleTypes` vt ON vt.VehicleTypesID = v.VehicleTypesID
-            LEFT JOIN `Users` u ON u.UserID = o.UserID
             WHERE o.OrderID = ?
         ";
         $stmt = $this->con->prepare($query);

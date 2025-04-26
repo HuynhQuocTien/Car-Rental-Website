@@ -4,7 +4,7 @@ const renderData = function (orders) {
     console.log(orders);
     index = 0;
     if (orders.length === 0) {
-        $("#list-orderapproval").html('<tr><td colspan="8" class="text-center">No data available</td></tr>');
+        $("#list-orderapproval").html('<tr><td colspan="10" class="text-center">No data available</td></tr>');
         return;
     }
     let html = "";
