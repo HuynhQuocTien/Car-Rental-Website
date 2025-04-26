@@ -442,7 +442,6 @@ $(document).ready(function() {
   
   $uploadInput.on('change', function(e) {
       const files = e.target.files;
-      
       if (files.length > 0) {
           $initialUpload.hide();
           const $previewList = $previewContainer.find('.preview-list');

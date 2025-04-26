@@ -12,12 +12,10 @@
         </div>
     </div>
 </div>
-<!-- END Hero -->
 <div class="content">
-    <!-- All Orders -->
     <div class="block block-rounded">
         <div class="block-header block-header-default">
-            <h3 class="block-title">All Orders</h3>
+            <h3 class="block-title">List Rental Orders</h3>
         </div>
         <div class="block-content">
             <div class="row mb-1">
@@ -29,6 +27,12 @@
                         <option value="1">Confirmed</option>
                     </select>
                 </div>
+                <div class="col-4">
+                    <div class="input-group flex-nowrap">
+                        <span class="input-group-text" id="addon-wrapping"><i class="fa fa-fw fa-search"></i></span>
+                        <input type="text" class="form-control" id="order-query" name="order-query" placeholder="Search all orders..">
+                    </div>
+                </div>
                 <div class="col-6">
                     <div class="input-daterange input-group" data-date-format="mm/dd/yyyy" data-week-start="1" data-autoclose="true" data-today-highlight="true">
                         <input type="text" class="form-control" id="order-start-time" name="order-start-time" placeholder="From" data-week-start="1" data-autoclose="true" data-today-highlight="true">
@@ -38,34 +42,35 @@
                         <input type="text" class="form-control" id="order-end-time" name="order-end-time" placeholder="To" data-week-start="1" data-autoclose="true" data-today-highlight="true">
                     </div>
                 </div>
-                <div class="col-4">
-                    <div class="input-group flex-nowrap">
-                        <span class="input-group-text" id="addon-wrapping"><i class="fa fa-fw fa-search"></i></span>
-                        <input type="text" class="form-control" id="order-query" name="order-query" placeholder="Search all orders..">
-                    </div>
-                </div>
             </div>
         </div>
         <div class="block-content pb-4">
-            <!-- All Orders Table -->
-            <div class="table-responsive">
-                <table class="table table-striped table-vcenter fs-sm" id="orders-table">
+                <table class="table table-striped table-vcenter fs-sm" id="model-table">
                     <thead>
                         <tr>
-                            <th class="text-center" style="width: 100px;">ID</th>
+                            <th style="width: 100px;">ID</th>
                             <th>Customer</th>
                             <th>Payment Method</th>
-                            <th>Shipping Method</th>
-                            <th class="text-center">Total</th>
+                            <th>Order Date</th>
+                            <th>Rental Date</th>
+                            <!-- <th>Shipping Method</th> -->
+                            <th>Total</th>
+                            <th>Address</th>
                             <th>Status</th>
-                            <th>Submitted</th>
-                            <th class="text-center">Actions</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
+                    <tbody id="list-rentalOrders">
+                        <!-- Rental Orders will be loaded here via AJAX -->
+                        <!-- Example Row
+                        -->
+                    </tbody>
                 </table>
+        </div>
+        <div class="block block-rounded pb-2 bg-body-light">
+            <div class="block-content bg-body-light">
+                <?php require "./mvc/views/admin/inc/pagination.php" ?>
             </div>
-            <!-- END All Orders Table -->
         </div>
     </div>
-    <!-- END All Orders -->
 </div>

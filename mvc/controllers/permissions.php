@@ -1,13 +1,10 @@
 <?php
-
 class Permissions extends Controller {
     public $roleModel;
     public function __construct() {
         parent::__construct();
         $this->roleModel = $this->model("RoleModel");
-
         require_once "./mvc/core/Pagination.php";
-
     }
     public function default() {
         AuthCore::checkAuthentication();
@@ -66,7 +63,6 @@ class Permissions extends Controller {
         $sql = $this->roleModel->getQuery($filter, $input, $args, $lastURL);
         return $sql;
     }
-
-
 }
+
 ?>

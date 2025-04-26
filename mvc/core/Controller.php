@@ -12,7 +12,6 @@ class Controller{
 
     public function view($view, $data=[], $web = "user"){
         require_once "./mvc/views/".$view.".php";
-
     }
 
     public function pagination() {

@@ -53,6 +53,7 @@ class App{
 
         // Params
         $this->params = $arr ? array_values($arr) : [];
+        // $this->params = array_slice($arr, 1) ? array_values(array_slice($arr, 1)) : [];
 
         // Gọi Controller + Action
         try {
