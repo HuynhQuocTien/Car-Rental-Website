@@ -44,5 +44,4 @@ include "./mvc/views/".$web ."/inc/head.php";
     </div>
     <?php include "./mvc/views/".$web."/inc/script.php"; ?>
 </body>
-
 </html>

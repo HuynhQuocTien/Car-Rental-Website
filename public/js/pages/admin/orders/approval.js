@@ -72,7 +72,6 @@ async function confirmOrder(orderId) {
     // Kiểm tra kết quả và hiển thị thông báo
     if (data.success) {
       Swal.fire('Thành công', data.message, 'success');
-
       mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
     } else {
       Swal.fire('Lỗi', data.message, 'error');

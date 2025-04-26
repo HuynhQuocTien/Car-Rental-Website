@@ -16,6 +16,11 @@
     <div class="block block-rounded">
         <div class="block-header block-header-default">
             <h3 class="block-title">List Rental Orders</h3>
+            <div class="block-options">
+                <a class="btn btn-hero btn-primary" asp-action="Create">
+                    <i class="fa-regular fa-plus"></i> Add
+                </a>
+            </div>
         </div>
         <div class="block-content">
             <div class="row mb-1">

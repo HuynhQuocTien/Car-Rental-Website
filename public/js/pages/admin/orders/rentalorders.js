@@ -26,6 +26,17 @@ const renderData = function (orders) {
               data-bs-toggle="tooltip" aria-label="Detail" data-bs-original-title="Detail">
               <i class="fa fa-eye"></i>
             </a>
+            <a href="rentalorders/detail&id=${order.OrderID}" 
+              class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
+              data-bs-toggle="tooltip" aria-label="Detail" data-bs-original-title="Detail">
+              <i class="fa fa-pencil-alt"></i>
+            </a>
+            
+            <a href="rentalorders/detail&id=${order.OrderID}" 
+              class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
+              data-bs-toggle="tooltip" aria-label="Detail" data-bs-original-title="Detail">
+              <i class="fa fa-times"></i>
+            </a>
           </div>
         </td>
       </tr>`;
