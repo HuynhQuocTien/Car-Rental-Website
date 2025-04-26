@@ -52,7 +52,9 @@ class App{
         }
 
         // Params
-        $this->params = $arr ? array_values($arr) : [];
+        $this->params = array_slice($arr, 1) ? array_values(array_slice($arr, 1)) : [];
+
+        // $this->params = $arr ? array_values($arr) : [];
 
         // Gọi Controller + Action
         try {
