@@ -9,6 +9,8 @@ class Auth extends Controller
     public $googleModel;
     public $mailModel;
     public $url;
+    // localhost/user
+    // localhost/admin
     function UrlProcess(){
         if (isset($_GET["url"])) {
             return explode("/", filter_var(trim($_GET["url"], "/")));

@@ -52,10 +52,16 @@ class App{
         }
 
         // Params
+<<<<<<< HEAD
+        $this->params = array_slice($arr, 1) ? array_values(array_slice($arr, 1)) : [];
+
+        // $this->params = $arr ? array_values($arr) : [];
+=======
         // $this->params = $arr ? array_values($arr) : [];
         // Bỏ qua phần controller và action đầu tiên
         $this->params = array_slice($arr, 1) ? array_values(array_slice($arr, 1)) : [];
 
+>>>>>>> 33775bd15cb96162a25e3d1eee371c5df8e27336
 
         // Gọi Controller + Action
         try {

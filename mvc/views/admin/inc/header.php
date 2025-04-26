@@ -36,7 +36,11 @@
                   </div>
                 </div>
                 <div class="p-2">
+<<<<<<< HEAD
+                  <a class="dropdown-item" href="/admin/profile">
+=======
                   <a class="dropdown-item" href="javascript:void(0)">
+>>>>>>> 33775bd15cb96162a25e3d1eee371c5df8e27336
                     <i class="far fa-fw fa-user me-1"></i> Profile
                   </a>
                   <!-- Toggle Side Overlay -->

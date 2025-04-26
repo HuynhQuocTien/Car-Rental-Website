@@ -44,6 +44,14 @@ class AccountModel extends Database
         $result = mysqli_query($this->con, $sql);
         return mysqli_fetch_assoc($result);
     }
+    public function getByToken($token){
+        $sql = "SELECT * FROM `Accounts` WHERE `Token` = '$token'";
+        $result = mysqli_query($this->con, $sql);
+        if ($row = mysqli_fetch_assoc($result)) {
+            return $row;  // Trả về một dòng duy nhất
+        }
+        return null; 
+    }
     public function updateToken($username, $token)
     {
         $valid = true;
@@ -162,6 +170,37 @@ class AccountModel extends Database
         }
         return $roles;
     }
+    public function updateUserProfile($newEmail, $token) {
+        $sql = "UPDATE `Accounts` SET `Email` = ? WHERE `Token` = ?";
+        $stmt = mysqli_prepare($this->con, $sql);
+    
+        if ($stmt) {
+            mysqli_stmt_bind_param($stmt, "ss", $newEmail, $token);
+            if (mysqli_stmt_execute($stmt)) {
+                // Trả về mảng thay vì chuỗi JSON
+                return [
+                    "success" => true,
+                    "message" => "Cập nhật email thành công"
+                ];
+            } else {
+                // Trả về mảng thay vì chuỗi JSON
+                return [
+                    "success" => false,
+                    "message" => "Lỗi khi cập nhật: " . mysqli_error($this->con)
+                ];
+            }
+        } else {
+            // Trả về mảng thay vì chuỗi JSON
+            return [
+                "success" => false,
+                "message" => "Không thể chuẩn bị truy vấn: " . mysqli_error($this->con)
+            ];
+        }
+    }
+    
+    
+    
+    
 
     public function checkEmail($email,$userID)
     {
