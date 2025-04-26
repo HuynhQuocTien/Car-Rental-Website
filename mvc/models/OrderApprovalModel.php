@@ -17,7 +17,6 @@ class OrderApprovalModel extends Database {
         }
         
         return $query;
-<<<<<<< Updated upstream
     } 
 
     public function getUserIDByToken($accountToken) {
@@ -50,11 +49,6 @@ class OrderApprovalModel extends Database {
 
     public function confirmOrder($orderId, $userId) {
         // Cập nhật trạng thái đơn hàng trong cơ sở dữ liệu
-=======
-    }
-    
-    public function confirm($orderId, $userId) {
->>>>>>> Stashed changes
         $query = "UPDATE `RentalOrders` SET UserID = ? WHERE OrderID = ?";
         $stmt = $this->con->prepare($query);
         $stmt->bind_param("ii", $userId, $orderId);

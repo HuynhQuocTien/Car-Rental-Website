@@ -1,20 +1,12 @@
 <?php
 
 class Approval extends Controller {
-<<<<<<< Updated upstream
     public $orderApprovalModel;
     public function __construct() {
         parent::__construct();
 
         $this->orderApprovalModel = $this->model("OrderApprovalModel");
         
-=======
-    public $orderAppovalModel; 
-    public function __construct() {
-        parent::__construct();
-        $this->orderAppovalModel = new OrderApprovalModel();
-
->>>>>>> Stashed changes
         require_once "./mvc/core/Pagination.php";
     }
     public function default() {
@@ -25,8 +17,6 @@ class Approval extends Controller {
         ],
         "admin");
     }
-
-<<<<<<< Updated upstream
     public function detail() {
         $this->view("main_layout", [
             "Title"=>"About - Car Rental",
@@ -34,10 +24,6 @@ class Approval extends Controller {
             "Script"=> "orders/detail",
         ],
         "admin");
-=======
-    function confirmOrderInDatabase($orderId) {
-        $this->orderAppovalModel->confirmOrder($orderId, );
->>>>>>> Stashed changes
     }
 
     function confirmOrderInDatabase($orderId, $userId) {
