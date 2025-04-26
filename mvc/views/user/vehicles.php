@@ -87,7 +87,79 @@
                 </div>
             </form>
             <!-- END Search Travel -->
+            <!-- Make Selection -->
+            <div class="block block-rounded">
+                <div class="block-header block-header-default">
+                    <h3 class="block-title">
+                        <i class="fa fa-fw fa-car opacity-25 me-1"></i> Make
+                    </h3>
+                </div>
+                <div class="block-content pb-3">
+                    <select class="form-control" id="vehicle-make" name="vehicle-make">
+                        <option value="" selected>Select make</option>
+                        <?php foreach ($data['Makes'] as $make): ?>
+                            <option value="<?= $make['MakeID'] ?>"><?= $make['MakeName'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
 
+            <!-- Model Selection -->
+            <div class="block block-rounded">
+                <div class="block-header block-header-default">
+                    <h3 class="block-title">
+                        <i class="fa fa-fw fa-car opacity-25 me-1"></i> Model
+                    </h3>
+                </div>
+                <div class="block-content pb-3">
+                    <select class="form-control" id="vehicle-model" name="vehicle-model">
+                        <option value="" selected>Select model</option>
+                        <?php foreach ($data['Models'] as $make): ?>
+                            <option value="<?= $make['ModelID'] ?>"><?= $make['ModelName'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Year Selection -->
+            <div class="block block-rounded">
+                <div class="block-header block-header-default">
+                    <h3 class="block-title">
+                        <i class="fa fa-fw fa-calendar opacity-25 me-1"></i> Year
+                    </h3>
+                </div>
+                <div class="block-content pb-3">
+                    <select class="form-control" id="vehicle-year" name="vehicle-year">
+                        <option value="" selected>Select year</option>
+                        <?php
+                        $currentYear = date('Y');
+                        for ($year = $currentYear; $year >= 2000; $year--): ?>
+                            <option value="<?= $year ?>"><?= $year ?></option>
+                        <?php endfor; ?>
+                    </select>
+                </div>
+            </div>
+            <!-- Color Selection -->
+            <div class="block block-rounded">
+                <div class="block-header block-header-default">
+                    <h3 class="block-title">
+                        <i class="fa fa-fw fa-palette opacity-25 me-1"></i> Color
+                    </h3>
+                </div>
+                <div class="block-content pb-3">
+                    <select class="form-control" id="vehicle-color" name="vehicle-color">
+                        <option value="" selected>Select color</option>
+                        <?php foreach ($data['Colors'] as $color): ?>
+                            <option value="<?= $color['ColorID'] ?>" data-color-code="<?= $color['ColorName'] ?>">
+                                <?= $color['ColorName'] ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                    <!-- Hiển thị màu được chọn -->
+                    <div id="color-preview" class="mt-2"
+                        style="width: 100%; height: 20px; border: 1px solid #ddd; display: none;"></div>
+                </div>
+            </div>
             <!-- Side Content -->
             <div id="side-content" class="d-none d-lg-block push">
                 <!-- Vehicle Type -->

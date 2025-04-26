@@ -1,7 +1,9 @@
 <?php
-class VehicleModel extends Database {
+class VehicleModel extends Database
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
 
@@ -15,12 +17,13 @@ class VehicleModel extends Database {
                 WHERE v.Is_Delete = 0";
         $result = mysqli_query($this->con, $sql);
         $rows = array();
-        while($row = mysqli_fetch_assoc($result)) {
+        while ($row = mysqli_fetch_assoc($result)) {
             $rows[] = $row;
         }
         return $rows;
     }
-    public function getById($id){
+    public function getById($id)
+    {
         $sql = "SELECT v.*, mk.MakeName, md.ModelName, vt.NameType
                 FROM Vehicles v
                 JOIN Makes mk ON v.MakeID = mk.MakeID
@@ -47,12 +50,13 @@ class VehicleModel extends Database {
                 PromotionID = '{$data['promotionID']}',
                 Active = '{$data['active']}',
                 WHERE VehicleID = '$vehicleID'";
-    
+
         $result = mysqli_query($this->con, $sql);
-        if (!$result) $valid = false;
+        if (!$result)
+            $valid = false;
         return $valid;
     }
-    
+
 
     public function create($data)
     {
@@ -67,7 +71,8 @@ class VehicleModel extends Database {
                  '{$data['promotionID']}', '{$data['active']}'
                 )";
         $result = mysqli_query($this->con, $sql);
-        if (!$result) $valid = false;
+        if (!$result)
+            $valid = false;
         return $valid;
     }
 
@@ -76,34 +81,35 @@ class VehicleModel extends Database {
         $valid = true;
         $sql = "UPDATE Vehicles SET Is_Delete = 1 WHERE VehicleID = '$id'";
         $result = mysqli_query($this->con, $sql);
-        if (!$result) $valid = false;
+        if (!$result)
+            $valid = false;
         return $valid;
     }
 
     public function getQuery($filter, $input, $args, $lastURL)
     {
-        if($lastURL === "vehicles") {
+        if ($lastURL === "vehicles") {
             $lastURL = "Vehicles";
         }
-        
+
         $query = "SELECT v.*, mk.MakeName, md.ModelName, vt.NameType
                   FROM $lastURL v
                   JOIN Makes mk ON v.MakeID = mk.MakeID
                   JOIN Models md ON v.ModelID = md.ModelID
                   JOIN VehicleTypes vt ON v.VehicleTypesID = vt.VehicleTypesID
                   WHERE v.Is_Delete = 0";
-        
+
         if ($input) {
-            $query = $query. " AND (mk.MakeName LIKE '%{$input}%' OR 
+            $query = $query . " AND (mk.MakeName LIKE '%{$input}%' OR 
                             md.ModelName LIKE '%{$input}%' OR 
                             vt.NameType LIKE '%{$input}%')";
         }
-        if($filter){
-            $query= $query ." AND (v.MakeID = '{$filter['makeID']}' OR 
+        if ($filter) {
+            $query = $query . " AND (v.MakeID = '{$filter['makeID']}' OR 
                             v.ModelID = '{$filter['modelID']}' OR 
                             v.VehicleTypesID = '{$filter['vehicleTypeID']}')";
         }
-        
+
         $query .= " ORDER BY v.VehicleID ASC";
         return $query;
     }
@@ -118,10 +124,10 @@ class VehicleModel extends Database {
                 JOIN VehicleTypes vt ON v.VehicleTypesID = vt.VehicleTypesID
                 WHERE v.Is_Delete = 0 AND v.Is_Feature = 1 AND v.Active = 1
                 LIMIT $limit";
-        
+
         $result = mysqli_query($this->con, $sql);
         $rows = array();
-        while($row = mysqli_fetch_assoc($result)) {
+        while ($row = mysqli_fetch_assoc($result)) {
             $rows[] = $row;
         }
         return $rows;
@@ -135,13 +141,28 @@ class VehicleModel extends Database {
                 JOIN Models md ON v.ModelID = md.ModelID
                 JOIN VehicleTypes vt ON v.VehicleTypesID = vt.VehicleTypesID
                 WHERE v.Is_Delete = 0 AND v.Active = 1";
-        
+
         $result = mysqli_query($this->con, $sql);
         $rows = array();
-        while($row = mysqli_fetch_assoc($result)) {
+        while ($row = mysqli_fetch_assoc($result)) {
             $rows[] = $row;
         }
         return $rows;
+    }
+    public function getImage($id)
+    {
+        $defaultImage = "https://res.cloudinary.com/dapudsvwl/image/upload/v1745000059/dvgjjnwwutuqdrqnpatz.jpg";
+        $sql = "SELECT ImageURL
+                    FROM VehicleImages
+                    WHERE VehicleID = $id
+                      AND ImageURL IS NOT NULL
+                      AND ImageURL != '';";
+        $result = mysqli_query($this->con, $sql);
+        if(!(mysqli_num_rows($result) > 0)) {
+            $row['ImageURL'] = $defaultImage;
+        }
+        return $row['ImageURL'];
+
     }
 }
 ?>

@@ -160,86 +160,121 @@ function getActiveSub() {
     return $components[3] ?? "";  
 }
 function build_Sidebar() {
-    // Loại bỏ các sidebar item không có trong session nhóm quyền
-    foreach($GLOBALS['sidebar'] as $key => &$sidebarGroup) {
+    // Lọc sidebar, chỉ giữ lại các item có role hợp lệ
+    foreach ($GLOBALS['sidebar'] as $key => $sidebarGroup) {
         if (isset($sidebarGroup['sidebarItem'])) {
-            foreach ($sidebarGroup['sidebarItem'] as $key1 => $item) {
+            foreach ($sidebarGroup['sidebarItem'] as $key1 => &$item) {
+                // Lọc subitem
+                if (isset($item['subitem'])) {
+                    $originalCount = count($item['subitem']);
+                    $filteredCount = 0;
+                    $hasAll = false;
+                    
+                    foreach ($item['subitem'] as $key2 => $subitem) {
+                        if (!isset($_SESSION['Roles'][$subitem['role']])) {
+                            unset($item['subitem'][$key2]);
+                        } else {
+                            $filteredCount++;
+                            if ($subitem['name'] === 'All') {
+                                $hasAll = true;
+                            }
+                        }
+                    }
+                    
+                    // Nếu tất cả subitem đều có trong session và chưa có mục "All"
+                    if ($originalCount === $filteredCount && !$hasAll) {
+                        // Thêm mục "All" vào đầu subitem
+                        array_unshift($item['subitem'], array(
+                            'name' => 'All',
+                            'icon' => 'fa fa-list-alt',
+                            'url' => $item['url'],
+                            'role' => 'all' . strtolower(str_replace(' ', '', $item['name']))
+                        ));
+                    }
+                    
+                    // Nếu không còn subitem hợp lệ, xóa luôn subitem
+                    if (empty($item['subitem'])) {
+                        unset($item['subitem']);
+                    }
+                }
+
+                // Kiểm tra role của item chính
                 if (!isset($_SESSION['Roles'][$item['role']])) {
                     unset($sidebarGroup['sidebarItem'][$key1]);
                 }
             }
-            // Nếu nhóm không còn item nào thì xoá luôn
+
+            // Nếu không còn item nào trong nhóm, xóa nhóm sidebar
             if (empty($sidebarGroup['sidebarItem'])) {
                 unset($GLOBALS['sidebar'][$key]);
             }
         }
     }
-    
-    
-    // Sau khi xoá các sidebarbar item không có trong session nhóm quyền thì duyệt mảng tạo sidebarbar
-    $html = '';
-    $current_page = getActiveSidebar();
-    $current_page_sub = getActiveSub();
-    foreach($GLOBALS['sidebar'] as $sidebar) {
-        if(isset($sidebar['sidebarItem']) && isset($sidebar['type']) && count($sidebar['sidebarItem']) > 0) {
-            $html .= "<li class=\"nav-main-heading\">".$sidebar['name']."</li>";
-            foreach ($sidebar['sidebarItem'] as $sidebarItem) {
-                // Kiểm tra nếu subitem chỉ có một phần tử
-                if (isset($sidebarItem['subitem']) && count($sidebarItem['subitem']) === 1) {
-                    $singleSubItem = $sidebarItem['subitem'][0]; // Lấy phần tử duy nhất
-                    if (isset($singleSubItem['role']) && $singleSubItem['role'] === 'all'.$sidebarItem['role']) {
-                        unset($sidebarItem['subitem']); // Xóa subitem nếu thỏa điều kiện
-                    }
-                }
 
+    // Tạo HTML cho sidebar
+    $html = '';
+    $current_page = getActiveSidebar(); // Lấy trang hiện tại
+    $current_page_sub = getActiveSub(); // Lấy submenu hiện tại
+
+    foreach ($GLOBALS['sidebar'] as $sidebar) {
+        if (isset($sidebar['sidebarItem']) && isset($sidebar['type']) && count($sidebar['sidebarItem']) > 0) {
+            // Render heading của nhóm
+            $html .= "<li class=\"nav-main-heading\">{$sidebar['name']}</li>";
+
+            foreach ($sidebar['sidebarItem'] as $sidebarItem) {
                 $link_name = '<span class="nav-main-link-name">' . $sidebarItem['name'] . '</span>' . "\n";
                 $link_icon = '<i class="nav-main-link-icon ' . $sidebarItem['icon'] . '"></i>' . "\n";
-                
+
+                // Kiểm tra nếu item hoặc subitem đang active
                 $isActive = ($current_page === $sidebarItem['url']);
-                // Kiểm tra submenu có active không
-                if (isset($sidebarItem['subitem']) && count($sidebarItem['subitem']) > 0) {
+                if (isset($sidebarItem['subitem'])) {
                     foreach ($sidebarItem['subitem'] as $subitem) {
-                        if ($current_page == $subitem['url']) {
-                            $isActive = true; // Nếu có submenu active, cha cũng active luôn
+                        if ($current_page === $subitem['url']) {
+                            $isActive = true;
                             break;
                         }
                     }
                 }
 
+                // Bắt đầu render item
+                $html .= "<li class=\"nav-main-item\">" . "\n";
 
-                $html .= "<li class=\"nav-main-item\">"."\n";
-                // $html .= "<a class=\"nav-main-link".($current_page == $sidebarItem['url'] ? " active" : "")."\" href=\"./".$sidebarItem['url']."\">";
-                // Kiểm tra submenu đúng cách
                 if (isset($sidebarItem['subitem']) && !empty($sidebarItem['subitem'])) {
+                    // Nếu có submenu
                     $html .= "<a class=\"nav-main-link nav-main-link-submenu" . ($isActive ? " active" : "") . "\" 
                                 data-toggle=\"submenu\" 
                                 aria-haspopup=\"true\" 
                                 aria-expanded=\"false\" 
                                 href=\"#\">";
                 } else {
+                    // Nếu không có submenu
                     $html .= "<a class=\"nav-main-link" . ($isActive ? " active" : "") . "\" 
-                                href=\"" .BASE_URL ."/admin/" . $sidebarItem['url'] . "\">";
-                }              
-                $html .= $link_icon;
-                $html .= $link_name;
+                                href=\"" . BASE_URL . "/admin/" . $sidebarItem['url'] . "\">";
+                }
 
-                $html .= "</a>\n";
+                $html .= $link_icon . $link_name . "</a>\n";
+
                 // Render submenu nếu có
                 if (isset($sidebarItem['subitem']) && count($sidebarItem['subitem']) > 0) {
                     $html .= "<ul class=\"nav-main-submenu\">";
                     foreach ($sidebarItem['subitem'] as $subitem) {
                         $link_name_sub = '<span class="nav-main-link-name">' . $subitem['name'] . '</span>' . "\n";
+                        $isActiveSub = ($current_page_sub === $subitem['url']);
                         $html .= "<li class=\"nav-main-item\">" . "\n";
-                        $html .= "<a class=\"nav-main-link" . ($current_page ."/".$current_page_sub === $subitem['url']  ? " active" : "") . "\" href=\"" .BASE_URL ."/admin/" . $subitem['url'] . "\">";
-                        $html .= $link_name_sub;
-                        $html .= "</a></li>\n";
-                    }   
-                    $html .= "</ul></li>\n";
+                        $html .= "<a class=\"nav-main-link" . ($isActiveSub ? " active" : "") . "\" 
+                                    href=\"" . BASE_URL . "/admin/" . $subitem['url'] . "\">";
+                        $html .= $link_name_sub . "</a></li>\n";
+                    }
+                    $html .= "</ul>";
                 }
 
+                $html .= "</li>\n"; // Kết thúc item
             }
         }
     }
+
     echo $html;
 }
+
+
 ?>

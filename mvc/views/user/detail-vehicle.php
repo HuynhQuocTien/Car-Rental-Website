@@ -13,9 +13,25 @@
 		<div class="row">
 			<!-- Main Image & Basic Info -->
 			<div class="col-md-6">
-				<div class="main-image mb-4"
-					style="background-image: url(https://res.cloudinary.com/dapudsvwl/image/upload/v1745000059/dvgjjnwwutuqdrqnpatz.jpg); height: 400px; background-size: cover; background-position: center;">
+				<div class="main-image mb-4" style="position: relative; height: 400px;">
+					<div class="image-container" style="background-image: url(<?= $data['ImageIsPrimary']['ImageURL'] ?>); 
+				height: 100%; 
+				background-size: cover; 
+				background-position: center;">
+					</div>
+					<!-- Navigation buttons -->
+					<button class="image-nav prev" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); 
+										 background: rgba(0,0,0,0.5); color: white; border: none; 
+										 width: 40px; height: 40px; border-radius: 50%; cursor: pointer;">
+						<i class="fas fa-chevron-left"></i>
+					</button>
+					<button class="image-nav next" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); 
+										 background: rgba(0,0,0,0.5); color: white; border: none; 
+										 width: 40px; height: 40px; border-radius: 50%; cursor: pointer;">
+						<i class="fas fa-chevron-right"></i>
+					</button>
 				</div>
+
 
 				<div class="specifications mb-5">
 					<h4 class="mb-4">Thông số kỹ thuật</h4>
@@ -81,7 +97,7 @@
 						<h5>Rental Options</h5>
 						<div class="btn-group btn-group-toggle" data-toggle="buttons">
 							<label class="btn btn-outline-primary ">
-							<input type="radio" name="options" id="hourly" value="hour"> Hourly
+								<input type="radio" name="options" id="hourly" value="hour"> Hourly
 							</label>
 							<label class="btn btn-outline-primary active">
 								<input type="radio" name="options" id="daily" checked value="day"> Daily
@@ -102,7 +118,8 @@
 							<input type="text" id="hourly-price" hidden value="<?= $data['Vehicle']['HourlyPrice'] ?>">
 							<input type="text" id="daily-price" hidden value="<?= $data['Vehicle']['DailyPrice'] ?>">
 							<input type="text" id="weekly-price" hidden value="<?= $data['Vehicle']['WeeklyPrice'] ?>">
-							<input type="text" id="monthly-price" hidden value="<?= $data['Vehicle']['MonthlyPrice'] ?>">
+							<input type="text" id="monthly-price" hidden
+								value="<?= $data['Vehicle']['MonthlyPrice'] ?>">
 							<div class="form-group mb-3">
 								<label for="rental-quantity">How many <span id="duration-label">days</span>?</label>
 								<input type="number" id="rental-quantity" class="form-control" min="1" value="1"
@@ -257,7 +274,7 @@
 					<?php foreach ($data['VehicleImages'] as $image): ?>
 						<div class="col-md-3 mb-4">
 							<div class="gallery-item"
-								style="background-image: url(https://res.cloudinary.com/dapudsvwl/image/upload/v1745000059/dvgjjnwwutuqdrqnpatz.jpg); height: 200px; background-size: cover; background-position: center;">
+								style="background-image: url('<?= htmlspecialchars($image['ImageURL']) ?>'); height: 200px; background-size: cover; background-position: center;"></div>
 							</div>
 						</div>
 					<?php endforeach; ?>
@@ -319,4 +336,33 @@
 		margin-right: 5px;
 		margin-bottom: 5px;
 	}
+
+	.image-nav:hover {
+		background: rgba(0, 0, 0, 0.8) !important;
+	}
 </style>
+
+<script>
+	// Chuyển dữ liệu PHP sang JavaScript
+	const vehicleImages = <?php echo json_encode($data['VehicleImages']); ?>;
+	const images = vehicleImages.map(img => img.ImageURL); // Giả sử mỗi image có thuộc tính url
+
+	let currentImageIndex = 0;
+	const imageContainer = document.querySelector('.image-container');
+
+	function changeImage(index) {
+		currentImageIndex = index;
+		if (currentImageIndex >= images.length) currentImageIndex = 0;
+		if (currentImageIndex < 0) currentImageIndex = images.length - 1;
+
+		imageContainer.style.backgroundImage = `url(${images[currentImageIndex]})`;
+	}
+
+	document.querySelector('.next').addEventListener('click', () => {
+		changeImage(currentImageIndex + 1);
+	});
+
+	document.querySelector('.prev').addEventListener('click', () => {
+		changeImage(currentImageIndex - 1);
+	});
+</script>

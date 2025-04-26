@@ -43,7 +43,7 @@ Dashmix.onLoad(() =>
         success: function (response) {
           console.log(response);
           if (response.valid == "true") {
-            location.href = BaseUrl + "Welcome";
+            location.href = BaseUrl + "welcome";
           } else {
             Dashmix.helpers("jq-notify", {
               type: "danger",

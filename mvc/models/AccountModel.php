@@ -66,12 +66,12 @@ class AccountModel extends Database
         $user = $this->getByUsername($username);
         if ($user == '') {
             return json_encode(["message" => "Tài khoản không tồn tại !", "valid" => "false"]);
-        } else if ($user['RoleID'] != 0 && $web == "user") {
-            return json_encode(["message" => "Không có quyền hạn để truy cập", "valid" => "false"]);
+        } else if ($user['RoleID'] > 0 && $web == "user") {
+            return json_encode(["message" => "Không có quyền hạn để truy cập", "valid" => "false","user" => $user]);
         } else if ($user["RoleID"] == 0 && $web == "admin") {
-            return json_encode(["message" => "Không có quyền hạn để truy cập", "valid" => "false"]);
+            return json_encode(["message" => "Không có quyền hạn để truy cập", "valid" => "false","user" => $user]);
         } else if ($user['Active'] == 0) {
-            return json_encode(["message" => "Tài khoản bị khóa !", "valid" => "false"]);
+            return json_encode(["message" => "Tài khoản bị khóa !", "valid" => "false","user" => $user]);
         } else {
             $result = password_verify($password, $user['Password']);
             if ($result) {
@@ -201,6 +201,25 @@ class AccountModel extends Database
     
     
     
+
+    public function checkEmail($email,$userID)
+    {
+        $sql = "SELECT *  FROM Users
+            JOIN Accounts ON Users.AccountID = Accounts.AccountID
+        WHERE (Email = '$email' AND Users.UserID != $userID)";
+        $result = mysqli_query($this->con, $sql);
+        $data = mysqli_fetch_assoc($result);
+        return $data['Email'] ?? null;
+    }
+    public function checkUsername($username,$userID)
+    {
+        $sql = "SELECT *  FROM Users
+            JOIN Accounts ON Users.AccountID = Accounts.AccountID
+        WHERE (Username = '$username' AND Users.UserID != $userID)";
+        $result = mysqli_query($this->con, $sql);
+        $data = mysqli_fetch_assoc($result);
+        return $data['Username'] ?? null;
+    }
 
 }
 

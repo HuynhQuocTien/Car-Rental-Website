@@ -38,12 +38,6 @@
                         <input type="text" class="form-control" id="order-end-time" name="order-end-time" placeholder="To" data-week-start="1" data-autoclose="true" data-today-highlight="true">
                     </div>
                 </div>
-                <div class="col-4">
-                    <div class="input-group flex-nowrap">
-                        <span class="input-group-text" id="addon-wrapping"><i class="fa fa-fw fa-search"></i></span>
-                        <input type="text" class="form-control" id="order-query" name="order-query" placeholder="Search all orders..">
-                    </div>
-                </div>
             </div>
         </div>
         <div class="block-content pb-4">
