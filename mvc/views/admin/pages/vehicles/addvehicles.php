@@ -6,13 +6,104 @@
             <h2 class="block-header">
                 <?php echo $data['Vehicle']['MakeName'] . " - " . $data['Vehicle']['ModelName'] . " ( " . $data['Vehicle']['NameType'] . ")" ?>
             </h2>
+            <div class="">
+                <button class="btn btn-hero btn-primary btn-add">
+                    <i class="fa-regular fa-plus"></i> Add
+                </button>
+            </div>
         </div>
+        <div class="block block-rounded">
+    <div class="block-header block-header-default">
+        <h3 class="block-title">Filter Vehicles</h3>
+    </div>
+    <div class="block-content">
+        <form id="filter-form" action="your_server_endpoint_here" method="GET">
+            <div class="row g-3">
+                <!-- Rental Date -->
+                <div class="col-md-6 col-lg-3">
+                    <label for="rentalDateFrom" class="form-label">Rental Date (From)</label>
+                    <input type="date" class="form-control" id="rentalDateFrom" name="filter[rentalDate][from]">
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <label for="rentalDateTo" class="form-label">Rental Date (To)</label>
+                    <input type="date" class="form-control" id="rentalDateTo" name="filter[rentalDate][to]">
+                </div>
+                <!-- Color -->
+                <div class="col-md-6 col-lg-3">
+                    <label for="color" class="form-label">Color</label>
+                    <select class="form-select" id="color" name="filter[color]">
+                        <option value="">All</option>
+                        <?php foreach ($data['Colors'] as $color): ?>
+                            <option value="<?= $color['ColorID'] ?>" data-color-code="<?= $color['ColorName'] ?>">
+                                <?= $color['ColorName'] ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <!-- Vehicle Type -->
+                <div class="col-md-6 col-lg-3">
+                    <label for="vehicleType" class="form-label">Vehicle Type</label>
+                    <select class="form-select" id="vehicleType" name="filter[vehicleType]">
+                        <option value="">All</option>
+                        <?php foreach ($data['VehicleTypes'] as $item): ?>
+                            <option value="<?= $item['VehicleTypesID'] ?>" data-color-code="<?= $item['NameType'] ?>">
+                                <?= $item['NameType'] ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <!-- Seats -->
+                <div class="col-md-6 col-lg-3">
+                    <label for="seats" class="form-label">Seats</label>
+                    <select class="form-control" id="vehicle-seats" name="vehicle-seats">
+                            <option value="" selected>Select number of seats</option>
+                            <option value="2">2</option>
+                            <option value="4">4</option>
+                            <option value="9">9</option>
+                            <option value="16">16</option>
+                            <option value="24">24</option>
+                            <option value="32">32</option>
+                            <option value="35">35</option>
+                            <option value="40">40</option>
+                            <option value="45">45</option>
+                        </select>
+                </div>
+
+                <!-- License Plate -->
+                <div class="col-md-6 col-lg-3">
+                    <label for="fuel" class="form-label">License Plate</label>
+                    <input type="text" class="form-control" id="licensePlate" name="filter[fuel]" placeholder="License Plate">
+                </div>
+                <!-- Sorting Options -->
+                <div class="col-md-6 col-lg-3">
+                    <label for="sort" class="form-label">Sort By</label>
+                    <select class="form-select" id="sort" name="sort[field]">
+                        <option value="">None</option>
+                        <option value="VehicleDetailID">ID</option>
+                        <option value="HourlyPrice">Hourly Price</option>
+                        <option value="DailyPrice">Daily Price</option>
+                        <option value="WeeklyPrice">Weekly Price</option>
+                        <option value="MonthlyPrice">Monthly Price</option>
+                        <option value="Year">Year</option>
+                    </select>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <label for="sortDirection" class="form-label">Sort Direction</label>
+                    <select class="form-select" id="sortDirection" name="sort[direction]">
+                        <option value="ASC">Ascending</option>
+                        <option value="DESC">Descending</option>
+                    </select>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+
 
         <div class="block-content">
-            <div class="mb-1">
-                <input type="text" class="form-control form-control-alt" id="vehicle-query" name="vehicle-query"
-                    placeholder="Search all vehicles..">
-            </div>
             <table class="table align-middle">
                 <thead>
                     <tr>
@@ -58,7 +149,7 @@
                 <!-- Basic Info -->
                 <div class="block block-rounded">
                     <div class="block-header block-header-default">
-                        <h3 class="block-header">Add Vehicle Detail</h3>
+                        <h3 class="block-header" id="title-add">Add Vehicle Detail</h3>
                     </div>
                     <div class="block-content">
                         <div class="mb-4">
@@ -240,9 +331,10 @@
 
 
                         <div class="mb-4">
-                            <button type="submit" class="btn btn-primary btn-hero" id="btn-save-vehicle">Save
-                                Vehicle
-                                Detail</button>
+                            <button type="submit" class="btn btn-primary btn-hero" id="btn-save-vehicle">Save Vehicle Detail</button>
+                                <button type="submit" class="btn btn-success btn-hero" id="btn-update-vehicle">Update Vehicle Detail</button>
+                                <button id="reset-button" class="btn btn-danger">Reset</button>
+
                         </div>
                     </div>
                 </div>

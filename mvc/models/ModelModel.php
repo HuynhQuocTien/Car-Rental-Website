@@ -58,5 +58,18 @@ class ModelModel extends Database {
         return $query;
     }
 
+    public function getByMake($makeID){
+        $valid = true;
+        $sql = "SELECT * FROM Models m 
+                    JOIN Makes mk ON m.MakeID = mk.MakeID
+                    WHERE m.Is_Delete = 0 AND m.MakeID = '$makeID'";
+        $result = mysqli_query($this->con, $sql);
+        $rows = array();
+        while($row = mysqli_fetch_assoc($result)) {
+            $rows[] = $row;
+        }
+        return $rows;
+    }
+
 }
 ?>

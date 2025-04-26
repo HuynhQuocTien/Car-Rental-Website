@@ -30,24 +30,19 @@
               </button>
               <div class="dropdown-menu dropdown-menu-end p-0" aria-labelledby="page-header-user-dropdown">
                 <div class="bg-primary-dark rounded-top fw-semibold text-white text-center p-3">
-                  <img class="img-avatar img-avatar48 img-avatar-thumb" src="" alt="">
+                  <img class="img-avatar img-avatar48 img-avatar-thumb" src="<?= $_SESSION['ProfilePicture'] ?? "https://res.cloudinary.com/dapudsvwl/image/upload/v1744802442/sdh1er6okrxz39xpr8vp.jpg" ?>" alt="">
                   <div class="pt-2">
-                    <a class="text-white fw-semibold" href="">George Taylor</a>
+                    <a class="text-white fw-semibold" href=""><?= $_SESSION['FullName']  ?></a>
                   </div>
                 </div>
                 <div class="p-2">
-                  <a class="dropdown-item" href="">
+<<<<<<< HEAD
+                  <a class="dropdown-item" href="/admin/profile">
+=======
+                  <a class="dropdown-item" href="javascript:void(0)">
+>>>>>>> 33775bd15cb96162a25e3d1eee371c5df8e27336
                     <i class="far fa-fw fa-user me-1"></i> Profile
                   </a>
-                  <a class="dropdown-item d-flex align-items-center justify-content-between" href="be_pages_generic_inbox.html">
-                    <span><i class="far fa-fw fa-envelope me-1"></i> Inbox</span>
-                    <span class="badge bg-primary">3</span>
-                  </a>
-                  <a class="dropdown-item" href="be_pages_generic_invoice.html">
-                    <i class="far fa-fw fa-file-alt me-1"></i> Invoices
-                  </a>
-                  <div role="separator" class="dropdown-divider"></div>
-
                   <!-- Toggle Side Overlay -->
                   <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
                   <a class="dropdown-item" href="javascript:void(0)" data-toggle="layout" data-action="side_overlay_toggle">
@@ -56,7 +51,7 @@
                   <!-- END Side Overlay -->
 
                   <div role="separator" class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="op_auth_signin.html">
+                  <a class="dropdown-item" href="<?= BASE_URL ?>/admin/auth/logout">
                     <i class="far fa-fw fa-arrow-alt-circle-left me-1"></i> Sign Out
                   </a>
                 </div>

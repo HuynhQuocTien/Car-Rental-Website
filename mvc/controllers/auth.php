@@ -9,6 +9,8 @@ class Auth extends Controller
     public $googleModel;
     public $mailModel;
     public $url;
+    // localhost/user
+    // localhost/admin
     function UrlProcess(){
         if (isset($_GET["url"])) {
             return explode("/", filter_var(trim($_GET["url"], "/")));
@@ -24,6 +26,13 @@ class Auth extends Controller
 
         $this->url = $this->UrlProcess(); 
         parent::__construct();
+    }
+
+    public function default(){
+        $this->view("single_layout", [
+            "Page" => "error/404",
+            "Title" => "Lỗi !"
+        ]);
     }
 
     public function addCustomer()
@@ -236,13 +245,16 @@ class Auth extends Controller
     public function logout()
     {
         AuthCore::checkAuthentication();
-        
         $username = $_SESSION['Username'];
         $result = $this->accountModel->updateToken($username, NULL);
         if ($result) {
             session_destroy();
             setcookie("token", "", time() - 10, '/');
-            header("Location: ../home");
+            if(isset($_SESSION['RoleID']) && $_SESSION['RoleID'] > 0){
+                header("Location: " .BASE_URL."/admin/auth/signin");
+            }else if(isset($_SESSION['RoleID']) && $_SESSION['RoleID'] == 0){
+                header("Location: " .BASE_URL."/user/home");
+            }
         }
     }
 

@@ -6,7 +6,7 @@ class MakeModel extends Database {
     }
     public function getAll()
     {
-        $sql = "SELECT * FROM Makes";
+        $sql = "SELECT * FROM Makes WHERE Is_Delete = 0;";
         $result = mysqli_query($this->con,$sql);
         $rows = array();
         while($row = mysqli_fetch_assoc($result)) {

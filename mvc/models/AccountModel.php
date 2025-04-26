@@ -44,6 +44,14 @@ class AccountModel extends Database
         $result = mysqli_query($this->con, $sql);
         return mysqli_fetch_assoc($result);
     }
+    public function getByToken($token){
+        $sql = "SELECT * FROM `Accounts` WHERE `Token` = '$token'";
+        $result = mysqli_query($this->con, $sql);
+        if ($row = mysqli_fetch_assoc($result)) {
+            return $row;  // Trả về một dòng duy nhất
+        }
+        return null; 
+    }
     public function updateToken($username, $token)
     {
         $valid = true;
@@ -58,12 +66,12 @@ class AccountModel extends Database
         $user = $this->getByUsername($username);
         if ($user == '') {
             return json_encode(["message" => "Tài khoản không tồn tại !", "valid" => "false"]);
-        } else if ($user['RoleID'] != 0 && $web == "user") {
-            return json_encode(["message" => "Không có quyền hạn để truy cập", "valid" => "false"]);
+        } else if ($user['RoleID'] > 0 && $web == "user") {
+            return json_encode(["message" => "Không có quyền hạn để truy cập", "valid" => "false","user" => $user]);
         } else if ($user["RoleID"] == 0 && $web == "admin") {
-            return json_encode(["message" => "Không có quyền hạn để truy cập", "valid" => "false"]);
+            return json_encode(["message" => "Không có quyền hạn để truy cập", "valid" => "false","user" => $user]);
         } else if ($user['Active'] == 0) {
-            return json_encode(["message" => "Tài khoản bị khóa !", "valid" => "false"]);
+            return json_encode(["message" => "Tài khoản bị khóa !", "valid" => "false","user" => $user]);
         } else {
             $result = password_verify($password, $user['Password']);
             if ($result) {
@@ -161,6 +169,56 @@ class AccountModel extends Database
             }
         }
         return $roles;
+    }
+    public function updateUserProfile($newEmail, $token) {
+        $sql = "UPDATE `Accounts` SET `Email` = ? WHERE `Token` = ?";
+        $stmt = mysqli_prepare($this->con, $sql);
+    
+        if ($stmt) {
+            mysqli_stmt_bind_param($stmt, "ss", $newEmail, $token);
+            if (mysqli_stmt_execute($stmt)) {
+                // Trả về mảng thay vì chuỗi JSON
+                return [
+                    "success" => true,
+                    "message" => "Cập nhật email thành công"
+                ];
+            } else {
+                // Trả về mảng thay vì chuỗi JSON
+                return [
+                    "success" => false,
+                    "message" => "Lỗi khi cập nhật: " . mysqli_error($this->con)
+                ];
+            }
+        } else {
+            // Trả về mảng thay vì chuỗi JSON
+            return [
+                "success" => false,
+                "message" => "Không thể chuẩn bị truy vấn: " . mysqli_error($this->con)
+            ];
+        }
+    }
+    
+    
+    
+    
+
+    public function checkEmail($email,$userID)
+    {
+        $sql = "SELECT *  FROM Users
+            JOIN Accounts ON Users.AccountID = Accounts.AccountID
+        WHERE (Email = '$email' AND Users.UserID != $userID)";
+        $result = mysqli_query($this->con, $sql);
+        $data = mysqli_fetch_assoc($result);
+        return $data['Email'] ?? null;
+    }
+    public function checkUsername($username,$userID)
+    {
+        $sql = "SELECT *  FROM Users
+            JOIN Accounts ON Users.AccountID = Accounts.AccountID
+        WHERE (Username = '$username' AND Users.UserID != $userID)";
+        $result = mysqli_query($this->con, $sql);
+        $data = mysqli_fetch_assoc($result);
+        return $data['Username'] ?? null;
     }
 
 }

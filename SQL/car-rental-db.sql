@@ -470,7 +470,8 @@ VALUES
 -- Nhập dữ liệu cho bảng Accounts
 INSERT INTO `Accounts` (`Username`, `Password`,`Token`,`ProfilePicture`,`GoogleID`, `Email`, `RoleID`)
 VALUES 
-('admin', '$2y$10$F3FQFNZwijEhnKf4EVrkVeaJNtW0icztly.M4sNrHn2GDsT1DsARy',NULL,NULL,NULL, 'quoctien01062003@gmail.com',1);
+('admin', '$2y$10$F3FQFNZwijEhnKf4EVrkVeaJNtW0icztly.M4sNrHn2GDsT1DsARy',NULL,
+'https://res.cloudinary.com/dapudsvwl/image/upload/v1744802442/sdh1er6okrxz39xpr8vp.jpg',NULL, 'quoctien01062003@gmail.com',1);
 
 -- Nhập dữ liệu cho bảng Users
 INSERT INTO `Users` (`FullName`, `PhoneNumber`, `Sex`, `IdentityCard`, `DateOfBirth`, `AccountID`, `Active`, `Is_Delete`)
@@ -484,7 +485,7 @@ VALUES ('Toyota', 'Japan'), ('Honda', 'Japan'), ('Ford', 'USA');
 
 -- Thêm dữ liệu vào bảng VehicleTypes
 INSERT INTO `VehicleTypes` (`NameType`) 
-VALUES ('Hạng sang'), ('Tầm trung'), ('Phổ thông');
+VALUES ('Luxury'), ('Mid-range'), ('Popular'), ('SUV') ;
 
 -- Thêm dữ liệu vào bảng Models
 INSERT INTO `Models` (`ModelName`, `MakeID`, `VehicleTypesID`) 
@@ -492,7 +493,7 @@ VALUES ('Camry', 1, 2), ('Civic', 2, 2), ('Mustang', 3, 1);
 
 -- Thêm dữ liệu vào bảng Colors
 INSERT INTO `Colors` (`ColorName`) 
-VALUES ('Đen'), ('Trắng'), ('Đỏ'),('Bạc');
+VALUES ('Black'), ('White'), ('Red'),('Silver'), ('Blue'), ('Green'), ('Yellow'), ('Gray'), ('Brown'), ('Orange');
 
 -- Thêm giá trị mặc định "Không có khuyến mãi"
 INSERT INTO `Promotions` (`PromotionID`, `PromotionName`, `PromotionCode`, `Description`, `Status`, `Is_Delete`) 
@@ -542,23 +543,23 @@ INSERT INTO `VehicleDetails` (
 -- Thêm dữ liệu vào bảng DamageTypes
 INSERT INTO `DamageTypes` (`DamageName`, `FineAmount`, `VehicleTypesID`, `Is_Delete`)
 VALUES 
-('Xước nhẹ', 200, 1, 0),
-('Xước nhẹ', 150, 2, 0),
-('Xước nhẹ', 100, 3, 0),
+('Light scratches', 200, 1, 0),
+('Light scratches', 150, 2, 0),
+('Light scratches', 100, 3, 0),
 
-('Xước nặng', 500, 1, 0),
-('Xước nặng', 400, 2, 0),
-('Xước nặng', 300, 3, 0),
+('Severe scratches', 500, 1, 0),
+('Severe scratches', 400, 2, 0),
+('Severe scratches', 300, 3, 0),
 
-('Hỏng đèn', 300, 1, 0),
-('Hỏng đèn', 200, 2, 0),
-('Hỏng đèn', 100, 3, 0),
+('Broken light', 300, 1, 0),
+('Broken light', 200, 2, 0),
+('Broken light', 100, 3, 0),
 
-('Hỏng cửa', 400, 1, 0),
-('Hỏng cửa', 300, 2, 0),
-('Hỏng cửa', 200, 3, 0),
+('Broken door', 400, 1, 0),
+('Broken door', 300, 2, 0),
+('Broken door', 200, 3, 0),
 
-('Móp biển số', 200, 1, 0),
-('Móp biển số', 100, 2, 0),
-('Móp biển số', 50, 3, 0);
+('Dented license plate', 200, 1, 0),
+('Dented license plate', 100, 2, 0),
+('Dented license plate', 50, 3, 0);
 

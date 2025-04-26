@@ -299,7 +299,7 @@
                     </div>
                     <div class="p-2">
                         <a class="dropdown-item d-flex justify-content-between align-items-center"
-                            href="javascript:void(0)">
+                            href="profile">
                             Profile
                             <i class="fa fa-fw fa-user opacity-50 ms-1"></i>
                         </a>
@@ -404,7 +404,6 @@
         $("#closeCart, #closeCartBottom").on("click", function () {
             $("#miniCart").css("transform", "translateX(100%)");
         });
-
         // Đóng giỏ hàng nếu click ngoài vùng miniCart
         $(document).on("click", function (e) {
             if (!$(e.target).closest("#miniCart, .cartButton").length) {

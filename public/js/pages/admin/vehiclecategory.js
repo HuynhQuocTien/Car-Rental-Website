@@ -93,8 +93,8 @@ const renderData = function (types) {
     let id = $(this).data("id");
     let name = $(this).data("name");
 
-    $("#vehicleTypeId").val(id);
-    $("#vehicleTypeName").val(name);
+    $("#vehicleTypeId").val(id); // input ID
+    $("#vehicleTypeName").val(name); //input Name
     
     $("#vehicleTypeIdContainer").removeClass("d-none"); // Hiện thẻ ID
     $("#addVehicleTypeModalLabel").text("Update Vehicle Type");

@@ -54,7 +54,6 @@ class App{
         // Params
         $this->params = $arr ? array_values($arr) : [];
         // $this->params = array_slice($arr, 1) ? array_values(array_slice($arr, 1)) : [];
-
         // Gọi Controller + Action
         try {
             call_user_func_array([$this->controller, $this->action], $this->params);

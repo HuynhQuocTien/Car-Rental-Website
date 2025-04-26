@@ -320,7 +320,6 @@
             <table class="table align-middle" id="vehicle-table">
                 <thead>
                     <tr>
-                        <th>*</th>
                         <th>ID</th>
                         <th>Make</th>
                         <th>Model</th>

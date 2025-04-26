@@ -4,13 +4,14 @@ class Home extends Controller {
     public $vehicleDetailModel;
     public $vehicleModel;
     public function __construct() {
+        parent::__construct();
         $this->vehicleDetailModel = $this->model("VehicleDetailModel");
         $this->vehicleModel = $this->model("VehicleModel");
     }
     public function default() {
-        // if(isset($_COOKIE['token'])){
-        //     AuthCore::checkAuthentication();
-        // }
+        if(isset($_COOKIE['token'])){
+            AuthCore::checkAuthentication();
+        }
         $this->view("main_layout", [
             "Title"=>" Home -  Car Rental",
             "Page"=>"home",
