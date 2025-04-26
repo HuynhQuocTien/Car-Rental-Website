@@ -548,10 +548,10 @@
                   </p>
                 </div>
                 <div class="col-xl-6 order-xl-0">
-                  <form action="be_pages_generic_profile_v2_edit.html" method="POST" enctype="multipart/form-data" onsubmit="return false;">
+                  <form  id="profileForm"  action="be_pages_generic_profile_v2_edit.html" method="POST" enctype="multipart/form-data" onsubmit="return false;">
                     <div class="mb-4">
                       <label class="form-label" for="dm-profile-edit-username">Username</label>
-                      <input type="text" class="form-control" id="dm-profile-edit-username" name="dm-profile-edit-username" placeholder="Enter your username.." value="<?php echo $data["UserProfile"]["AccountDetail"]["Username"]; ?>">
+                      <input type="text" class="form-control" id="dm-profile-edit-username" name="dm-profile-edit-username" placeholder="Enter your username.." value="<?php echo $data["UserProfile"]["AccountDetail"]["Username"];?>" >
                     </div>
                     <div class="mb-4">
                       <label class="form-label" for="dm-profile-edit-name">Name</label>
@@ -563,15 +563,15 @@
                     </div>
                     <div class="mb-4">
                       <label class="form-label" for="dm-profile-edit-job-title">Phone Number</label>
-                      <input type="text" class="form-control" id="dm-profile-edit-job-title" name="dm-profile-edit-job-title" placeholder="Add your job title.." value="<?php echo $data["UserProfile"]["UserDetail"]["PhoneNumber"]; ?>">
+                      <input type="text" class="form-control" id="dm-profile-edit-phone-number" name="dm-profile-edit-job-title" placeholder="Add your job title.." value="<?php echo $data["UserProfile"]["UserDetail"]["PhoneNumber"]; ?>">
                     </div>
                     <div class="mb-4">
                       <label class="form-label" for="dm-profile-edit-company">Date Of Birth</label>
-                      <input type="text" class="form-control" id="dm-profile-edit-company" name="dm-profile-edit-company" value="<?php echo $data["UserProfile"]["UserDetail"]["DateOfBirth"]; ?>" readonly>
+                      <input type="text" class="form-control" id="dm-profile-edit-birth" name="dm-profile-edit-company" value="<?php echo $data["UserProfile"]["UserDetail"]["DateOfBirth"]; ?>">
                     </div>
                     <div class="mb-4">
                       <label class="form-label" for="dm-profile-edit-company">ID Card</label>
-                      <input type="text" class="form-control" id="dm-profile-edit-company" name="dm-profile-edit-company" value="<?php echo $data["UserProfile"]["UserDetail"]["IdentityCard"]; ?>" readonly>
+                      <input type="text" class="form-control" id="dm-profile-edit-id-card" name="dm-profile-edit-company" value="<?php echo $data["UserProfile"]["UserDetail"]["IdentityCard"]; ?>">
                     </div>
                     <div class="mb-4">
                       <div class="row">
@@ -614,7 +614,7 @@
                   </p>
                 </div>
                 <div class="col-xl-6 order-xl-0">
-                  <form action="be_pages_generic_profile_v2_edit.html" method="POST" onsubmit="return false;">
+                  <form id="passwordForm" action="be_pages_generic_profile_v2_edit.html" method="POST" onsubmit="return false;">
                     <div class="mb-4">
                       <label class="form-label" for="dm-profile-edit-password">Current Password</label>
                       <input type="password" class="form-control" id="dm-profile-edit-password" name="dm-profile-edit-password">

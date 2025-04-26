@@ -37,10 +37,11 @@ class Profile extends Controller {
             $this->view("main_layout", [
                 "Title" => "Profile",
                 "Page" => "/pages/profile",
+                "Script" => "updateAdmin",
                 "UserProfile" => [
                     'AccountDetail' => $accountdetail,
                     'UserDetail' => $userdetail,
-                ]
+                    ]
             ], "admin");
         } else {
             $customerdetail = $this->CustomerModel->getByAccountID($accountID);
@@ -105,7 +106,19 @@ class Profile extends Controller {
                 echo json_encode($result);
                 exit;
             } else {
-                echo json_encode(["success" => false, "message" => "Sai đường dẫn"]);
+                $resultUser = $this->UserModel->updateByAccountID($accountID, $name, $phone, $birth, $idCard, $sex);
+                // $resultCustomer = $this->CustomerModel->updateByAccountID(2, "Nguyễn Văn A", "0123456789", "2000-01-01", "123456789");
+                
+                // Cập nhật thông tin người dùng trong bảng Accounts (email)
+                $resultAccount = $this->AccountModel->updateUserProfile($email, $_COOKIE["token"]);
+                
+                // Kết hợp kết quả từ cả hai model
+                $result = [
+                    'success' => $resultUser['success'] && $resultAccount['success'],
+                    'message' => $resultUser['message'] . ' ' . $resultAccount['message']
+                ];
+                echo json_encode($result);
+                exit;
             }
         } else {
             echo json_encode(["success" => false, "message" => "Chỉ chấp nhận POST"]);

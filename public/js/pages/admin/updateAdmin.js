@@ -1,11 +1,11 @@
-document.addEventListener("DOMContentLoaded", function () {
+(function(){
   const forms = [
     document.getElementById("profileForm"),
     document.getElementById("passwordForm"),
   ];
   const scriptMap = {
-    profile: "../public/js/pages/user/updateProfile.js",
-    password: "../public/js/pages/user/updatePassword.js",
+    profile: "../public/js/pages/admin/updateAdminProfile.js",
+    password: "../public/js/pages/admin/updateAdminPassword.js",
   };
 
   function resetFormInputs(form) {
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function loadScript(formType) {
     // Xóa tất cả các thẻ <script> có src chứa "user/"
-    const oldScripts = document.querySelectorAll('script[src*="user/"]');
+    const oldScripts = document.querySelectorAll('script[src*="admin/"]');
     oldScripts.forEach((script) => script.remove());
 
     // Lấy đường dẫn script tương ứng từ map
@@ -47,4 +47,4 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   }
   bindEvents();
-});
+})();
