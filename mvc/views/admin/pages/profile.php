@@ -579,14 +579,14 @@
                           <div>
                             <label for="">Male</label>
                             <input type="radio" class="form-check-input" name="sex" value="Male" 
-                              <?php if ($data["UserProfile"]["UserDetail"]["Sex"] == 0) echo "checked"; ?> disabled>
+                              <?php if ($data["UserProfile"]["UserDetail"]["Sex"] == 0) echo "checked"; ?>>
                           </div>
                         </div>
                         <div class="col-auto">
                           <div>
                             <label for="">Female</label>
                             <input type="radio" class="form-check-input" name="sex" value="Female" 
-                              <?php if ($data["UserProfile"]["UserDetail"]["Sex"] == 1) echo "checked"; ?> disabled>
+                              <?php if ($data["UserProfile"]["UserDetail"]["Sex"] == 1) echo "checked"; ?>>
                           </div>
                         </div>
                       </div>

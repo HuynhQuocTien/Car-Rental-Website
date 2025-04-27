@@ -48,6 +48,7 @@ class Profile extends Controller {
             $this->view("main_layout", [
                 "Title" => "Profile",
                 "Page" => "Profile",
+                "Script" => "updateCustomer",
                 "UserProfile" => [
                     'AccountDetail' => $accountdetail,
                     'CustomerDetail' => $customerdetail,
