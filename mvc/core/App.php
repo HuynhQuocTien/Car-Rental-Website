@@ -52,16 +52,8 @@ class App{
         }
 
         // Params
-<<<<<<< HEAD
-        // $this->params = $arr ? array_values($arr) : [];
-        // Bỏ qua phần controller và action đầu tiên
-        $this->params = array_slice($arr, 1) ? array_values(array_slice($arr, 1)) : [];
-
-
-=======
         $this->params = $arr ? array_values($arr) : [];
         // $this->params = array_slice($arr, 1) ? array_values(array_slice($arr, 1)) : [];
->>>>>>> 51243a633ab16b9e6192d7695d08b7075af283fd
         // Gọi Controller + Action
         try {
             call_user_func_array([$this->controller, $this->action], $this->params);
