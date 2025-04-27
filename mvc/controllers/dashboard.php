@@ -2,8 +2,10 @@
 
 class Dashboard extends Controller {
     public $PaymentModel;
+    public $VehicleDetailModel;
     public function __construct() {
         $this->PaymentModel = $this->model("PaymentModel");
+        $this->VehicleDetailModel = $this->model("VehicleDetailModel");
         parent::__construct();
     }
     public function default() {
@@ -68,13 +70,14 @@ class Dashboard extends Controller {
                     return;
             }
 
-            $result = $this->PaymentModel->getDataByDateRange($startDate, $endDate);
-            
+            $payMentResult = $this->PaymentModel->getDataByDateRange($startDate, $endDate);
+            $vehicleDetailModel = $this->VehicleDetailModel->getAll();
             echo json_encode([
                 "success" => true,
                 "startDate" => $startDate,
                 "endDate" => $endDate,
-                "result" => $result,
+                "payMentResult" => $payMentResult,
+                "vehicleDetailModel" => $vehicleDetailModel,
                 "timeRange" => $timeRange
             ]);
             return;

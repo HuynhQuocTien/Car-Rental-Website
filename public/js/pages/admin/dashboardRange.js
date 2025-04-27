@@ -1,6 +1,6 @@
 (function () {
   function formatCurrencyVN(amount) {
-    return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",") + "VNĐ";
+    return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " VNĐ";
   }
 
   function loadData(payload) {
@@ -11,22 +11,30 @@
     })
       .then((response) => response.json())
       .then((data) => {
-        let total = 0;
-        data.result.forEach(function (value) {
+        let totalPayment = 0;
+        let countRetalCar = 0;
+        data.payMentResult.forEach(function (value) {
           const number = Number.parseInt(value.Amount);
-          total += number;
-          // console.log(value.Amount);
+          totalPayment += number;
+          countRetalCar++;
         });
-        console.log(formatCurrencyVN(total));
-        document.querySelector(".total_earn").textContent =
-          formatCurrencyVN(total);
+        // console.log(formatCurrencyVN(total));
+        // let countActiveCar = 0;
+        // data.vehicleDetailModel.forEach(function (value) {
+        //   countActiveCar++;
+        // });
+        console.log(data.vehicleDetailModel);
+
+        document.querySelector(".total_earn").textContent = formatCurrencyVN(totalPayment);
+        document.querySelector(".total_rental").textContent = countRetalCar;
+        // document.querySelector(".active_car").textContent = countActiveCar;
       })
       .catch((error) => {
         console.error("Có lỗi:", error);
       });
   }
 
-  loadData({timeRange: "this_week"});
+  loadData({ timeRange: "this_week" });
 
   document.querySelectorAll(".dropdown-item").forEach((item) => {
     if (!item.hasAttribute("data-event-attached")) {

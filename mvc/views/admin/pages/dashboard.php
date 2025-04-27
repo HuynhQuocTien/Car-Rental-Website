@@ -61,8 +61,8 @@
                   <div class="item rounded-3 bg-body mx-auto my-3">
                     <i class="fa fa-level-up-alt fa-lg text-primary"></i>
                   </div>
-                  <div class="fs-1 fw-bold">14.6%</div>
-                  <div class="text-muted mb-3">Bounce Rate</div>
+                  <div class="fs-1 fw-bold active_car">0</div>
+                  <div class="text-muted mb-3">Actived Car</div>
                   <div class="d-inline-block px-3 py-1 rounded-pill fs-sm fw-semibold text-danger bg-danger-light">
                     <i class="fa fa-caret-down me-1"></i>
                     2.3%
@@ -82,8 +82,8 @@
                   <div class="item rounded-3 bg-body mx-auto my-3">
                     <i class="fa fa-chart-line fa-lg text-primary"></i>
                   </div>
-                  <div class="fs-1 fw-bold">386</div>
-                  <div class="text-muted mb-3">Confirmed Sales</div>
+                  <div class="fs-1 fw-bold total_rental">386</div>
+                  <div class="text-muted mb-3">Total Rental</div>
                   <div class="d-inline-block px-3 py-1 rounded-pill fs-sm fw-semibold text-success bg-success-light">
                     <i class="fa fa-caret-up me-1"></i>
                     7.9%
@@ -91,7 +91,7 @@
                 </div>
                 <div class="block-content block-content-full block-content-sm bg-body-light fs-sm">
                   <a class="fw-medium" href="javascript:void(0)">
-                    View all sales
+                    View all rental
                     <i class="fa fa-arrow-right ms-1 opacity-25"></i>
                   </a>
                 </div>
