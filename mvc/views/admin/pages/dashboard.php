@@ -18,11 +18,11 @@
                   Last 30 days <i class="fa fa-fw fa-angle-down"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end fs-sm" aria-labelledby="dropdown-analytics-overview">
-                  <a class="dropdown-item" href="javascript:void(0)">This Week</a>
-                  <a class="dropdown-item" href="javascript:void(0)">Previous Week</a>
+                  <a class="dropdown-item" data-range="this_week" href="javascript:void(0)">This Week</a>
+                  <a class="dropdown-item" data-range="previous_week" href="javascript:void(0)">Previous Week</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="javascript:void(0)">This Month</a>
-                  <a class="dropdown-item" href="javascript:void(0)">Previous Month</a>
+                  <a class="dropdown-item" data-range="this_month" href="javascript:void(0)">This Month</a>
+                  <a class="dropdown-item" data-range="previous_month" href="javascript:void(0)">Previous Month</a>
                 </div>
               </div>
             </div>
@@ -61,8 +61,8 @@
                   <div class="item rounded-3 bg-body mx-auto my-3">
                     <i class="fa fa-level-up-alt fa-lg text-primary"></i>
                   </div>
-                  <div class="fs-1 fw-bold">14.6%</div>
-                  <div class="text-muted mb-3">Bounce Rate</div>
+                  <div class="fs-1 fw-bold active_car">0</div>
+                  <div class="text-muted mb-3">Actived Car</div>
                   <div class="d-inline-block px-3 py-1 rounded-pill fs-sm fw-semibold text-danger bg-danger-light">
                     <i class="fa fa-caret-down me-1"></i>
                     2.3%
@@ -82,8 +82,8 @@
                   <div class="item rounded-3 bg-body mx-auto my-3">
                     <i class="fa fa-chart-line fa-lg text-primary"></i>
                   </div>
-                  <div class="fs-1 fw-bold">386</div>
-                  <div class="text-muted mb-3">Confirmed Sales</div>
+                  <div class="fs-1 fw-bold total_rental">386</div>
+                  <div class="text-muted mb-3">Total Rental</div>
                   <div class="d-inline-block px-3 py-1 rounded-pill fs-sm fw-semibold text-success bg-success-light">
                     <i class="fa fa-caret-up me-1"></i>
                     7.9%
@@ -91,7 +91,7 @@
                 </div>
                 <div class="block-content block-content-full block-content-sm bg-body-light fs-sm">
                   <a class="fw-medium" href="javascript:void(0)">
-                    View all sales
+                    View all rental
                     <i class="fa fa-arrow-right ms-1 opacity-25"></i>
                   </a>
                 </div>
@@ -103,7 +103,7 @@
                   <div class="item rounded-3 bg-body mx-auto my-3">
                     <i class="fa fa-wallet fa-lg text-primary"></i>
                   </div>
-                  <div class="fs-1 fw-bold">$4,920</div>
+                  <div class="fs-1 fw-bold total_earn">$4,920</div>
                   <div class="text-muted mb-3">Total Earnings</div>
                   <div class="d-inline-block px-3 py-1 rounded-pill fs-sm fw-semibold text-danger bg-danger-light">
                     <i class="fa fa-caret-down me-1"></i>
