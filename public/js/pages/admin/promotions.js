@@ -9,7 +9,7 @@ const renderData = function (pros) {
         <td class="text-center">${pro.VehicleID}</td>
         <td class="text-center">${pro.DiscountType == 0 ? 'Percent' : 'Cash' }</td>
         <td class="text-center">${pro.DiscountValue == 0 ? pro.DiscountValue+'%' : pro.DiscountValue+'$'}</td>
-        <td class="text-center">${pro.CreatedAt}</td>
+        <td class="text-center">${pro.CreateAt}</td>
         <td class="text-center">${pro.StartDate}</td>
         <td class="text-center">${pro.EndDate}</td>
         <td class="text-center">${pro.Status}</td>
@@ -35,7 +35,7 @@ const renderData = function (pros) {
   };
   
 
-  const mainPagePagination = new Pagination();
+const mainPagePagination = new Pagination();
 mainPagePagination.option.controller = "promotions";
 mainPagePagination.option.model = "PromotionModel";
 mainPagePagination.option.limit = 10;

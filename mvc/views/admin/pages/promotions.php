@@ -13,34 +13,38 @@
     </div>
 </div>
 <!-- END Hero -->
-<div class="modal fade" id="addModelModal" tabindex="-1" aria-labelledby="addModelModalLabel" aria-hidden="true">
+<div class="modal fade" id="addPromationModal" tabindex="-1" aria-labelledby="addPromationModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addModelModalLabel">Add New Model</h5>
+                <h5 class="modal-title" id="addPromationModalLabel">Add New Promotion</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="addModelForm">
+                <form id="addPromationForm">
                     <!-- Hidden ID for editing mode -->
                     <div class="mb-3 d-none" id="modelIdContainer">
                         <label for="modelId" class="form-label">ID</label>
                         <input type="text" class="form-control" id="modelId" name="modelId" readonly
                             style="cursor: not-allowed; background-color: #f8f9fa;">
                     </div>
-                    <!-- Model Name -->
                     <div class="mb-3">
-                        <label for="modelName" class="form-label">Model Name <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="modelName" name="modelName" required
-                            placeholder="e.g. Camry, Civic, Fortuner">
+                        <label for="modelPromotionName" class="form-label">Promotion Name<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="modelPromotionName" name="modelPromotionName" required
+                            placeholder="e.g. KHUYEN MAI, KHUYEN MAI THANG 10">
+                    </div>
+                    <div class="mb-3">
+                        <label for="modelPromotionCode" class="form-label">Promotion Code<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="modelPromotionCode" name="modelPromotionCode" required
+                            placeholder="e.g. KM01, KM02">
                     </div>
                     <!-- Make Selection -->
                     <div class="mb-3">
-                        <label for="makeId" class="form-label">Make <span class="text-danger">*</span></label>
-                        <select class="form-select" id="makeId" name="makeId" required>
-                            <option value="">Select Make</option>
-                            <?php foreach ($data['Makes'] as $make) : ?>
-                                <option value="<?php echo $make['MakeID'] ?>"><?php echo $make['MakeName'] ?></option>
+                        <label for="vehicleId" class="form-label">Vehicle <span class="text-danger">*</span></label>
+                        <select class="form-select" id="vehicleId" name="vehicleId" required>
+                            <option value="">Select Vehicle</option>
+                            <?php foreach ($data['Vehicles'] as $vehicle) : ?>
+                                <option value="<?php echo $vehicle['VehicleID'] ?>"><?php echo $vehicle['VehicleName'] ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -64,14 +68,12 @@
         </div>
     </div>
 </div>
-
-
 <div class="content">
     <div class="block block-rounded">
         <div class="block-header block-header-default">
             <h3 class="block-title">List Models</h3>
             <div class="block-options">
-                <button class="btn btn-hero btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#addModelModal">
+                <button class="btn btn-hero btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#addPromationModal">
                     <i class="fa-regular fa-plus"></i> Add
                 </button>
             </div>

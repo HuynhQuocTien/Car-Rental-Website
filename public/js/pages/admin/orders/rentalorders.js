@@ -18,13 +18,24 @@ const renderData = function (orders) {
         <td>${order.RentalDate}</td>
         <td>${order.TotalAmount}</td>
         <td>${order.Address}</td>
-        <td>${order.Status == 1 ? "Chưa trả xe" : "Đã trả xe"}</td>
+        <td>${order.UserID == null ? "Chưa xác nhận" : order.Status == 0 ? "Chưa trả xe" : "Đã trả xe"}</td>
         <td>
           <div class="btn-group">
             <a href="rentalorders/detail&id=${order.OrderID}" 
               class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
               data-bs-toggle="tooltip" aria-label="Detail" data-bs-original-title="Detail">
               <i class="fa fa-eye"></i>
+            </a>
+            <a href="rentalorders/detail&id=${order.OrderID}" 
+              class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
+              data-bs-toggle="tooltip" aria-label="Detail" data-bs-original-title="Detail">
+              <i class="fa fa-pencil-alt"></i>
+            </a>
+            
+            <a href="rentalorders/detail&id=${order.OrderID}" 
+              class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
+              data-bs-toggle="tooltip" aria-label="Detail" data-bs-original-title="Detail">
+              <i class="fa fa-times"></i>
             </a>
           </div>
         </td>
@@ -33,7 +44,9 @@ const renderData = function (orders) {
   
     $("#list-rentalOrders").html(html);
     $('[data-bs-toggle="tooltip"]').tooltip();
-  };
+};
+
+
 const mainPagePagination = new Pagination();
 mainPagePagination.option.controller = "rentalorders";
 mainPagePagination.option.model = "RentalOrderModel";

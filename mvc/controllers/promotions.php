@@ -1,5 +1,4 @@
 <?php
-
 class Promotions extends Controller {
     public $promotionModel;
     public function __construct() {

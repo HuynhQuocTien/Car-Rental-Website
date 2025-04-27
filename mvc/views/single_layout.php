@@ -7,8 +7,8 @@
 	<?php
 		if($web == "user"){
 			echo '
-	<link rel="icon" type="image/png" href="'.BASE_URL.'/public/images/icons/favicon.ico"/>
-	<link rel="stylesheet" type="text/css" href="'.BASE_URL.'/public/css/bootstrap.min.css">';
+		<link rel="icon" type="image/png" href="'.BASE_URL.'/public/images/icons/favicon.ico"/>
+		<link rel="stylesheet" type="text/css" href="'.BASE_URL.'/public/css/bootstrap.min.css">';
 		}else{
 			echo '
 			    <script>

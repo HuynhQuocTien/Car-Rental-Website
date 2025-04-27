@@ -88,7 +88,7 @@ Dashmix.onLoad(() =>
                 email: mail,
               },
               success: function (response) {
-                location.href = `./auth/otp`;
+                location.href = BaseUrl + `auth/otp`;
               },
             });
           }
@@ -118,7 +118,7 @@ Dashmix.onLoad(() =>
             });
           }
            else {
-            location.href = BaseUrl + `auth/changePass`;
+            location.href = BaseUrl + `auth/changePassword`;
           }
         },
       });
@@ -131,7 +131,7 @@ Dashmix.onLoad(() =>
       let passwordNew = $("#passwordNew").val();
       $.ajax({
         type: "post",
-        url: "./auth/changePassword",
+        url: BaseUrl +"auth/reset",
         data: {
           password: passwordNew,
         },
@@ -143,7 +143,7 @@ Dashmix.onLoad(() =>
               message: `Thay đổi mật khẩu thành công!`,
             });
             setTimeout(function () {
-              location.href = `./auth/signin`;
+              location.href = BaseUrl +`auth/signin`;
             }, 3000);
           }
         },

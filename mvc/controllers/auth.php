@@ -241,7 +241,20 @@ class Auth extends Controller
             }
         }
     }
-
+    public function reset()
+    {
+        AuthCore::onLogin();
+        if (in_array($this->url[0], ['admin'])) {
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $password = $_POST['password'];
+                $email = $_SESSION['checkMail'];
+                $check = $this->accountModel->changePassword($email, $password);
+                $resetOTP = $this->accountModel->updateOTP($email,"NULL");
+                session_destroy();
+                echo $check;
+            }
+        }
+    }
     public function logout()
     {
         AuthCore::checkAuthentication();
