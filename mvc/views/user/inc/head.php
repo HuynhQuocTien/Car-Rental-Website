@@ -72,6 +72,7 @@
     <!-- END Stylesheets -->
     <script>
         const BaseUrl = "<?php echo BASE_URL; ?>/user/";
+        const BASE_URL = "<?php echo BASE_URL; ?>";
     </script>
     <script src="<?= BASE_URL ?>/public/js/dashmix.app.min.js"></script>
     <script src="<?= BASE_URL ?>/public/js/lib/jquery.min.js"></script>

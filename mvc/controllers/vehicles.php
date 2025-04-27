@@ -53,6 +53,11 @@ class Vehicles extends Controller {
             ],
             "admin");
         } else {
+            if(isset($_SESSION["token"])){
+
+                AuthCore::checkAuthentication();
+            }
+
             $this->view("main_layout", [
                 "Title"=>"Vehicles",
                 "Script"=> "vehicle",
@@ -394,7 +399,7 @@ class Vehicles extends Controller {
                 'Mileage' => $_POST["mileage"] ?? '',
                 'Active' => isset($_POST["is-active"]) && $_POST["is-active"] == "1" ? 1 : 0,
             ];
-    
+            $customerid = $_SESSION['UserID'];
             // Save vehicle details and get the ID
             $result = $this->vehicleDetailModel->create($data);
             $check = false;

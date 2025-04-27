@@ -11,7 +11,7 @@ const renderData = function (vehicles) {
                     <a class="img-link img-fluid-100" data-toggle="layout" data-action="side_overlay_open" href="javascript:void(0)" style="
     height: 350px;
 ">
-                      <img class="img-fluid rounded-top " src="${vehicle.ImageURL}" alt="" style="
+                      <img class="img-fluid rounded-top " src="${vehicle.ImageURL ?? "https://res.cloudinary.com/dapudsvwl/image/upload/v1745764077/default.jpg"}" alt="" style="
     height: 100%;
 ">
                     </a>

@@ -79,6 +79,7 @@ class AccountModel extends Database
                 $resultToken = $this->updateToken($username, $token);
                 if ($resultToken) {
                     setcookie("token", $token, time() + 7 * 24 * 3600, "/");
+                    $this->validateToken($token);
                     return json_encode(["message" => "Đăng nhập thành công !", "valid" => "true"]);
                 } else {
                     return json_encode(["message" => "Đăng nhập không thành công !", "valid" => "false"]);
@@ -126,6 +127,7 @@ class AccountModel extends Database
         a.*,
         u.FullName AS UserFullName,
         c.FullName AS CustomerFullName
+        U.UserID, c.CustomerID 
         FROM `Accounts` a
         LEFT JOIN `Users` u ON a.AccountID = u.AccountID
         LEFT JOIN `Customers` c ON a.AccountID = c.AccountID
@@ -139,6 +141,7 @@ class AccountModel extends Database
             $_SESSION['FullName'] = !empty($row['UserFullName']) 
                                         ? $row['UserFullName'] 
                                         : $row['CustomerFullName'];
+            $_SESSION['UserID'] = !empty($row['UserID']) ? $row['UserID'] : $row['CustomerID'];
             $_SESSION['ProfilePicture'] = $row['ProfilePicture'];
             $_SESSION['RoleID'] = $row['RoleID'];
             $_SESSION['Roles'] = $this->getRole($row['RoleID']);

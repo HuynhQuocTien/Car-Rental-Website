@@ -147,7 +147,7 @@
                         </div>
                         <div class="modal-body p-4">
                             <!-- Login Form -->
-                            <form id="loginForm" class="js-validation-signin">
+                            <form id="loginForm" class="js-validation-signin" onsubmit="return false; ">
                                 <div class="mb-3">
                                     <label for="login-username" class="form-label">Username</label>
                                     <input type="text" class="form-control" id="login-username" name="login-username"
@@ -176,7 +176,7 @@
                                 </div>
                             </form>
                             <!-- Register Form -->
-                            <form id="registerForm" class="js-validation-signup d-none" method="POST">
+                            <form id="registerForm" class="js-validation-signup d-none" onsubmit="return false; ">
                                 <div class="mb-3">
                                     <label for="fullname" class="form-label">Full name</label>
                                     <input type="text" class="form-control" id="signup-fullname"
@@ -214,7 +214,7 @@
                             </form>
 
                             <!-- Forgot Password Form -->
-                            <form id="forgotPasswordForm" class="js-validation-forgot d-none">
+                            <form id="forgotPasswordForm" class="js-validation-forgot d-none" onsubmit="return false; ">
                                 <div class="mb-3">
                                     <label for="forgotEmail" class="form-label">Email</label>
                                     <input type="email" class="form-control" id="forgotEmail"
@@ -230,7 +230,7 @@
                             </form>
 
                             <!-- OTP Confirmation Form -->
-                            <form id="otpForm" class="d-none">
+                            <form id="otpForm" class="d-none" onsubmit="return false; ">
                                 <div class="mb-3">
                                     <input type="text" name="saveEmail" id="saveEmail" hidden>
                                     <label for="otpCode" class="form-label">OTP Code</label>
@@ -246,7 +246,7 @@
                             </form>
 
                             <!-- Reset Password Form -->
-                            <form id="resetPasswordForm" class="d-none">
+                            <form id="resetPasswordForm" class="d-none" onsubmit="return false; ">
                                 <div class="mb-3">
                                     <label for="usernameReset" class="form-label">Username</label>
                                     <input type="text" class="form-control" id="usernameReset" value="" disabled>
