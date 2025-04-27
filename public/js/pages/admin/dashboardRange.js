@@ -19,15 +19,20 @@
           countRetalCar++;
         });
         // console.log(formatCurrencyVN(total));
-        // let countActiveCar = 0;
+        let countActiveCar = 0;
         // data.vehicleDetailModel.forEach(function (value) {
         //   countActiveCar++;
         // });
-        console.log(data.vehicleDetailModel);
+        console.log();
+        data.vehicleDetailModel.forEach(function(val){
+          if(val.Active === "1"){
+            countActiveCar++;
+          }
+        })
 
         document.querySelector(".total_earn").textContent = formatCurrencyVN(totalPayment);
         document.querySelector(".total_rental").textContent = countRetalCar;
-        // document.querySelector(".active_car").textContent = countActiveCar;
+        document.querySelector(".active_car").textContent = countActiveCar;
       })
       .catch((error) => {
         console.error("Có lỗi:", error);
