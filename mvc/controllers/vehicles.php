@@ -53,11 +53,6 @@ class Vehicles extends Controller {
             ],
             "admin");
         } else {
-            if(isset($_SESSION["token"])){
-
-                AuthCore::checkAuthentication();
-            }
-
             $this->view("main_layout", [
                 "Title"=>"Vehicles",
                 "Script"=> "vehicle",

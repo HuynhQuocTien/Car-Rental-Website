@@ -126,8 +126,8 @@ class AccountModel extends Database
         $sql = "SELECT 
         a.*,
         u.FullName AS UserFullName,
-        c.FullName AS CustomerFullName
-        U.UserID, c.CustomerID 
+        c.FullName AS CustomerFullName,
+        u.UserID, c.CustomerID 
         FROM `Accounts` a
         LEFT JOIN `Users` u ON a.AccountID = u.AccountID
         LEFT JOIN `Customers` c ON a.AccountID = c.AccountID
