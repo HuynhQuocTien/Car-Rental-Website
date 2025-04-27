@@ -6,13 +6,16 @@ const renderData = function (vehicles) {
     html += `
         <div class="col-md-6 col-xl-4">
             <!-- Vehicle -->
-            <div class="block block-rounded">
-                <div class="block-content p-0 overflow-hidden">
-                    <a class="img-link img-fluid-100" data-toggle="layout"
-                        data-action="side_overlay_open" href="javascript:void(0)">
-                        <img class="img-fluid rounded-top" src="${vehicle.ImageURL}" alt="">
+              <div class="block block-rounded">
+                 <div class="block-content p-0 overflow-hidden">
+                    <a class="img-link img-fluid-100" data-toggle="layout" data-action="side_overlay_open" href="javascript:void(0)" style="
+    height: 350px;
+">
+                      <img class="img-fluid rounded-top " src="${vehicle.ImageURL}" alt="" style="
+    height: 100%;
+">
                     </a>
-                </div>
+                  </div>
                 <div class="block-content">
                     <h4 class="h6 mb-2">${vehicle.MakeName} ${vehicle.ModelName}  ${vehicle.Year} - ${vehicle.ColorName}</h4>
                     <h5 class="h2 fw-light push">
