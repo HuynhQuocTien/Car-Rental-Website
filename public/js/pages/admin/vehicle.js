@@ -94,6 +94,11 @@ function calculateDiscountedPrices() {
 // Function to render vehicle data in table
 const renderData = function (vehicles) {
   let html = "";
+  console.log(vehicles);
+  if(vehicles.length === 0) {
+    $("#list-vehicle").html('<tr><td colspan="10" class="text-center">No data available</td></tr>');
+    return;
+  }
   vehicles.forEach((vehicle) => {
     html += `<tr>            
             <td>${vehicle.VehicleID}</td>

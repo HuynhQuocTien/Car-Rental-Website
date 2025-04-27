@@ -3,10 +3,12 @@
 class RentalOrders extends Controller {
     public $rentalOrderModel;
     public $orderApprovalModel;
+    public $orderDetailModel;
     public function __construct() {
         parent::__construct();
         $this->rentalOrderModel = $this->model("RentalOrderModel");
         $this->orderApprovalModel = $this->model("OrderApprovalModel");
+        $this->orderDetailModel = $this->model("OrderDetailModel");
         require_once "./mvc/core/Pagination.php";
     }
     public function default() {
@@ -26,10 +28,10 @@ class RentalOrders extends Controller {
 
     public function detail() {
         // $detail = $this->rentalOrderModel->getDetail($id);
-        if(isset($_GET["id"]) == false || !$_GET["id"]) {
-            header("Location: /admin/rentalorders");
-            exit;
-        }
+        // if(isset($_GET["id"]) == false || !$_GET["id"]) {
+        //     header("Location: /admin/rentalorders");
+        //     exit;
+        // }
         $id = $_GET["id"];
         $rentalOrder = $this->rentalOrderModel->getRentalOrderByID($id);
 

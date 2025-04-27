@@ -116,4 +116,52 @@ $(document).ready(function () {
   updatePrice();
   updateDurationLabel();
   calculateReturnDate();
+
+  // ADD TO CART
+  $('#addToCartBtn').click(function () {
+    console.log('Add to cart button clicked!');
+    // Lấy thông tin từ form
+    const vehicleId = document.getElementById('id-save').value;
+    const quantity = parseInt(document.getElementById('rental-quantity').value);
+    const rentalOption = document.querySelector('input[name="options"]:checked').value; // hour, day, week, month
+    const pickupDate = document.getElementById('pickup-date').value;
+    const returnDate = document.getElementById('return-date').value;
+  
+    // Lấy giá theo loại thuê
+    let price = 0;
+    if (rentalOption === 'hour') {
+        price = parseFloat(document.getElementById('hourly-price').value);
+    } else if (rentalOption === 'day') {
+        price = parseFloat(document.getElementById('daily-price').value);
+    } else if (rentalOption === 'week') {
+        price = parseFloat(document.getElementById('weekly-price').value);
+    } else if (rentalOption === 'month') {
+        price = parseFloat(document.getElementById('monthly-price').value);
+    }
+    
+    const cartItem = {
+        vehicleDetailId: vehicleId,
+        quantity: quantity,
+        rentalOption: rentalOption,
+        pickupDate: pickupDate,
+        returnDate: returnDate,
+        price: price
+    };
+    console.log(cartItem);
+    // Lưu vào localStorage
+    const cartKey = `carts`;
+    let cart = JSON.parse(localStorage.getItem(cartKey)) || [];
+  
+    // Kiểm tra nếu xe đã có trong giỏ thì update
+    const existingItemIndex = cart.findIndex(item => item.vehicleId === vehicleId && item.rentalOption === rentalOption && item.pickupDate === pickupDate);
+    if (existingItemIndex > -1) {
+        cart[existingItemIndex].quantity += quantity;
+    } else {
+        cart.push(cartItem);
+    }
+  
+    localStorage.setItem(cartKey, JSON.stringify(cart));
+  
+    alert('Added to cart successfully!');
+  });
 });
