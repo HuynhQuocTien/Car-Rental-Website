@@ -184,7 +184,7 @@
                                     <input class="form-check-input" type="checkbox" name="rentalorders" value="2" data-id="9">
                                 </td>
                                 <td class="text-center">
-                                    <input class="form-check-input" type="checkbox" name="rentalorders" value="3" data-id="9">
+                                    &nbsp;
                                 </td>
                             </tr>
                             <tr>
@@ -240,43 +240,7 @@
                                 <td class="text-center">
                                     <input class="form-check-input" type="checkbox" name="deposits" value="3" data-id="12">
                                 </td>
-                            </tr>
-                            <tr>
-                                <td>Reviews</td>
-                                <td class="text-center">
-                                    <input type="checkbox" class="check-all-row form-check-input">
-                                </td>
-                                <td class="text-center">
-                                    <input class="form-check-input" type="checkbox" name="reviews" value="4" data-id="13">
-                                </td>
-                                <td class="text-center">
-                                    <input class="form-check-input" type="checkbox" name="reviews" value="1" data-id="13">
-                                </td>
-                                <td class="text-center">
-                                    <input class="form-check-input" type="checkbox" name="reviews" value="2" data-id="13">
-                                </td>
-                                <td class="text-center">
-                                    <input class="form-check-input" type="checkbox" name="reviews" value="3" data-id="13">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Payments</td>
-                                <td class="text-center">
-                                    <input type="checkbox" class="check-all-row form-check-input">
-                                </td>
-                                <td class="text-center">
-                                    <input class="form-check-input" type="checkbox" name="payments" value="4" data-id="14">
-                                </td>
-                                <td class="text-center">
-                                    <input class="form-check-input" type="checkbox" name="payments" value="1" data-id="14">
-                                </td>
-                                <td class="text-center">
-                                    <input class="form-check-input" type="checkbox" name="payments" value="2" data-id="14">
-                                </td>
-                                <td class="text-center">
-                                    <input class="form-check-input" type="checkbox" name="payments" value="3" data-id="14">
-                                </td>
-                            </tr>
+                            </tr> 
                             <tr>                                
                                 <td>Promotions</td>
                                 <td class="text-center">
