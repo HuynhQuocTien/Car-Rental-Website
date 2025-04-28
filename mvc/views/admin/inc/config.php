@@ -105,12 +105,12 @@ $GLOBALS['sidebar'] = array(
                     ),
                 ),
             ),
-            array(
-                'name'  => 'Reviews',
-                'icon'  => 'fa-solid fa-star',
-                'url'   => 'reviews',
-                'role' => '13',                
-            ),
+            // array(
+            //     'name'  => 'Reviews',
+            //     'icon'  => 'fa-solid fa-star',
+            //     'url'   => 'reviews',
+            //     'role' => '13',                
+            // ),
             array(
                 'name'  => 'Promotions',
                 'icon'  => 'fa-solid fa-ticket',
