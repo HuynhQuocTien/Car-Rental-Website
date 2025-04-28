@@ -14,6 +14,7 @@
   <script>Dashmix.helpersOnLoad(['jq-datepicker', 'jq-rangeslider', 'jq-slick']);</script>
   
   <script src="<?= BASE_URL ?>/public/js/pages/user/auth.js"></script>
+  <script src="<?= BASE_URL ?>/public/js/pages/user/cart.js"></script>
   <!-- <script src="<?= BASE_URL ?>/public/js/pages/user/updateCustomer.js"></script> -->
 <?php
     if(isset($data["Script"])) {

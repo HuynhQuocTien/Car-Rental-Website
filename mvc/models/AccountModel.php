@@ -125,7 +125,8 @@ class AccountModel extends Database
         $sql = "SELECT 
         a.*,
         u.FullName AS UserFullName,
-        c.FullName AS CustomerFullName
+        c.FullName AS CustomerFullName,
+        u.UserID, c.CustomerID 
         FROM `Accounts` a
         LEFT JOIN `Users` u ON a.AccountID = u.AccountID
         LEFT JOIN `Customers` c ON a.AccountID = c.AccountID
@@ -139,6 +140,7 @@ class AccountModel extends Database
             $_SESSION['FullName'] = !empty($row['UserFullName']) 
                                         ? $row['UserFullName'] 
                                         : $row['CustomerFullName'];
+            $_SESSION['UserID'] = !empty($row['UserID']) ? $row['UserID'] : $row['CustomerID'];
             $_SESSION['ProfilePicture'] = $row['ProfilePicture'];
             $_SESSION['RoleID'] = $row['RoleID'];
             $_SESSION['Roles'] = $this->getRole($row['RoleID']);

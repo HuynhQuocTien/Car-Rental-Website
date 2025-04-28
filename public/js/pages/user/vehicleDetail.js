@@ -138,7 +138,7 @@ $(document).ready(function () {
     } else if (rentalOption === 'month') {
         price = parseFloat(document.getElementById('monthly-price').value);
     }
-    
+    let cartItems = JSON.parse(localStorage.getItem('carts')) || [];
     const cartItem = {
         vehicleDetailId: vehicleId,
         quantity: quantity,
@@ -149,11 +149,12 @@ $(document).ready(function () {
     };
     console.log(cartItem);
     // Lưu vào localStorage
+    
     const cartKey = `carts`;
     let cart = JSON.parse(localStorage.getItem(cartKey)) || [];
   
     // Kiểm tra nếu xe đã có trong giỏ thì update
-    const existingItemIndex = cart.findIndex(item => item.vehicleId === vehicleId && item.rentalOption === rentalOption && item.pickupDate === pickupDate);
+    const existingItemIndex = cart.findIndex(item => item.vehicleDetailId === vehicleId && item.rentalOption === rentalOption && item.pickupDate === pickupDate);
     if (existingItemIndex > -1) {
         cart[existingItemIndex].quantity += quantity;
     } else {
