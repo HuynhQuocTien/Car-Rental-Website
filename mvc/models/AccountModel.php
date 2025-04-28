@@ -79,6 +79,7 @@ class AccountModel extends Database
                 $resultToken = $this->updateToken($username, $token);
                 if ($resultToken) {
                     setcookie("token", $token, time() + 7 * 24 * 3600, "/");
+                    $this->validateToken($token);
                     return json_encode(["message" => "Đăng nhập thành công !", "valid" => "true"]);
                 } else {
                     return json_encode(["message" => "Đăng nhập không thành công !", "valid" => "false"]);

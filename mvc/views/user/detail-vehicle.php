@@ -274,18 +274,30 @@
 					<?php foreach ($data['VehicleImages'] as $image): ?>
 						<div class="col-md-3 mb-4">
 							<div class="gallery-item"
-								style="background-image: url('<?= htmlspecialchars($image['ImageURL']) ?>'); height: 200px; background-size: cover; background-position: center;"></div>
+								style="background-image: url('<?= htmlspecialchars($image['ImageURL']) ?>'); height: 200px; background-size: cover; background-position: center;">
 							</div>
 						</div>
-					<?php endforeach; ?>
-				</div>
+					</div>
+				<?php endforeach; ?>
 			</div>
 		</div>
+	</div>
 
 	</div>
 </section>
 
 <style>
+	.vehicle-img {
+		width: 100%;
+		/* Chiều rộng full theo parent */
+		height: 200px;
+		/* Đặt chiều cao cố định, bạn có thể thay đổi giá trị này */
+		object-fit: cover;
+		/* Giữ tỷ lệ của hình ảnh và crop để vừa khít khung */
+		border-radius: 0.375rem;
+		/* Giữ bo tròn đồng bộ */
+	}
+
 	.hero-wrap {
 		padding: 3em 0;
 		background: #f8f9fa !important;

@@ -1,19 +1,12 @@
 (function(){
-  const forms = [
-    document.getElementById("profileForm"),
-    document.getElementById("passwordForm"),
-  ];
+  // const forms = [
+  //   document.getElementById("profileForm"),
+  //   document.getElementById("passwordForm"),
+  // ];
   const scriptMap = {
     profile: "../public/js/pages/admin/updateAdminProfile.js",
     password: "../public/js/pages/admin/updateAdminPassword.js",
   };
-
-  function resetFormInputs(form) {
-    const inputs = form.querySelectorAll(
-      "input:not([type='hidden']), textarea, select"
-    );
-    inputs.forEach((input) => (input.value = ""));
-  }
 
   function loadScript(formType) {
     // Xóa tất cả các thẻ <script> có src chứa "user/"

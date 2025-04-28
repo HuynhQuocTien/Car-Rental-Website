@@ -35,7 +35,6 @@ Dashmix.onLoad(() =>
     if ($(".js-validation-signin").valid()) {
       $.ajax({
         type: "POST",
-        // localhost/user/auth/checkLogin?username=abc/password=123
         url:  BaseUrl + "auth/checkLogin",
         data: {
           // username: abc,

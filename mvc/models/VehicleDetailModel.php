@@ -182,7 +182,7 @@ class VehicleDetailModel extends Database {
                     LEFT JOIN VehicleTypes vt ON v.VehicleTypesID = vt.VehicleTypesID
                     LEFT JOIN Colors c ON vd.ColorID = c.ColorID
                     LEFT JOIN VehicleImages vi ON vi.VehicleDetailID = vd.VehicleDetailID
-                  WHERE vd.Is_Delete = 0";
+                  WHERE vd.Is_Delete = 0 ";
         if ($input) {
             $query = $query. " AND (m.MakeName LIKE '%{$input}%' OR 
                             mo.ModelName LIKE '%{$input}%' OR 

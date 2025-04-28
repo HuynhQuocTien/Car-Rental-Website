@@ -5,9 +5,9 @@ $(document).ready(function () {
     const $scriptContainer = $('head');
     const $specialInputs = $('#usernameReset, #saveEmail'); // Các input cần xử lý đặc biệt
     const scriptMap = {
-        'login': '../public/js/pages/user/signin.js',
-        'register': '../public/js/pages/user/signup.js',
-        'otp': '../public/js/pages/user/sendOTP.js'
+        'login': BASE_URL + '/public/js/pages/user/signin.js',
+        'register': BASE_URL + '/public/js/pages/user/signup.js',
+        'otp': BASE_URL + '/public/js/pages/user/sendOTP.js'
     };
 
     // Function to reset all input fields in a form (except hidden and special inputs)
