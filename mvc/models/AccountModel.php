@@ -2,6 +2,26 @@
 class AccountModel extends Database
 {
 
+    public function getDataByDateRange($startDate, $endDate)
+    {
+        $query = "SELECT * FROM `Accounts` 
+                WHERE `CreatedAt` BETWEEN '$startDate' AND '$endDate'";
+    
+        $stmt = mysqli_query($this->con, $query);
+    
+        if ($stmt) {
+            $results = [];
+            while ($row = mysqli_fetch_assoc($stmt)) { // đổi thành mysqli_fetch_assoc
+                $results[] = $row;
+            }
+            return $results;
+        } else {
+            return false;
+        }
+    }
+    
+
+
     public function exists($column, $value)
     {
         $query = "SELECT COUNT(*) AS count FROM Accounts WHERE $column = '$value';";
