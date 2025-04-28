@@ -174,14 +174,13 @@ $(".js-validation-signup").off('submit').submit(function (e) {
                 username: $('#signup-newUsername').val(),
                 password: $('#signup-newPassword').val()
             },
-            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-            dataType: "json",
             success: function (response) {
                 $(".form-control").removeClass("is-invalid");
                 $(".invalid-feedback").remove();
                 console.log(response);
                 if (response.success) {
                     Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: "Account created successfully",z_index: 9999 });
+                    console.log(BaseUrl + "auth/addCustomer");
                     setTimeout(function () {
                         location.reload();
                       }, 500);

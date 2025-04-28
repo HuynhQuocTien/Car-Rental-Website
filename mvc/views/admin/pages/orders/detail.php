@@ -1,15 +1,4 @@
 <!-- Hero -->
-<?php 
-    if(isset($data['rentalOrder'])) {
-        foreach( $data['rentalOrder'] as $key => $value) {
-            echo ' '. $key .' '. $value .' ';
-            echo '<br>';
-        }
-    } else {
-        echo "No data found!";
-    }
-   
-?>
 <div class="bg-body-light ">
     <div class="content content-full py-2">
         <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
@@ -59,27 +48,25 @@
                 <table class="table table-striped table-vcenter fs-sm" id="model-table">
                     <thead>
                         <tr>
-                            <th style="width: 100px;">ID</th>
+                            <th>#</th>
                             <th>ID</th>
                             <th>Vehicle Name</th>
+                            <th>Color</th>
+                            <th>License Plate Number</th>
+                            <th>Rental Type</th>
+
                             <th>Return Date</th>
                             <th>Actual Return Date</th>
                             <!-- <th>Shipping Method</th> -->
                             <th>Damage Penalty</th>
-                            <th>Address</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="#rentalorderdetails">
+                    <tbody id="rentalorderdetails">
                         <!-- Rental Orders will be loaded here via AJAX -->
                         <!-- Example Row
                         -->
-                        <?php 
-                             foreach( $data['rentalOrder'] as $key => $value) {
-                                
-                            }
-                        ?>
                     </tbody>
                 </table>
         </div>

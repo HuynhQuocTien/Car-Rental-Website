@@ -1,6 +1,7 @@
 Dashmix.helpersOnLoad(['js-flatpickr', 'jq-datepicker']);
 
 const renderData = function (orders) {
+    console.log("detail: ");
     console.log(orders);
     index = 0;
     if (orders.length === 0) {
