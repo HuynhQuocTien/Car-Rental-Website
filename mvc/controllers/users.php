@@ -179,5 +179,16 @@ class Users extends Controller {
         $sql = $this->userModel->getQuery($filter, $input, $args, $lastURL);
         return $sql;
     }
+
+    public function getUserId() {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $id = $_SESSION['UserID'] ?? "0";
+            echo json_encode([
+                'success' => $id != null,
+                'message' => $id != null ? 'User found!' : 'User not found!',
+                'data' => $id
+            ]);
+        }
+    }
 }
 ?>
