@@ -117,33 +117,6 @@ $(document).ready(function () {
         }
     });
 
-
-    // function loadDataTable() {
-    //     let html = ``;
-    //     $.getJSON(BaseUrl + "permissions/renderData",
-    //         function (data) {
-    //             data.forEach(item => {
-    //                 html += `<tr>
-    //                 <td class="text-center fs-sm"><strong>${item.RoleID}</strong></td>
-    //                 <td>${item.RoleName}</td>
-    //                 <td class="text-center fs-sm">${item.Quantity }</td>
-    //                 <td class="text-center col-action">
-    //                     <button data-role="nhomquyen" data-action="update" class="btn btn-sm btn-alt-secondary btn-show-update" data-id="${item.RoleID}" data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit">
-    //                         <i class="fa fa-fw fa-pencil"></i>
-    //                     </button>
-    //                     <button data-role="nhomquyen" data-action="delete" class="btn btn-sm btn-alt-secondary delete_roles" data-id="${item.RoleID}" data-bs-toggle="tooltip" aria-label="Delete"
-    //                         data-bs-original-title="Delete">
-    //                         <i class="fa fa-fw fa-times"></i>
-    //                     </button>
-    //                 </td>
-    //             </tr>`
-    //             });
-    //             $("#list-roles").html(html);
-    //             $('[data-bs-toggle="tooltip"]').tooltip();
-    //         }
-    //     );
-    // }
-
     $("[data-bs-target='#modal-add-role']").click(function (e) {
         e.preventDefault();
         $(".add-role-element").show();

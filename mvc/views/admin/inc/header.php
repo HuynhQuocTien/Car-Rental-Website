@@ -68,7 +68,7 @@
               <form class="w-100" id="search-form" onsubmit="return false;">
                 <div class="input-group">
                   <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-                  <button type="button" class="btn btn-alt-primary" data-toggle="layout" data-action="header_search_off">
+                  <button type="button" id="btn-exit-search" class="btn btn-alt-primary" data-toggle="layout" data-action="header_search_off">
                     <i class="fa fa-fw fa-times-circle"></i>
                   </button>
                   <input type="text" class="form-control border-0" placeholder="Search or hit ESC.." id="search-input" name="search-input">

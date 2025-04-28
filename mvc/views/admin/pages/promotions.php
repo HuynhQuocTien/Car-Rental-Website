@@ -13,29 +13,41 @@
     </div>
 </div>
 <!-- END Hero -->
-<div class="modal fade" id="addPromationModal" tabindex="-1" aria-labelledby="addPromationModalLabel"
+<div class="modal fade" id="addPromotionModal" tabindex="-1" aria-labelledby="addPromotionModalLabel"
     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addPromationModalLabel">Add New Promotion</h5>
+                <h5 class="modal-title" id="addPromotionModalLabel">Add New Promotion</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form id="addPromationForm" class="js-validation-add" onsubmit="return false;">
+                    <!-- Name -->
+                    <div class="mb-3">
+                        <label class="form-label" for="val-name">Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="val-name" name="name"
+                        placeholder="Enter name promotion..">
+                    </div>
+                    <!-- Code -->
+                        <div class="mb-3" id="codeDiv">
+                            <label class="form-label" for="code">Code<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="code" name="code" disabled
+                            placeholder="Enter code..">
+                        </div>    
                     <!-- Discount Type -->
                     <div class="mb-3">
                         <label for="discountType" class="form-label">Discount Type <span
                                 class="text-danger">*</span></label>
                         <select class="form-select" id="discountType" name="discountType" required>
-                            <option value="">Select Discount Type</option>
+                            <option value="NULL">Select Discount Type</option>
                             <option value="0">Percentage (%)</option>
-                            <option value="1">Fixed Amount</option>
+                            <option value="1">Cash ($)</option>
                         </select>
                     </div>
                     <!-- Discount Value -->
                     <div class="mb-3">
-                        <label for="discountValue" class="form-label">Discount Value <span
+                        <label for="discountValue" class="form-label">Discount Value<span
                                 class="text-danger">*</span></label>
                         <input type="number" step="0.01" class="form-control" id="discountValue" name="discountValue"
                             required placeholder="e.g. 10 or 10000">
@@ -55,7 +67,8 @@
                         <select class="form-select" id="vehicleId" name="vehicleId">
                             <option value="">Select Vehicle</option>
                             <?php foreach ($data['Vehicles'] as $vehicle): ?>
-                                <option value="<?php echo $vehicle['VehicleID'] ?>"><?php echo $vehicle['VehicleName'] ?>
+                                <option value="<?php echo $vehicle['VehicleID'] ?>">
+                                    <?php echo "( " .$vehicle['VehicleID']. " ) ". $vehicle['MakeName'] ." " .$vehicle['ModelName']  ?>
                                 </option>
                             <?php endforeach; ?>
                         </select>
@@ -78,19 +91,18 @@
                     </div>
                     <!-- Status -->
                     <div class="mb-3">
-                        <label for="status" class="form-label">Status</label>
-                        <select class="form-select" id="status" name="status">
-                            <option value="1" selected>Active</option>
-                            <option value="0">Inactive</option>
-                        </select>
+                        <div class="form-check form-switch">
+                            <label for="status" class="form-check-label">Status</label>
+                            <input class="form-check-input" type="checkbox" id="status" name="status" checked>
+                        </div>
                     </div>
 
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" id="saveModelBtn">Save</button>
-                <button type="button" class="btn btn-primary" id="updateModelBtn" data-id="">Update</button>
+                <button type="button" class="btn btn-primary" id="addPromotionBtn">Save</button>
+                <button type="button" class="btn btn-primary" id="updatePromotionBtn" data-id="">Update</button>
             </div>
         </div>
     </div>
@@ -101,7 +113,7 @@
             <h3 class="block-title">List Models</h3>
             <div class="block-options">
                 <button class="btn btn-hero btn-primary btn-add" data-bs-toggle="modal"
-                    data-bs-target="#addPromationModal">
+                    data-bs-target="#addPromotionModal">
                     <i class="fa-regular fa-plus"></i> Add
                 </button>
             </div>

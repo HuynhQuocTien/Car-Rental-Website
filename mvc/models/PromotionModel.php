@@ -18,13 +18,25 @@
             }
             return $rows;
         }
+        public function exists($column, $value,$check)
+        {
+            $query = "SELECT COUNT(*) AS count FROM Promotions WHERE $column = '$value' AND $column != '$check';";
+            $stmt = mysqli_query($this->con, $query);
+    
+            if ($stmt) {
+                $row = $stmt->fetch_assoc();
+                return $row['count'] > 0;
+            } else {
+                return false;
+            }
+        }
         
         public function create($data)
         {
             // Assuming $data contains all necessary fields
             $name = $data['PromotionName'];
             $code = $data['PromotionCode'];
-            $vehicleId = $data['VehicleID'];
+            $vehicleId = isset($data['VehicleID']) && $data['VehicleID'] !== '' ? (int)$data['VehicleID'] : null;
             $discountType = $data['DiscountType'];
             $discountValue = $data['DiscountValue'];
             $userId = $data['UserID'];
@@ -32,13 +44,12 @@
             $endDate = $data['EndDate'];
             $description = $data['Description'];
             $status = $data['Status'];
-        
             $valid = true;
             $sql = "INSERT INTO `Promotions` 
                     (`PromotionName`, `PromotionCode`, `VehicleID`, `DiscountType`, `DiscountValue`, 
                      `UserID`, `StartDate`, `EndDate`, `Description`, `Status`) 
                     VALUES 
-                    ('$name', '$code', '$vehicleId', '$discountType', '$discountValue', 
+                    ('$name', '$code', " . ($vehicleId !== null ? $vehicleId : "NULL") . ", '$discountType', '$discountValue', 
                      '$userId', '$startDate', '$endDate', '$description', '$status')";
             
             $result = mysqli_query($this->con, $sql);
@@ -48,11 +59,10 @@
         
         public function update($data)
         {
-            // Assuming $data contains all necessary fields including PromotionID
             $id = $data['PromotionID'];
             $name = $data['PromotionName'];
             $code = $data['PromotionCode'];
-            $vehicleId = $data['VehicleID'];
+            $vehicleId = isset($data['VehicleID']) && $data['VehicleID'] !== '' ? (int)$data['VehicleID'] : null;
             $discountType = $data['DiscountType'];
             $discountValue = $data['DiscountValue'];
             $userId = $data['UserID'];
@@ -65,7 +75,7 @@
             $sql = "UPDATE `Promotions` 
                     SET `PromotionName`='$name', 
                         `PromotionCode`='$code', 
-                        `VehicleID`='$vehicleId', 
+                        `VehicleID`=" . ($vehicleId !== null ? $vehicleId : "NULL") . ", 
                         `DiscountType`='$discountType', 
                         `DiscountValue`='$discountValue', 
                         `UserID`='$userId', 
