@@ -149,6 +149,7 @@ class VehicleModel extends Database
         }
         return $rows;
     }
+    
     public function getImage($id)
     {
         $defaultImage = "https://res.cloudinary.com/dapudsvwl/image/upload/v1745000059/dvgjjnwwutuqdrqnpatz.jpg";

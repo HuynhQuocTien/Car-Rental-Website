@@ -47,6 +47,12 @@ class ColorModel extends Database {
         return $query;
     }
 
+    public function getByID($id){
+        $sql = "SELECT * FROM `Colors` WHERE `ColorID` = $id";
+        $result = mysqli_query($this->con,$sql);
+        $row = mysqli_fetch_assoc($result);
+        return $row;
+    }
 
 }
 ?>

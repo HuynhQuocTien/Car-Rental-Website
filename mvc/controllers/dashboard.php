@@ -3,9 +3,17 @@
 class Dashboard extends Controller {
     public $PaymentModel;
     public $VehicleDetailModel;
+    public $AccountModel; 
+    public $RentalOrderDetailModel;
+    public $VehicleModel;
+    public $ColorModel;
     public function __construct() {
         $this->PaymentModel = $this->model("PaymentModel");
         $this->VehicleDetailModel = $this->model("VehicleDetailModel");
+        $this->AccountModel = $this->model("AccountModel");
+        $this->RentalOrderDetailModel = $this->model("RentalOrderDetailModel");
+        $this->VehicleModel = $this->model("VehicleModel");
+        $this->ColorModel = $this->model("ColorModel");
         parent::__construct();
     }
     public function default() {
@@ -17,6 +25,28 @@ class Dashboard extends Controller {
         ],
         "admin");
     }
+
+    public function vehicleDetail(){
+        $vehicleDetailID = $_GET["VehicleDetailID"];
+        $data = $this->VehicleDetailModel->getById($vehicleDetailID);
+        echo json_encode($data);
+        exit;
+    } 
+
+    public function vehicle(){
+        $vehicleID = $_GET["VehicleID"];
+        $data = $this->VehicleModel->getById($vehicleID);
+        echo json_encode($data);
+        exit;
+    } 
+
+    public function color(){
+        $colorID = $_GET["ColorID"];
+        $data = $this->ColorModel->getByID($colorID);
+        echo json_encode($data);
+        exit;
+    }
+
     public function test(){
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $json = file_get_contents("php://input");
@@ -71,13 +101,18 @@ class Dashboard extends Controller {
             }
 
             $payMentResult = $this->PaymentModel->getDataByDateRange($startDate, $endDate);
-            $vehicleDetailModel = $this->VehicleDetailModel->getAll();
+            $vehicleDetailResult = $this->VehicleDetailModel->getAll();
+            $accountResult = $this->AccountModel->getDataByDateRange($startDate, $endDate);
+            $rentalOrderDetailResult = $this->RentalOrderDetailModel->getAll();
+
             echo json_encode([
                 "success" => true,
                 "startDate" => $startDate,
                 "endDate" => $endDate,
                 "payMentResult" => $payMentResult,
-                "vehicleDetailModel" => $vehicleDetailModel,
+                "vehicleDetailResult" => $vehicleDetailResult,
+                "accountResult" => $accountResult,
+                "rentalOrderDetailResult" => $rentalOrderDetailResult,
                 "timeRange" => $timeRange
             ]);
             return;
