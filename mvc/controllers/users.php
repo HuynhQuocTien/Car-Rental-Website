@@ -175,11 +175,6 @@ class Users extends Controller {
             ]);
         }
     }
-    public function getQuery($filter, $input, $args, $lastURL){
-
-        $sql = $this->userModel->getQuery($filter, $input, $args, $lastURL);
-        return $sql;
-    }
 
     public function getUserId() {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {

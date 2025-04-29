@@ -26,14 +26,16 @@ class UserModel extends Database {
             VALUES ('{$data['Username']}', '{$data['Password']}', '{$data['Email']}', {$data['RoleID']}, {$data['Active']}, '{$data['ProfilePicture']}')";
             $result = mysqli_query($this->con, $sql);
         
-        if ($result) {
             $accID = mysqli_insert_id($this->con);
+        if ($result) {
             $sql = "INSERT INTO Users (FullName, PhoneNumber, Sex, IdentityCard, DateOfBirth, AccountID, Active) 
             VALUES ('{$data['FullName']}', '{$data['PhoneNumber']}', {$data['Sex']}, '{$data['IdentityCard']}', '{$data['DateOfBirth']}',
              {$accID}, {$data['Active']})";
             $result = mysqli_query($this->con, $sql);
             if (!$result) return false;
-        } else {
+        } else if($accID) {
+            $sql = "DELETE FROM Accounts WHERE AccountID = {$accID} ";
+            $result = mysqli_query($this->con, $sql);
             return false;
         }
         return true;
