@@ -64,6 +64,8 @@
     <link rel="stylesheet" href="<?= BASE_URL ?>/public/js/plugins/slick-carousel/slick-theme.css">
     <link rel="stylesheet" id="css-main" href="<?= BASE_URL ?>/public/css/dashmix.min.css">
     <link rel="stylesheet" id="css-main" href="<?= BASE_URL ?>/public/css/dashmix-custom.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/public/js/plugins/sweetalert2/sweetalert2.min.css">
+    
     <!-- <link rel="stylesheet" id="css-main" href="../public/css/bootstrap.min.css"> -->
     <!-- <link rel="stylesheet" id="css-main" href="../public/css/custom.css"> -->
 
