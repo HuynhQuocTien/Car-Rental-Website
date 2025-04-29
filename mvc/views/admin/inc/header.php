@@ -25,8 +25,12 @@
             <!-- User Dropdown -->
             <div class="dropdown d-inline-block">
               <button type="button" class="btn btn-alt-secondary" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <?php if (!empty($_SESSION['ProfilePicture'])): ?>
+                  <img src="<?= htmlspecialchars($_SESSION['ProfilePicture']) ?>" alt="User Avatar" class="rounded-circle" style="width: 24px; height: 24px; object-fit: cover;">
+              <?php else: ?>
                 <i class="far fa-fw fa-user-circle"></i>
-                <i class="fa fa-fw fa-angle-down ms-1 d-none d-sm-inline-block"></i>
+              <?php endif; ?>
+                 <i class="fa fa-fw fa-angle-down ms-1 d-none d-sm-inline-block"></i>
               </button>
               <div class="dropdown-menu dropdown-menu-end p-0" aria-labelledby="page-header-user-dropdown">
                 <div class="bg-primary-dark rounded-top fw-semibold text-white text-center p-3">
