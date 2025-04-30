@@ -574,45 +574,45 @@ $("#btn-edit-customer").on("click", function (e) {
 });
 
 $(document).on("click", ".js-delete-customer", function () {
-    const id = $(this).data("id");
-    const accountId = $(this).data("accountid");
+  const id = $(this).data("id");
+  const accountId = $(this).data("accountid");
   
-    Swal.fire({
-      title: "Bạn có chắc muốn xóa khách hàng này?",
-      text: "Hành động này không thể hoàn tác!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Xóa",
-      cancelButtonText: "Hủy"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        $.ajax({
-          type: "POST",
-          url: BaseUrl + "customers/delete",
-          data: {
-            CustomerID: id,
-            AccountID: accountId,
-          },
-          dataType: "json",
-          success: function (response) {
-            if (response.success) {
-              Swal.fire("Đã xóa!", "Khách hàng đã được xóa thành công.", "success");
-              mainPagePagination.getPagination(
-                mainPagePagination.option,
-                mainPagePagination.valuePage.curPage
-              );
-            } else {
-              Swal.fire("Thất bại!", response.message || "Xóa khách hàng thất bại!", "error");
-            }
-          },
-          error: function () {
-            Swal.fire("Lỗi!", "Đã xảy ra lỗi khi xóa khách hàng.", "error");
-          }
-        });
+  Swal.fire({
+    title: "Are you sure you want to delete this customer?",
+    text: "This action cannot be undone!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#3085d6",
+    confirmButtonText: "Delete",
+    cancelButtonText: "Cancel"
+  }).then((result) => {
+    if (result.isConfirmed) {
+    $.ajax({
+      type: "POST",
+      url: BaseUrl + "customers/delete",
+      data: {
+      CustomerID: id,
+      AccountID: accountId,
+      },
+      dataType: "json",
+      success: function (response) {
+      if (response.success) {
+        Swal.fire("Deleted!", "The customer has been successfully deleted.", "success");
+        mainPagePagination.getPagination(
+        mainPagePagination.option,
+        mainPagePagination.valuePage.curPage
+        );
+      } else {
+        Swal.fire("Failed!", response.message || "Failed to delete the customer!", "error");
+      }
+      },
+      error: function () {
+      Swal.fire("Error!", "An error occurred while deleting the customer.", "error");
       }
     });
+    }
+  });
   });
   
 
