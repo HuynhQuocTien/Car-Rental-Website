@@ -539,6 +539,7 @@ INSERT INTO `VehicleDetails` (
 (3, 1, '59A12364', 100000, 2011, 'Automatic', 'Gasoline', 19.6, 147, 931, 3430, '5.5',0, 1, 0);
 
 
+INSERT INTO `DamageTypes` (`DamageTypeID`, `DamageName`, `FineAmount`, `VehicleTypesID`, `Is_Delete`) VALUES ('0', 'NO DAMAGE', '0', NULL, '0');
 
 -- Thêm dữ liệu vào bảng DamageTypes
 INSERT INTO `DamageTypes` (`DamageName`, `FineAmount`, `VehicleTypesID`, `Is_Delete`)
