@@ -113,6 +113,16 @@ class InspectionModel extends Database {
         }
         return $colors;
     }
+
+    public function getAllMakes(){
+        $sql = "SELECT MakeName FROM `Makes`"; // hoặc bảng bạn dùng
+        $result = mysqli_query($this->con, $sql);
+        $makes = [];
+        while ($row = mysqli_fetch_assoc($result)) {
+            $makes[] = $row;
+        }
+        return $makes;
+    }
     
 }
 

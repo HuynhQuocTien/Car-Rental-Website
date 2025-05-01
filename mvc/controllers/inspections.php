@@ -18,6 +18,7 @@ class Inspections extends Controller {
             "Inspection" => $this->InspectionModel->getAllInspections(),
             "Categories" => $this->InspectionModel->getAllCategories(),
             "Colors" => $this->InspectionModel->getAllColors(),
+            "Makes" => $this->InspectionModel->getAllMakes(),
             "Script" => "Inspection"
         ],
         "admin");

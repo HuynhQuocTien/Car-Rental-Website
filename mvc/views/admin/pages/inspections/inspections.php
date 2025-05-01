@@ -32,7 +32,7 @@
             <div class="row filters_listing_1">
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="dropdown">
-                        <a href="#" data-bs-toggle="dropdown" class="drop">Types</a>
+                        <a href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside" class="drop">Types</a>
                         <div class="dropdown-menu">
                             <div class="filter_type">
                                 <ul>
@@ -63,7 +63,7 @@
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="dropdown">
-                        <a href="#" data-bs-toggle="dropdown" class="drop">Color</a>
+                        <a href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside" class="drop">Color</a>
                         <div class="dropdown-menu">
                             <div class="filter_type">
                                 <ul>
@@ -84,16 +84,18 @@
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="dropdown">
-                        <a href="#" data-bs-toggle="dropdown" class="drop">Brand</a>
+                        <a href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside" class="drop">Brand</a>
                         <div class="dropdown-menu">
                             <div class="filter_type">
                                 <ul>
                                     <li>
-                                        <label class="container_check">
-                                            Type
-                                            <input type="checkbox" name="brands" value="@c.Id">
-                                            <span class="checkmark"></span>
-                                        </label>
+                                        <?php foreach ($data["Makes"] as $make): ?>
+                                            <label class="container_check">
+                                                <?= htmlspecialchars($make["MakeName"]) ?>
+                                                <input type="checkbox" name="make[]" value="<?= htmlspecialchars($make["MakeName"]) ?>">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        <?php endforeach; ?>
                                     </li>
                                 </ul>
                             </div>
@@ -103,7 +105,7 @@
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="dropdown">
-                        <a href="#" data-bs-toggle="dropdown" class="drop">Price</a>
+                        <a href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside" class="drop">Price</a>
                         <div class="dropdown-menu">
                             <div class="filter_type">
                                 <ul>
@@ -150,7 +152,7 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Name</th>
+                            <!-- <th>Name</th> -->
                             <th>Make</th>
                             <th>Model</th>
                             <th>Color</th>
@@ -167,7 +169,8 @@
                     ?>
                         <tr>
                             <td><?= $i++ ?></td>
-                            <td>Car <?= chr(64 + $i) ?></td> <!-- Tạo tên Car A, B, C... nếu muốn -->
+                            <!-- Tạo tên Car A, B, C... nếu muốn -->
+                            <!-- <td>Car <?= chr(64 + $i) ?></td>  -->
                             <td><?= htmlspecialchars($item["MakeName"]) ?></td>
                             <td><?= htmlspecialchars($item["ModelName"]) ?></td>
                             <td><?= htmlspecialchars($item["ColorName"]) ?></td>
