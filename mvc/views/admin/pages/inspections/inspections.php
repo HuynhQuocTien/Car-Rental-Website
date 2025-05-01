@@ -23,6 +23,7 @@
                 </a>
             </div>
         </div>
+
         <div class="block-content">
             <div class="mb-1">
                 <input type="text" class="form-control form-control-alt" id="vehicle-query" name="vehicle-query"
@@ -31,16 +32,28 @@
             <div class="row filters_listing_1">
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="dropdown">
-                        <a href="#" data-bs-toggle="dropdown" class="drop">Categories</a>
+                        <a href="#" data-bs-toggle="dropdown" class="drop">Types</a>
                         <div class="dropdown-menu">
                             <div class="filter_type">
                                 <ul>
                                     <li>
+                                    <?php foreach ($data["Categories"] as $cat): ?>
                                         <label class="container_check">
-                                            Name
-                                            <input type="checkbox" name="categories" value="@c.Id">
+                                            <?= htmlspecialchars($cat["NameType"]) ?>
+                                            <input type="checkbox" name="categories[]" value="<?= htmlspecialchars($cat["NameType"]) ?>">
                                             <span class="checkmark"></span>
                                         </label>
+                                    <?php endforeach; ?>
+                                        <!-- <label class="container_check">
+                                            Hạng sang
+                                            <input type="checkbox" name="categories" value="HangSang">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <label class="container_check">
+                                            Phổ thông
+                                            <input type="checkbox" name="categories" value="PhoThong">
+                                            <span class="checkmark"></span>
+                                        </label> -->
                                     </li>
                                 </ul>
                             </div>
@@ -55,11 +68,13 @@
                             <div class="filter_type">
                                 <ul>
                                     <li>
+                                    <?php foreach ($data["Colors"] as $color): ?>
                                         <label class="container_check">
-                                            Color
-                                            <input type="checkbox" name="colors" value="@c.Id">
+                                            <?= htmlspecialchars($color["ColorName"]) ?>
+                                            <input type="checkbox" name="colors[]" value="<?= htmlspecialchars($color["ColorName"]) ?>">
                                             <span class="checkmark"></span>
                                         </label>
+                                    <?php endforeach; ?>
                                     </li>
                                 </ul>
                             </div>
@@ -126,101 +141,70 @@
                     </div>
                     <!-- /dropdown -->
                 </div>
-            </div>
-        </div>
-        <div class="block-content pb-3 pt-0">
-            <table class="table align-middle" id="vehicle-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Make</th>
-                        <th>Model</th>
-                        <th>Color</th>
-                        <th>VehicleType</th>
-                        <th>Status</th>
-                        <th class="text-center">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Car A</td>
-                        <td>Toyota</td>
-                        <td>Camry</td>
-                        <td>Red</td>
-                        <td>Sedan</td>
-                        <td>Available</td>
-                        <td class="text-center">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
-                                    data-bs-toggle="tooltip" aria-label="Detail" data-bs-original-title="Detail">
-                                    <i class="fa fa-eye"></i>
-                                </button>
-                                <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
-                                    data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit">
-                                    <i class="fa fa-pencil-alt"></i>
-                                </button>
-                                <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
-                                    data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete">
-                                    <i class="fa fa-times"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Car B</td>
-                        <td>Honda</td>
-                        <td>Civic</td>
-                        <td>Blue</td>
-                        <td>Sedan</td>
-                        <td>Rented</td>
-                        <td class="text-center">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
-                                    data-bs-toggle="tooltip" aria-label="Detail" data-bs-original-title="Detail">
-                                    <i class="fa fa-eye"></i>
-                                </button>
-                                <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
-                                    data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit">
-                                    <i class="fa fa-pencil-alt"></i>
-                                </button>
-                                <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
-                                    data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete">
-                                    <i class="fa fa-times"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Car C</td>
-                        <td>Ford</td>
-                        <td>Focus</td>
-                        <td>White</td>
-                        <td>Hatchback</td>
-                        <td>In Service</td>
-                        <td class="text-center">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
-                                    data-bs-toggle="tooltip" aria-label="Detail" data-bs-original-title="Detail">
-                                    <i class="fa fa-eye"></i>
-                                </button>
-                                <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
-                                    data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit">
-                                    <i class="fa fa-pencil-alt"></i>
-                                </button>
-                                <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
-                                    data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete">
-                                    <i class="fa fa-times"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+    </div>
 
+    </div>
+        <div class="block-content pb-3 pt-0">
+            <form id="vehicle-form" method="POST" action="your-action-url">
+                <table class="table align-middle" id="vehicle-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Make</th>
+                            <th>Model</th>
+                            <th>Color</th>
+                            <th>VehicleType</th>
+                            <th>Day Price</th>
+                            <th>Status</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                        $i = 1;
+                        foreach ($data["Inspection"] as $item) {
+                    ?>
+                        <tr>
+                            <td><?= $i++ ?></td>
+                            <td>Car <?= chr(64 + $i) ?></td> <!-- Tạo tên Car A, B, C... nếu muốn -->
+                            <td><?= htmlspecialchars($item["MakeName"]) ?></td>
+                            <td><?= htmlspecialchars($item["ModelName"]) ?></td>
+                            <td><?= htmlspecialchars($item["ColorName"]) ?></td>
+                            <td><?= htmlspecialchars($item["NameType"]) ?></td>
+                            <td>$<?= htmlspecialchars($item["DailyPrice"]) ?></td>
+                            <td>
+                                <?= $item["Status"] == 1 ? "Available" : "Unavailable" ?>
+                            </td>
+                            <td class="text-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
+                                        data-bs-toggle="tooltip" aria-label="Detail" data-bs-original-title="Detail">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
+                                        data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit">
+                                        <i class="fa fa-pencil-alt"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
+                                        data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php
+                        }
+                    ?>
+                    </tbody>
+                </table>
+                
+                <!-- Thêm một nút submit cho form -->
+                <!-- <div class="form-group text-center">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div> -->
+            </form>
         </div>
+
     </div>
 </div>

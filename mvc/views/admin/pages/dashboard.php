@@ -137,7 +137,7 @@
                 </button>
               </div>
             </div>
-            <div class="block-content block-content-full">
+            <div style="padding-bottom: 100px;" class="block-content block-content-full">
               <div class="row">
                 <div class="col-md-5 col-xl-4 d-md-flex align-items-md-center">
                   <canvas id="myChart" width="400" height="400"></canvas>
@@ -171,7 +171,7 @@
                 </div>
                 <div class="col-md-7 col-xl-8 d-md-flex align-items-md-center">
                   <div class="p-md-2 p-lg-3 w-100" style="height: 450px;">
-                    <canvas style="margin-left: 100px" id="myChart2" width="400" height="400"></canvas>
+                    <canvas style="margin-left: 200px" id="myChart2" width="300" height="300"></canvas>
                     <!-- Bars Chart Container -->
                     <!-- Chart.js Chart is initialized in js/pages/be_pages_dashboard.min.js which was auto compiled from _js/pages/be_pages_dashboard.js -->
                     <!-- For more info and examples you can check out http://www.chartjs.org/docs/ -->
