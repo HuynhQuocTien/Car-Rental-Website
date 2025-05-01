@@ -75,7 +75,7 @@ class AccountModel extends Database
     public function updateToken($username, $token)
     {
         $valid = true;
-        $sql = "UPDATE `Accounts` SET `Token`='$token' WHERE `Username` = '$username'";
+        $sql = "UPDATE `Accounts` SET `Token`='$token' WHERE `Username` = '$username' OR `Email` = '$username'";
         $result = mysqli_query($this->con, $sql);
         if (!$result)
             $valid = false;
@@ -95,10 +95,11 @@ class AccountModel extends Database
         } else {
             $result = password_verify($password, $user['Password']);
             if ($result) {
-                $token = time() . password_hash($username, PASSWORD_DEFAULT);
-                $resultToken = $this->updateToken($username, $token);
+                $token = time() . password_hash($user['Username'], PASSWORD_DEFAULT);
+                $resultToken = $this->updateToken($user['Username'], $token);
                 if ($resultToken) {
                     setcookie("token", $token, time() + 7 * 24 * 3600, "/");
+                    $this->validateToken($token);
                     return json_encode(["message" => "Đăng nhập thành công !", "valid" => "true"]);
                 } else {
                     return json_encode(["message" => "Đăng nhập không thành công !", "valid" => "false"]);
@@ -145,7 +146,8 @@ class AccountModel extends Database
         $sql = "SELECT 
         a.*,
         u.FullName AS UserFullName,
-        c.FullName AS CustomerFullName
+        c.FullName AS CustomerFullName,
+        u.UserID, c.CustomerID 
         FROM `Accounts` a
         LEFT JOIN `Users` u ON a.AccountID = u.AccountID
         LEFT JOIN `Customers` c ON a.AccountID = c.AccountID
@@ -159,6 +161,7 @@ class AccountModel extends Database
             $_SESSION['FullName'] = !empty($row['UserFullName']) 
                                         ? $row['UserFullName'] 
                                         : $row['CustomerFullName'];
+            $_SESSION['UserID'] = !empty($row['UserID']) ? $row['UserID'] : $row['CustomerID'];
             $_SESSION['ProfilePicture'] = $row['ProfilePicture'];
             $_SESSION['RoleID'] = $row['RoleID'];
             $_SESSION['Roles'] = $this->getRole($row['RoleID']);

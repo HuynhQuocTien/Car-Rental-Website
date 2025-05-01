@@ -149,7 +149,7 @@
 							<!-- Nút ẩn/hiện khi có xe -->
 							<div class="form-group available-actions d-none m-2">
 								<button type="submit" class="btn btn-primary btn-block py-3">Book Now</button>
-								<button type="button" class="btn btn-outline-secondary btn-block py-3">Add to
+								<button id="addToCartBtn" type="button" class="btn btn-outline-secondary btn-block py-3">Add to
 									Cart</button>
 							</div>
 

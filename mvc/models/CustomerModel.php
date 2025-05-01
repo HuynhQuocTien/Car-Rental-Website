@@ -28,19 +28,122 @@ class CustomerModel extends Database {
         return $row['maxCustomerID'];
     }
 
-    public function create($fullName, $phoneNumber, $dateOfBirth, $identityCard, $idCardBefore, $idCardAfter, $sex, $accountID, $totalOrdered, $totalFine, $totalAmount) {
-        $sql = "INSERT INTO `Customers` (`FullName`, `PhoneNumber`, `DateOfBirth`, `IdentityCard`, `IDCardBefore`, `IDCardAfter`, `Sex`, `AccountID`, `TotalOrdered`, `TotalFine`, `TotalAmount`, `Active`, `Is_Delete`) 
-                VALUES ('$fullName', '$phoneNumber', '$dateOfBirth', '$identityCard', '$idCardBefore', '$idCardAfter', '$sex', '$accountID', '$totalOrdered', '$totalFine', '$totalAmount', 1, 0)";
-        
-        $check = true;
+    public function checkPhone($phone,$userID)
+    {
+        $sql = "SELECT * FROM Users WHERE (PhoneNumber = '$phone' AND UserID != $userID)";
         $result = mysqli_query($this->con, $sql);
-        
-        if (!$result) {
-            $check = false;
-        }
-        
-        return $check;
+        $data = mysqli_fetch_assoc($result);
+        return $data['PhoneNumber'] ?? null;
     }
+    public function checkIdentityCard($IDCard,$userID)
+    {
+        $sql = "SELECT * FROM Users WHERE (IdentityCard = '$IDCard' AND UserID != $userID)";
+        $result = mysqli_query($this->con, $sql);
+        $data = mysqli_fetch_assoc($result);
+        return $data['IdentityCard'] ?? null;
+    }
+
+    public function create($data) {
+        $sql = "INSERT INTO Accounts (Username, Password, Email, RoleID, Active, ProfilePicture) 
+        VALUES ('{$data['Username']}', '{$data['Password']}', '{$data['Email']}', 0, {$data['AccountActive']}, '{$data['ProfilePicture']}')";
+        $result = mysqli_query($this->con, $sql);
+        $accID = mysqli_insert_id($this->con);
+        if( $result) {
+            $sql = "INSERT INTO `Customers` (`FullName`, `PhoneNumber`, `DateOfBirth`, `IdentityCard`, `IDCardBefore`, `IDCardAfter`, `Sex`, `AccountID`, `TotalOrdered`, `TotalFine`, `TotalAmount`, `Active`) 
+            VALUES ('{$data['FullName']}','{$data['PhoneNumber']}', '{$data['DateOfBirth']}', '{$data['IdentityCard']}', '{$data['IDCardBefore']}', '{$data['IDCardAfter']}', '{$data['Sex']}', '$accID', 0, 0, 0, '{$data['CustomerActive']}')";
+            $result = mysqli_query($this->con, $sql);    
+            if (!$result) return false;
+        } else if($accID) {
+            $sql = "DELETE FROM Accounts WHERE AccountID = {$accID} ";
+            $result = mysqli_query($this->con, $sql);
+            return false;
+        }
+        return true;
+    }
+    public function update($data) {
+        // Cập nhật bảng Accounts
+        $sql = "UPDATE Accounts 
+        SET 
+            Username = '{$data['Username']}',
+            Email = '{$data['Email']}',
+            Active = {$data['AccountActive']},
+            ProfilePicture = '{$data['ProfilePicture']}'";    
+$sql .= " WHERE AccountID = {$data['AccountID']}";
+    
+        $result = mysqli_query($this->con, $sql);
+    
+        if ($result) {
+            // Cập nhật bảng Users
+            $sql = "UPDATE Customers 
+                    SET 
+                        FullName = '{$data['FullName']}',
+                        PhoneNumber = '{$data['PhoneNumber']}',
+                        DateOfBirth = '{$data['DateOfBirth']}',
+                        IdentityCard = '{$data['IdentityCard']}',
+                        IDCardBefore = '{$data['IDCardBefore']}',
+                        IDCardAfter = '{$data['IDCardAfter']}',
+                        Sex = {$data['Sex']},
+                        AccountID = {$data['AccountID']},
+                        TotalOrdered = {$data['TotalOrdered']},
+                        TotalFine = {$data['TotalFine']},
+                        TotalAmount = {$data['TotalAmount']},
+                        Active = {$data['CustomerActive']}
+                    WHERE CustomerID = {$data['CustomerID']};"; // `AccountID` là khóa ngoại trong bảng Users
+    
+            $result = mysqli_query($this->con, $sql);
+    
+            if (!$result) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    
+        return true;
+    }
+    public function delete($userID,$accId) {
+        // Đánh dấu là đã xóa trong bảng Accounts
+        $sql = "UPDATE Accounts SET Is_Delete = 1 WHERE AccountID = {$accId} ";
+        $result = mysqli_query($this->con, $sql);
+    
+        if ($result) {
+            // Đánh dấu là đã xóa trong bảng Users
+            $sql = "UPDATE Users SET Is_Delete = 1 WHERE UserID = {$userID}";
+            $result = mysqli_query($this->con, $sql);
+    
+            if (!$result) {
+                return false; // Nếu cập nhật bảng Users thất bại
+            }
+        } else {
+            return false; // Nếu cập nhật bảng Accounts thất bại
+        }
+    
+        return true; // Trả về true nếu tất cả các bước đều thành công
+    }
+    
+    
+    public function get($id){
+        $sql = "SELECT * FROM Accounts a
+                    LEFT JOIN Roles r ON a.RoleID = r.RoleID
+                    LEFT JOIN Customers c ON a.AccountID = c.AccountID
+                 WHERE CustomerID = {$id} AND c.Is_Delete = 0";
+        $result = mysqli_query($this->con, $sql);
+        if (!$result) return false;
+        return mysqli_fetch_assoc($result);
+    }    
+    public function getQuery($filter, $input, $args, $lastURL)
+    {
+        $query = "SELECT * FROM Accounts a
+                    LEFT JOIN Roles r ON a.RoleID = r.RoleID
+                    LEFT JOIN Customers c ON a.AccountID = c.AccountID
+                    WHERE a.Is_Delete = 0 AND c.Is_Delete = 0 AND a.RoleID = 0";
+        if ($input) {
+            $query = $query . " AND (c.FullName LIKE '%{$input}%' OR c.IdentityCard LIKE '%{$input}%')";
+        }
+        $query = $query . " ORDER BY c.CustomerID ASC";
+        return $query;
+    }   
+
     
     public function updateByAccountID($accountID, $name, $phone, $birth, $idCard, $sex){
     // Kiểm tra dữ liệu đầu vào
@@ -50,8 +153,6 @@ class CustomerModel extends Database {
             "message" => "AccountID không hợp lệ"
         ];
     }
-
-    // Chuẩn hóa định dạng ngày sinh về YYYY-MM-DD
     $birthDate = date_create($birth); // dùng date_create cho linh hoạt
         if (!$birthDate) {
             return [

@@ -9,6 +9,7 @@ class Users extends Controller {
         parent::__construct();
         $this->accountModel = $this->model("AccountModel");
         $this->userModel = $this->model("UserModel");
+        $this->RoleModel = $this->model("RoleModel");
         require_once "./mvc/core/Pagination.php";
     }
     public function default() {
@@ -174,10 +175,16 @@ class Users extends Controller {
             ]);
         }
     }
-    public function getQuery($filter, $input, $args, $lastURL){
 
-        $sql = $this->userModel->getQuery($filter, $input, $args, $lastURL);
-        return $sql;
+    public function getUserId() {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $id = $_SESSION['UserID'] ?? "0";
+            echo json_encode([
+                'success' => $id != null,
+                'message' => $id != null ? 'User found!' : 'User not found!',
+                'data' => $id
+            ]);
+        }
     }
 }
 ?>
