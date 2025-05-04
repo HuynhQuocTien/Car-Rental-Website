@@ -1,12 +1,31 @@
 <?php
-
+// 
 class Inspections extends Controller {
+    public $InspectionModel;
+    public $ColorModel;
+    public $MakeModel;
+    public $ModelModel;
     public $vehicleTypesModel;
     public $damageTypesModel;
+    public $InspectionOrderModel;
+    public $UserModel;
+    public function UrlProcess(){
+        if (isset($_GET["url"])) {
+            return explode("/", filter_var(trim($_GET["url"], "/")));
+        }
+        return null;
+    }
+
     public function __construct() {
         parent::__construct();
+        $this->InspectionModel = $this->model("InspectionModel");
         $this->vehicleTypesModel = $this->model("VehicleTypeModel");
         $this->damageTypesModel = $this->model("DamageTypeModel");
+        $this->ColorModel = $this->model("ColorModel");
+        $this->MakeModel = $this->model("MakeModel");
+        $this->ModelModel = $this->model("ModelModel");
+        $this->InspectionOrderModel = $this->model("InspectionOrderModel");
+        $this->UserModel = $this->model("UserModel");
         require_once "./mvc/core/Pagination.php";
     }
     public function default() {
@@ -15,9 +34,60 @@ class Inspections extends Controller {
         $this->view("main_layout", [
             "Title"=>"Inspections",
             "Page"=>"pages/inspections/inspections",
+            "Script" => "inspections"
         ],
         "admin");
     }
+
+    public function inspectionOrder(){
+
+            $orderID = $_GET['id'];
+
+            $this->view("main_layout", [
+                "Title"=>"Inspection $orderID Order",
+                "Script"=> "inspectionOrder",
+                "Page"=>"/pages/inspections/inspectionOrder",
+                "OrderID" => $orderID,
+                "Colors" => $this->ColorModel->getAll(),
+                "VehicleTypes" => $this->vehicleTypesModel->getAll(),
+                "Makes" => $this->MakeModel->getAll(),
+                "Models" => $this->ModelModel->getAll(),
+                "Users" => $this->UserModel->getAll(),
+            ],
+            "admin");
+    }
+
+    public function addInspectionForOrderDetail(){
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            // Lấy dữ liệu từ POST request (dữ liệu form)
+            $data = [
+                "RentalOrderDetailID" => $_POST["RentalOrderDetailID"],
+                "UserID" => $_POST["UserID"],
+                "InspectionDate" => $_POST["InspectionDate"],
+                "InspectionTime" => $_POST["InspectionTime"],
+                "TotalFineAmount" => $_POST["TotalFineAmount"]
+            ];
+
+            // Gọi model để thêm dữ liệu vào bảng Inspections
+            $result = $this->InspectionOrderModel->create($data);
+
+            if ($result) {
+                // Nếu thêm thành công
+                echo json_encode(["success" => true, "message" => "Inspection added successfully"]);
+            } else {
+                // Nếu có lỗi khi thêm
+                echo json_encode(["success" => false, "message" => "Failed to add inspection"]);
+            }
+        } else {
+            // Trường hợp không phải POST request
+            echo json_encode(["success" => false, "message" => "Invalid request method"]);
+        }
+    }
+
+
+
+
+
     public function damagetypes() {
         $this->view("main_layout", [
             "Title"=>"Damage Types",

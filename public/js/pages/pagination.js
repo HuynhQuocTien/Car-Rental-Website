@@ -247,6 +247,8 @@ class Pagination {
   }
 
   searchFormHandler(e) {
+    console.log(e.value);
+    
     e.preventDefault();
     const input = this.searchForm.querySelector("#search-input");
     if (input.value == "") {
