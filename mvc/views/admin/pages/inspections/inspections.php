@@ -33,55 +33,18 @@
             
         <div class="row filters_listing_1">
 
-            <!-- Types -->
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <label for="vehicle-types" class="form-label">Types</label>
-                <select class="form-select" id="vehicle-types" name="filter[categories][]">
-                    <option value="">All</option>
-                    <?php foreach ($data["Categories"] as $cat): ?>
-                        <option value="<?= htmlspecialchars($cat["VehicleTypesID"]) ?>">
-                            <?= htmlspecialchars($cat["NameType"]) ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-
-            <!-- Color -->
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <label for="colors" class="form-label">Color</label>
-                <select class="form-select" id="colors" name="filter[colors][]">
-                    <option value="">All</option>
-                    <?php foreach ($data["Colors"] as $color): ?>
-                        <option value="<?= htmlspecialchars($color["ColorID"]) ?>">
-                            <?= htmlspecialchars($color["ColorName"]) ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-
-            <!-- Brand -->
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <label for="make" class="form-label">Brand</label>
-                <select class="form-select" id="make" name="filter[make][]">
-                    <option value="">All</option>
-                    <?php foreach ($data["Makes"] as $make): ?>
-                        <option value="<?= htmlspecialchars($make["MakeID"]) ?>">
-                            <?= htmlspecialchars($make["MakeName"]) ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
+         
 
             <!-- Price -->
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <label for="prices" class="form-label">Price</label>
                 <select class="form-select" id="prices" name="filter[prices][]">
                     <option value="">All</option>
-                    <option value="0:50">$0 — $50</option>
-                    <option value="60:70">$60 — $70</option>
-                    <option value="50:100">$50 — $100</option>
-                    <option value="100:150">$100 — $150</option>
-                    <option value="150:200">$150 — $200</option>
+                    <option value="0:100">$0 — $100</option>
+                    <option value="100:200">$100 — $200</option>
+                    <option value="200:500">$200 — $500</option>
+                    <option value="500:1000">$500 — $1000</option>
+                    <option value="1000:1500">$1000 — $1500</option>
                 </select>
             </div>
 
@@ -94,19 +57,22 @@
                 <table class="table align-middle" id="vehicle-table">
                     <thead>
                         <tr>
-                            <th>ID</th>
                             <!-- <th>Name</th> -->
-                            <th>Make</th>
-                            <th>Model</th>
-                            <th>Color</th>
-                            <th>VehicleType</th>
-                            <th>Day Price</th>
-                            <th>Status</th>
+                            <th class="text-center">OrderID</th>
+                            <th class="text-center">CustomerID</th>
+                            <th class="text-center">UserID</th>
+                            <th class="text-center">OrderDate</th>
+                            <th class="text-center">RentalDate</th>
+                            <th class="text-center">TotalAmount</th>
+                            <th class="text-center">Address</th>
+                            <th class="text-center">PromotionID</th>
+                            <th class="text-center">Status</th>
+                            <th class="text-center">PaymentID</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody id="list-inspection">
-<!-- 
+                        <!-- 
                         <tr>
                             <td>1</td>
                             <td>Toyota</td>
@@ -183,7 +149,8 @@
                                     </button>
                                 </div>
                             </td>
-                        </tr> -->
+                        </tr>
+                         -->
 
                     </tbody>
                 </table>

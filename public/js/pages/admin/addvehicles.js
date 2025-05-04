@@ -794,6 +794,7 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         if (response.success) {
+          
           $previewItem.remove();
 
           if (
@@ -1113,8 +1114,8 @@ $("#rentalDateFrom, #rentalDateTo")
   $("#sort, #sortDirection").change(function () {
     const sort = $("#sort").val();
     const sortDirection = $("#sortDirection").val();
-    console.log(sort, sortDirection);
-    console.log(sort && sortDirection);
+    // console.log(sort, sortDirection);
+    // console.log(sort && sortDirection);
     if (sort && sortDirection) {
       vehiclePagination.option.filter.sort = {
         sort: sort,

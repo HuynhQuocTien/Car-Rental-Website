@@ -36,138 +36,66 @@ class InspectionModel extends Database {
         return $stmt->execute([$inspectionId]);
     }
 
-    // SELECT rod.VehicleDetailID, mk.MakeName, m.ModelName, c.ColorName, vt.NameType, vd.DailyPrice, rod.Status
-    // FROM `RentalOrders` ro
-    // JOIN `RentalOrderDetails` rod ON ro.OrderID = rod.OrderID
-    // JOIN `VehicleDetails` vd ON vd.VehicleDetailID = rod.VehicleDetailID
-    // JOIN `Vehicles` v ON v.VehicleID = vd.VehicleID
-    // JOIN `Models` m ON m.ModelID = v.ModelID
-    // JOIN `Makes` mk ON mk.MakeID = v.MakeID
-    // JOIN `Colors` c ON c.ColorID = vd.ColorID
-    // JOIN `VehicleTypes` vt ON vt.VehicleTypesID = v.VehicleTypesID
+    // public function getQuery($filter = [], $input = '', $args = [], $lastURL = '') {
+    //     $query = "SELECT ro.OrderID, rod.VehicleDetailID, mk.MakeName, m.ModelName, c.ColorName, vt.NameType, vd.DailyPrice, rod.Status
+    //               FROM RentalOrders ro
+    //               LEFT JOIN RentalOrderDetails rod ON ro.OrderID = rod.OrderID
+    //               JOIN VehicleDetails vd ON vd.VehicleDetailID = rod.VehicleDetailID
+    //               JOIN Vehicles v ON v.VehicleID = vd.VehicleID
+    //               JOIN Models m ON m.ModelID = v.ModelID
+    //               JOIN Makes mk ON mk.MakeID = v.MakeID
+    //               JOIN Colors c ON c.ColorID = vd.ColorID
+    //               JOIN VehicleTypes vt ON vt.VehicleTypesID = v.VehicleTypesID
+    //               WHERE 1
+    //               ORDER BY ro.OrderID
+    //               "; // Điều kiện mặc định để dễ dàng nối thêm điều kiện khác
+    
+    //     // Tìm kiếm từ khóa (input)
+    //     if (!empty($input)) {
+    //         $query .= " AND (mk.MakeName LIKE '%$input%' OR m.ModelName LIKE '%$input%')";
+    //     }
+    
+    //     // Bộ lọc filter
+    //     if (!empty($filter["vehicleTypeID"])) {
+    //         $query .= " AND vt.VehicleTypesID = '{$filter['vehicleTypeID']}'";
+    //     }
+    //     if (!empty($filter["colorID"])) {
+    //         $query .= " AND c.ColorID = '{$filter['colorID']}'";
+    //     }
+    //     if (!empty($filter["makeID"])) {
+    //         $query .= " AND mk.MakeID = '{$filter['makeID']}'";
+    //     }
+    
+    //     if (!empty($filter["priceRange"])) {
+    //         list($minPrice, $maxPrice) = explode(":", $filter["priceRange"]);
+    //         $query .= " AND vd.DailyPrice BETWEEN {$minPrice} AND {$maxPrice}";
+    //     }
+    
 
-    public function getAllInspections($keyword = '', $sort = '', $group = '') {
-        // Phần SELECT và JOIN cố định
-        $select = "SELECT rod.VehicleDetailID, mk.MakeName, m.ModelName, c.ColorName, vt.NameType, vd.DailyPrice, rod.Status";
+    //     // Xóa phần sắp xếp
+    //     // không cần phần ORDER BY nữa
+    //     echo ($query);
+    //     return $query;
+    // }
     
-        $from = "FROM `RentalOrders` ro
-            JOIN `RentalOrderDetails` rod ON ro.OrderID = rod.OrderID
-            JOIN `VehicleDetails` vd ON vd.VehicleDetailID = rod.VehicleDetailID
-            JOIN `Vehicles` v ON v.VehicleID = vd.VehicleID
-            JOIN `Models` m ON m.ModelID = v.ModelID
-            JOIN `Makes` mk ON mk.MakeID = v.MakeID
-            JOIN `Colors` c ON c.ColorID = vd.ColorID
-            JOIN `VehicleTypes` vt ON vt.VehicleTypesID = v.VehicleTypesID";
-    
-        $where = "";
-        $groupBy = "";
-        $orderBy = "";
-    
-        // Điều kiện WHERE
-        if (!empty($keyword)) {
-            $where = "WHERE mk.MakeName LIKE '%$keyword%' OR m.ModelName LIKE '%$keyword%'";
-        }
-    
-        // GROUP BY
-        if (!empty($group)) {
-            $groupBy = "GROUP BY $group";
-        }
-    
-        // ORDER BY
-        if (!empty($sort)) {
-            $orderBy = "ORDER BY $sort";
-        }
-    
-        // Ghép tất cả lại
-        $sql = "$select $from $where $groupBy $orderBy";
-    
-        // Thực thi
-        $result = mysqli_query($this->con, $sql);
-        $inspections = [];
-    
-        if ($result && mysqli_num_rows($result) > 0) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                $inspections[] = $row;
-            }
-        }
-    
-        return $inspections;
-    }
+    public function getQuery($filter = [], $input = ''){
+        $query = "SELECT * FROM RentalOrders WHERE Status = 1"; // Mặc định để dễ nối điều kiện
 
-    public function getQuery($filter = [], $input = '', $args = [], $lastURL = '') {
-        $query = "SELECT ro.OrderID, rod.VehicleDetailID, mk.MakeName, m.ModelName, c.ColorName, vt.NameType, vd.DailyPrice, rod.Status
-                  FROM RentalOrders ro
-                  LEFT JOIN RentalOrderDetails rod ON ro.OrderID = rod.OrderID
-                  JOIN VehicleDetails vd ON vd.VehicleDetailID = rod.VehicleDetailID
-                  JOIN Vehicles v ON v.VehicleID = vd.VehicleID
-                  JOIN Models m ON m.ModelID = v.ModelID
-                  JOIN Makes mk ON mk.MakeID = v.MakeID
-                  JOIN Colors c ON c.ColorID = vd.ColorID
-                  JOIN VehicleTypes vt ON vt.VehicleTypesID = v.VehicleTypesID
-                  WHERE 1
-                  ORDER BY ro.OrderID
-                  "; // Điều kiện mặc định để dễ dàng nối thêm điều kiện khác
-    
-        // Tìm kiếm từ khóa (input)
+        // Tìm kiếm theo địa chỉ
         if (!empty($input)) {
-            $query .= " AND (mk.MakeName LIKE '%$input%' OR m.ModelName LIKE '%$input%')";
+            $query .= " AND Address LIKE '%$input%'";
         }
-    
-        // Bộ lọc filter
-        if (!empty($filter["vehicleTypeID"])) {
-            $query .= " AND vt.VehicleTypesID = '{$filter['vehicleTypeID']}'";
-        }
-        if (!empty($filter["colorID"])) {
-            $query .= " AND c.ColorID = '{$filter['colorID']}'";
-        }
-        if (!empty($filter["makeID"])) {
-            $query .= " AND mk.MakeID = '{$filter['makeID']}'";
-        }
-    
-        if (!empty($filter["priceRange"])) {
-            list($minPrice, $maxPrice) = explode(":", $filter["priceRange"]);
-            $query .= " AND vd.DailyPrice BETWEEN {$minPrice} AND {$maxPrice}";
-        }
-    
 
-        // Xóa phần sắp xếp
-        // không cần phần ORDER BY nữa
-        echo ($query);
+        // Lọc theo khoảng tiền TotalAmount
+        if (!empty($filter["totalAmountRange"])) {
+            list($minAmount, $maxAmount) = explode(":", $filter["totalAmountRange"]);
+            $query .= " AND TotalAmount BETWEEN {$minAmount} AND {$maxAmount}";
+        }
+
+        // echo để debug nếu cần
+        // echo($query);
         return $query;
     }
-    
-    
-
-    public function getAllCategories(){
-        $sql = "SELECT * FROM `VehicleTypes`"; // hoặc bảng bạn dùng
-        $result = mysqli_query($this->con, $sql);
-        $categories = [];
-        while ($row = mysqli_fetch_assoc($result)) {
-            $categories[] = $row;
-        }
-        return $categories;
-    }
-
-    public function getAllColors(){
-        $sql = "SELECT * FROM `Colors`"; // hoặc bảng bạn dùng
-        $result = mysqli_query($this->con, $sql);
-        $colors = [];
-        while ($row = mysqli_fetch_assoc($result)) {
-            $colors[] = $row;
-        }
-        return $colors;
-    }
-
-    public function getAllMakes(){
-        $sql = "SELECT * FROM `Makes`"; // hoặc bảng bạn dùng
-        $result = mysqli_query($this->con, $sql);
-        $makes = [];
-        while ($row = mysqli_fetch_assoc($result)) {
-            $makes[] = $row;
-        }
-        return $makes;
-    }
-    
 }
 
 ?>

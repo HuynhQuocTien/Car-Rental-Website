@@ -7,6 +7,17 @@ class UserModel extends Database {
         parent::__construct();
     }
 
+    public function getAll()
+    {
+        $sql = "SELECT * FROM Users";
+        $result = mysqli_query($this->con,$sql);
+        $rows = array();
+        while($row = mysqli_fetch_assoc($result)) {
+            $rows[] = $row;
+        }
+        return $rows;
+    }
+
     public function checkPhone($phone,$userID)
     {
         $sql = "SELECT * FROM Users WHERE (PhoneNumber = '$phone' AND UserID != $userID)";

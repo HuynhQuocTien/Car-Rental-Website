@@ -119,9 +119,7 @@ const renderData = function (vehicles) {
                 }             </td>
             <td class="text-center">
                 <div class="btn-group">
-                    <a class="btn btn-sm btn-alt-secondary js-detail-vehicle"  href="${BaseUrl}vehicles/addvehicles&id=${
-      vehicle.VehicleID
-    }"
+                    <a class="btn btn-sm btn-alt-secondary js-detail-vehicle"  href="${BaseUrl}vehicles/addvehicles&id=${vehicle.VehicleID}"
                             data-id="${vehicle.VehicleID}"
                             title="Show Details">
                         <i class="fa fa-rectangle-list"></i>
