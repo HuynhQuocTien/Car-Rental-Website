@@ -1,23 +1,3 @@
-// function calculateDiscountedPrices() {
-//     let dailyPrice = parseFloat($('#dailyPrice').val()) || 0;
-//     let weeklyDiscount = parseFloat($('#weeklyDiscount').val()) || 0;
-//     let monthlyDiscount = parseFloat($('#monthlyDiscount').val()) || 0;
-
-//     let weeklyPrice = dailyPrice * 7 * (1 - weeklyDiscount / 100);
-//     let monthlyPrice = dailyPrice * 30 * (1 - monthlyDiscount / 100);
-
-//     if (!isNaN(weeklyPrice)) {
-//         $('#weeklyPrice').val(weeklyPrice.toFixed(2));
-//     }
-//     if (!isNaN(monthlyPrice)) {
-//         $('#monthlyPrice').val(monthlyPrice.toFixed(2));
-//     }
-// }
-
-// // Gọi hàm khi người dùng nhập dữ liệu
-// $(document).ready(function () {
-//     $('#dailyPrice, #weeklyDiscount, #monthlyDiscount').on('input', calculateDiscountedPrices);
-// });
 function calculateDiscountPercentage(originalPrice, discountedPrice) {
   if (
     originalPrice <= 0 ||
@@ -102,12 +82,22 @@ const renderData = function (vehicles) {
   vehicles.forEach((vehicle) => {
     html += `<tr>            
             <td>${vehicle.VehicleID}</td>
-            <td>${vehicle.MakeName}</td>
-            <td>${vehicle.ModelName}</td>
-            <td>${vehicle.Seats}</td>
-            <td>${vehicle.NameType}</td>
-            <td>${vehicle.HourlyPrice}</td>
-            <td>${vehicle.DailyPrice}</td>
+            <td>
+              <div class="fw-semibold">${vehicle.MakeName}</div>
+              <div class="text-muted small">${vehicle.ModelName}</div>
+            </td>
+            <td>
+              <div class="fw-semibold">${vehicle.NameType}</div>
+              <div class="text-muted small">${vehicle.Seats}</div>
+            </td>
+            <td>
+              <div class="fw-semibold">${vehicle.HourlyPrice}</div>
+              <div class="text-muted small">${vehicle.DailyPrice}</div>
+            </td>
+            <td>
+              <div class="fw-semibold">${vehicle.MonthlyPrice}</div>
+              <div class="text-muted small">${vehicle.WeeklyPrice}</div>
+            </td>
             <td>${vehicle.Quantity}</td>
             <td>
                 ${
@@ -393,30 +383,99 @@ $(document).on("click", ".js-delete-vehicle", function () {
   }
 });
 });
+// Lấy dữ liệu "Makes" được chọn
+$("input[name='makes']").change(function () {
+  let selectedMakes = []; 
 
-// $(document).on("click", ".js-detail-vehicle", function () {
-//     var vehicleId = $(this).data("id");
-//     // console.log(vehicleId);
-//     $.ajax({
-//         url: BaseUrl + "vehicles/saveVehicleID",
-//         method: "POST",
-//         data: { 
-//             vehicle_id: vehicleId 
-//         },
-//         dataType: "json",
-//         success: function (response) {
-//           if (response.success) {
-//             console.log(response.data);
-//             window.location.href = BaseUrl + "vehicles/addvehicles";
-//           } else {
-//             alert("Không thể lưu VehicleID vào session.");
-//           }
-//         },
-//         error: function () {
-//           alert("Có lỗi khi gửi request đến server.");
-//         },
-//     });
-// });
+  // Lấy tất cả các checkbox "Makes" đã được chọn
+  $("input[name='makes']:checked").each(function () {
+      selectedMakes.push($(this).val());
+  });
+
+  // Kiểm tra nếu không có giá trị được chọn
+  if (selectedMakes.length === 0) {
+      delete vehiclePagination.option.filter.makeID; // Xóa filter nếu không có giá trị
+  } else {
+      vehiclePagination.option.filter.makeID = selectedMakes; // Gán giá trị được chọn vào filter
+  }
+
+  // Gọi hàm cập nhật phân trang
+  vehiclePagination.getPagination(
+      vehiclePagination.option,
+      vehiclePagination.valuePage.curPage
+  );
+});
+
+// Lấy dữ liệu "Models" được chọn
+$("input[name='models']").change(function () {
+  let selectedModels = [];
+
+  // Lấy tất cả các checkbox "Models" đã được chọn
+  $("input[name='models']:checked").each(function () {
+      selectedModels.push($(this).val());
+  });
+
+  // Kiểm tra nếu không có giá trị được chọn
+  if (selectedModels.length === 0) {
+      delete vehiclePagination.option.filter.modelID; // Xóa filter nếu không có giá trị
+  } else {
+      vehiclePagination.option.filter.modelID = selectedModels; // Gán giá trị được chọn vào filter
+  }
+
+  // Gọi hàm cập nhật phân trang
+  vehiclePagination.getPagination(
+      vehiclePagination.option,
+      vehiclePagination.valuePage.curPage
+  );
+});
+
+// Lấy dữ liệu "Seats" được chọn
+$("input[name='seats']").change(function () {
+  let selectedSeats = []; // Mảng chứa các giá trị được chọn
+
+  // Lấy tất cả các checkbox "Seats" đã được chọn
+  $("input[name='seats']:checked").each(function () {
+      selectedSeats.push($(this).val());
+  });
+
+  // Kiểm tra nếu không có giá trị được chọn
+  if (selectedSeats.length === 0) {
+      delete vehiclePagination.option.filter.seats; // Xóa filter nếu không có giá trị
+  } else {
+      vehiclePagination.option.filter.seats = selectedSeats; // Gán giá trị được chọn vào filter
+  }
+
+  // Gọi hàm cập nhật phân trang
+  vehiclePagination.getPagination(
+      vehiclePagination.option,
+      vehiclePagination.valuePage.curPage
+  );
+});
+
+// Lấy dữ liệu "Vehicle Types" được chọn
+$("input[name='vehicle_types']").change(function () {
+  let selectedTypes = []; // Mảng chứa các giá trị được chọn
+
+  // Lấy tất cả các checkbox "Vehicle Types" đã được chọn
+  $("input[name='vehicle_types']:checked").each(function () {
+      selectedTypes.push($(this).val());
+  });
+
+  // Kiểm tra nếu không có giá trị được chọn
+  if (selectedTypes.length === 0) {
+      delete vehiclePagination.option.filter.vehicleTypeID; // Xóa filter nếu không có giá trị
+  } else {
+      vehiclePagination.option.filter.vehicleTypeID = selectedTypes; // Gán giá trị được chọn vào filter
+  }
+
+  // Gọi hàm cập nhật phân trang
+  vehiclePagination.getPagination(
+      vehiclePagination.option,
+      vehiclePagination.valuePage.curPage
+  );
+});
+
+
 
 // Initialize pagination for vehicles
 const vehiclePagination = new Pagination();

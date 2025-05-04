@@ -102,13 +102,31 @@ class VehicleModel extends Database
         if ($input) {
             $query = $query . " AND (mk.MakeName LIKE '%{$input}%' OR 
                             md.ModelName LIKE '%{$input}%' OR 
-                            vt.NameType LIKE '%{$input}%')";
+                            vt.NameType LIKE '%{$input}%') ";
         }
-        if ($filter) {
-            $query = $query . " AND (v.MakeID = '{$filter['makeID']}' OR 
-                            v.ModelID = '{$filter['modelID']}' OR 
-                            v.VehicleTypesID = '{$filter['vehicleTypeID']}')";
+        if (isset($filter) && !empty($filter)) {
+            if (isset($filter['makeID']) && !empty($filter['makeID'])) {
+                // Xử lý mảng giá trị MakeID
+                $makeIDs = implode(",", array_map('intval', $filter['makeID']));
+                $query .= " AND v.MakeID IN ({$makeIDs})";
+            }
+            if (isset($filter['modelID']) && !empty($filter['modelID'])) {
+                // Xử lý mảng giá trị ModelID
+                $modelIDs = implode(",", array_map('intval', $filter['modelID']));
+                $query .= " AND v.ModelID IN ({$modelIDs})";
+            }
+            if (isset($filter['vehicleTypeID']) && !empty($filter['vehicleTypeID'])) {
+                // Xử lý mảng giá trị VehicleTypesID
+                $vehicleTypeIDs = implode(",", array_map('intval', $filter['vehicleTypeID']));
+                $query .= " AND v.VehicleTypesID IN ({$vehicleTypeIDs})";
+            }
+            if (isset($filter['seats']) && !empty($filter['seats'])) {
+                // Xử lý mảng giá trị Seats
+                $seats = implode(",", array_map('intval', $filter['seats']));
+                $query .= " AND v.seats IN ({$seats})";
+            }
         }
+        
 
         $query .= " ORDER BY v.VehicleID ASC";
         return $query;

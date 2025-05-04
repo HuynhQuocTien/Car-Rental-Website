@@ -223,10 +223,10 @@ $("#vehicle-seats").change(function () {
   );
 });
 
-$("#vehicle-fuel").change(function () {
-  const fuel = $(this).val();
+$("#vehicle-fuel").change(function () { //ID của thẻ input
+  const fuel = $(this).val(); //Lấy value của thẻ input
 
-  if (!fuel) {
+  if (!fuel) { //Nêu không có value thì xóa filter
     delete vehiclePagination.option.filter.fuel;
   } else {
     vehiclePagination.option.filter.fuel = fuel;
