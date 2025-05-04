@@ -200,12 +200,8 @@
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
             'reference' => 'd1a8f1a102cbec035a360a3117015927f33937f6',
-            'type' => 'project',
-            'install_path' => __DIR__ . '/../../',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
-        'vlucas/phpdotenv' => array(
+070
+ay(
             'pretty_version' => 'v5.6.1',
             'version' => '5.6.1.0',
             'reference' => 'a59a13791077fe3d44f90e7133eb68e7d22eaff2',

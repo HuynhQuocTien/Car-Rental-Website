@@ -75,8 +75,10 @@ function calculateDiscountedPrices() {
 const renderData = function (vehicles) {
   let html = "";
   console.log(vehicles);
-  if(vehicles.length === 0) {
-    $("#list-vehicle").html('<tr><td colspan="10" class="text-center">No data available</td></tr>');
+  if (vehicles.length === 0) {
+    $("#list-vehicle").html(
+      '<tr><td colspan="10" class="text-center">No data available</td></tr>'
+    );
     return;
   }
   vehicles.forEach((vehicle) => {
@@ -338,50 +340,50 @@ $(document).on("click", ".js-delete-vehicle", function () {
   const id = $(this).data("id");
 
   Swal.fire({
-    title: 'Confirm Delete',
-    text: 'Are you sure you want to delete data?',
-    icon: 'warning',
+    title: "Confirm Delete",
+    text: "Are you sure you want to delete data?",
+    icon: "warning",
     showCancelButton: true,
-    confirmButtonText: 'Yes, Delete',
-    cancelButtonText: 'Cancel',
-    reverseButtons: true
-}).then((result) => {
-  if (result.isConfirmed) {
-    $.ajax({
-      type: "post",
-      url: BaseUrl + "vehicles/delete",
-      data: { id: id },
-      dataType: "json",
-      success: function (response) {
-        if (response) {
-          Dashmix.helpers("jq-notify", {
-            type: "success",
-            icon: "fa fa-check me-1",
-            message: "Vehicle deleted successfully!",
-            z_index: 9999,
-          });
-          vehiclePagination.getPagination(
-            vehiclePagination.option,
-            vehiclePagination.valuePage.curPage
-          );
-        } else {
+    confirmButtonText: "Yes, Delete",
+    cancelButtonText: "Cancel",
+    reverseButtons: true,
+  }).then((result) => {
+    if (result.isConfirmed) {
+      $.ajax({
+        type: "post",
+        url: BaseUrl + "vehicles/delete",
+        data: { id: id },
+        dataType: "json",
+        success: function (response) {
+          if (response) {
+            Dashmix.helpers("jq-notify", {
+              type: "success",
+              icon: "fa fa-check me-1",
+              message: "Vehicle deleted successfully!",
+              z_index: 9999,
+            });
+            vehiclePagination.getPagination(
+              vehiclePagination.option,
+              vehiclePagination.valuePage.curPage
+            );
+          } else {
+            Dashmix.helpers("jq-notify", {
+              type: "danger",
+              icon: "fa fa-times me-1",
+              message: response.message || "Delete vehicle failed!",
+            });
+          }
+        },
+        error: function () {
           Dashmix.helpers("jq-notify", {
             type: "danger",
             icon: "fa fa-times me-1",
-            message: response.message || "Delete vehicle failed!",
+            message: "Error occurred while deleting vehicle",
           });
-        }
-      },
-      error: function () {
-        Dashmix.helpers("jq-notify", {
-          type: "danger",
-          icon: "fa fa-times me-1",
-          message: "Error occurred while deleting vehicle",
-        });
-      },
-    });
-  }
-});
+        },
+      });
+    }
+  });
 });
 // Lấy dữ liệu "Makes" được chọn
 $("input[name='makes']").change(function () {
@@ -476,6 +478,29 @@ $("input[name='vehicle_types']").change(function () {
 });
 
 
+// $(document).on("click", ".js-detail-vehicle", function () {
+//     var vehicleId = $(this).data("id");
+//     // console.log(vehicleId);
+//     $.ajax({
+//         url: BaseUrl + "vehicles/saveVehicleID",
+//         method: "POST",
+//         data: {
+//             vehicle_id: vehicleId
+//         },
+//         dataType: "json",
+//         success: function (response) {
+//           if (response.success) {
+//             console.log(response.data);
+//             window.location.href = BaseUrl + "vehicles/addvehicles";
+//           } else {
+//             alert("Không thể lưu VehicleID vào session.");
+//           }
+//         },
+//         error: function () {
+//           alert("Có lỗi khi gửi request đến server.");
+//         },
+//     });
+// });
 
 // Initialize pagination for vehicles
 const vehiclePagination = new Pagination();
@@ -484,8 +509,8 @@ vehiclePagination.option.model = "VehicleModel";
 vehiclePagination.option.limit = 10;
 vehiclePagination.option.filter = {};
 vehiclePagination.getPagination(
-vehiclePagination.option,
-vehiclePagination.valuePage.curPage
+  vehiclePagination.option,
+  vehiclePagination.valuePage.curPage
 );
 
 // Event listeners for price calculations
@@ -495,76 +520,76 @@ $("#dailyPrice, #weeklyDiscount, #monthlyDiscount").on(
 );
 
 //add
-$(document).ready(function() {
-  const $uploadInput = $('#upload-image');
-  const $previewContainer = $('#image-preview-container');
-  const $initialUpload = $('#initial-upload');
-  
+$(document).ready(function () {
+  const $uploadInput = $("#upload-image");
+  const $previewContainer = $("#image-preview-container");
+  const $initialUpload = $("#initial-upload");
+
   // Tạo container preview list nếu chưa có
-  if ($previewContainer.children('.preview-list').length === 0) {
-      $previewContainer.append($('<div>').addClass('preview-list'));
+  if ($previewContainer.children(".preview-list").length === 0) {
+    $previewContainer.append($("<div>").addClass("preview-list"));
   }
-  
-  $uploadInput.on('change', function(e) {
-      const files = e.target.files;
-      if (files.length > 0) {
-          $initialUpload.hide();
-          const $previewList = $previewContainer.find('.preview-list');
-          
-          $.each(files, function(i, file) {
-              if (!file.type.match('image.*')) return;
-              
-              const reader = new FileReader();
-              
-              reader.onload = function(event) {
-                  const $previewItem = $('<div>').addClass('preview-item');
-                  
-                  // Tạo preview và thông tin ảnh
-                  const $imageInfo = $('<div>').addClass('image-info');
-                  const $imgPreview = $('<img>').addClass('image-preview')
-                      .attr('src', event.target.result);
-                  const $imageName = $('<div>').addClass('image-name')
-                      .text(file.name);
-                  
-                  $imageInfo.append($imgPreview, $imageName);
-                  
-                  // Tạo nút action
-                  const $actionButtons = $('<div>').addClass('action-buttons');
-                  
-                  // Nút thêm ảnh
-                  const $addBtn = $('<button>')
-                      .addClass('add-btn')
-                      .html('<i class="fas fa-plus"></i> Add image')
-                      .on('click', function() {
-                          $uploadInput.click();
-                      });
-                  
-                  // Nút xóa ảnh
-                  const $deleteBtn = $('<button>')
-                      .addClass('delete-btn')
-                      .html('<i class="fas fa-times"></i> Delete')
-                      .on('click', function() {
-                          $previewItem.remove();
-                          if ($previewList.children().length === 0) {
-                              $initialUpload.show();
-                          }
-                      });
-                  
-                  $actionButtons.append($addBtn, $deleteBtn);
-                  $previewItem.append($imageInfo, $actionButtons);
-                  $previewList.append($previewItem);
-              };
-              
-              reader.readAsDataURL(file);
-          });
-          
-          // Reset input
-          $uploadInput.val('');
-      }
+
+  $uploadInput.on("change", function (e) {
+    const files = e.target.files;
+    if (files.length > 0) {
+      $initialUpload.hide();
+      const $previewList = $previewContainer.find(".preview-list");
+
+      $.each(files, function (i, file) {
+        if (!file.type.match("image.*")) return;
+
+        const reader = new FileReader();
+
+        reader.onload = function (event) {
+          const $previewItem = $("<div>").addClass("preview-item");
+
+          // Tạo preview và thông tin ảnh
+          const $imageInfo = $("<div>").addClass("image-info");
+          const $imgPreview = $("<img>")
+            .addClass("image-preview")
+            .attr("src", event.target.result);
+          const $imageName = $("<div>").addClass("image-name").text(file.name);
+
+          $imageInfo.append($imgPreview, $imageName);
+
+          // Tạo nút action
+          const $actionButtons = $("<div>").addClass("action-buttons");
+
+          // Nút thêm ảnh
+          const $addBtn = $("<button>")
+            .addClass("add-btn")
+            .html('<i class="fas fa-plus"></i> Add image')
+            .on("click", function () {
+              $uploadInput.click();
+            });
+
+          // Nút xóa ảnh
+          const $deleteBtn = $("<button>")
+            .addClass("delete-btn")
+            .html('<i class="fas fa-times"></i> Delete')
+            .on("click", function () {
+              $previewItem.remove();
+              if ($previewList.children().length === 0) {
+                $initialUpload.show();
+              }
+            });
+
+          $actionButtons.append($addBtn, $deleteBtn);
+          $previewItem.append($imageInfo, $actionButtons);
+          $previewList.append($previewItem);
+        };
+
+        reader.readAsDataURL(file);
+      });
+
+      // Reset input
+      $uploadInput.val("");
+    }
   });
-  
+
   // Click to initial upload box
-  $initialUpload.on('click', function(e) {
+  $initialUpload.on("click", function (e) {
     e.preventDefault();
     $uploadInput.click();
   });
