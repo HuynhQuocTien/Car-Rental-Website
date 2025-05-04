@@ -25,125 +25,68 @@
         </div>
 
         <div class="block-content">
-            <div class="mb-1">
+            <!-- <form id="search-inspection-form" class="mb-1 action="javascript:void(0);">
                 <input type="text" class="form-control form-control-alt" id="vehicle-query" name="vehicle-query"
                     placeholder="Search all vehicles..">
+            </form> -->
+
+            
+        <div class="row filters_listing_1">
+
+            <!-- Types -->
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <label for="vehicle-types" class="form-label">Types</label>
+                <select class="form-select" id="vehicle-types" name="filter[categories][]">
+                    <option value="">All</option>
+                    <?php foreach ($data["Categories"] as $cat): ?>
+                        <option value="<?= htmlspecialchars($cat["VehicleTypesID"]) ?>">
+                            <?= htmlspecialchars($cat["NameType"]) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
             </div>
-            <div class="row filters_listing_1">
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="dropdown">
-                        <a href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside" class="drop">Types</a>
-                        <div class="dropdown-menu">
-                            <div class="filter_type">
-                                <ul>
-                                    <li>
-                                    <?php foreach ($data["Categories"] as $cat): ?>
-                                        <label class="container_check">
-                                            <?= htmlspecialchars($cat["NameType"]) ?>
-                                            <input type="checkbox" name="categories[]" value="<?= htmlspecialchars($cat["NameType"]) ?>">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    <?php endforeach; ?>
-                                        <!-- <label class="container_check">
-                                            Hạng sang
-                                            <input type="checkbox" name="categories" value="HangSang">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                        <label class="container_check">
-                                            Phổ thông
-                                            <input type="checkbox" name="categories" value="PhoThong">
-                                            <span class="checkmark"></span>
-                                        </label> -->
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /dropdown -->
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="dropdown">
-                        <a href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside" class="drop">Color</a>
-                        <div class="dropdown-menu">
-                            <div class="filter_type">
-                                <ul>
-                                    <li>
-                                    <?php foreach ($data["Colors"] as $color): ?>
-                                        <label class="container_check">
-                                            <?= htmlspecialchars($color["ColorName"]) ?>
-                                            <input type="checkbox" name="colors[]" value="<?= htmlspecialchars($color["ColorName"]) ?>">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    <?php endforeach; ?>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /dropdown -->
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="dropdown">
-                        <a href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside" class="drop">Brand</a>
-                        <div class="dropdown-menu">
-                            <div class="filter_type">
-                                <ul>
-                                    <li>
-                                        <?php foreach ($data["Makes"] as $make): ?>
-                                            <label class="container_check">
-                                                <?= htmlspecialchars($make["MakeName"]) ?>
-                                                <input type="checkbox" name="make[]" value="<?= htmlspecialchars($make["MakeName"]) ?>">
-                                                <span class="checkmark"></span>
-                                            </label>
-                                        <?php endforeach; ?>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /dropdown -->
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="dropdown">
-                        <a href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside" class="drop">Price</a>
-                        <div class="dropdown-menu">
-                            <div class="filter_type">
-                                <ul>
-                                    <li>
-                                        <label class="container_check">
-                                            $0 — $50
-                                            <input type="checkbox" name="prices" value="0:50">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </li>
-                                    <li>
-                                        <label class="container_check">
-                                            $50 — $100
-                                            <input type="checkbox" name="prices" value="50:100">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </li>
-                                    <li>
-                                        <label class="container_check">
-                                            $100 — $150
-                                            <input type="checkbox" name="prices" value="100:150">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </li>
-                                    <li>
-                                        <label class="container_check">
-                                            $150 — $200
-                                            <input type="checkbox" name="prices" value="150:200">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /dropdown -->
-                </div>
-    </div>
+
+            <!-- Color -->
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <label for="colors" class="form-label">Color</label>
+                <select class="form-select" id="colors" name="filter[colors][]">
+                    <option value="">All</option>
+                    <?php foreach ($data["Colors"] as $color): ?>
+                        <option value="<?= htmlspecialchars($color["ColorID"]) ?>">
+                            <?= htmlspecialchars($color["ColorName"]) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <!-- Brand -->
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <label for="make" class="form-label">Brand</label>
+                <select class="form-select" id="make" name="filter[make][]">
+                    <option value="">All</option>
+                    <?php foreach ($data["Makes"] as $make): ?>
+                        <option value="<?= htmlspecialchars($make["MakeID"]) ?>">
+                            <?= htmlspecialchars($make["MakeName"]) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <!-- Price -->
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <label for="prices" class="form-label">Price</label>
+                <select class="form-select" id="prices" name="filter[prices][]">
+                    <option value="">All</option>
+                    <option value="0:50">$0 — $50</option>
+                    <option value="60:70">$60 — $70</option>
+                    <option value="50:100">$50 — $100</option>
+                    <option value="100:150">$100 — $150</option>
+                    <option value="150:200">$150 — $200</option>
+                </select>
+            </div>
+
+        </div>
+
 
     </div>
         <div class="block-content pb-3 pt-0">
@@ -162,23 +105,16 @@
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
-                    <tbody>
-                    <?php
-                        $i = 1;
-                        foreach ($data["Inspection"] as $item) {
-                    ?>
+                    <tbody id="list-inspection">
+<!-- 
                         <tr>
-                            <td><?= $i++ ?></td>
-                            <!-- Tạo tên Car A, B, C... nếu muốn -->
-                            <!-- <td>Car <?= chr(64 + $i) ?></td>  -->
-                            <td><?= htmlspecialchars($item["MakeName"]) ?></td>
-                            <td><?= htmlspecialchars($item["ModelName"]) ?></td>
-                            <td><?= htmlspecialchars($item["ColorName"]) ?></td>
-                            <td><?= htmlspecialchars($item["NameType"]) ?></td>
-                            <td>$<?= htmlspecialchars($item["DailyPrice"]) ?></td>
-                            <td>
-                                <?= $item["Status"] == 1 ? "Available" : "Unavailable" ?>
-                            </td>
+                            <td>1</td>
+                            <td>Toyota</td>
+                            <td>Corolla</td>
+                            <td>Red</td>
+                            <td>Sedan</td>
+                            <td>$50</td>
+                            <td>Available</td>
                             <td class="text-center">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
@@ -196,9 +132,59 @@
                                 </div>
                             </td>
                         </tr>
-                    <?php
-                        }
-                    ?>
+                        
+                        <tr>
+                            <td>2</td>
+                            <td>Honda</td>
+                            <td>Civic</td>
+                            <td>Blue</td>
+                            <td>Hatchback</td>
+                            <td>$55</td>
+                            <td>Unavailable</td>
+                            <td class="text-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
+                                        data-bs-toggle="tooltip" aria-label="Detail" data-bs-original-title="Detail">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
+                                        data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit">
+                                        <i class="fa fa-pencil-alt"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
+                                        data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>3</td>
+                            <td>Ford</td>
+                            <td>Focus</td>
+                            <td>Black</td>
+                            <td>SUV</td>
+                            <td>$60</td>
+                            <td>Available</td>
+                            <td class="text-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
+                                        data-bs-toggle="tooltip" aria-label="Detail" data-bs-original-title="Detail">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
+                                        data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit">
+                                        <i class="fa fa-pencil-alt"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
+                                        data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr> -->
+
                     </tbody>
                 </table>
                 
@@ -208,6 +194,10 @@
                 </div> -->
             </form>
         </div>
-
+        <div class="block block-rounded pb-2 bg-body-light">
+            <div class="block-content bg-body-light">
+                <?php require "./mvc/views/admin/inc/pagination.php" ?>
+            </div>
+        </div>
     </div>
 </div>

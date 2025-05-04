@@ -1,36 +1,27 @@
 <?php
 
 class Inspections extends Controller {
-<<<<<<< HEAD
     public $InspectionModel;
-
-    function __construct()
-    {
-        $this->InspectionModel = $this->model("InspectionModel");
-        parent::__construct();
-    }
-
-=======
+    
     public $vehicleTypesModel;
     public $damageTypesModel;
     public function __construct() {
         parent::__construct();
+        $this->InspectionModel = $this->model("InspectionModel");
         $this->vehicleTypesModel = $this->model("VehicleTypeModel");
         $this->damageTypesModel = $this->model("DamageTypeModel");
         require_once "./mvc/core/Pagination.php";
     }
->>>>>>> d1a8f1a102cbec035a360a3117015927f33937f6
     public function default() {
         AuthCore::checkAuthentication();
 
         $this->view("main_layout", [
             "Title"=>"Inspections",
             "Page"=>"pages/inspections/inspections",
-            "Inspection" => $this->InspectionModel->getAllInspections(),
             "Categories" => $this->InspectionModel->getAllCategories(),
             "Colors" => $this->InspectionModel->getAllColors(),
             "Makes" => $this->InspectionModel->getAllMakes(),
-            "Script" => "Inspection"
+            "Script" => "inspections"
         ],
         "admin");
     }
