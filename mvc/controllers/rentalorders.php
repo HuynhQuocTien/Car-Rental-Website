@@ -20,7 +20,32 @@ class RentalOrders extends Controller {
         ],
         "admin");
     }
-
+    public function create() {
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $data = json_decode(file_get_contents('php://input'), true);
+            $order = $data['order'] ?? null;
+            $result = $this->rentalOrderModel->createRentalOrder($order);
+            // var_dump($order);
+            
+            if($result) {
+                echo json_encode([
+                'success' => true,
+                'message' => 'Order created successfully',
+                'orderID' => $result
+                ]);
+            } else {
+                echo json_encode([
+                'success' => false,
+                'message' => 'Failed to create order'
+                ]);
+            }
+        } else {
+            echo json_encode([
+            'success' => false,
+            'message' => 'Invalid request method'
+            ]);
+        }
+    }
     public function getRentalOrderByID($id) {
         $rentalOrder = $this->rentalOrderModel->getRentalOrderByID($id);
         echo json_encode($rentalOrder);
@@ -43,6 +68,14 @@ class RentalOrders extends Controller {
         ],
         "admin");
         // echo json_encode($detail);
+    }
+
+    public function viewOrder() {
+        $this->view("main_layout", [
+            "Title"=>"Rental Orders",
+            "Page"=>"pages/orders/rentalorders",
+            "Script" => "orders/rentalorders",
+        ]);
     }
 }
 ?>

@@ -44,6 +44,9 @@ class VehicleDetailModel extends Database {
         $sql = "SELECT vd.*, c.ColorName
                 FROM VehicleDetails vd
                 LEFT JOIN Colors c ON vd.ColorID = c.ColorID
+                LEFT JOIN Makes m OM m.MakeID = vd.MakeID
+                LEFT JOIN Models mo ON mo.ModelID = vd.ModelID
+                LEFT JOIN VehicleImages vi ON vd.VehicleImageID = vi.VehicleDetailID
                 WHERE vd.Is_Delete = 0 AND vd.VehicleDetailID = '$id'";
         $result = mysqli_query($this->con, $sql);
         return mysqli_fetch_assoc($result);

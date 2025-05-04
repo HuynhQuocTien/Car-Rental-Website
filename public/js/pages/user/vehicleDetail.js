@@ -119,9 +119,12 @@ $(document).ready(function () {
 
   // ADD TO CART
   $('#addToCartBtn').click(function () {
+    if(!checkLogin()) {
+      return; // Nếu chưa đăng nhập thì không thực hiện thêm vào giỏ hàng
+    }
     console.log('Add to cart button clicked!');
     // Lấy thông tin từ form
-    const vehicleId = document.getElementById('id-save').value;
+    const vehicleId = parseInt(document.getElementById('id-save').value);
     const quantity = parseInt(document.getElementById('rental-quantity').value);
     const rentalOption = document.querySelector('input[name="options"]:checked').value; // hour, day, week, month
     const pickupDate = document.getElementById('pickup-date').value;
@@ -130,16 +133,22 @@ $(document).ready(function () {
     // Lấy giá theo loại thuê
     let price = 0;
     if (rentalOption === 'hour') {
-        price = parseFloat(document.getElementById('hourly-price').value);
+      price = parseFloat(document.getElementById('hourly-price').value);
     } else if (rentalOption === 'day') {
-        price = parseFloat(document.getElementById('daily-price').value);
+      price = parseFloat(document.getElementById('daily-price').value);
     } else if (rentalOption === 'week') {
-        price = parseFloat(document.getElementById('weekly-price').value);
+      price = parseFloat(document.getElementById('weekly-price').value);
     } else if (rentalOption === 'month') {
-        price = parseFloat(document.getElementById('monthly-price').value);
+      price = parseFloat(document.getElementById('monthly-price').value);
     }
-    let cartItems = JSON.parse(localStorage.getItem('carts')) || [];
+
+    
+    userID = $('#UserID').val();
+
+    let carts = JSON.parse(localStorage.getItem(`carts_${userID}`)) || [];
+
     const cartItem = {
+        id: carts.length + 1,
         vehicleDetailId: vehicleId,
         quantity: quantity,
         rentalOption: rentalOption,
@@ -150,19 +159,68 @@ $(document).ready(function () {
     console.log(cartItem);
     // Lưu vào localStorage
     
-    const cartKey = `carts`;
+    const cartKey = `carts_${userID}`;
     let cart = JSON.parse(localStorage.getItem(cartKey)) || [];
   
     // Kiểm tra nếu xe đã có trong giỏ thì update
     const existingItemIndex = cart.findIndex(item => item.vehicleDetailId === vehicleId && item.rentalOption === rentalOption && item.pickupDate === pickupDate);
     if (existingItemIndex > -1) {
         cart[existingItemIndex].quantity += quantity;
+        const existingReturnDate = new Date(cart[existingItemIndex].returnDate);
+        const additionalQuantity = quantity;
+        const rentalOption = cart[existingItemIndex].rentalOption;
+        switch (rentalOption) {
+          case "hour":
+            existingReturnDate.setHours(existingReturnDate.getHours() + additionalQuantity);
+            break;
+          case "day":
+            existingReturnDate.setDate(existingReturnDate.getDate() + additionalQuantity);
+            break;
+          case "week":
+            existingReturnDate.setDate(existingReturnDate.getDate() + additionalQuantity * 7);
+            break;
+          case "month":
+            existingReturnDate.setMonth(existingReturnDate.getMonth() + additionalQuantity);
+            break;
+        }
+
+        cart[existingItemIndex].returnDate = existingReturnDate.toISOString().split("T")[0];
     } else {
         cart.push(cartItem);
     }
   
     localStorage.setItem(cartKey, JSON.stringify(cart));
   
-    alert('Added to cart successfully!');
+    $('body').css('overflow', 'hidden'); 
+    Swal.fire({
+        title: 'Thành công',
+        text: 'Xe đã được thêm vào giỏ hàng!',
+        icon: 'success',
+        position: 'center', // Đảm bảo thông báo xuất hiện giữa màn hình
+        showConfirmButton: false,
+        timer: 1500
+    }).then(() => {
+        $('body').css('overflow', 'auto'); // Cho phép cuộn lại sau khi thông báo xuất hiện
+    });
   });
 });
+
+function checkLogin() {
+  const userId = $('#UserID').val();
+  if (!userId) {
+    Swal.fire({
+      title: "Login Required",
+      text: "Please log in to continue.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Login",
+      cancelButtonText: "Cancel"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $('#btnLogin').click(); // Trigger login button click
+      }
+    });
+  } else {
+    return true;
+  }
+}

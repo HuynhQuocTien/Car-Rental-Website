@@ -36,9 +36,9 @@
 
     <div class="mt-4">
         <div class="mb-3 fs-5 text-end">
-            <strong>Tổng: 1.000đ</strong>
+            <strong id="totalAmountSelected">0</strong>
         </div>
-        <button class="btn btn-primary w-100 mb-2">Thanh toán</button>
+        <button id="checkoutBtn" class="btn btn-primary w-100 mb-2">Thanh toán</button>
         <button class="btn btn-outline-secondary w-100" id="closeCartBottom">Đóng</button>
     </div>
 </div>
