@@ -221,9 +221,6 @@ class AccountModel extends Database
         }
     }
     
-    
-    
-    
 
     public function checkEmail($email,$userID)
     {

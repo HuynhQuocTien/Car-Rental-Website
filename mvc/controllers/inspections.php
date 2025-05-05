@@ -9,6 +9,7 @@ class Inspections extends Controller {
     public $damageTypesModel;
     public $InspectionOrderModel;
     public $UserModel;
+    public $DamageTypeModel;
     public function UrlProcess(){
         if (isset($_GET["url"])) {
             return explode("/", filter_var(trim($_GET["url"], "/")));
@@ -26,6 +27,7 @@ class Inspections extends Controller {
         $this->ModelModel = $this->model("ModelModel");
         $this->InspectionOrderModel = $this->model("InspectionOrderModel");
         $this->UserModel = $this->model("UserModel");
+        $this->DamageTypeModel = $this->model("DamageTypeModel");
         require_once "./mvc/core/Pagination.php";
     }
     public function default() {
@@ -42,7 +44,8 @@ class Inspections extends Controller {
     public function inspectionOrder(){
 
             $orderID = $_GET['id'];
-
+            // var_dump($_SESSION["UserID"]);
+            // exit;
             $this->view("main_layout", [
                 "Title"=>"Inspection $orderID Order",
                 "Script"=> "inspectionOrder",
@@ -52,7 +55,8 @@ class Inspections extends Controller {
                 "VehicleTypes" => $this->vehicleTypesModel->getAll(),
                 "Makes" => $this->MakeModel->getAll(),
                 "Models" => $this->ModelModel->getAll(),
-                "Users" => $this->UserModel->getAll(),
+                "DamageTypes" => $this->DamageTypeModel->getAll(),
+                "Acc" => $_SESSION["UserID"]
             ],
             "admin");
     }
@@ -84,7 +88,67 @@ class Inspections extends Controller {
         }
     }
 
+    public function updateInspectionForOrderDetail(){
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            // Lấy dữ liệu từ POST request (dữ liệu form)
+            $data = [
+                "RentalOrderDetailID" => $_POST["RentalOrderDetailID1"],
+                "UserID" => $_POST["UserID1"],
+                "InspectionDate" => $_POST["InspectionDate1"],
+                "InspectionTime" => $_POST["InspectionTime1"],
+                "TotalFineAmount" => $_POST["TotalFineAmount1"]
+            ];
+    
+            // Gọi model để cập nhật dữ liệu vào bảng Inspections
+            $result = $this->InspectionOrderModel->update($data);
+    
+            if ($result) {
+                // Nếu cập nhật thành công
+                echo json_encode(["success" => true, "message" => "Inspection updated successfully"]);
+            } else {
+                // Nếu có lỗi khi cập nhật
+                echo json_encode(["success" => false, "message" => "Failed to update inspection"]);
+            }
+        } else {
+            // Trường hợp không phải POST request
+            echo json_encode(["success" => false, "message" => "Invalid request method"]);
+        }
+    }
+    
 
+
+    public function getins() {
+        $orderDetailID = $_GET["orderDetailID"] ?? null; 
+        if (!$orderDetailID) {
+            echo json_encode(['success' => false, 'message' => 'orderDetailID is required']);
+            exit;
+        }
+        $result = $this->InspectionOrderModel->getByOrderDetailID($orderDetailID);
+            if ($result) {
+                echo json_encode(['success' => true, 'data' => $result]);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'No inspection data found']);
+            }
+    
+        exit; // Đảm bảo không in gì thêm sau JSON
+    }
+    
+    public function delete() {
+        $orderDetailID = $_GET["orderDetailID"] ?? null; 
+        if (!$orderDetailID) {
+            echo json_encode(['success' => false, 'message' => 'orderDetailID is required']);
+            exit;
+        }
+        $result = $this->InspectionOrderModel->delete($orderDetailID);
+            if ($result) {
+                echo json_encode(['success' => true, 'data' => "đã xóa"]);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'chưa xóa']);
+            }
+    
+        exit; // Đảm bảo không in gì thêm sau JSON
+    }
+   
 
 
 
