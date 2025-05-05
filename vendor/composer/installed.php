@@ -199,11 +199,7 @@
         'vendor/car-rental-website' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-<<<<<<< HEAD
             'reference' => 'cf08b0e43f42a867252825501111b093a1ec9bf7',
-=======
-            'reference' => '263ff31dc52125f2cd1890e4d60a4ffb9fbaacd6',
->>>>>>> e1b422247d2ef20ddd02dc6f941bc4cc0b519e63
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
