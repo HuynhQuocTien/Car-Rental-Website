@@ -2,8 +2,7 @@
 
 
 class PaymentModel extends Database {
-  public function getDataByDateRange($startDate, $endDate)
-  {
+  public function getDataByDateRange($startDate, $endDate){
       $query = "SELECT * FROM `Payments` 
                 WHERE `PaymentDate` BETWEEN '$startDate' AND '$endDate';";
   

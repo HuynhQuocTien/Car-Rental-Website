@@ -37,7 +37,6 @@ Dashmix.onLoad(() =>
         type: "POST",
         url:  BaseUrl + "auth/checkLogin",
         data: {
-          // username: abc,
           username: $("#login-username").val(),
           password: $("#login-password").val(),
         },

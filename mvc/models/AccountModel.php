@@ -2,6 +2,26 @@
 class AccountModel extends Database
 {
 
+    public function getDataByDateRange($startDate, $endDate)
+    {
+        $query = "SELECT * FROM `Accounts` 
+                WHERE `CreatedAt` BETWEEN '$startDate' AND '$endDate'";
+    
+        $stmt = mysqli_query($this->con, $query);
+    
+        if ($stmt) {
+            $results = [];
+            while ($row = mysqli_fetch_assoc($stmt)) { // đổi thành mysqli_fetch_assoc
+                $results[] = $row;
+            }
+            return $results;
+        } else {
+            return false;
+        }
+    }
+    
+
+
     public function exists($column, $value)
     {
         $query = "SELECT COUNT(*) AS count FROM Accounts WHERE $column = '$value';";
@@ -55,7 +75,7 @@ class AccountModel extends Database
     public function updateToken($username, $token)
     {
         $valid = true;
-        $sql = "UPDATE `Accounts` SET `Token`='$token' WHERE `Username` = '$username'";
+        $sql = "UPDATE `Accounts` SET `Token`='$token' WHERE `Username` = '$username' OR `Email` = '$username'";
         $result = mysqli_query($this->con, $sql);
         if (!$result)
             $valid = false;
@@ -75,8 +95,8 @@ class AccountModel extends Database
         } else {
             $result = password_verify($password, $user['Password']);
             if ($result) {
-                $token = time() . password_hash($username, PASSWORD_DEFAULT);
-                $resultToken = $this->updateToken($username, $token);
+                $token = time() . password_hash($user['Username'], PASSWORD_DEFAULT);
+                $resultToken = $this->updateToken($user['Username'], $token);
                 if ($resultToken) {
                     setcookie("token", $token, time() + 7 * 24 * 3600, "/");
                     $this->validateToken($token);

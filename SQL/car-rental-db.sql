@@ -80,7 +80,9 @@ CREATE TABLE `Models` (
 CREATE TABLE `RentalOrders` (
 	`OrderID` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
 	`CustomerID` INTEGER COMMENT 'Mã khách hàng',
-	`UserID` INTEGER COMMENT 'Mã nhân viên xác nhận đơn hàng',
+	`UserID` INTEGER COMMENT 'Mã nhân viên xác nhận đơn hàng 
+	(null là khách hàng tự đặt và chưa được duyệt ngược lại != null là đã
+	 duyệt)',
 	`OrderDate` DATETIME COMMENT 'Ngày đặt xe',
 	`RentalDate` DATETIME COMMENT 'Ngày thuê xe',
 	`TotalAmount` DOUBLE COMMENT 'Tổng số tiền',
@@ -125,7 +127,6 @@ CREATE TABLE `Deposits` (
 
 CREATE TABLE `Payments` (
 	`PaymentID` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
-	`OrderID` INTEGER COMMENT 'Mã đơn hàng liên kết với thanh toán',
 	`PaymentDate` DATETIME COMMENT 'Ngày thanh toán',
 	`PaymentMethod` INTEGER COMMENT 'Phương thức thanh toán (Tiền mặt, chuyển khoản) (0: Tiền mặt, 1: Chuyển khoản)',
 	`Amount` DOUBLE COMMENT 'Số tiền',
@@ -539,6 +540,7 @@ INSERT INTO `VehicleDetails` (
 (3, 1, '59A12364', 100000, 2011, 'Automatic', 'Gasoline', 19.6, 147, 931, 3430, '5.5',0, 1, 0);
 
 
+INSERT INTO `DamageTypes` (`DamageTypeID`, `DamageName`, `FineAmount`, `VehicleTypesID`, `Is_Delete`) VALUES ('0', 'NO DAMAGE', '0', NULL, '0');
 
 -- Thêm dữ liệu vào bảng DamageTypes
 INSERT INTO `DamageTypes` (`DamageName`, `FineAmount`, `VehicleTypesID`, `Is_Delete`)

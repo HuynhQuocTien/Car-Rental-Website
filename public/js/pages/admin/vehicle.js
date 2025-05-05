@@ -1,23 +1,3 @@
-// function calculateDiscountedPrices() {
-//     let dailyPrice = parseFloat($('#dailyPrice').val()) || 0;
-//     let weeklyDiscount = parseFloat($('#weeklyDiscount').val()) || 0;
-//     let monthlyDiscount = parseFloat($('#monthlyDiscount').val()) || 0;
-
-//     let weeklyPrice = dailyPrice * 7 * (1 - weeklyDiscount / 100);
-//     let monthlyPrice = dailyPrice * 30 * (1 - monthlyDiscount / 100);
-
-//     if (!isNaN(weeklyPrice)) {
-//         $('#weeklyPrice').val(weeklyPrice.toFixed(2));
-//     }
-//     if (!isNaN(monthlyPrice)) {
-//         $('#monthlyPrice').val(monthlyPrice.toFixed(2));
-//     }
-// }
-
-// // Gọi hàm khi người dùng nhập dữ liệu
-// $(document).ready(function () {
-//     $('#dailyPrice, #weeklyDiscount, #monthlyDiscount').on('input', calculateDiscountedPrices);
-// });
 function calculateDiscountPercentage(originalPrice, discountedPrice) {
   if (
     originalPrice <= 0 ||
@@ -95,19 +75,31 @@ function calculateDiscountedPrices() {
 const renderData = function (vehicles) {
   let html = "";
   console.log(vehicles);
-  if(vehicles.length === 0) {
-    $("#list-vehicle").html('<tr><td colspan="10" class="text-center">No data available</td></tr>');
+  if (vehicles.length === 0) {
+    $("#list-vehicle").html(
+      '<tr><td colspan="10" class="text-center">No data available</td></tr>'
+    );
     return;
   }
   vehicles.forEach((vehicle) => {
     html += `<tr>            
             <td>${vehicle.VehicleID}</td>
-            <td>${vehicle.MakeName}</td>
-            <td>${vehicle.ModelName}</td>
-            <td>${vehicle.Seats}</td>
-            <td>${vehicle.NameType}</td>
-            <td>${vehicle.HourlyPrice}</td>
-            <td>${vehicle.DailyPrice}</td>
+            <td>
+              <div class="fw-semibold">${vehicle.MakeName}</div>
+              <div class="text-muted small">${vehicle.ModelName}</div>
+            </td>
+            <td>
+              <div class="fw-semibold">${vehicle.NameType}</div>
+              <div class="text-muted small">${vehicle.Seats}</div>
+            </td>
+            <td>
+              <div class="fw-semibold">${vehicle.HourlyPrice}</div>
+              <div class="text-muted small">${vehicle.DailyPrice}</div>
+            </td>
+            <td>
+              <div class="fw-semibold">${vehicle.MonthlyPrice}</div>
+              <div class="text-muted small">${vehicle.WeeklyPrice}</div>
+            </td>
             <td>${vehicle.Quantity}</td>
             <td>
                 ${
@@ -348,51 +340,143 @@ $(document).on("click", ".js-delete-vehicle", function () {
   const id = $(this).data("id");
 
   Swal.fire({
-    title: 'Confirm Delete',
-    text: 'Are you sure you want to delete data?',
-    icon: 'warning',
+    title: "Confirm Delete",
+    text: "Are you sure you want to delete data?",
+    icon: "warning",
     showCancelButton: true,
-    confirmButtonText: 'Yes, Delete',
-    cancelButtonText: 'Cancel',
-    reverseButtons: true
-}).then((result) => {
-  if (result.isConfirmed) {
-    $.ajax({
-      type: "post",
-      url: BaseUrl + "vehicles/delete",
-      data: { id: id },
-      dataType: "json",
-      success: function (response) {
-        if (response) {
-          Dashmix.helpers("jq-notify", {
-            type: "success",
-            icon: "fa fa-check me-1",
-            message: "Vehicle deleted successfully!",
-            z_index: 9999,
-          });
-          vehiclePagination.getPagination(
-            vehiclePagination.option,
-            vehiclePagination.valuePage.curPage
-          );
-        } else {
+    confirmButtonText: "Yes, Delete",
+    cancelButtonText: "Cancel",
+    reverseButtons: true,
+  }).then((result) => {
+    if (result.isConfirmed) {
+      $.ajax({
+        type: "post",
+        url: BaseUrl + "vehicles/delete",
+        data: { id: id },
+        dataType: "json",
+        success: function (response) {
+          if (response) {
+            Dashmix.helpers("jq-notify", {
+              type: "success",
+              icon: "fa fa-check me-1",
+              message: "Vehicle deleted successfully!",
+              z_index: 9999,
+            });
+            vehiclePagination.getPagination(
+              vehiclePagination.option,
+              vehiclePagination.valuePage.curPage
+            );
+          } else {
+            Dashmix.helpers("jq-notify", {
+              type: "danger",
+              icon: "fa fa-times me-1",
+              message: response.message || "Delete vehicle failed!",
+            });
+          }
+        },
+        error: function () {
           Dashmix.helpers("jq-notify", {
             type: "danger",
             icon: "fa fa-times me-1",
-            message: response.message || "Delete vehicle failed!",
+            message: "Error occurred while deleting vehicle",
           });
-        }
-      },
-      error: function () {
-        Dashmix.helpers("jq-notify", {
-          type: "danger",
-          icon: "fa fa-times me-1",
-          message: "Error occurred while deleting vehicle",
-        });
-      },
-    });
+        },
+      });
+    }
+  });
+});
+// Lấy dữ liệu "Makes" được chọn
+$("input[name='makes']").change(function () {
+  let selectedMakes = []; 
+
+  // Lấy tất cả các checkbox "Makes" đã được chọn
+  $("input[name='makes']:checked").each(function () {
+      selectedMakes.push($(this).val());
+  });
+
+  // Kiểm tra nếu không có giá trị được chọn
+  if (selectedMakes.length === 0) {
+      delete vehiclePagination.option.filter.makeID; // Xóa filter nếu không có giá trị
+  } else {
+      vehiclePagination.option.filter.makeID = selectedMakes; // Gán giá trị được chọn vào filter
   }
+
+  // Gọi hàm cập nhật phân trang
+  vehiclePagination.getPagination(
+      vehiclePagination.option,
+      vehiclePagination.valuePage.curPage
+  );
 });
+
+// Lấy dữ liệu "Models" được chọn
+$("input[name='models']").change(function () {
+  let selectedModels = [];
+
+  // Lấy tất cả các checkbox "Models" đã được chọn
+  $("input[name='models']:checked").each(function () {
+      selectedModels.push($(this).val());
+  });
+
+  // Kiểm tra nếu không có giá trị được chọn
+  if (selectedModels.length === 0) {
+      delete vehiclePagination.option.filter.modelID; // Xóa filter nếu không có giá trị
+  } else {
+      vehiclePagination.option.filter.modelID = selectedModels; // Gán giá trị được chọn vào filter
+  }
+
+  // Gọi hàm cập nhật phân trang
+  vehiclePagination.getPagination(
+      vehiclePagination.option,
+      vehiclePagination.valuePage.curPage
+  );
 });
+
+// Lấy dữ liệu "Seats" được chọn
+$("input[name='seats']").change(function () {
+  let selectedSeats = []; // Mảng chứa các giá trị được chọn
+
+  // Lấy tất cả các checkbox "Seats" đã được chọn
+  $("input[name='seats']:checked").each(function () {
+      selectedSeats.push($(this).val());
+  });
+
+  // Kiểm tra nếu không có giá trị được chọn
+  if (selectedSeats.length === 0) {
+      delete vehiclePagination.option.filter.seats; // Xóa filter nếu không có giá trị
+  } else {
+      vehiclePagination.option.filter.seats = selectedSeats; // Gán giá trị được chọn vào filter
+  }
+
+  // Gọi hàm cập nhật phân trang
+  vehiclePagination.getPagination(
+      vehiclePagination.option,
+      vehiclePagination.valuePage.curPage
+  );
+});
+
+// Lấy dữ liệu "Vehicle Types" được chọn
+$("input[name='vehicle_types']").change(function () {
+  let selectedTypes = []; // Mảng chứa các giá trị được chọn
+
+  // Lấy tất cả các checkbox "Vehicle Types" đã được chọn
+  $("input[name='vehicle_types']:checked").each(function () {
+      selectedTypes.push($(this).val());
+  });
+
+  // Kiểm tra nếu không có giá trị được chọn
+  if (selectedTypes.length === 0) {
+      delete vehiclePagination.option.filter.vehicleTypeID; // Xóa filter nếu không có giá trị
+  } else {
+      vehiclePagination.option.filter.vehicleTypeID = selectedTypes; // Gán giá trị được chọn vào filter
+  }
+
+  // Gọi hàm cập nhật phân trang
+  vehiclePagination.getPagination(
+      vehiclePagination.option,
+      vehiclePagination.valuePage.curPage
+  );
+});
+
 
 // $(document).on("click", ".js-detail-vehicle", function () {
 //     var vehicleId = $(this).data("id");
@@ -400,8 +484,8 @@ $(document).on("click", ".js-delete-vehicle", function () {
 //     $.ajax({
 //         url: BaseUrl + "vehicles/saveVehicleID",
 //         method: "POST",
-//         data: { 
-//             vehicle_id: vehicleId 
+//         data: {
+//             vehicle_id: vehicleId
 //         },
 //         dataType: "json",
 //         success: function (response) {
@@ -425,8 +509,8 @@ vehiclePagination.option.model = "VehicleModel";
 vehiclePagination.option.limit = 10;
 vehiclePagination.option.filter = {};
 vehiclePagination.getPagination(
-vehiclePagination.option,
-vehiclePagination.valuePage.curPage
+  vehiclePagination.option,
+  vehiclePagination.valuePage.curPage
 );
 
 // Event listeners for price calculations
@@ -436,76 +520,76 @@ $("#dailyPrice, #weeklyDiscount, #monthlyDiscount").on(
 );
 
 //add
-$(document).ready(function() {
-  const $uploadInput = $('#upload-image');
-  const $previewContainer = $('#image-preview-container');
-  const $initialUpload = $('#initial-upload');
-  
+$(document).ready(function () {
+  const $uploadInput = $("#upload-image");
+  const $previewContainer = $("#image-preview-container");
+  const $initialUpload = $("#initial-upload");
+
   // Tạo container preview list nếu chưa có
-  if ($previewContainer.children('.preview-list').length === 0) {
-      $previewContainer.append($('<div>').addClass('preview-list'));
+  if ($previewContainer.children(".preview-list").length === 0) {
+    $previewContainer.append($("<div>").addClass("preview-list"));
   }
-  
-  $uploadInput.on('change', function(e) {
-      const files = e.target.files;
-      if (files.length > 0) {
-          $initialUpload.hide();
-          const $previewList = $previewContainer.find('.preview-list');
-          
-          $.each(files, function(i, file) {
-              if (!file.type.match('image.*')) return;
-              
-              const reader = new FileReader();
-              
-              reader.onload = function(event) {
-                  const $previewItem = $('<div>').addClass('preview-item');
-                  
-                  // Tạo preview và thông tin ảnh
-                  const $imageInfo = $('<div>').addClass('image-info');
-                  const $imgPreview = $('<img>').addClass('image-preview')
-                      .attr('src', event.target.result);
-                  const $imageName = $('<div>').addClass('image-name')
-                      .text(file.name);
-                  
-                  $imageInfo.append($imgPreview, $imageName);
-                  
-                  // Tạo nút action
-                  const $actionButtons = $('<div>').addClass('action-buttons');
-                  
-                  // Nút thêm ảnh
-                  const $addBtn = $('<button>')
-                      .addClass('add-btn')
-                      .html('<i class="fas fa-plus"></i> Add image')
-                      .on('click', function() {
-                          $uploadInput.click();
-                      });
-                  
-                  // Nút xóa ảnh
-                  const $deleteBtn = $('<button>')
-                      .addClass('delete-btn')
-                      .html('<i class="fas fa-times"></i> Delete')
-                      .on('click', function() {
-                          $previewItem.remove();
-                          if ($previewList.children().length === 0) {
-                              $initialUpload.show();
-                          }
-                      });
-                  
-                  $actionButtons.append($addBtn, $deleteBtn);
-                  $previewItem.append($imageInfo, $actionButtons);
-                  $previewList.append($previewItem);
-              };
-              
-              reader.readAsDataURL(file);
-          });
-          
-          // Reset input
-          $uploadInput.val('');
-      }
+
+  $uploadInput.on("change", function (e) {
+    const files = e.target.files;
+    if (files.length > 0) {
+      $initialUpload.hide();
+      const $previewList = $previewContainer.find(".preview-list");
+
+      $.each(files, function (i, file) {
+        if (!file.type.match("image.*")) return;
+
+        const reader = new FileReader();
+
+        reader.onload = function (event) {
+          const $previewItem = $("<div>").addClass("preview-item");
+
+          // Tạo preview và thông tin ảnh
+          const $imageInfo = $("<div>").addClass("image-info");
+          const $imgPreview = $("<img>")
+            .addClass("image-preview")
+            .attr("src", event.target.result);
+          const $imageName = $("<div>").addClass("image-name").text(file.name);
+
+          $imageInfo.append($imgPreview, $imageName);
+
+          // Tạo nút action
+          const $actionButtons = $("<div>").addClass("action-buttons");
+
+          // Nút thêm ảnh
+          const $addBtn = $("<button>")
+            .addClass("add-btn")
+            .html('<i class="fas fa-plus"></i> Add image')
+            .on("click", function () {
+              $uploadInput.click();
+            });
+
+          // Nút xóa ảnh
+          const $deleteBtn = $("<button>")
+            .addClass("delete-btn")
+            .html('<i class="fas fa-times"></i> Delete')
+            .on("click", function () {
+              $previewItem.remove();
+              if ($previewList.children().length === 0) {
+                $initialUpload.show();
+              }
+            });
+
+          $actionButtons.append($addBtn, $deleteBtn);
+          $previewItem.append($imageInfo, $actionButtons);
+          $previewList.append($previewItem);
+        };
+
+        reader.readAsDataURL(file);
+      });
+
+      // Reset input
+      $uploadInput.val("");
+    }
   });
-  
+
   // Click to initial upload box
-  $initialUpload.on('click', function(e) {
+  $initialUpload.on("click", function (e) {
     e.preventDefault();
     $uploadInput.click();
   });

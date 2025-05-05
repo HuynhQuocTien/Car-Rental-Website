@@ -35,6 +35,18 @@ class RentalOrderDetailModel extends Database {
     //     $stmt = $this->conn->prepare($sql);
     //     return $stmt->execute([$orderDetailId]);
     // }
+    
+    public function getAll()
+    {
+        $sql = "SELECT * FROM `RentalOrderDetails`";
+        $result = mysqli_query($this->con, $sql);
+        $rows = array();
+        while ($row = mysqli_fetch_assoc($result)) {
+            $rows[] = $row;
+        }
+        return $rows;
+    }
+
 }
 
 ?>

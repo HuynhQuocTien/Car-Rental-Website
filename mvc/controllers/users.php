@@ -9,6 +9,7 @@ class Users extends Controller {
         parent::__construct();
         $this->accountModel = $this->model("AccountModel");
         $this->userModel = $this->model("UserModel");
+        $this->RoleModel = $this->model("RoleModel");
         require_once "./mvc/core/Pagination.php";
     }
     public function default() {
@@ -173,11 +174,6 @@ class Users extends Controller {
                 'data' => $result
             ]);
         }
-    }
-    public function getQuery($filter, $input, $args, $lastURL){
-
-        $sql = $this->userModel->getQuery($filter, $input, $args, $lastURL);
-        return $sql;
     }
 
     public function getUserId() {

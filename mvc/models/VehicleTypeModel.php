@@ -4,7 +4,7 @@ class VehicleTypeModel extends Database {
 
     public function getAll()
     {
-        $sql = "SELECT * FROM `VehicleTypes`";
+        $sql = "SELECT * FROM `VehicleTypes` WHERE `Is_Delete` = 0";
         $result = mysqli_query($this->con,$sql);
         $rows = array();
         while($row = mysqli_fetch_assoc($result)) {

@@ -7,23 +7,26 @@ class Pagination {
     this.btnNextPg = this.container.querySelector("a.next-page");
     this.btnFirstPg = this.container.querySelector("a.first-page");
     this.btnLastPg = this.container.querySelector("a.last-page");
+    this.btnExitSearch = document.getElementById('btn-exit-search');
     this.searchForm =
       searchForm || document.getElementById("search-form") || null;
     this.successCallback = successCallback || renderData;
-
     this.valuePage = {
       truncate: true,
       curPage: 1,
       numLinksTwoSide: 1,
       totalPages: 0,
     };
-
+    
     this.option = {
       custom: {},
     };
-
+    
     this.container.addEventListener("click", this.containerHandler.bind(this));
     this.pg.addEventListener("click", this.listPageHandler.bind(this));
+    if (this.btnExitSearch) {
+      this.btnExitSearch.addEventListener('click', this.handleExitSearch.bind(this));
+    }
     this.searchForm?.addEventListener(
       "input",
       this.searchFormHandler.bind(this)
@@ -40,6 +43,18 @@ class Pagination {
             style ? style : ""
           } data-page="${index}">${index}</a>
       </li>`;
+  }
+  handleExitSearch(e) {
+    e.preventDefault();
+  
+    const input = this.searchForm.querySelector("#search-input");
+    input.value = "";
+    
+    delete this.option.input;
+    
+    this.valuePage.curPage = 1;
+    
+    this.getPagination(this.option, this.valuePage.curPage);
   }
 
   handleButtonLeft() {
@@ -232,6 +247,8 @@ class Pagination {
   }
 
   searchFormHandler(e) {
+    console.log(e.value);
+    
     e.preventDefault();
     const input = this.searchForm.querySelector("#search-input");
     if (input.value == "") {

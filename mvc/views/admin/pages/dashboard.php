@@ -1,4 +1,5 @@
  <!-- Hero -->
+
         <div class="content">
           <div class="d-md-flex justify-content-md-between align-items-md-center py-3 pt-md-3 pb-md-0 text-center text-md-start">
             <div>
@@ -6,7 +7,7 @@
                 Dashboard
               </h1>
               <p class="fw-medium mb-0 text-muted">
-                Welcome, admin! You have <a class="fw-medium" href="javascript:void(0)">8 new notifications</a>.
+                Welcome, admin!
               </p>
             </div>
             <div class="mt-4 mt-md-0">
@@ -15,7 +16,7 @@
               </a>
               <div class="dropdown d-inline-block">
                 <button type="button" class="btn btn-sm btn-alt-primary px-3" id="dropdown-analytics-overview" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Last 30 days <i class="fa fa-fw fa-angle-down"></i>
+                  This Week <i class="fa fa-fw fa-angle-down"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end fs-sm" aria-labelledby="dropdown-analytics-overview">
                   <a class="dropdown-item" data-range="this_week" href="javascript:void(0)">This Week</a>
@@ -40,12 +41,12 @@
                   <div class="item rounded-3 bg-body mx-auto my-3">
                     <i class="fa fa-users fa-lg text-primary"></i>
                   </div>
-                  <div class="fs-1 fw-bold">2,388</div>
+                  <div class="fs-1 fw-bold registered_users">0</div>
                   <div class="text-muted mb-3">Registered Users</div>
-                  <div class="d-inline-block px-3 py-1 rounded-pill fs-sm fw-semibold text-success bg-success-light">
+                  <!-- <div class="d-inline-block px-3 py-1 rounded-pill fs-sm fw-semibold text-success bg-success-light">
                     <i class="fa fa-caret-up me-1"></i>
                     19.2%
-                  </div>
+                  </div> -->
                 </div>
                 <div class="block-content block-content-full block-content-sm bg-body-light fs-sm">
                   <a class="fw-medium" href="javascript:void(0)">
@@ -63,10 +64,10 @@
                   </div>
                   <div class="fs-1 fw-bold active_car">0</div>
                   <div class="text-muted mb-3">Actived Car</div>
-                  <div class="d-inline-block px-3 py-1 rounded-pill fs-sm fw-semibold text-danger bg-danger-light">
+                  <!-- <div class="d-inline-block px-3 py-1 rounded-pill fs-sm fw-semibold text-danger bg-danger-light">
                     <i class="fa fa-caret-down me-1"></i>
                     2.3%
-                  </div>
+                  </div> -->
                 </div>
                 <div class="block-content block-content-full block-content-sm bg-body-light fs-sm">
                   <a class="fw-medium" href="javascript:void(0)">
@@ -84,10 +85,10 @@
                   </div>
                   <div class="fs-1 fw-bold total_rental">386</div>
                   <div class="text-muted mb-3">Total Rental</div>
-                  <div class="d-inline-block px-3 py-1 rounded-pill fs-sm fw-semibold text-success bg-success-light">
+                  <!-- <div class="d-inline-block px-3 py-1 rounded-pill fs-sm fw-semibold text-success bg-success-light">
                     <i class="fa fa-caret-up me-1"></i>
                     7.9%
-                  </div>
+                  </div> -->
                 </div>
                 <div class="block-content block-content-full block-content-sm bg-body-light fs-sm">
                   <a class="fw-medium" href="javascript:void(0)">
@@ -105,10 +106,10 @@
                   </div>
                   <div class="fs-1 fw-bold total_earn">$4,920</div>
                   <div class="text-muted mb-3">Total Earnings</div>
-                  <div class="d-inline-block px-3 py-1 rounded-pill fs-sm fw-semibold text-danger bg-danger-light">
+                  <!-- <div class="d-inline-block px-3 py-1 rounded-pill fs-sm fw-semibold text-danger bg-danger-light">
                     <i class="fa fa-caret-down me-1"></i>
                     0.3%
-                  </div>
+                  </div> -->
                 </div>
                 <div class="block-content block-content-full block-content-sm bg-body-light fs-sm">
                   <a class="fw-medium" href="javascript:void(0)">
@@ -136,10 +137,12 @@
                 </button>
               </div>
             </div>
-            <div class="block-content block-content-full">
+            <div style="padding-bottom: 100px;" class="block-content block-content-full">
               <div class="row">
                 <div class="col-md-5 col-xl-4 d-md-flex align-items-md-center">
-                  <div class="p-md-2 p-lg-3">
+                  <canvas id="myChart" width="400" height="400"></canvas>
+
+                  <!-- <div class="p-md-2 p-lg-3">
                     <div class="py-3">
                       <div class="fs-1 fw-bold">1,430</div>
                       <div class="fw-semibold">Your new website Customers</div>
@@ -164,14 +167,16 @@
                         </p>
                       </div>
                     </div>
-                  </div>
+                  </div> -->
                 </div>
                 <div class="col-md-7 col-xl-8 d-md-flex align-items-md-center">
                   <div class="p-md-2 p-lg-3 w-100" style="height: 450px;">
+                    <canvas style="margin-left: 200px" id="myChart2" width="300" height="300"></canvas>
                     <!-- Bars Chart Container -->
                     <!-- Chart.js Chart is initialized in js/pages/be_pages_dashboard.min.js which was auto compiled from _js/pages/be_pages_dashboard.js -->
                     <!-- For more info and examples you can check out http://www.chartjs.org/docs/ -->
                     <canvas id="js-chartjs-analytics-bars"></canvas>
+
                   </div>
                 </div>
               </div>
@@ -186,7 +191,7 @@
               <div class="block block-rounded block-mode-loading-refresh">
                 <div class="block-header block-header-default">
                   <h3 class="block-title">
-                    Latest Orders
+                    Top 5 Car
                   </h3>
                   <div class="block-options">
                     <button type="button" class="btn-block-option" data-toggle="block-option" data-action="state_toggle" data-action-mode="demo">
@@ -197,19 +202,19 @@
                         <i class="si si-chemistry"></i>
                       </button>
                       <div class="dropdown-menu dropdown-menu-end">
-                        <a class="dropdown-item" href="javascript:void(0)">
-                          <i class="far fa-fw fa-dot-circle opacity-50 me-1"></i> Pending
+                        <a class="dropdown-item sort_list" href="javascript:void(0)" data-sort="count desc">
+                          <i class="far fa-fw fa-dot-circle opacity-50 me-1"></i> Count (giảm)
                         </a>
-                        <a class="dropdown-item" href="javascript:void(0)">
-                          <i class="far fa-fw fa-times-circle opacity-50 me-1"></i> Canceled
+                        <a class="dropdown-item sort_list" href="javascript:void(0)" data-sort="count asc">
+                          <i class="far fa-fw fa-times-circle opacity-50 me-1"></i> Count (tăng)
                         </a>
-                        <a class="dropdown-item" href="javascript:void(0)">
-                          <i class="far fa-fw fa-check-circle opacity-50 me-1"></i> Completed
+                        <a class="dropdown-item sort_list" href="javascript:void(0)" data-sort="total desc">
+                          <i class="far fa-fw fa-check-circle opacity-50 me-1"></i> Total (giảm)
+                        </a>
+                        <a class="dropdown-item sort_list" href="javascript:void(0)" data-sort="total asc">
+                          <i class="far fa-fw fa-check-circle opacity-50 me-1"></i> Total (tăng)
                         </a>
                         <div role="separator" class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="javascript:void(0)">
-                          <i class="fa fa-fw fa-eye opacity-50 me-1"></i> View All
-                        </a>
                       </div>
                     </div>
                   </div>
@@ -218,15 +223,17 @@
                   <table class="table table-striped table-hover table-borderless table-vcenter fs-sm">
                     <thead>
                       <tr class="text-uppercase">
-                        <th>Product</th>
-                        <th class="d-none d-xl-table-cell">Date</th>
-                        <th>Status</th>
-                        <th class="d-none d-sm-table-cell text-end" style="width: 120px;">Price</th>
-                        <th></th>
+                        <th class="d-sm-table-cell text-start">Car Model</th>
+                        <th class="d-none d-sm-table-cell text-center">Color</th>
+                        <th>Year</th>
+                        <th class="d-none d-sm-table-cell text-center" style="width: 120px;">Price</th>
+                        <th class="d-none d-xl-table-cell text-center" style="width: 120px;">Quantity</th>
+                        <th class="d-none d-xl-table-cell text-center" style="width: 120px;">Make Name</th>
+                        <th class="d-none d-xl-table-cell text-center" style="width: 120px;">Name Type</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
+                    <tbody class="vehicles_table">
+                      <!-- <tr>
                         <td>
                           <span class="fw-semibold">iPhone 11 Pro</span>
                         </td>
@@ -244,8 +251,9 @@
                             View
                           </a>
                         </td>
-                      </tr>
-                      <tr>
+                      </tr> -->
+
+                      <!-- <tr>
                         <td>
                           <span class="fw-semibold">MacBook Pro 15"</span>
                         </td>
@@ -264,6 +272,7 @@
                           </a>
                         </td>
                       </tr>
+
                       <tr>
                         <td>
                           <span class="fw-semibold">Nvidia GTX 2080 Ti</span>
@@ -283,6 +292,7 @@
                           </a>
                         </td>
                       </tr>
+
                       <tr>
                         <td>
                           <span class="fw-semibold">Playstation 4 Pro</span>
@@ -302,6 +312,7 @@
                           </a>
                         </td>
                       </tr>
+
                       <tr>
                         <td>
                           <span class="fw-semibold">Nintendo Switch</span>
@@ -321,6 +332,7 @@
                           </a>
                         </td>
                       </tr>
+
                       <tr>
                         <td>
                           <span class="fw-semibold">iPhone 11</span>
@@ -340,6 +352,7 @@
                           </a>
                         </td>
                       </tr>
+
                       <tr>
                         <td>
                           <span class="fw-semibold">Airpods Pro</span>
@@ -359,6 +372,7 @@
                           </a>
                         </td>
                       </tr>
+
                       <tr>
                         <td>
                           <span class="fw-semibold">Xbox One X</span>
@@ -377,7 +391,8 @@
                             View
                           </a>
                         </td>
-                      </tr>
+                      </tr> -->
+
                     </tbody>
                   </table>
                 </div>
@@ -395,8 +410,8 @@
               <div class="block block-rounded">
                 <div class="block-content block-content-full d-flex justify-content-between align-items-center flex-grow-1">
                   <div class="me-3">
-                    <p class="fs-3 fw-bold mb-0">
-                      35,698
+                    <p class="fs-3 fw-bold mb-0 complete_orders">
+                      0
                     </p>
                     <p class="text-muted mb-0">
                       Completed orders

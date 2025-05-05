@@ -23,204 +23,148 @@
                 </a>
             </div>
         </div>
+
         <div class="block-content">
-            <div class="mb-1">
+            <!-- <form id="search-inspection-form" class="mb-1 action="javascript:void(0);">
                 <input type="text" class="form-control form-control-alt" id="vehicle-query" name="vehicle-query"
                     placeholder="Search all vehicles..">
-            </div>
-            <div class="row filters_listing_1">
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="dropdown">
-                        <a href="#" data-bs-toggle="dropdown" class="drop">Categories</a>
-                        <div class="dropdown-menu">
-                            <div class="filter_type">
-                                <ul>
-                                    <li>
-                                        <label class="container_check">
-                                            Name
-                                            <input type="checkbox" name="categories" value="@c.Id">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /dropdown -->
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="dropdown">
-                        <a href="#" data-bs-toggle="dropdown" class="drop">Color</a>
-                        <div class="dropdown-menu">
-                            <div class="filter_type">
-                                <ul>
-                                    <li>
-                                        <label class="container_check">
-                                            Color
-                                            <input type="checkbox" name="colors" value="@c.Id">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /dropdown -->
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="dropdown">
-                        <a href="#" data-bs-toggle="dropdown" class="drop">Brand</a>
-                        <div class="dropdown-menu">
-                            <div class="filter_type">
-                                <ul>
-                                    <li>
-                                        <label class="container_check">
-                                            Type
-                                            <input type="checkbox" name="brands" value="@c.Id">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /dropdown -->
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="dropdown">
-                        <a href="#" data-bs-toggle="dropdown" class="drop">Price</a>
-                        <div class="dropdown-menu">
-                            <div class="filter_type">
-                                <ul>
-                                    <li>
-                                        <label class="container_check">
-                                            $0 — $50
-                                            <input type="checkbox" name="prices" value="0:50">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </li>
-                                    <li>
-                                        <label class="container_check">
-                                            $50 — $100
-                                            <input type="checkbox" name="prices" value="50:100">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </li>
-                                    <li>
-                                        <label class="container_check">
-                                            $100 — $150
-                                            <input type="checkbox" name="prices" value="100:150">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </li>
-                                    <li>
-                                        <label class="container_check">
-                                            $150 — $200
-                                            <input type="checkbox" name="prices" value="150:200">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /dropdown -->
-                </div>
-            </div>
-        </div>
-        <div class="block-content pb-3 pt-0">
-            <table class="table align-middle" id="vehicle-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Make</th>
-                        <th>Model</th>
-                        <th>Color</th>
-                        <th>VehicleType</th>
-                        <th>Status</th>
-                        <th class="text-center">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Car A</td>
-                        <td>Toyota</td>
-                        <td>Camry</td>
-                        <td>Red</td>
-                        <td>Sedan</td>
-                        <td>Available</td>
-                        <td class="text-center">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
-                                    data-bs-toggle="tooltip" aria-label="Detail" data-bs-original-title="Detail">
-                                    <i class="fa fa-eye"></i>
-                                </button>
-                                <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
-                                    data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit">
-                                    <i class="fa fa-pencil-alt"></i>
-                                </button>
-                                <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
-                                    data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete">
-                                    <i class="fa fa-times"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Car B</td>
-                        <td>Honda</td>
-                        <td>Civic</td>
-                        <td>Blue</td>
-                        <td>Sedan</td>
-                        <td>Rented</td>
-                        <td class="text-center">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
-                                    data-bs-toggle="tooltip" aria-label="Detail" data-bs-original-title="Detail">
-                                    <i class="fa fa-eye"></i>
-                                </button>
-                                <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
-                                    data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit">
-                                    <i class="fa fa-pencil-alt"></i>
-                                </button>
-                                <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
-                                    data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete">
-                                    <i class="fa fa-times"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Car C</td>
-                        <td>Ford</td>
-                        <td>Focus</td>
-                        <td>White</td>
-                        <td>Hatchback</td>
-                        <td>In Service</td>
-                        <td class="text-center">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
-                                    data-bs-toggle="tooltip" aria-label="Detail" data-bs-original-title="Detail">
-                                    <i class="fa fa-eye"></i>
-                                </button>
-                                <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
-                                    data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit">
-                                    <i class="fa fa-pencil-alt"></i>
-                                </button>
-                                <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
-                                    data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete">
-                                    <i class="fa fa-times"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            </form> -->
 
+            
+        <div class="row filters_listing_1">
+
+         
+
+            <!-- Price -->
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <label for="prices" class="form-label">Price</label>
+                <select class="form-select" id="prices" name="filter[prices][]">
+                    <option value="">All</option>
+                    <option value="0:100">$0 — $100</option>
+                    <option value="100:200">$100 — $200</option>
+                    <option value="200:500">$200 — $500</option>
+                    <option value="500:1000">$500 — $1000</option>
+                    <option value="1000:1500">$1000 — $1500</option>
+                </select>
+            </div>
+
+        </div>
+
+
+    </div>
+        <div class="block-content pb-3 pt-0">
+            <form id="vehicle-form" method="POST" action="your-action-url">
+                <table class="table align-middle" id="vehicle-table">
+                    <thead>
+                        <tr>
+                            <!-- <th>Name</th> -->
+                            <th class="text-center">OrderID</th>
+                            <th class="text-center">CustomerID</th>
+                            <th class="text-center">UserID</th>
+                            <th class="text-center">OrderDate</th>
+                            <th class="text-center">RentalDate</th>
+                            <th class="text-center">TotalAmount</th>
+                            <th class="text-center">Address</th>
+                            <th class="text-center">PromotionID</th>
+                            <th class="text-center">Status</th>
+                            <th class="text-center">PaymentID</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="list-inspection">
+                        <!-- 
+                        <tr>
+                            <td>1</td>
+                            <td>Toyota</td>
+                            <td>Corolla</td>
+                            <td>Red</td>
+                            <td>Sedan</td>
+                            <td>$50</td>
+                            <td>Available</td>
+                            <td class="text-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
+                                        data-bs-toggle="tooltip" aria-label="Detail" data-bs-original-title="Detail">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
+                                        data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit">
+                                        <i class="fa fa-pencil-alt"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
+                                        data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>2</td>
+                            <td>Honda</td>
+                            <td>Civic</td>
+                            <td>Blue</td>
+                            <td>Hatchback</td>
+                            <td>$55</td>
+                            <td>Unavailable</td>
+                            <td class="text-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
+                                        data-bs-toggle="tooltip" aria-label="Detail" data-bs-original-title="Detail">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
+                                        data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit">
+                                        <i class="fa fa-pencil-alt"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
+                                        data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>3</td>
+                            <td>Ford</td>
+                            <td>Focus</td>
+                            <td>Black</td>
+                            <td>SUV</td>
+                            <td>$60</td>
+                            <td>Available</td>
+                            <td class="text-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
+                                        data-bs-toggle="tooltip" aria-label="Detail" data-bs-original-title="Detail">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
+                                        data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit">
+                                        <i class="fa fa-pencil-alt"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
+                                        data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                         -->
+
+                    </tbody>
+                </table>
+                
+                <!-- Thêm một nút submit cho form -->
+                <!-- <div class="form-group text-center">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div> -->
+            </form>
+        </div>
+        <div class="block block-rounded pb-2 bg-body-light">
+            <div class="block-content bg-body-light">
+                <?php require "./mvc/views/admin/inc/pagination.php" ?>
+            </div>
         </div>
     </div>
 </div>
