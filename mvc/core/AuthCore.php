@@ -31,7 +31,6 @@ class AuthCore {
         $accountModel = new AccountModel();
 
         if (!$token || !$accountModel->validateToken($token)) {
-            // Token không hợp lệ hoặc hết hạn
             setcookie("token", "", time() - 3600, "/");
             if ($web[0] == "admin") {
                 header("Location:" .BASE_URL.  "/admin/auth/signin");
@@ -52,6 +51,14 @@ class AuthCore {
                 exit;
             }
         }
+    }
+    public static function checkRole($func, $permission)
+    {
+        self::checkAuthentication();
+        if (isset($_SESSION["Roles"][$func])) {
+            $valid = in_array($permission, $_SESSION["Roles"][$func]);
+        } else $valid = false;
+        return $valid;
     }
 }
 ?>

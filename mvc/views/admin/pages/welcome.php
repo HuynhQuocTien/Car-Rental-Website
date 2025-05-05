@@ -6,7 +6,7 @@
       <h3 class="block-title">Welcome!</h3>
     </div>
     <div class="block-content">
-      <h2 class="h4 mb-1">Hello <span id="employee-name">Huỳnh Quốc Tiến</span>!</h2>
+      <h2 class="h4 mb-1">Hello <span id="employee-name"><?php echo $_SESSION['FullName'] ?></span>!</h2>
       <p class="fs-sm text-muted">Wishing you an effective and enjoyable workday!</p>
     </div>
   </div>
@@ -19,8 +19,8 @@
           <div class="item item-rounded bg-primary-light mx-auto my-3">
             <i class="fa fa-user fa-2x text-primary"></i>
           </div>
-          <h4 class="fw-bold" id="user-name">Huỳnh Quốc Tiến</h4>
-          <p class="text-muted">Role: <span id="user-role">Software Engineer</span></p>
+          <h4 class="fw-bold" id="user-name"><?php echo $_SESSION['FullName'] ?></h4>
+          <p class="text-muted">Role: <span id="user-role"><?php echo $_SESSION['RoleName'] ?></span></p>
         </div>
       </div>
     </div>
@@ -31,7 +31,7 @@
             <i class="fa fa-envelope fa-2x text-success"></i>
           </div>
           <h4 class="fw-bold">Email</h4>
-          <p class="text-muted" id="user-email">quoctien01062003@gmail.com</p>
+          <p class="text-muted" id="user-email"><?php echo $_SESSION['Email'] ?></p>
         </div>
       </div>
     </div>
@@ -42,7 +42,7 @@
             <i class="fa fa-calendar-alt fa-2x text-warning"></i>
           </div>
           <h4 class="fw-bold">Join Date</h4>
-          <p class="text-muted" id="user-join-date">01/01/2024</p>
+          <p class="text-muted" id="user-join-date"><?php echo $_SESSION['CreatedAt'] ?></p>
         </div>
       </div>
     </div>

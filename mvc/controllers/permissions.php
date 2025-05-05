@@ -7,13 +7,22 @@ class Permissions extends Controller {
         require_once "./mvc/core/Pagination.php";
     }
     public function default() {
-        AuthCore::checkAuthentication();
+        if(AuthCore::checkRole(18,4)) {
         $this->view("main_layout", [
             "Title"=>"Permissions",
             "Page"=>"pages/permissions",
             "Script"=> "permissions",
+            "roles"=>$_SESSION['Roles'],
         ],
         "admin");
+        } else {
+            $this->view("single_layout", [
+                "Title"=>"403",
+                "Page"=>"pages/403",
+            ],
+            "admin");
+            exit;
+        }
     }
 
     public function renderData(){
@@ -22,8 +31,7 @@ class Permissions extends Controller {
     }
 
     public function create(){
-    // {&& AuthCore::checkPermission("nhomquyen","create")
-        if($_SERVER["REQUEST_METHOD"] == "POST" ) { 
+        if($_SERVER["REQUEST_METHOD"] == "POST" && AuthCore::checkRole(18,1) ) { 
             $name = $_POST['name'];
             $roles = $_POST['roles'];
             $result = $this->roleModel->create($name,$roles);
@@ -31,7 +39,7 @@ class Permissions extends Controller {
         }
     }
     public function update(){
-        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if($_SERVER['REQUEST_METHOD'] == 'POST' && AuthCore::checkRole(18,2)) {
             $roleID = $_POST['roleID'];
             $name = $_POST['name'];
             $roles = $_POST['roles'];
@@ -40,14 +48,13 @@ class Permissions extends Controller {
         }
     }
     public function delete(){
-        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if($_SERVER['REQUEST_METHOD'] == 'POST' && AuthCore::checkRole(18,3)) {
             $roleID = $_POST['roleID'];
             $result = $this->roleModel->delete($roleID);
             echo $result;
         }
     }
     public function get(){
-        // && AuthCore::checkPermission("nhomquyen","view")
         if($_SERVER["REQUEST_METHOD"] == "POST" ) {
             $result = $this->roleModel->get($_POST['roleID']);
             if($result){
@@ -57,6 +64,13 @@ class Permissions extends Controller {
                 $result = false;
             }
             echo json_encode($result);
+        }
+    }
+    public function getRole()
+    {
+        AuthCore::checkAuthentication();
+        if ($_SERVER["REQUEST_METHOD"] == "GET") {
+            echo json_encode($_SESSION['Roles']);
         }
     }
     public function getQuery($filter, $input, $args, $lastURL){

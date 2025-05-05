@@ -3,7 +3,7 @@
         <div class="block-header block-header-default">
             <h3 class="block-title">List Roles</h3>
             <div class="block-options">
-                <button data-function="18" data-permission="2" type="button" class="btn btn-hero btn-primary"
+                <button data-function="18" data-permission="1" type="button" class="btn btn-hero btn-primary"
                     data-bs-toggle="modal" data-bs-target="#modal-add-role"><i class="fa-regular fa-plus me-1"></i>
                     Add</button>
             </div>
@@ -11,17 +11,6 @@
         <div class="block-content">
             <div class="row justify-content-center">
                 <div class="col-md-11">
-                    <!-- <form action="be_pages_ecom_orders.html" method="POST" onsubmit="return false;">
-                        <div class="mb-4">
-                            <div class="input-group">
-                                <input type="text" class="form-control form-control-alt" id="one-ecom-orders-search"
-                                    name="one-ecom-orders-search" placeholder="Tìm kiếm nhóm quyền..">
-                                <span class="input-group-text bg-body border-0">
-                                    <i class="fa fa-search"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </form> -->
                     <div class="table-responsive">
                         <table class="table table-vcenter">
                             <thead>
