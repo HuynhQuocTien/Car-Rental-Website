@@ -2,10 +2,12 @@
 
 class Approval extends Controller {
     public $orderApprovalModel;
+    public $rentalOrderModel;
     public function __construct() {
         parent::__construct();
 
         $this->orderApprovalModel = $this->model("OrderApprovalModel");
+        $this->rentalOrderModel = $this->model("RentalOrderModel");
         
         require_once "./mvc/core/Pagination.php";
     }
@@ -18,10 +20,14 @@ class Approval extends Controller {
         "admin");
     }
     public function detail() {
+        $id = $_GET["id"];
+        $rentalOrder = $this->rentalOrderModel->getRentalOrderByID($id);
+
         $this->view("main_layout", [
-            "Title"=>"About - Car Rental",
+            "Title"=> "Detail of order " . $id,
             "Page"=>"pages/orders/detail",
-            "Script"=> "orders/detail",
+            "Script" => "orders/detail",
+            "rentalOrder" => $rentalOrder,
         ],
         "admin");
     }

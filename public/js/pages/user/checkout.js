@@ -20,15 +20,17 @@ $(document).ready(function () {
   if (!sessionStorage.getItem('checkoutCart')) {
     window.location.href = `${BaseUrl}home`; // Redirect to cart page if no items
   }
-  $('payment-cash').on('click', function () {
+  $('#payment-cash').on('click', function () {
     order.payment.paymentMethod = 0; // Cash payment method
+    console.log("order.payment.paymentMethod: ",  order.payment.paymentMethod);
   });
-  $('payment-bank').on('click', function () {
+  $('#payment-bank').on('click', function () {
     order.payment.paymentMethod = 1; // VNPAY payment method
+    console.log("order.payment.paymentMethod: ",  order.payment.paymentMethod);
   });
   $('#btnCompleteOrder').on('click', async function () { // Fixed missing '#' for button ID and added 'async'
     order.address = `${$('#checkout-street').val().trim()}, ${$('#checkout-city').val().trim()}`;
-    
+    console.log("Order details:", order);
     if(!checkLogin()) return; 
     try {
       const response = await fetch(`${BaseUrl}rentalorders/create`, {
@@ -165,6 +167,7 @@ async function loadPage() {
   let tableBody = document.querySelectorAll('#carts tbody')[0]; 
   let tableBody2 = document.querySelectorAll('#carts tbody')[1];
   let html = '';
+  console.log("checkoutCart: ", checkoutCart);
   totalPrice = 0; // Khởi tạo biến totalPrice
   for (const item of checkoutCart) {
       order.orderDetails.push({
@@ -240,10 +243,10 @@ async function getVehicleById(id) {
       console.log("Vehicle details fetched successfully:", data.data);
       return data.data;
     } else {
-      console.error("Error:", data.message);
+      console.log("Error:", data.message);
     }
   } catch (error) {
-    console.error('Error fetching vehicle details:', error);
+    console.log('Error fetching vehicle details:', error);
   }
 }
 function getCurrentDateTimeVN() {

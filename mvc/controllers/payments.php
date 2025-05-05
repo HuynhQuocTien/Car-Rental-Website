@@ -82,7 +82,7 @@ class Payments extends Controller {
     }
     public function handleVnpayReturn() {
         require_once 'config/vnpay_config.php';
-    
+        
         $inputData = [];
         foreach ($_GET as $key => $value) {
             if ($key != "vnp_SecureHash") {
@@ -92,28 +92,11 @@ class Payments extends Controller {
         ksort($inputData);
         $hashData = urldecode(http_build_query($inputData));
         $secureHash = isset($vnp_HashSecret) ? hash_hmac('sha512', $hashData, $vnp_HashSecret) : null;
-    
-        if ($secureHash === $_GET['vnp_SecureHash']) {
-            if ($_GET['vnp_ResponseCode'] == '00') {
-                // ✅ Gọi Model để update đơn hàng: đã thanh toán
-                echo json_encode([
-                    'success' => true,
-                    'message' => 'Thanh toán thành công!',
-                    'amount' => $_GET['vnp_Amount'] / 100,
-                ]);
-            } else {
-                echo json_encode([
-                    'success' => false,
-                    'message' => 'Thanh toán thất bại!',
-                    'responseCode' => $_GET['vnp_ResponseCode'],
-                ]);
-            }
-        } else {
-            echo json_encode([
-                'success' => false,
-                'message' => 'Mã bảo mật không hợp lệ!',
-            ]);
-        }
+        $this->view("main_layout", [
+            "Title" => "VNPAY Return",
+            "Page" => "vnpay-return",
+            "inputData" => $inputData,
+        ]);
     }
 
     public function vnPayReturn() {

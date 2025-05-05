@@ -203,6 +203,45 @@ $(document).ready(function () {
         $('body').css('overflow', 'auto'); // Cho phép cuộn lại sau khi thông báo xuất hiện
     });
   });
+
+  $('#bookNowBtn').click(function () {
+     // Lấy thông tin từ form
+     const vehicleId = parseInt(document.getElementById('id-save').value);
+     const quantity = parseInt(document.getElementById('rental-quantity').value);
+     const rentalOption = document.querySelector('input[name="options"]:checked').value; // hour, day, week, month
+     const pickupDate = document.getElementById('pickup-date').value;
+     const returnDate = document.getElementById('return-date').value;
+   
+     // Lấy giá theo loại thuê
+     let price = 0;
+     if (rentalOption === 'hour') {
+       price = parseFloat(document.getElementById('hourly-price').value);
+     } else if (rentalOption === 'day') {
+       price = parseFloat(document.getElementById('daily-price').value);
+     } else if (rentalOption === 'week') {
+       price = parseFloat(document.getElementById('weekly-price').value);
+     } else if (rentalOption === 'month') {
+       price = parseFloat(document.getElementById('monthly-price').value);
+     }
+ 
+     
+     userID = $('#UserID').val();
+ 
+     let carts = JSON.parse(localStorage.getItem(`carts_${userID}`)) || [];
+ 
+    const $data = [{
+        id: carts.length + 1,
+        vehicleDetailId: vehicleId,
+        quantity: quantity,
+        rentalOption: rentalOption,
+        pickupDate: pickupDate,
+        returnDate: returnDate,
+        price: price
+    }];
+
+    sessionStorage.setItem('checkoutCart', JSON.stringify($data));
+     window.location.href = BaseUrl + "checkout";
+  });
 });
 
 function checkLogin() {

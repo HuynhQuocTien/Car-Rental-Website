@@ -96,5 +96,13 @@ class Promotions extends Controller {
         $sql = $this->promotionModel->getQuery($filter, $input, $args, $lastURL);
         return $sql;
     }
+
+    public function validate() {
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $data = json_decode(file_get_contents('php://input'), true);
+            
+
+        }
+    }
 }
 ?>

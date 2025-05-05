@@ -77,5 +77,38 @@ class RentalOrders extends Controller {
             "Script" => "orders/rentalorders",
         ]);
     }
+
+    public function userOrder() {
+        $this->view("main_layout", [
+            "Title"=>"Rental Orders",
+            "Page"=>"orders",
+            "Script" => "orders",
+        ]);
+    }
+
+    public function cancelOrder() {
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $data = json_decode(file_get_contents('php://input'), true);
+            $orderId = $data['orderId'] ?? null;
+            $result = $this->rentalOrderModel->cancelRentalOrder($orderId);
+            
+            if($result) {
+                echo json_encode([
+                'success' => true,
+                'message' => 'Order canceled successfully'
+                ]);
+            } else {
+                echo json_encode([
+                'success' => false,
+                'message' => 'Failed to cancel order'
+                ]);
+            }
+        } else {
+            echo json_encode([
+            'success' => false,
+            'message' => 'Invalid request method'
+            ]);
+        }
+    }
 }
 ?>

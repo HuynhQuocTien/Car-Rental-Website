@@ -2,7 +2,7 @@ Dashmix.helpersOnLoad(['js-flatpickr', 'jq-datepicker']);
 
 const renderData = function (orderdetails) {
   if (orderdetails.length === 0) {
-      $("#list-rentalorderdetails").html('<tr><td colspan="8" class="text-center">No data available</td></tr>');
+      $("#rentalorderdetails").html('<tr><td colspan="11" class="text-center">No data available</td></tr>');
       return;
   }
   let html = "";

@@ -24,15 +24,15 @@ const renderData = function (orders) {
         <td>${order.Status == 1 ? "Chưa trả xe" : "Đã trả xe"}</td>
         <td>
           <div class="btn-group">
-            <a href="rentalorders/detail&id=${order.OrderID}" 
-              class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
-              data-bs-toggle="tooltip" aria-label="Detail" data-bs-original-title="Detail">
-              <i class="fa fa-eye"></i>
-            </a>
             <a href="javascript:void(0);"
               class="btn btn-sm btn-alt-success js-bs-tooltip-enabled js-confirm-order"
               data-bs-toggle="tooltip" aria-label="Confirm Order" data-bs-original-title="Confirm Order"  data-id="${order.OrderID}">
               <i class="fa fa-check"></i>
+            </a>
+            <a href="javascript:void(0);"
+              class="btn btn-sm btn-alt-danger js-bs-tooltip-enabled js-cancel-order"
+              data-bs-toggle="tooltip" aria-label="Cancel Order" data-bs-original-title="Cancel Order"  data-id="${order.OrderID}">
+              <i class="fa fa-times"></i>
             </a>
           </div>
         </td>
@@ -44,6 +44,7 @@ const renderData = function (orders) {
 
     // add event listener for confirm order buttons
     confirmOrderEvents();
+    cancelOrderEvents();
 };
 
 const mainPagePagination = new Pagination();
@@ -83,6 +84,31 @@ async function confirmOrder(orderId) {
   }
 }
 
+async function cancelOrder(orderId) {
+  try {
+    const response = await fetch(`${BaseUrl}/rentalorders/cancelOrder`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ orderId: orderId })
+    });
+
+    const data = await response.json();
+
+    // Kiểm tra kết quả và hiển thị thông báo
+    if (data.success) {
+      Swal.fire('Thành công', data.message, 'success');
+      mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
+    } else {
+      Swal.fire('Lỗi', data.message, 'error');
+    }
+  } catch (error) {
+    console.log('Error:', error);
+    Swal.fire('Lỗi', 'Không thể hủy đơn hàng.', 'error');
+  }
+}
+
 const confirmOrderEvents = function () {
   document.querySelectorAll('.js-confirm-order').forEach(function (button) {
     button.addEventListener('click', function () {
@@ -103,3 +129,30 @@ const confirmOrderEvents = function () {
     });
   });
 };
+
+const cancelOrderEvents = function () {
+  document.querySelectorAll('.js-cancel-order').forEach(function (button) {
+    button.addEventListener('click', function () {
+      let orderId = this.getAttribute('data-id');
+      console.log("Attach cancel events"); 
+      Swal.fire({
+        title: 'Hủy đơn hàng',
+        text: 'Bạn có chắc chắn muốn hủy đơn hàng ID: ' + orderId + ' không?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Đồng ý',
+        cancelButtonText: 'Hủy'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          cancelOrder(orderId);
+        }
+      });
+    });
+  });
+};
+
+// <a href="approval/detail&id=${order.OrderID}" 
+//   class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
+//   data-bs-toggle="tooltip" aria-label="Detail" data-bs-original-title="Detail">
+//   <i class="fa fa-eye"></i>
+// </a>

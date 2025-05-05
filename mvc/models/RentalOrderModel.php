@@ -117,5 +117,12 @@ class RentalOrderModel extends Database {
         WHERE o.OrderID = ?
     ";
     }
+
+    public function cancelRentalOrder($orderId) {
+        $stmt = $this->con->prepare("UPDATE `RentalOrders` SET `Status` = -1 WHERE `OrderID` = ?");
+        $stmt->bind_param("i", $orderId);
+        $stmt->execute();
+        return $stmt->affected_rows > 0;
+    }
 }
 ?>

@@ -9,7 +9,7 @@ class OrderApprovalModel extends Database {
         $query = "SELECT o.*, c.FullName, pm.PaymentMethod FROM `RentalOrders` o
             LEFT JOIN `Customers` c ON o.CustomerID = c.CustomerID
             LEFT JOIN `Payments` pm ON o.PaymentID = pm.PaymentID
-            WHERE o.UserID IS NULL
+            WHERE o.UserID IS NULL AND o.Status != -1
         ";
         if ($input) {
             $query = $query . " AND c.FullName LIKE '%{$input}%' OR 
