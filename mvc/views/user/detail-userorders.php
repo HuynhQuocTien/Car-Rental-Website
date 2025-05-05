@@ -5,7 +5,7 @@
             <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3"><?php echo $data['Title'] ?></h1>
             <nav class="flex-shrink-0 my-2 my-sm-0 ms-sm-3" aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item">Orders</li>
+                    <li class="breadcrumb-item">Management</li>
                     <li class="breadcrumb-item active" aria-current="page"><?php echo $data['Title'] ?></li>
                 </ol>
             </nav>
@@ -15,23 +15,10 @@
 <div class="content">
     <div class="block block-rounded">
         <div class="block-header block-header-default">
-            <h3 class="block-title">Orders History</h3>
-            <!-- <div class="block-options">
-                <a class="btn btn-hero btn-primary" asp-action="Create">
-                    <i class="fa-regular fa-plus"></i> Add
-                </a>
-            </div> -->
+            <h3 class="block-title">List Rental Orders</h3>
         </div>
-        <!-- <div class="block-content">
+        <div class="block-content">
             <div class="row mb-1">
-                <div class="col-2">
-                    <select id="order-status" class="form-select" aria-label="Filters">
-                        <option value="-2" selected>All</option>
-                        <option value="-1">Canceled</option>
-                        <option value="0">Unconfirmed</option>
-                        <option value="1">Confirmed</option>
-                    </select>
-                </div>
                 <div class="col-4">
                     <div class="input-group flex-nowrap">
                         <span class="input-group-text" id="addon-wrapping"><i class="fa fa-fw fa-search"></i></span>
@@ -48,29 +35,37 @@
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
         <div class="block-content pb-4">
                 <table class="table table-striped table-vcenter fs-sm" id="model-table">
                     <thead>
                         <tr>
-                            <th style="width: 100px;">ID</th>
-                            <th>Customer</th>
-                            <th>Payment Method</th>
-                            <th>Order Date</th>
-                            <th>Rental Date</th>
+                            <th>#</th>
+                            <th>ID</th>
+                            <th>Vehicle Name</th>
+                            <th>Color</th>
+                            <th>License Plate Number</th>
+                            <th>Rental Type</th>
+
+                            <th>Return Date</th>
+                            <th>Actual Return Date</th>
                             <!-- <th>Shipping Method</th> -->
-                            <th>Total</th>
-                            <th>Address</th>
+                            <th>Damage Penalty</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="userOrders">
+                    <tbody id="rentalorderdetails">
                         <!-- Rental Orders will be loaded here via AJAX -->
                         <!-- Example Row
                         -->
                     </tbody>
                 </table>
+        </div>
+        <div class="block block-rounded pb-2 bg-body-light">
+            <div class="block-content bg-body-light">
+                <?php require "./mvc/views/admin/inc/pagination.php" ?>
+            </div>
         </div>
     </div>
 </div>

@@ -10,8 +10,8 @@ let order = {
   paymentId: null, // Placeholder for payment ID
   orderDetails: [],
   payment: {
-    paymentDate: null,
-    paymentMethod: 0,
+    paymentDate: getCurrentDateTimeVN(),
+    paymentMethod: null,
     amount: 0, // Payment amount
     status: 0 // Payment status (0: Unpaid, 1: Paid)
   }
@@ -29,6 +29,7 @@ $(document).ready(function () {
     console.log("order.payment.paymentMethod: ",  order.payment.paymentMethod);
   });
   $('#btnCompleteOrder').on('click', async function () { // Fixed missing '#' for button ID and added 'async'
+    if (!checkBeforeSubmit()) return; // Check before submitting the order
     order.address = `${$('#checkout-street').val().trim()}, ${$('#checkout-city').val().trim()}`;
     console.log("Order details:", order);
     if(!checkLogin()) return; 
@@ -299,4 +300,19 @@ async function vnPay(orderId, amount) {
   } else {
     window.location.href = responseData.redirectUrl; // Redirect to VNPAY payment page
   }
+}
+
+function checkBeforeSubmit() {
+  const address = $('#checkout-street').val().trim();
+  const city = $('#checkout-city').val().trim();
+  const paymentMethod = order.payment.paymentMethod;
+  if (!address || !city) {
+    Swal.fire({ title: "Error", text: "Please enter your address and city", icon: "error" });
+    return false;
+  }
+  if (paymentMethod === null) {
+    Swal.fire({ title: "Error", text: "Please select a payment method", icon: "error" });
+    return false;
+  }
+  return true;
 }
