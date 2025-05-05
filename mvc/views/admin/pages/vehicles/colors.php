@@ -51,7 +51,7 @@
         <div class="block-header block-header-default">
             <h3 class="block-title">List Colors</h3>
             <div class="block-options">
-                <a class="btn btn-hero btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#addColorModal">
+                <a class="btn btn-hero btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#addColorModal"  data-function="6" data-permission="1">
                     <i class="fa-regular fa-plus"></i> Add
                 </a>
             </div>
@@ -81,7 +81,7 @@
                         <th style="width: 75%">
                             Name
                         </th>
-                        <th class="text-center">Action</th>
+                        <th class="text-center col-header-action">Action</th>
                     </tr>
                 </thead>
                 <tbody id="list-color">

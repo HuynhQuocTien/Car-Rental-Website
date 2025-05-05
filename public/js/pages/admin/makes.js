@@ -33,16 +33,16 @@ const renderData = function (makes) {
         <td>${make.MakeID}</td>
         <td>${make.MakeName}</td>
         <td>${make.Country}</td>
-        <td class="text-center">
+        <td class="text-center col-action">
           <div class="btn-group">
-            <button class="btn btn-sm btn-alt-secondary js-edit" 
+            <button class="btn btn-sm btn-alt-secondary js-edit"  data-function="7" data-permission="2"
                     data-id="${make.MakeID}"
                     data-name="${make.MakeName}"
                     data-country="${make.Country}"
                     title="Edit">
               <i class="fa fa-pencil-alt"></i>
             </button>
-            <button class="btn btn-sm btn-alt-secondary js-delete" 
+            <button class="btn btn-sm btn-alt-secondary js-delete"  data-function="7" data-permission="3"
                     data-id="${make.MakeID}"
                     title="Delete">
               <i class="fa fa-times"></i>

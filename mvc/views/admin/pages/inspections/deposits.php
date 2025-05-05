@@ -34,7 +34,7 @@
                         <th style="width: 75%">
                             Name
                         </th>
-                        <th class="text-center">Action</th>
+                        <th class="text-center col-header-action">Action</th>
                     </tr>
                 </thead>
             </table>

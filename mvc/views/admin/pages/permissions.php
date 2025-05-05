@@ -158,7 +158,7 @@
                                     <input class="form-check-input" type="checkbox" name="models" value="3" data-id="8">
                                 </td>
                             </tr>
-                            <tr>
+                            <!-- <tr>
                                 <td>Rental Orders</td>
                                 <td class="text-center">
                                     <input type="checkbox" class="check-all-row form-check-input">
@@ -175,7 +175,7 @@
                                 <td class="text-center">
                                     &nbsp;
                                 </td>
-                            </tr>
+                            </tr> -->
                             <tr>
                                 <td>Inspections</td>
                                 <td class="text-center">
@@ -212,7 +212,7 @@
                                     <input class="form-check-input" type="checkbox" name="damagetypes" value="3" data-id="11">
                                 </td>
                             </tr>
-                            <tr>
+                            <!-- <tr>
                                 <td>Deposits</td>
                                 <td class="text-center">
                                     <input type="checkbox" class="check-all-row form-check-input">
@@ -229,7 +229,7 @@
                                 <td class="text-center">
                                     <input class="form-check-input" type="checkbox" name="deposits" value="3" data-id="12">
                                 </td>
-                            </tr> 
+                            </tr>  -->
                             <tr>                                
                                 <td>Promotions</td>
                                 <td class="text-center">
@@ -316,9 +316,9 @@
                             <label class="form-check-label" for="approval">Approval Order</label>
                         </div>
                         <div class="col-4 form-check form-switch d-flex justify-content-center gap-2">
-                            <input class="form-check-input" type="checkbox" value="6" id="inspector"  data-id="3"
-                                name="inspector">
-                            <label class="form-check-label" for="inspector">Inspector Vehicle</label>
+                            <input class="form-check-input" type="checkbox" value="4" id="rentalorders"  data-id="9"
+                                name="rentalorders">
+                            <label class="form-check-label" for="rentalorders">Rental Orders</label>
                         </div>
                     </div>
                 </form>

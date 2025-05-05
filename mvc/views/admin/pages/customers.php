@@ -20,7 +20,7 @@
         <div class="block-header block-header-default">
             <h3 class="block-title">List Customer</h3>
             <div class="block-options">
-                <button type="button" class="btn btn-hero btn-primary me-2" data-bs-toggle="modal"
+                <button type="button" class="btn btn-hero btn-primary me-2" data-bs-toggle="modal" data-function="17" data-permission="1"
                         data-bs-target="#modal-customer" id="btn-add">
                     Add Customer
                 </button>
@@ -40,7 +40,7 @@
                             <th class="d-sm-table-cell">Gender</th>
                             <th class="d-lg-table-cell">Status</th>
                             <th class="d-lg-table-cell">Total Ordered</th>
-                            <th class="text-center" style="width: 80px;">Actions</th>
+                            <th class="text-center col-header-action" style="width: 80px;">Actions</th>
                         </tr>
                     </thead>
                     <tbody id="listCustomer">

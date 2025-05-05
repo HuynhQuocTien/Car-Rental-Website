@@ -66,40 +66,18 @@
             <h3 class="block-title">List Vehicle Types</h3>
             <div class="block-options">
                 <button class="btn btn-hero btn-primary btn-add" data-bs-toggle="modal"
-                    data-bs-target="#addVehicleTypeModal">
+                    data-bs-target="#addVehicleTypeModal" data-function="5" data-permission="1">
                     <i class="fa-regular fa-plus"></i> Add
                 </button>
             </div>
-            <div class="block-options ">
-                <button class="btn btn-hero btn-primary btn-import">
-                <i class="fa fa-download"></i> Import
-                </button>
-            </div>
-            <div class="block-options ">
-                <button class="btn btn-hero btn-primary btn-export" >
-                    <i class="fa fa-upload"></i> Export
-                </button>
-            </div>
         </div>
-        <!-- <div class="block-content bg-body-light">
-            <form action="#" id="search-form" onsubmit="return false;">
-                <div class="row mb-4">
-                    <div class="input-group justify-content-center">
-                        <div class="col-md-6 d-flex gap-3">
-                            <input type="text" class="form-control form-control-alt" id="search-input"
-                                name="search-input" placeholder="Tìm kiếm người dùng...">
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div> -->
         <div class="block-content pb-4">
             <table class="table table-bordered table-striped table-vcenter" id="vehicleType-table">
                 <thead>
                     <tr>
                         <th style="width: 80px;">ID</th>
                         <th>Type Name</th>
-                        <th class="text-center">Actions</th>
+                        <th class="text-center col-header-action">Actions</th>
                     </tr>
                 </thead>
                 <tbody id="list-types">

@@ -13,7 +13,7 @@ const renderData = function (data) {
     const isEditDeleteClickable = item.Status === "2";
 
     const detailButton = isDetailClickable
-      ? `<button type="button" class="btn btn-sm btn-alt-secondary js-detail-vehicle"
+      ? `<button type="button" class="btn btn-sm btn-alt-secondary js-detail-vehicle" data-function="10" data-permission="4"
             data-id="${item.OrderDetailID}" data-bs-toggle="tooltip"
             aria-label="Detail" data-bs-original-title="Chi tiết">
             <i class="fa fa-rectangle-list"></i>
@@ -24,7 +24,7 @@ const renderData = function (data) {
         </button>`;
 
     const updateButton = isEditDeleteClickable
-      ? `<button type="button" class="btn btn-sm btn-alt-success js-update-inspection"
+      ? `<button type="button" class="btn btn-sm btn-alt-success js-update-inspection" data-function="10" data-permission="2"
             data-id="${item.OrderDetailID}" data-bs-toggle="tooltip"
             aria-label="Update" data-bs-original-title="Cập nhật">
             <i class="fa fa-pen"></i>
@@ -35,7 +35,7 @@ const renderData = function (data) {
         </button>`;
 
     const deleteButton = isEditDeleteClickable
-      ? `<button type="button" class="btn btn-sm btn-alt-danger js-delete-inspection"
+      ? `<button type="button" class="btn btn-sm btn-alt-danger js-delete-inspection" data-function="10" data-permission="3"
             data-id="${item.OrderDetailID}" data-bs-toggle="tooltip"
             aria-label="Delete" data-bs-original-title="Xóa">
             <i class="fa fa-trash"></i>
@@ -55,7 +55,7 @@ const renderData = function (data) {
       <td class="text-center">${item.MakeName}</td>
       <td class="text-center">${item.ModelName}</td>
       <td class="text-center">${item.Status}</td>
-      <td class="text-center">
+      <td class="text-center col-action">
         <div class="btn-group">
           ${detailButton}
           ${updateButton}

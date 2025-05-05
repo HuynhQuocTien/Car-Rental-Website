@@ -6,11 +6,6 @@
             <h2 class="block-header">
               Inspect Order (ID: <?php echo $data["OrderID"]?>)
             </h2>
-            <div class="">
-                <button class="btn btn-hero btn-primary btn-add">
-                    <i class="fa-regular fa-plus"></i> Add
-                </button>
-            </div>
         </div>
         <div class="block block-rounded">
     <div class="block-header block-header-default">
@@ -112,7 +107,7 @@
                     <th class="fw-semibold">Make</th>
                     <th class="fw-semibold">Model</th>
                     <th class="fw-semibold">Status</th>
-                    <th class="fw-semibold">Action</th>
+                    <th class="fw-semibold col-header-action">Action</th>
                 </tr>
             </thead>
 

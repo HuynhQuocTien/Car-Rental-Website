@@ -94,7 +94,7 @@ const renderData = function(promotions) {
       <td>${statusBadge}</td>
       <td class="text-center">
         <div class="btn-group">
-          <button class="btn btn-sm btn-alt-secondary js-detail" 
+          <button class="btn btn-sm btn-alt-secondary js-detail"  data-function="15" data-permission="4"
                   data-id="${promo.PromotionID}"
                   data-name="${promo.PromotionName}"
                   data-code="${promo.PromotionCode}"
@@ -108,7 +108,7 @@ const renderData = function(promotions) {
                   title="Show Details">
             <i class="fa fa-eye me-1"></i>
           </button>
-          <button class="btn btn-sm btn-alt-secondary js-edit" 
+          <button class="btn btn-sm btn-alt-secondary js-edit"  data-function="15" data-permission="2"
                   data-id="${promo.PromotionID}"
                   data-name="${promo.PromotionName}"
                   data-code="${promo.PromotionCode}"
@@ -122,7 +122,7 @@ const renderData = function(promotions) {
                   title="Edit">
             <i class="fa fa-pencil-alt"></i>
           </button>
-          <button class="btn btn-sm btn-alt-secondary js-delete" 
+          <button class="btn btn-sm btn-alt-secondary js-delete" data-function="15" data-permission="3"
                   data-id="${promo.PromotionID}"
                   title="Delete">
             <i class="fa fa-times"></i>

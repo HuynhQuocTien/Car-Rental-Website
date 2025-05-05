@@ -19,7 +19,7 @@
         <div class="block-header block-header-default">
             <h3 class="block-title">List Makes</h3>
             <div class="block-options">
-                <a class="btn btn-hero btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#addMakeModal">
+                <a class="btn btn-hero btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#addMakeModal"  data-function="7" data-permission="1">
                     <i class="fa-regular fa-plus"></i> Add
                 </a>
             </div>
@@ -50,7 +50,7 @@
                         <th style="width: 35%">
                             Country
                         </th>
-                        <th class="text-center" style="width: 20%">Action</th>
+                        <th class="text-center col-header-action" style="width: 20%">Action</th>
                     </tr>
                 </thead>
                 <tbody id="list-make">

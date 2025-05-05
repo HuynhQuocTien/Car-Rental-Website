@@ -20,7 +20,7 @@
             <h3 class="block-title">List <?php echo $data['Title'] ?></h3>
             <div class="block-options">
                 <button type="button" class="btn btn-hero btn-primary me-2 btn-add" data-bs-toggle="modal"
-                    data-bs-target="#addModelForm">
+                    data-bs-target="#addModelForm" data-function="11" data-permission="1">
                     Add
                 </button>
             </div>
@@ -33,7 +33,7 @@
                         <th>Damage Name</th>
                         <th>Fine Amount</th>
                         <th>Vehicle Type</th>
-                        <th class="text-center">Action</th>
+                        <th class="text-center col-header-action">Action</th>
                     </tr>
                 </thead>
                 <tbody id="list-damageTypes">

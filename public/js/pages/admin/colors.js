@@ -26,15 +26,15 @@ const renderData = function (colors) {
       html += `<tr>
         <td>${color.ColorID}</td>
         <td>${color.ColorName}</td>
-        <td class="text-center">
+        <td class="text-center col-action">
           <div class="btn-group">
-            <button class="btn btn-sm btn-alt-secondary js-edit" 
+            <button class="btn btn-sm btn-alt-secondary js-edit"  data-function="6" data-permission="2"
                     data-id="${color.ColorID}"
                     data-name="${color.ColorName}"
                     title="Edit">
               <i class="fa fa-pencil-alt"></i>
             </button>
-            <button class="btn btn-sm btn-alt-secondary js-delete" 
+            <button class="btn btn-sm btn-alt-secondary js-delete" data-function="6" data-permission="3"
                     data-id="${color.ColorID}"
                     title="Delete">
               <i class="fa fa-times"></i>

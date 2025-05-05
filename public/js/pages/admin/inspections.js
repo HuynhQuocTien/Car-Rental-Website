@@ -23,21 +23,23 @@ const renderData = function (data) {
     <td class="text-center ">${item.PromotionID ?? 'None'}</td>
     <td class="text-center ">${item.Status}</td>
     <td class="text-center ">${item.PaymentID ?? ''}</td>
-    <td class="text-center ">
+    <td class="text-center col-action ">
         <div class="btn-group">
             <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
                 data-bs-toggle="tooltip" aria-label="Detail" data-bs-original-title="Detail">
                 <a class="btn btn-sm btn-alt-secondary js-detail-vehicle"  href="${BaseUrl}inspections/inspectionOrder&id=${item.OrderID}"
                             data-id="${item.OrderID}"
                             title="Show Details">
+                            data-function="10" data-permission="4"
+                            data-function="10" data-permission="1"
                         <i class="fa fa-rectangle-list"></i>
-                    </a>
+                </a>
             </button>
-            <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
+            <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled" data-function="10" data-permission="2"
                 data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit">
                 <i class="fa fa-pencil-alt"></i>
             </button>
-            <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
+            <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled" data-function="10" data-permission="3"
                 data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete">
                 <i class="fa fa-times"></i>
             </button>

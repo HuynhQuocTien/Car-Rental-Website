@@ -166,18 +166,18 @@ const renderData = function (customers) {
           : '<span class="badge bg-danger">InActive</span>'
       }
       </td>
-      <td class="text-center">
+      <td class="text-center col-action">
         <div class="btn-group">
-          <button class="btn btn-sm btn-alt-secondary js-view-customer"
+          <button class="btn btn-sm btn-alt-secondary js-view-customer" data-function="17" data-permission="4"
                   data-id="${customer.CustomerID}" title="View details">
            <i class="fa fa-eye me-1"></i>
           </button>
-          <button class="btn btn-sm btn-alt-secondary js-edit-customer"
+          <button class="btn btn-sm btn-alt-secondary js-edit-customer" data-function="17" data-permission="2"
                   data-id="${customer.CustomerID}"
                   title="Edit">
             <i class="fa fa-pencil-alt"></i>
           </button>
-          <button class="btn btn-sm btn-alt-secondary js-delete-customer"
+          <button class="btn btn-sm btn-alt-secondary js-delete-customer" data-function="17" data-permission="3"
                   data-id="${customer.CustomerID}" data-accountid="${
       customer.AccountID
     }" title="Delete">

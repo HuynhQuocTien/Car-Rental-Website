@@ -26,15 +26,15 @@ const renderData = function (types) {
       html += `<tr>
         <td>${type.VehicleTypesID}</td>
         <td>${type.NameType}</td>
-        <td class="text-center">
+        <td class="text-center col-action">
           <div class="btn-group">
-            <button class="btn btn-sm btn-alt-secondary js-edit" 
+            <button class="btn btn-sm btn-alt-secondary js-edit" data-function="5" data-permission="2" 
                     data-id="${type.VehicleTypesID}"
                     data-name="${type.NameType}"
                     title="Edit">
               <i class="fa fa-pencil-alt"></i>
             </button>
-            <button class="btn btn-sm btn-alt-secondary js-delete" 
+            <button class="btn btn-sm btn-alt-secondary js-delete"  data-function="5" data-permission="2"
                     data-id="${type.VehicleTypesID}"
                     title="Delete">
               <i class="fa fa-times"></i>

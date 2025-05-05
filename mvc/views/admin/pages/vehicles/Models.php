@@ -71,7 +71,7 @@
         <div class="block-header block-header-default">
             <h3 class="block-title">List Models</h3>
             <div class="block-options">
-                <button class="btn btn-hero btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#addModelModal">
+                <button class="btn btn-hero btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#addModelModal" data-function="8" data-permission="1">
                     <i class="fa-regular fa-plus"></i> Add
                 </button>
             </div>
@@ -97,7 +97,7 @@
                         <th style="width: 30%;">Name</th>
                         <th style="width: 25%;">Make</th>
                         <th style="width: 20%;">Vehicle Type</th>
-                        <th class="text-center" style="width: 20%;">Action</th>
+                        <th class="text-center col-header-action" style="width: 20%;">Action</th>
                     </tr>
                 </thead>
                 <tbody id="list-model">

@@ -17,11 +17,6 @@
     <div class="block block-rounded">
         <div class="block-header block-header-default">
             <h3 class="block-title">List <?php echo $data['Title'] ?></h3>
-            <div class="block-options">
-                <a class="btn btn-hero btn-primary" asp-action="Create">
-                    <i class="fa-regular fa-plus"></i> Add
-                </a>
-            </div>
         </div>
 
         <div class="block-content">
@@ -68,7 +63,7 @@
                             <th class="text-center">PromotionID</th>
                             <th class="text-center">Status</th>
                             <th class="text-center">PaymentID</th>
-                            <th class="text-center">Action</th>
+                            <th class="text-center col-header-action">Action</th>
                         </tr>
                     </thead>
                     <tbody id="list-inspection">

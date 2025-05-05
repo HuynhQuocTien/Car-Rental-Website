@@ -40,9 +40,9 @@ Dashmix.onLoad((() => class {
         <td>${model.ModelName}</td>
         <td>${model.MakeName}</td>
         <td>${model.NameType}</td>
-        <td class="text-center">
+        <td class="text-center col-action">
           <div class="btn-group">
-            <button class="btn btn-sm btn-alt-secondary js-edit" 
+            <button class="btn btn-sm btn-alt-secondary js-edit"  data-function="8" data-permission="2"
                     data-id="${model.ModelID}"
                     data-name="${model.ModelName}"
                     data-makeid="${model.MakeID}"
@@ -51,7 +51,7 @@ Dashmix.onLoad((() => class {
                     title="Edit">
               <i class="fa fa-pencil-alt"></i>
             </button>
-            <button class="btn btn-sm btn-alt-secondary js-delete" 
+            <button class="btn btn-sm btn-alt-secondary js-delete" data-function="8" data-permission="3"
                     data-id="${model.ModelID}"
                     title="Delete">
               <i class="fa fa-times"></i>

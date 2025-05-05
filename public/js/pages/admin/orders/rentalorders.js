@@ -19,9 +19,9 @@ const renderData = function (orders) {
         <td>${order.TotalAmount}</td>
         <td>${order.Address}</td>
         <td>${order.UserID == null ? "Chưa xác nhận" : order.Status == 0 ? "Chưa trả xe" : "Đã trả xe"}</td>
-        <td>
+        <td class="text-center col-action">
           <div class="btn-group">
-            <a href="rentalorders/detail?id=${order.OrderID}" 
+            <a href="rentalorders/detail?id=${order.OrderID}" data-function="9" data-permission="4"
               class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
               data-bs-toggle="tooltip" aria-label="Detail" data-bs-original-title="Detail">
               <i class="fa fa-eye"></i>

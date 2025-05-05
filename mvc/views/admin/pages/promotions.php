@@ -112,7 +112,7 @@
         <div class="block-header block-header-default">
             <h3 class="block-title">List Models</h3>
             <div class="block-options">
-                <button class="btn btn-hero btn-primary btn-add" data-bs-toggle="modal"
+                <button class="btn btn-hero btn-primary btn-add" data-bs-toggle="modal" data-function="15" data-permission="1"
                     data-bs-target="#addPromotionModal">
                     <i class="fa-regular fa-plus"></i> Add
                 </button>
@@ -144,7 +144,7 @@
                         <th class="text-center">Date Start</th>
                         <th class="text-center">Date End</th>
                         <th class="text-center">Status</th>
-                        <th class="text-center">Action</th>
+                        <th class="text-center col-header-action">Action</th>
                     </tr>
                 </thead>
                 <tbody id="list-promotions">

@@ -108,17 +108,17 @@ const renderData = function (vehicles) {
                 : '<span class="badge bg-danger">InActive</span>'
             }
           </td>
-          <td class="text-center">
+          <td class="text-center col-action">
             <div class="btn-group">
-              <button class="btn btn-sm btn-alt-secondary js-detail-vehicle" 
+              <button class="btn btn-sm btn-alt-secondary js-detail-vehicle" data-function="4" data-permission="4"
                       data-id="${vehicle.VehicleDetailID}" title="Show Details">
-                <i class="fa fa-eye me-1"></i>
+                <i class="fa fa-eye me-1"></i> 
               </button>
-              <button class="btn btn-sm btn-alt-secondary js-edit-vehicle" 
+              <button class="btn btn-sm btn-alt-secondary js-edit-vehicle" data-function="4" data-permission="2"
                       data-id="${vehicle.VehicleDetailID}" title="Edit">
                 <i class="fa fa-pencil-alt"></i>
               </button>
-              <button class="btn btn-sm btn-alt-secondary js-delete-vehicle" 
+              <button class="btn btn-sm btn-alt-secondary js-delete-vehicle" data-function="4" data-permission="3"
                       data-id="${vehicle.VehicleDetailID}" title="Delete">
                 <i class="fa fa-times"></i>
               </button>

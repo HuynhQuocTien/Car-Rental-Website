@@ -142,12 +142,12 @@
         <div class="block-header block-header-default">
             <h3 class="block-title">List <?php echo $data['Title'] ?></h3>
             <div class="block-options">
-                <button class="btn btn-hero btn-primary btn-add" data-bs-toggle="modal"
+                <button class="btn btn-hero btn-primary btn-add" data-bs-toggle="modal" data-function="4" data-permission="1"
                     data-bs-target="#addVehicleModal">
                     <i class="fa-regular fa-plus"></i> Add
                 </button>
             </div>
-            <div class="block-options ">
+            <!-- <div class="block-options ">
                 <button class="btn btn-hero btn-primary btn-import">
                     <i class="fa fa-download"></i> Import
                 </button>
@@ -156,7 +156,7 @@
                 <button class="btn btn-hero btn-primary btn-export">
                     <i class="fa fa-upload"></i> Export
                 </button>
-            </div>
+            </div> -->
         </div>
         <div class="block-content">
             <!-- <form action="" id="search-form">

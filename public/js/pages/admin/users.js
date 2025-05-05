@@ -168,17 +168,17 @@ const renderData = function (users) {
           : '<span class="badge bg-danger">InActive</span>'
       }
                 </td>
-      <td class="text-center">
+      <td class="text-center col-action">
         <div class="btn-group">
-          <button class="btn btn-sm btn-alt-secondary js-view-user"
+          <button class="btn btn-sm btn-alt-secondary js-view-user" data-function="16" data-permission="4"
                   data-id="${user.UserID}" title="View details">
            <i class="fa fa-eye me-1"></i>
           </button>
-          <button class="btn btn-sm btn-alt-secondary js-edit-user"
+          <button class="btn btn-sm btn-alt-secondary js-edit-user" data-function="16" data-permission="2"
                   data-id="${user.UserID}" title="Edit">
             <i class="fa fa-pencil-alt"></i>
           </button>
-          <button class="btn btn-sm btn-alt-secondary js-delete-user"
+          <button class="btn btn-sm btn-alt-secondary js-delete-user" data-function="16" data-permission="3"
                   data-id="${user.UserID}" data-accountid="${
       user.AccountID
     }" title="Delete">

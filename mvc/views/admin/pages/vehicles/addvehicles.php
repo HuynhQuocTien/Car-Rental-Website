@@ -7,7 +7,7 @@
                 <?php echo $data['Vehicle']['MakeName'] . " - " . $data['Vehicle']['ModelName'] . " ( " . $data['Vehicle']['NameType'] . ")" ?>
             </h2>
             <div class="">
-                <button class="btn btn-hero btn-primary btn-add">
+                <button class="btn btn-hero btn-primary btn-add" data-function="4" data-permission="1">
                     <i class="fa-regular fa-plus"></i> Add
                 </button>
             </div>

@@ -21,7 +21,7 @@
             <h3 class="block-title">User List</h3>
             <div class="block-options">
                 <button type="button" class="btn btn-hero btn-primary me-2" data-bs-toggle="modal"
-                    data-bs-target="#addModelForm" id="btn-add" data-role="add">
+                    data-bs-target="#addModelForm" id="btn-add" data-function="16" data-permission="1">
                     Add User
                 </button>
             </div>
@@ -47,7 +47,7 @@
                             </th>
                             <th class="d-none d-lg-table-cell">Role</th>
                             <th class="d-none d-lg-table-cell">Status</th>
-                            <th class="text-center" style="width: 80px;">Actions</th>
+                            <th class="text-center col-header-action" style="width: 80px;">Actions</th>
                         </tr>
                     </thead>
                     <tbody id="listUser">

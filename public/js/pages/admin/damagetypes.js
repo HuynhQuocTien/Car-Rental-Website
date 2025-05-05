@@ -35,9 +35,9 @@ const renderData = function (data) {
         <td>${item.DamageName}</td>
         <td>${item.FineAmount}</td>
         <td>${nameType}</td>
-        <td class="text-center">
+        <td class="text-center col-action">
           <div class="btn-group">
-          <button class="btn btn-sm btn-alt-secondary js-view"
+          <button class="btn btn-sm btn-alt-secondary js-view" data-function="11" data-permission="4"
                   data-id="${item.DamageTypeID}"
                   data-name="${item.DamageName}"
                   data-fine="${item.FineAmount}"
@@ -45,7 +45,7 @@ const renderData = function (data) {
                   title="View details">
            <i class="fa fa-eye me-1"></i>
           </button>
-            <button class="btn btn-sm btn-alt-secondary js-edit" 
+            <button class="btn btn-sm btn-alt-secondary js-edit" data-function="11" data-permission="2"
                     data-id="${item.DamageTypeID}"
                     data-name="${item.DamageName}"
                     data-fine="${item.FineAmount}"
@@ -53,7 +53,7 @@ const renderData = function (data) {
                     title="Edit">
               <i class="fa fa-pencil-alt"></i>
             </button>
-            <button class="btn btn-sm btn-alt-secondary js-delete" 
+            <button class="btn btn-sm btn-alt-secondary js-delete" data-function="11" data-permission="3"
                     data-id="${item.DamageTypeID}"
                     title="Delete">
               <i class="fa fa-times"></i>
