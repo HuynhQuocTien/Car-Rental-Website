@@ -2,12 +2,10 @@
 
 class RentalOrders extends Controller {
     public $rentalOrderModel;
-    public $orderApprovalModel;
     public $orderDetailModel;
     public function __construct() {
         parent::__construct();
         $this->rentalOrderModel = $this->model("RentalOrderModel");
-        $this->orderApprovalModel = $this->model("OrderApprovalModel");
         $this->orderDetailModel = $this->model("OrderDetailModel");
         require_once "./mvc/core/Pagination.php";
     }
@@ -79,10 +77,15 @@ class RentalOrders extends Controller {
     }
 
     public function userOrder() {
+        $accountToken = $_COOKIE['token'];
+        $userId = $this->rentalOrderModel->getCustomerIDbyToken($accountToken);
+        $order = $this->rentalOrderModel->getOrderByCustomerId($userId);
+        var_dump($order);
         $this->view("main_layout", [
             "Title"=>"Rental Orders",
             "Page"=>"orders",
             "Script" => "orders",
+            "order"=> $order,
         ]);
     }
 

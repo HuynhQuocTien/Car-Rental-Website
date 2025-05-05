@@ -242,14 +242,6 @@
                     </div>
                     </td>
                 </tr>
-                <tr>
-                  <td class="ps-0 fw-medium">Discount</td>
-                  <td id="discount-value" class="pe-0 fw-medium text-end">$0.00</td>
-                </tr>
-                <tr>
-                  <td class="ps-0 fw-medium">Total</td>
-                  <td id="total-value" class="pe-0 fw-bold text-end">$0.00</td>
-                </tr>
 
               </table>
             </div>

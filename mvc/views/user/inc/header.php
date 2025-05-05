@@ -305,7 +305,7 @@
                             <i class="fa fa-fw fa-user opacity-50 ms-1"></i>
                         </a>
                         <a class="dropdown-item d-flex justify-content-between align-items-center"
-                            href="rentalorders">
+                            href="userorders">
                             Orders
                             <div>
                                 <span class="badge rounded-pill bg-primary"></span>

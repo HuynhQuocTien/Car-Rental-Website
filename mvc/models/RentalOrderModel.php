@@ -126,23 +126,13 @@ class RentalOrderModel extends Database {
         return $result->fetch_assoc();
     }
 
-    public function getOrderByCustomerId($id) {
-        $query = "SELECT o.*, MakeName, ColorName, ModelName, NameType FROM `RentalOrders` o 
-        LEFT JOIN `VehicleDetails` vd ON vd.VehicleDetailID = o.VehicleDetailID
-        LEFT JOIN `Vehicles` v ON vd.VehicleID = v.VehicleID
-        LEFT JOIN `Colors` c ON c.ColorID = vd.ColorID
-        LEFT JOIN `Makes` m ON m.MakeID = v.MakeID
-        LEFT JOIN `Models` mo ON mo.ModelID = v.ModelID 
-        LEFT JOIN `VehicleTypes` vt ON vt.VehicleTypesID = v.VehicleTypesID
-        WHERE o.OrderID = ?
-    ";
-    }
-
     public function cancelRentalOrder($orderId) {
         $stmt = $this->con->prepare("UPDATE `RentalOrders` SET `Status` = -1 WHERE `OrderID` = ?");
         $stmt->bind_param("i", $orderId);
         $stmt->execute();
         return $stmt->affected_rows > 0;
     }
+
+
 }
 ?>
