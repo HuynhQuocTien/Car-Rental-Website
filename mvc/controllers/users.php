@@ -186,5 +186,13 @@ class Users extends Controller {
             ]);
         }
     }
+
+    public function rentalorders() {
+        $this->view("main_layout", [
+            "Title"=>"Orders history",
+            "Page"=>"orders",
+            "Script"=>"orders",
+        ]);
+    }
 }
 ?>

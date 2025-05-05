@@ -9,9 +9,29 @@ class RentalOrderModel extends Database {
             LEFT JOIN `Customers` c ON o.CustomerID = c.CustomerID
             LEFT JOIN `Payments` pm ON o.PaymentID = pm.PaymentID
         ";
-        // if ($input) {
-        //     $query = $query . " AND (p.PromotionName LIKE '%{$input}%')";
-        // }
+        $query .= " WHERE o.Status != -2"; // Trạng thái không phải đã hủy
+         if(isset($filter) && !empty($filter)) {
+             // Lọc theo ngày đặt hàng
+             if (!empty($filter['orderDate']['from']) && !empty($filter['orderDate']['to'])) {
+                $fromDate = date('Y-m-d', strtotime($filter['orderDate']['from']));
+                $toDate = date('Y-m-d', strtotime($filter['orderDate']['to']));
+            
+                $query .= " AND o.OrderDate BETWEEN '$fromDate' AND '$toDate'";
+            }
+
+            if (!empty($filter['id'])) {
+                $id = $filter['id'];
+                $query .= " AND o.OrderID = " . intval($id);
+            }
+
+            if (!empty($filter['address'])) {
+                $address = addslashes($filter['address']);
+                $query .= " AND o.Address LIKE '%$address%'";
+            }
+           
+
+        }
+
         $query = $query . " ORDER BY o.OrderID  ASC";
         return $query;
     } 

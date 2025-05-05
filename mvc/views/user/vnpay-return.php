@@ -70,9 +70,3 @@
                     </label>
                 </div> 
             </div>
-            <p>
-                &nbsp;
-            </p>
-            <footer class="footer">
-                   <p>&copy; VNPAY <?php echo date('Y')?></p>
-            </footer>

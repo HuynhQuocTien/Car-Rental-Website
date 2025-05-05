@@ -188,7 +188,7 @@ async function loadPage() {
     html += `
       <tr>
         <td class="ps-0">
-          <a class="fw-semibold" href="javascript:void(0)">
+          <a class="fw-semibold" href="${BaseUrl}vehicles/viewDetail&id=">
             ${vehicle.MakeName} ${vehicle.ModelName} (${vehicle.Seats} seats)
           </a>
           <div class="fs-sm text-muted">Color: ${vehicle.ColorName}</div>

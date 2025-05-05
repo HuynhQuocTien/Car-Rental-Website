@@ -32,10 +32,15 @@
                         <option value="1">Confirmed</option>
                     </select>
                 </div>
-                <div class="col-4">
+                <div class="col-1">
                     <div class="input-group flex-nowrap">
                         <span class="input-group-text" id="addon-wrapping"><i class="fa fa-fw fa-search"></i></span>
-                        <input type="text" class="form-control" id="order-query" name="order-query" placeholder="Search all orders..">
+                        <input type="text" class="form-control" id="order-query-id" name="order-query-id" placeholder="id..">
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="input-group flex-nowrap">
+                        <input type="text" class="form-control" id="order-query-address" name="order-query-address" placeholder="Search orders by address..">
                     </div>
                 </div>
                 <div class="col-6">

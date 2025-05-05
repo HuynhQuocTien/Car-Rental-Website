@@ -3,7 +3,7 @@ Dashmix.helpersOnLoad(['js-flatpickr', 'jq-datepicker']);
 const renderData = function (orders) {
     console.log(orders);
     if (orders.length === 0) {
-        $("#list-rentalOrders").html('<tr><td colspan="8" class="text-center">No data available</td></tr>');
+        $("#list-rentalOrders").html('<tr><td colspan="9" class="text-center">No data available</td></tr>');
         return;
     }
     let html = "";
@@ -36,9 +36,61 @@ const renderData = function (orders) {
 };
 
 
-const mainPagePagination = new Pagination();
-mainPagePagination.option.controller = "rentalorders";
-mainPagePagination.option.model = "RentalOrderModel";
-mainPagePagination.option.limit = 10;
-mainPagePagination.option.filter = {};
-mainPagePagination.getPagination(mainPagePagination.option, mainPagePagination.valuePage.curPage);
+const ordersPagination = new Pagination();
+ordersPagination.option.controller = "rentalorders";
+ordersPagination.option.model = "RentalOrderModel";
+ordersPagination.option.limit = 10;
+ordersPagination.option.filter = {};
+ordersPagination.getPagination(ordersPagination.option, ordersPagination.valuePage.curPage);
+
+$("#order-query-id").on("input", function () {
+  const id = $(this).val();
+
+  if (!id) {
+    delete ordersPagination.option.filter.id;
+  } else {
+    ordersPagination.option.filter.id = +id;
+  }
+
+  ordersPagination.getPagination(
+    ordersPagination.option,
+    ordersPagination.valuePage.curPage
+  );
+});
+
+$("#order-query-address").on("input", function () {
+  const address = $(this).val();
+
+  if (!address) {
+    delete ordersPagination.option.filter.address;
+  } else {
+    ordersPagination.option.filter.address = +address;
+  }
+
+  ordersPagination.getPagination(
+    ordersPagination.option,
+    ordersPagination.valuePage.curPage
+  );
+});
+
+$("#order-start-time, #order-end-time")
+  .datepicker({
+    format: "mm/dd/yyyy",
+    autoclose: true,
+    todayHighlight: true,
+  })
+  .on("changeDate", function () {
+    const fromDate = $("#order-start-time").val();
+    const toDate = $("#order-end-time").val();
+
+    if (fromDate && toDate) {
+     ordersPagination.option.filter.orderDate = {
+        from: fromDate,
+        to: toDate,
+      };
+     ordersPagination.getPagination(
+       ordersPagination.option,
+       ordersPagination.valuePage.curPage
+      );
+    }
+});

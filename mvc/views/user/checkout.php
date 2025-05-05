@@ -234,15 +234,13 @@
                   </tr> -->
                 </tbody>
                 <tr>
-                  <td class="ps-0 fw-medium">Promotion</td>
-                  <td class="pe-0 fw-medium text-end">
-                  <select id="promotion" name="promotion" class="form-select" onchange="applyPromotion()">
-                    <option value="" selected>Choose Promotion</option>
-                    <option value="promo10" data-discount-type="0" data-discount-value="10">10% Off</option>
-                    <option value="promo20" data-discount-type="0" data-discount-value="20">20% Off</option>
-                    <option value="promo30" data-discount-type="0" data-discount-value="30">30% Off</option>
-                  </select>
-                  </td>
+                    <td class="ps-0 fw-medium">Promotion</td>
+                    <td class="pe-0 fw-medium text-end">
+                    <div class="input-group">
+                      <input type="text" id="promotion-code" name="promotion-code" class="form-control" placeholder="Enter promo code">
+                      <button type="button" class="btn btn-primary" onclick="applyPromotion()">Apply</button>
+                    </div>
+                    </td>
                 </tr>
                 <tr>
                   <td class="ps-0 fw-medium">Discount</td>
