@@ -31,6 +31,7 @@
     <!-- Dashmix framework -->
     <link rel="stylesheet" id="css-main" href="<?= BASE_URL ?>/public/css/dashmix.min.css">
     <link rel="stylesheet" id="css-main" href="<?= BASE_URL ?>/public/css/custom.css">
+    <link rel="stylesheet" id="css-main" href="<?= BASE_URL ?>/public/css/permission.css">
     <!-- <link rel="stylesheet" id="css-main" href="../public/css/dashmix.css"> -->
     <!-- <link rel="stylesheet" id="css-main" href="../public/css/custom.css"> -->
     <script src="<?= BASE_URL ?>/public/js/lib/jquery.min.js"></script>

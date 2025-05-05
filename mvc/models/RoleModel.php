@@ -26,6 +26,7 @@ class RoleModel extends Database {
         $result = mysqli_query($this->con, $sql);
         if($result){
             $sql = "DELETE FROM `RolePermissions` WHERE `RoleID` = $roleID";
+            $result = mysqli_query($this->con, $sql);
             foreach($data as $item){
                 $funcID = $item['functionID'];
                 $permissionID = $item['permissionID'];

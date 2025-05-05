@@ -147,8 +147,10 @@ class AccountModel extends Database
         a.*,
         u.FullName AS UserFullName,
         c.FullName AS CustomerFullName,
-        u.UserID, c.CustomerID 
+        u.UserID, c.CustomerID,
+        rl.RoleName 
         FROM `Accounts` a
+        LEFT JOIN `Roles` rl ON a.RoleID = rl.RoleID
         LEFT JOIN `Users` u ON a.AccountID = u.AccountID
         LEFT JOIN `Customers` c ON a.AccountID = c.AccountID
         WHERE a.Token = '$token' AND a.Is_Delete = 0";
@@ -157,6 +159,7 @@ class AccountModel extends Database
             $row = mysqli_fetch_assoc($result);
             $_SESSION['AccountID'] = $row['AccountID'];
             $_SESSION['Username'] = $row['Username'];
+            $_SESSION['CreatedAt'] = $row['CreatedAt'];
             $_SESSION['Email'] = $row['Email'];
             $_SESSION['FullName'] = !empty($row['UserFullName']) 
                                         ? $row['UserFullName'] 
@@ -164,6 +167,7 @@ class AccountModel extends Database
             $_SESSION['UserID'] = !empty($row['UserID']) ? $row['UserID'] : $row['CustomerID'];
             $_SESSION['ProfilePicture'] = $row['ProfilePicture'];
             $_SESSION['RoleID'] = $row['RoleID'];
+            $_SESSION['RoleName'] = $row['RoleName'];
             $_SESSION['Roles'] = $this->getRole($row['RoleID']);
             return true;
         }
@@ -220,9 +224,6 @@ class AccountModel extends Database
             ];
         }
     }
-    
-    
-    
     
 
     public function checkEmail($email,$userID)

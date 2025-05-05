@@ -137,31 +137,86 @@
           <h5 class="modal-title" id="inspectionModalLabel">Thêm thông tin kiểm tra</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
         </div>
-        <div class="modal-body">
-          <input type="hidden" name="RentalOrderDetailID" id="rentalOrderDetailID">
-          <div class="mb-3">
-            <label for="userID" class="form-label">Người kiểm tra</label>
-            <select class="form-select" name="UserID" id="userID">
-                <option value="">-- Chọn người kiểm tra --</option>
-                <?php foreach ($data["Users"] as $user): ?>
-                    <option value="<?= $user['UserID']; ?>"><?= $user['UserID']; ?></option>
-                <?php endforeach; ?>
-            </select>
 
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Ngày kiểm tra</label>
-            <input type="date" class="form-control" name="InspectionDate" required>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Giờ kiểm tra</label>
-            <input type="time" class="form-control" name="InspectionTime" required>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Tổng tiền phạt</label>
-            <input type="text" class="form-control" name="TotalFineAmount">
-          </div>
+        <div class="modal-body">
+            <input type="hidden" name="RentalOrderDetailID" id="rentalOrderDetailID">
+
+            <div class="mb-3">
+                <label for="userID" class="form-label">Người kiểm tra</label>
+                <input type="text" class="form-control" name="UserID" id="userID" value="<?= $data['Acc'] ?>" readonly>
+            </div>
+
+            <div class="mb-3">
+                <label for="inspectionDate" class="form-label">Ngày kiểm tra</label>
+                <input type="date" class="form-control" name="InspectionDate" id="inspectionDate" required readonly>
+            </div>
+
+            <div class="mb-3">
+                <label for="inspectionTime" class="form-label">Giờ kiểm tra</label>
+                <input type="time" class="form-control" name="InspectionTime" id="inspectionTime" required readonly>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Danh sách lỗi phạt</label>
+                <select class="form-select" name="TotalFineAmount" id="damageType" required>
+                    <option value="">-- Chọn lỗi phạt --</option>
+                    <?php foreach ($data["DamageTypes"] as $damageType): ?>
+                        <option value="<?= $damageType['FineAmount']; ?>"><?= $damageType['DamageName']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
         </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Lưu</button>
+        </div>
+      </div>
+    </form>
+   
+  </div>
+</div>
+
+<div class="modal fade" id="inspectionModal1" tabindex="-1" aria-labelledby="inspectionModalLabel">
+  <div class="modal-dialog">
+  <form id="inspectionForm1">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="inspectionModalLabel1">Thêm thông tin kiểm tra</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" name="RentalOrderDetailID1" id="rentalOrderDetailID1">
+
+            <div class="mb-3">
+            <div class="mb-3">
+                <label for="userID1" class="form-label">Người kiểm tra</label>
+                <input type="text" class="form-control" name="UserID1" id="userID1" value="<?= $data['Acc']; ?>" readonly>
+            </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="inspectionDate1" class="form-label">Ngày kiểm tra</label>
+                <input type="date" class="form-control" name="InspectionDate1" id="inspectionDate1" required readonly>
+            </div>
+
+            <div class="mb-3">
+                <label for="inspectionTime1" class="form-label">Giờ kiểm tra</label>
+                <input type="time" class="form-control" name="InspectionTime1" id="inspectionTime1" required readonly>
+            </div>
+
+
+            <div class="mb-3">
+                <label for="damageType" class="form-label">Danh sách lỗi phạt</label>
+                <select class="form-select" name="TotalFineAmount1" id="damageType" required>
+                    <option value="">-- Chọn lỗi phạt --</option>
+                    <?php foreach ($data["DamageTypes"] as $damageType): ?>
+                        <option value="<?= $damageType['FineAmount']; ?>"><?= $damageType['DamageName']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+        </div>
+
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary">Lưu</button>
         </div>
@@ -169,6 +224,8 @@
     </form>
   </div>
 </div>
+
+   
 
 </div>
 <!-- END Page Content -->
