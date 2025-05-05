@@ -18,11 +18,17 @@ let order = {
 };
 $(document).ready(function () {
   if (!sessionStorage.getItem('checkoutCart')) {
-    Swal.fire({ title: "Error", text: "No items in cart", icon: "error" });
     window.location.href = `${BaseUrl}home`; // Redirect to cart page if no items
   }
-  $('')
+  $('payment-cash').on('click', function () {
+    order.payment.paymentMethod = 0; // Cash payment method
+  });
+  $('payment-bank').on('click', function () {
+    order.payment.paymentMethod = 1; // VNPAY payment method
+  });
   $('#btnCompleteOrder').on('click', async function () { // Fixed missing '#' for button ID and added 'async'
+    order.address = `${$('#checkout-street').val().trim()}, ${$('#checkout-city').val().trim()}`;
+    
     if(!checkLogin()) return; 
     try {
       const response = await fetch(`${BaseUrl}rentalorders/create`, {
@@ -46,6 +52,9 @@ $(document).ready(function () {
       if (responseData.success === false) {
         Swal.fire({ title: "Error", text: responseData.message || "Failed to create order", icon: "error" });
       } else {
+        if(order.payment.paymentMethod === 1) {
+          await vnPay(responseData.orderID, order.totalPrice); // Call vnPay function with customerId and totalPrice
+        }
         Swal.fire({ 
           title: "Success", 
           text: `Order created successfully. Order ID: ${responseData.orderID}`, 
@@ -58,6 +67,67 @@ $(document).ready(function () {
     } catch (error) {
       Swal.fire({ title: "Error", text: "An error occurred while creating the order", icon: "error" });
       // console.error("Error creating order:", error);
+    }
+  });
+
+  $('#paymentMethodButtons button').on('click', function () {
+    const selectedMethod = $(this).data('method');
+    order.payment.paymentMethod = selectedMethod;
+  
+    // Update UI to reflect selected payment method
+    $('#paymentMethodButtons button').removeClass('active');
+    $(this).addClass('active');
+  
+    console.log(`Payment method selected: ${selectedMethod}`);
+  });
+
+  $('#applyPromotion').on('click', async function () {
+    const promotionCode = $('#promotionCode').val().trim();
+    if (!promotionCode) {
+      Swal.fire({ title: "Error", text: "Please enter a promotion code", icon: "error" });
+      return;
+    }
+  
+    try {
+      const response = await fetch(`${BaseUrl}promotions/validate`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ promotionCode }),
+      });
+  
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error(`Response Error: ${response.status} - ${response.statusText}`, errorText);
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      const responseData = await response.json();
+      if (responseData.success === false) {
+        Swal.fire({ title: "Error", text: responseData.message || "Invalid promotion code", icon: "error" });
+      } else {
+        const promotion = responseData.data;
+        order.promotionId = promotion.PromotionID;
+  
+        let discount = 0;
+        if (promotion.DiscountType === 0) {
+          discount = (order.totalPrice * promotion.DiscountValue) / 100;
+        } else if (promotion.DiscountType === 1) {
+          discount = promotion.DiscountValue;
+        }
+  
+        order.totalPrice -= discount;
+        order.payment.amount = order.totalPrice;
+  
+        $('#discountAmount').text(`-${discount.toFixed(1)}$`);
+        $('#finalTotal').text(`${order.totalPrice.toFixed(1)}$`);
+  
+        Swal.fire({ title: "Success", text: "Promotion applied successfully", icon: "success" });
+      }
+    } catch (error) {
+      Swal.fire({ title: "Error", text: "An error occurred while applying the promotion", icon: "error" });
+      console.error("Error applying promotion:", error);
     }
   });
 });
@@ -224,6 +294,6 @@ async function vnPay(orderId, amount) {
   if (responseData.success === false) {
     Swal.fire({ title: "Error", text: responseData.message || "Failed to create order", icon: "error" });
   } else {
-    window.location.href = responseData.data; // Redirect to VNPAY payment page
+    window.location.href = responseData.redirectUrl; // Redirect to VNPAY payment page
   }
 }

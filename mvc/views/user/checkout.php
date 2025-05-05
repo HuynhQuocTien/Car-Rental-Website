@@ -138,7 +138,7 @@
                 </label>
               </div>
                 <div class="form-check form-block">
-                <input type="radio" class="form-check-input" id="payment-bank" name="payment-method" value="bank" onclick="toggleCardInfo(true)">
+                <input type="radio" class="form-check-input" id="payment-bank" name="payment-method" value="bank">
                 <label class="form-check-label" for="payment-bank">
                   <span class="d-block fw-normal p-1">
                   <span class="d-block fw-semibold mb-1">Bank Transfer</span>
@@ -252,6 +252,7 @@
                   <td class="ps-0 fw-medium">Total</td>
                   <td id="total-value" class="pe-0 fw-bold text-end">$0.00</td>
                 </tr>
+
               </table>
             </div>
           </div>
