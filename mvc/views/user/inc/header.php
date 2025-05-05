@@ -121,7 +121,7 @@
             <button type="button"
                 class="btn btn-alt-secondary position-relative me-3 d-flex align-items-center justify-content-center cartButton">
                 <i class="fa fa-shopping-cart cartButton"></i>
-                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">2</span>
+                <span id="numberCart"  class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"></span>
             </button>
             <?php include "./mvc/views/user/inc/mini-cart.php" ?>
             <!-- Login/Signup/Forgot Password Modal -->

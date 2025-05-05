@@ -45,6 +45,7 @@ Dashmix.onLoad(() =>
           console.log(response.valid);
           if (response.valid == "true") {
             console.log(response);
+            
             Dashmix.helpers("jq-notify", {
               type: "success",
               icon: "fa fa-check me-1",

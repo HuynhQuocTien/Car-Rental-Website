@@ -220,27 +220,87 @@
                 </div>
                 <div class="col-lg-2 col-md-6 col-sm-6">
                     <div class="dropdown">
-                        <a href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside" class="drop">Colors</a>
+                        <a href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside" class="drop">Seats</a>
                         <div class="dropdown-menu">
                             <div class="filter_type">
                                 <ul>
                                     <li>
                                         <label class="container_check">
-                                            All Colors
-                                            <input type="checkbox" name="colors" value="0">
+                                            All Seats
+                                            <input type="checkbox" name="seats" value="0">
                                             <span class="checkmark"></span>
                                         </label>
                                     </li>
-                                    <?php foreach ($data['Colors'] as $c) {
-                                        echo '                                        
-                                        <li>
-                                            <label class="container_check">
-                                                ' . $c['ColorName'] . '
-                                                <input type="checkbox" name="colors" value="' . $c['ColorID'] . '">
-                                                <span class="checkmark"></span>
-                                            </label>
-                                        </li>';
-                                    } ?>
+                                    <li>
+                                        <label class="container_check">
+                                            2 Seats
+                                            <input type="checkbox" name="seats" value="2">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label class="container_check">
+                                            4 Seats
+                                            <input type="checkbox" name="seats" value="4">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label class="container_check">
+                                            7 Seats
+                                            <input type="checkbox" name="seats" value="7">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label class="container_check">
+                                            9 Seats
+                                            <input type="checkbox" name="seats" value="9">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label class="container_check">
+                                            16 Seats
+                                            <input type="checkbox" name="seats" value="16">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label class="container_check">
+                                            24 Seats
+                                            <input type="checkbox" name="seats" value="24">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label class="container_check">
+                                            32 Seats
+                                            <input type="checkbox" name="seats" value="32">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label class="container_check">
+                                            35 Seats
+                                            <input type="checkbox" name="seats" value="35">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label class="container_check">
+                                            40 Seats
+                                            <input type="checkbox" name="seats" value="40">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label class="container_check">
+                                            45 Seats
+                                            <input type="checkbox" name="seats" value="45">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -248,43 +308,6 @@
                     <!-- /dropdown -->
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6">
-                    <!-- <div class="dropdown">
-                        <a href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside" class="drop">Vehicle Type</a>
-                        <div class="dropdown-menu">
-                            <div class="filter_type">
-                                <ul>
-                                    <li>
-                                        <label class="container_check">
-                                            $0 — $50
-                                            <input type="checkbox" name="prices" value="0:50">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </li>
-                                    <li>
-                                        <label class="container_check">
-                                            $50 — $100
-                                            <input type="checkbox" name="prices" value="50:100">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </li>
-                                    <li>
-                                        <label class="container_check">
-                                            $100 — $150
-                                            <input type="checkbox" name="prices" value="100:150">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </li>
-                                    <li>
-                                        <label class="container_check">
-                                            $150 — $200
-                                            <input type="checkbox" name="prices" value="150:200">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div> -->
                     <!-- /dropdown -->
                     <div class="dropdown">
                         <a href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside" class="drop">Type</a>
@@ -321,13 +344,23 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Make</th>
-                        <th>Model</th>
-                        <th>Seats</th>
-                        <th>VehicleType</th>
-                        <th>Hourly Price</th>
-                        <th>Daily Price</th>
-                        <th>Quantity</th>
+                        <th>
+                            <div class="fw-semibold">Make</div>
+                            <div class="text-muted small">Model</div>
+                        </th>
+                        <th>
+                            <div class="fw-semibold">VehicleType</div>
+                            <div class="text-muted small">Seats</div>
+                        </th>
+                        <th>
+                            <div class="fw-semibold">Hourly Price Default</div>
+                            <div class="text-muted small">Daily Price Default</div>
+                        </th>
+                        <th>
+                            <div class="fw-semibold">Monthly Price Default</div>
+                            <div class="text-muted small">Weekly Price Default</div>
+                        </th>
+                        <th>Quantity (Total)</th>
                         <th>Active</th>
                         <th class="text-center">Action</th>
                     </tr>
@@ -344,3 +377,23 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const filterGroups = ['makes', 'models', 'seats', 'vehicle_types'];
+
+        filterGroups.forEach(groupName => {
+            const checkboxes = document.querySelectorAll(`input[type="checkbox"][name="${groupName}"]`);
+
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function () {
+                    if (this.checked) {
+                        checkboxes.forEach(cb => {
+                            if (cb !== this) cb.checked = false;
+                        });
+                    }
+                });
+            });
+        });
+    });
+</script>

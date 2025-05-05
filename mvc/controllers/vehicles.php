@@ -85,7 +85,6 @@ class Vehicles extends Controller {
                 "VehicleImages"=>$this->vehicleDetailModel->getImages($id),
                 "ImageIsPrimary"=>$this->vehicleDetailModel->getImageIsPrimary($id),
                 "id"=>$id,
-
             ],
             "user");
         } else $this->view("single_layout", ["Page" => "error/404","Title" => "ERROR !"]);
