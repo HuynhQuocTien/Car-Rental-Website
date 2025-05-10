@@ -20,9 +20,8 @@ const renderData = function (orderdetails) {
       <td>${detail.ReturnDate}</td>
       <td>${detail.ActualReturnDate}</td>
       <td>${detail.DamagePenalty}</td>
-      <td>${detail.RentalRate}</td>
-      <td>${detail.Status == 1 ? "Đã trả" : "Chưa trả"}</td>
-    </tr>`;
+      <td>${detail.Status == 1 ? `<span class="badge bg-success">Đã trả</span>` : `<span class="badge bg-danger">Chưa trả</span>`}</td>
+`;
   });
 
   $("#rentalorderdetails").html(html);

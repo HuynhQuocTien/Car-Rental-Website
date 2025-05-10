@@ -36,10 +36,13 @@
                             <th class="d-sm-table-cell">Full Name</th>
                             <th class="d-sm-table-cell">Phone</th>
                             <th class="d-sm-table-cell">Identity Card</th>
-                            <th class="d-sm-table-cell">Date of Birth</th>
-                            <th class="d-sm-table-cell">Gender</th>
-                            <th class="d-lg-table-cell">Status</th>
+                            
+                            <th class="d-sm-table-cell">
+                            <div class="fw-semibold">Date of Birth</div>
+                            <div class="text-muted small">Gender</div>
+                        </th>
                             <th class="d-lg-table-cell">Total Ordered</th>
+                            <th class="d-lg-table-cell">Status</th>
                             <th class="text-center col-header-action" style="width: 80px;">Actions</th>
                         </tr>
                     </thead>

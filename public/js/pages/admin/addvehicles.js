@@ -504,6 +504,8 @@ $(document).ready(function () {
   $(document).on("click", ".js-detail-vehicle, .js-edit-vehicle", function (e) {
     e.preventDefault();
     const vehicleId = $(this).data("id");
+    console.log(vehicleId);
+    $("#vehicle-id").val(vehicleId);
     const isEditMode = $(this).hasClass("js-edit-vehicle");
     $("html, body").animate(
       {
@@ -622,10 +624,10 @@ $(document).ready(function () {
   });
 
   // Xử lý khi click nút Update
-  $("#btn-update-vehicle").on("click", function (e) {
-    e.preventDefault();
-    submitForm("update");
-  });
+  // $("#btn-update-vehicle").on("click", function (e) {
+  //   e.preventDefault();
+  //   submitForm("update");
+  // });
 
   // Hàm submit form chung
   function submitForm(action) {
@@ -636,7 +638,7 @@ $(document).ready(function () {
 
     // Thêm dữ liệu chung
     formData.append("action", action);
-    formData.append("vehicle_id", vehicleId);
+    formData.append("vehicle-id", vehicleId);
     formData.append("hourly_price", $("#final-hourly-price").val());
     formData.append("hourly_discount", $("#discount-hourly").val());
     formData.append("daily_price", $("#final-daily-price").val());
@@ -669,10 +671,10 @@ $(document).ready(function () {
     formData.append("primary_image_index", primaryIndex);
 
     // Xác định endpoint dựa trên action
-    const endpoint = action === "add" ? "addDetail" : "updateDetail";
+    const endpoint = action === "add" ? "" : "updateDetail";
 
     $.ajax({
-      url: BaseUrl + "vehicles/" + endpoint,
+      url: BaseUrl + "vehicles/updateDetail",
       type: "POST",
       data: formData,
       processData: false,
@@ -867,14 +869,95 @@ $(document).ready(function () {
     }
   }
 
-  // Xử lý khi submit form
+  // // Xử lý khi submit form
+  // $("#btn-update-vehicle").on("click", function (e) {
+  //   e.preventDefault();
+
+  //   // Validate form
+  //   if (!$(this).valid()) return;
+
+  //   // Tạo FormData
+  //   const formData = new FormData();
+  //   formData.append("vehicle_id", $("#vehicle-id").val());
+  //   formData.append("hourly_price", $("#final-hourly-price").val());
+  //   formData.append("hourly_discount", $("#discount-hourly").val());
+  //   formData.append("daily_price", $("#final-daily-price").val());
+  //   formData.append("daily_discount", $("#discount-daily").val());
+  //   formData.append("weekly_price", $("#final-weekly-price").val());
+  //   formData.append("weekly_discount", $("#discount-weekly").val());
+  //   formData.append("monthly_price", $("#final-monthly-price").val());
+  //   formData.append("monthly_discount", $("#discount-monthly").val());
+  //   formData.append("description", $("#js-ckeditor").val());
+  //   formData.append("fuel_consumption", $("#fuel-consumption").val());
+  //   formData.append("transmission", $("#transmission").val());
+  //   formData.append("fuel_type", $("#fuel-type").val());
+  //   formData.append("year", $("#year").val());
+  //   formData.append("license_plate", $("#license-plate").val());
+  //   formData.append("color_id", $("#color-id").val());
+  //   formData.append("mileage", $("#mileage").val());
+  //   formData.append("feature", $("#feature").is(":checked") ? 1 : 0);
+  //   formData.append("is_active", $("#is-active").is(":checked") ? 1 : 0);
+
+  //   // Thêm ảnh mới (nếu có)
+  //   const files = $("#upload-image")[0].files;
+  //   for (let i = 0; i < files.length; i++) {
+  //     formData.append("new_images[]", files[i]);
+  //   }
+
+  //   // Thêm ảnh chính
+  //   const primaryIndex = $('input[name="default-image"]:checked')
+  //     .closest(".preview-item")
+  //     .data("file-index");
+  //   formData.append("primary_image_index", primaryIndex);
+
+  //   // Gửi AJAX
+  //   $.ajax({
+  //     url: BaseUrl + "vehicles/updateDetail",
+  //     type: "POST",
+  //     data: formData,
+  //     processData: false,
+  //     contentType: false,
+  //     dataType: "json",
+  //     success: function (response) {
+  //       if (response.success) {
+  //         Dashmix.helpers("jq-notify", {
+  //           type: "success",
+  //           icon: "fa fa-check me-1",
+  //           message: "Vehicle updated successfully!",
+  //         });
+
+  //         // Cập nhật lại danh sách xe
+  //         vehiclePagination.getPagination(
+  //           vehiclePagination.option,
+  //           vehiclePagination.valuePage.curPage
+  //         );
+
+  //         // Đóng modal
+  //         $("#vehicle-modal").modal("hide");
+  //       } else {
+  //         Dashmix.helpers("jq-notify", {
+  //           type: "danger",
+  //           icon: "fa fa-times me-1",
+  //           message: response.message || "Failed to update vehicle",
+  //         });
+  //       }
+  //     },
+  //     error: function () {
+  //       Dashmix.helpers("jq-notify", {
+  //         type: "danger",
+  //         icon: "fa fa-times me-1",
+  //         message: "Error occurred while updating vehicle",
+  //       });
+  //     },
+  //   });
+  // });
+
   $("#btn-update-vehicle").on("click", function (e) {
     e.preventDefault();
-
+  
     // Validate form
     if (!$(this).valid()) return;
-
-    // Tạo FormData
+  
     const formData = new FormData();
     formData.append("vehicle_id", $("#vehicle-id").val());
     formData.append("hourly_price", $("#final-hourly-price").val());
@@ -895,22 +978,26 @@ $(document).ready(function () {
     formData.append("mileage", $("#mileage").val());
     formData.append("feature", $("#feature").is(":checked") ? 1 : 0);
     formData.append("is_active", $("#is-active").is(":checked") ? 1 : 0);
-
-    // Thêm ảnh mới (nếu có)
-    const files = $("#upload-image")[0].files;
-    for (let i = 0; i < files.length; i++) {
-      formData.append("new_images[]", files[i]);
-    }
-
-    // Thêm ảnh chính
+  
+    // Ảnh cần xóa
+    $(".preview-item.to-delete").each(function () {
+      const imageId = $(this).data("image-id");
+      formData.append("delete_images[]", imageId);
+    });
+  
     const primaryIndex = $('input[name="default-image"]:checked')
       .closest(".preview-item")
       .data("file-index");
-    formData.append("primary_image_index", primaryIndex);
 
-    // Gửi AJAX
+    uploadedImages.forEach((file, i) => {
+      if (file) {
+        formData.append("upload-image[]", file);
+        formData.append("is-primary[]", i === primaryIndex ? 1 : 0);
+      }
+    });
+  
     $.ajax({
-      url: BaseUrl + "vehicles/updateVehicleDetail",
+      url: BaseUrl + "vehicles/updateDetail",
       type: "POST",
       data: formData,
       processData: false,
@@ -923,14 +1010,17 @@ $(document).ready(function () {
             icon: "fa fa-check me-1",
             message: "Vehicle updated successfully!",
           });
-
-          // Cập nhật lại danh sách xe
+          $("html, body").animate(
+            {
+              scrollTop: $(".block-header").offset().top,
+            },
+            500
+          );
+  
           vehiclePagination.getPagination(
             vehiclePagination.option,
             vehiclePagination.valuePage.curPage
           );
-
-          // Đóng modal
           $("#vehicle-modal").modal("hide");
         } else {
           Dashmix.helpers("jq-notify", {
@@ -949,6 +1039,8 @@ $(document).ready(function () {
       },
     });
   });
+  
+
   $(document).on("click", ".js-delete-vehicle", function (e) {
     e.preventDefault();
     const vehicleDTId = $(this).data("id");

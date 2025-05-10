@@ -50,8 +50,14 @@ class OrderApprovalModel extends Database {
     public function confirmOrder($orderId, $userId) {
         // Cập nhật trạng thái đơn hàng trong cơ sở dữ liệu
         $query = "UPDATE `RentalOrders` SET UserID = ? WHERE OrderID = ?";
+        
         $stmt = $this->con->prepare($query);
         $stmt->bind_param("ii", $userId, $orderId);
+        $stmt->execute();
+
+        $query = "UPDATE `RentalOrderDetails` SET Status = 1 WHERE OrderID = ?"; 
+        $stmt = $this->con->prepare($query);
+        $stmt->bind_param("i", $orderId);
         return $stmt->execute();
     }
 }

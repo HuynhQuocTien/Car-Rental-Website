@@ -300,32 +300,19 @@
                     </div>
                     <div class="p-2">
                         <a class="dropdown-item d-flex justify-content-between align-items-center"
-                            href="profile">
+                            href="' . BASE_URL . '/user/profile">
                             Profile
                             <i class="fa fa-fw fa-user opacity-50 ms-1"></i>
                         </a>
                         <a class="dropdown-item d-flex justify-content-between align-items-center"
-                            href="userorders">
+                            href="' . BASE_URL . '/user/userorders">
                             Orders
                             <div>
                                 <span class="badge rounded-pill bg-primary"></span>
                                 <i class="fa fa-fw fa-money-bill-wave-alt opacity-50 ms-1"></i>
                             </div>
                         </a>
-                        <a class="dropdown-item d-flex justify-content-between align-items-center"
-                            href="javascript:void(0)">
-                            Travel Guides
-                            <i class="fa fa-fw fa-plane opacity-50 ms-1"></i>
-                        </a>
                         <div role="separator" class="dropdown-divider"></div>
-                        <a class="dropdown-item d-flex justify-content-between align-items-center"
-                            href="javascript:void(0)">
-                            Billing
-                            <div>
-                                <span class="badge rounded-pill bg-primary">1</span>
-                                <i class="fa fa-fw fa-money-bill-wave-alt opacity-50 ms-1"></i>
-                            </div>
-                        </a>
                         <a class="dropdown-item d-flex justify-content-between align-items-center"
                             href="javascript:void(0)">
                             Settings

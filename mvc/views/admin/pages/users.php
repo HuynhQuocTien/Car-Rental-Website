@@ -25,6 +25,21 @@
                     Add User
                 </button>
             </div>
+            <!-- <div class="block-options ">
+                <form class="importform" onsubmit="return false" enctype="multipart/form-data">
+                    <input type="file" id="import-user-file"
+                        accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" class="d-none">
+
+                    <button class="btn btn-hero btn-primary btn-import" data-function="16" data-permission="1">
+                        <i class="fa fa-download"></i> Import
+                    </button>
+                </form>
+            </div>
+            <div class="block-options ">
+                <button class="btn btn-hero btn-primary btn-export" data-function="16" data-permission="1">
+                    <i class="fa fa-upload"></i> Export
+                </button>
+            </div> -->
         </div>
         <div class="block-content">
             <div class="table-responsive">

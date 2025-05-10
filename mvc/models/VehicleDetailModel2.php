@@ -1,5 +1,5 @@
 <?php
-class VehicleDetailModel extends Database {
+class VehicleDetailModel2 extends Database {
 
     public function __construct() {
         parent::__construct();
@@ -190,13 +190,14 @@ class VehicleDetailModel extends Database {
     public function getQuery( $filter,$input, $lastURL = 'VehicleDetails')
     {
         $query = "SELECT v.VehicleID, v.Quantity,v.PromotionID,v.Active,v.Seats,
-         m.MakeName,mo.ModelName, vt.NameType , vd.*, c.ColorName
+         m.MakeName,mo.ModelName, vt.NameType , vd.*, c.ColorName, vi.ImageURL, vi.IsPrimary
                     FROM VehicleDetails vd
                     LEFT JOIN Vehicles v ON vd.VehicleID = v.VehicleID
                     LEFT JOIN Makes m ON v.MakeID = m.MakeID
                     LEFT JOIN Models mo ON v.ModelID = mo.ModelID
                     LEFT JOIN VehicleTypes vt ON v.VehicleTypesID = vt.VehicleTypesID
                     LEFT JOIN Colors c ON vd.ColorID = c.ColorID
+                    LEFT JOIN VehicleImages vi ON vi.VehicleDetailID = vd.VehicleDetailID
                   WHERE vd.Is_Delete = 0 ";
         if ($input) {
             $query = $query. " AND (m.MakeName LIKE '%{$input}%' OR 
@@ -347,15 +348,6 @@ class VehicleDetailModel extends Database {
     
     return $row['count'] == 0; // Trả về true nếu biển số chưa tồn tại, false nếu đã tồn tại
 }
-
-    public function checkAvailable($id, $pickupDate, $returnDate)
-    {
-        $sql = "SELECT * FROM RentalOrderDetails rod
-                JOIN RentalOrders ro ON rod.OrderID = ro.OrderID
-                WHERE rod.VehicleDetailID = '$id' 
-                AND NOT (rod.ReturnDate < '$pickupDate')";
-        $result = mysqli_query($this->con, $sql);
-        return mysqli_num_rows($result) > 0;
-    }
+    
 }
 ?>

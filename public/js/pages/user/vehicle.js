@@ -90,6 +90,7 @@ $(".js-detail-vehicle").click(function () {
   });
 });
 
+
 $("#vehicle-make").change(function () {
   const make = $(this).val();
 
@@ -255,8 +256,8 @@ $("#vehicle-transmission").change(function () {
 // Initialize pagination for vehicles
 const vehiclePagination = new Pagination();
 vehiclePagination.option.controller = "vehicles";
-vehiclePagination.option.model = "VehicleDetailModel";
-vehiclePagination.option.limit = 9;
+vehiclePagination.option.model = "VehicleDetailModel2";
+vehiclePagination.option.limit = 4;
 vehiclePagination.option.filter = {};
 vehiclePagination.getPagination(
   vehiclePagination.option,

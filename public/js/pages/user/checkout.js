@@ -1,8 +1,8 @@
 let order = { 
   customerId: $('#UserID').val(),
   userId: null, // Assuming UserID is the same as customerId
-  orderDate: getCurrentDateTimeVN(),
-  rentalDate: null, // Placeholder for rental date
+  orderDate: getCurrentDateTimeVN(), // Placeholder for order date
+  rentalDate: getCurrentDateTimeVN(), // Placeholder for rental date
   totalPrice: 0, // Tổng giá trị đơn hàng
   address: "",
   promotionId: 0,
@@ -62,9 +62,11 @@ $(document).ready(function () {
           title: "Success", 
           text: `Order created successfully. Order ID: ${responseData.orderID}`, 
           icon: "success" 
+          
         });
         sessionStorage.removeItem('checkoutCart'); // Clear cart after successful order
         deleteItemFromCart(order.customerId); // Remove items from local storage cart
+        // window.location.href = `${BaseUrl}user/`; // Redirect to user's orders page
         // window.location.href = `${BaseUrl}user/orders`; // Redirect to user's orders page  
       }
     } catch (error) {

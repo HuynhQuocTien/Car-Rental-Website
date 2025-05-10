@@ -28,10 +28,11 @@ const renderData = function (data) {
             <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
                 data-bs-toggle="tooltip" aria-label="Detail" data-bs-original-title="Detail">
                 <a class="btn btn-sm btn-alt-secondary js-detail-vehicle"  href="${BaseUrl}inspections/inspectionOrder&id=${item.OrderID}"
+                
+                            data-function="10" data-permission="1"
+                            data-function="10" data-permission="4"
                             data-id="${item.OrderID}"
                             title="Show Details">
-                            data-function="10" data-permission="4"
-                            data-function="10" data-permission="1"
                         <i class="fa fa-rectangle-list"></i>
                 </a>
             </button>

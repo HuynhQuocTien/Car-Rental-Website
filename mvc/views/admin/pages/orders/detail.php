@@ -60,7 +60,6 @@
                             <!-- <th>Shipping Method</th> -->
                             <th>Damage Penalty</th>
                             <th>Status</th>
-                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody id="rentalorderdetails">

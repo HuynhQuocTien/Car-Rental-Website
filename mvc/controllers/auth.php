@@ -71,7 +71,7 @@ class Auth extends Controller
             if ($check) {
                 $acc = $this->accountModel->create($username, $password, NULL, NULL, NULL, $email, 0);
                 $accId = $this->accountModel->getMaxAccountID();
-                $result = $this->customerModel->create($fullname, $phone, '1990-01-01', NULL, NULL, NULL, 0, $accId, 0, 0, 0);
+                $result = $this->customerModel->createInfo($fullname, $phone, '1990-01-01', NULL, NULL, NULL, 0, $accId, 0, 0, 0);
 
                 if (!$acc || !$result) {
                     $check = false;

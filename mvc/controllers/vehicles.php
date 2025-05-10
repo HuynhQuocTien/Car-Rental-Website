@@ -92,6 +92,20 @@ class Vehicles extends Controller {
     public function getVehicleTest(){
 
     }
+    public function getImageIsPrimary(){
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $vehicleID = $_POST["id"] ?? null;
+            
+            if (!$vehicleID) {
+                echo json_encode(['success' => false, 'message' => 'Vehicle ID is required']);
+                return;
+            }
+
+            $result = $this->vehicleDetailModel->getImageIsPrimary($vehicleID);
+            
+            echo json_encode(['success' => true, 'data' => $result['ImageURL']]);
+        }
+    }
     public function addvehicles() {
         $arrrs = $this->UrlProcess();
         if($arrrs[0] == "admin"){
@@ -516,105 +530,159 @@ class Vehicles extends Controller {
             echo json_encode(['success' => true, 'data' => $result]);
         }
     }
-    public function updateDetail() {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $vehicleDetailID = $_POST["vehicle-detail-id"] ?? null;
+    // public function updateDetail() {
+    //     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    //         $vehicleDetailID = $_POST["vehicle_id"] ?? null;
             
-            if (!$vehicleDetailID) {
-                echo json_encode(['success' => false, 'message' => 'Vehicle Detail ID is required']);
-                return;
-            }
+    //         if (!$vehicleDetailID) {
+    //             echo json_encode(['success' => false, 'message' => 'Vehicle Detail ID is required']);
+    //             return;
+    //         }
     
-            $data = [
-                'VehicleID' => $_POST["vehicle-id"] ?? null,
-                'HourlyPrice' => $_POST["hourly-price"] ?? null,
-                'DailyPrice' => $_POST["daily-price"] ?? null,
-                'WeeklyPrice' => $_POST["weekly-price"] ?? null,
-                'MonthlyPrice' => $_POST["monthly-price"] ?? 0,
-                'Description' => $_POST["description"] ?? '',
-                'FuelConsumption' => $_POST["fuel-consumption"] ?? '',
-                'Transmission' => $_POST["transmission"] ?? '',
-                'FuelType' => $_POST["fuel-type"] ?? '',
-                'Year' => $_POST["year"] ?? '',
-                'LicensePlateNumber' => $_POST["license-plate"] ?? '',
-                'ColorID' => $_POST["color-id"] ?? '',
-                'Mileage' => $_POST["mileage"] ?? '',
-                'Active' => isset($_POST["is-active"]) && $_POST["is-active"] == "1" ? 1 : 0,
-            ];
+    //         $data = [
+    //             'VehicleID' => $_POST["vehicle_id"] ?? null,
+    //             'HourlyPrice' => $_POST["hourly_price"] ?? null,
+    //             'DailyPrice' => $_POST["daily_price"] ?? null,
+    //             'WeeklyPrice' => $_POST["weekly_price"] ?? null,
+    //             'MonthlyPrice' => $_POST["monthly_price"] ?? 0,
+    //             'Description' => $_POST["description"] ?? '',
+    //             'FuelConsumption' => $_POST["fuel_consumption"] ?? '',
+    //             'Transmission' => $_POST["transmission"] ?? '',
+    //             'FuelType' => $_POST["fuel_type"] ?? '',
+    //             'Year' => $_POST["year"] ?? '',
+    //             'LicensePlateNumber' => $_POST["license_plate"] ?? '',
+    //             'ColorID' => $_POST["color_id"] ?? '',
+    //             'Mileage' => $_POST["mileage"] ?? '',
+    //             'Active' => isset($_POST["is_active"]) && $_POST["is_active"] == "1" ? 1 : 0,
+    //         ];    
+    //         // Cập nhật thông tin xe
+    //         $updateResult = $this->vehicleDetailModel->update($vehicleDetailID, $data);
+    //         $imageUpdateResult = false;
     
-            // Kiểm tra biển số xe trước khi cập nhật
-            if (!empty($data['LicensePlateNumber'])) {
-                $isLicenseAvailable = $this->vehicleDetailModel->checkLicensePlateNumber(
-                    $data['LicensePlateNumber'], 
-                    $vehicleDetailID
-                );
-                
-                if (!$isLicenseAvailable) {
-                    echo json_encode([
-                        'success' => false,
-                        'message' => 'Biển số xe đã tồn tại trong hệ thống'
-                    ]);
-                    return;
-                }
-            }
+    //         // Xử lý hình ảnh nếu có
+    //         if (!empty($_FILES['upload-image']['name'][0]) && $updateResult) {
+    //             $uploadedFiles = $_FILES['upload-image'];
+    //             $isPrimaryList = $_POST['is-primary'] ?? [];
+    //             $deleteImages = $_POST['delete-images'] ?? []; // Danh sách ảnh cần xóa
     
-            // Cập nhật thông tin xe
-            $updateResult = $this->vehicleDetailModel->update($vehicleDetailID, $data);
-            $imageUpdateResult = false;
+    //             // Xóa các ảnh được chọn
+    //             if (!empty($deleteImages)) {
+    //                 foreach ($deleteImages as $imageId) {
+    //                     $this->vehicleImageModel->delete($imageId);
+    //                 }
+    //             }
     
-            // Xử lý hình ảnh nếu có
-            if (!empty($_FILES['upload-image']['name'][0]) && $updateResult) {
-                $uploadedFiles = $_FILES['upload-image'];
-                $isPrimaryList = $_POST['is-primary'] ?? [];
-                $deleteImages = $_POST['delete-images'] ?? []; // Danh sách ảnh cần xóa
+    //             // Thêm ảnh mới
+    //             for ($i = 0; $i < count($uploadedFiles['name']); $i++) {
+    //                 $tmpFile = $uploadedFiles['tmp_name'][$i];
     
-                // Xóa các ảnh được chọn
-                if (!empty($deleteImages)) {
-                    foreach ($deleteImages as $imageId) {
-                        $this->vehicleImageModel->delete($imageId);
-                    }
-                }
+    //                 if (is_uploaded_file($tmpFile)) {
+    //                     try {
+    //                         $uploadResult = $this->cloudinaryModel->uploadImage($tmpFile);
+    //                         $isPrimary = isset($isPrimaryList[$i]) && $isPrimaryList[$i] == "1" ? 1 : 0;
     
-                // Thêm ảnh mới
-                for ($i = 0; $i < count($uploadedFiles['name']); $i++) {
-                    $tmpFile = $uploadedFiles['tmp_name'][$i];
+    //                         $imageData = [
+    //                             'VehicleDetailID' => $vehicleDetailID,
+    //                             'ImageURL' => $uploadResult['secure_url'],
+    //                             'IsPrimary' => $isPrimary
+    //                         ];
     
-                    if (is_uploaded_file($tmpFile)) {
-                        try {
-                            $uploadResult = $this->cloudinaryModel->uploadImage($tmpFile);
-                            $isPrimary = isset($isPrimaryList[$i]) && $isPrimaryList[$i] == "1" ? 1 : 0;
+    //                         $imageUpdateResult = $this->vehicleImageModel->create($imageData);
+    //                     } catch (Exception $e) {
+    //                         error_log("Upload failed: " . $e->getMessage());
+    //                         continue;
+    //                     }
+    //                 }
+    //             }
+    //         }
     
-                            $imageData = [
-                                'VehicleDetailID' => $vehicleDetailID,
-                                'ImageURL' => $uploadResult['secure_url'],
-                                'IsPrimary' => $isPrimary
-                            ];
+    //         echo json_encode([
+    //             'success' => $updateResult,
+    //             'UpdateDetail' => $updateResult,
+    //             'UpdateImage' => $imageUpdateResult,
+    //             'vehicleDetailID' => $vehicleDetailID
+    //         ]);
+    //     }
+    // }
     
-                            $imageUpdateResult = $this->vehicleImageModel->create($imageData);
-                        } catch (Exception $e) {
-                            error_log("Upload failed: " . $e->getMessage());
-                            continue;
-                        }
-                    }
-                }
-            }
-    
-            echo json_encode([
-                'success' => $updateResult,
-                'UpdateDetail' => $updateResult,
-                'UpdateImage' => $imageUpdateResult,
-                'vehicleDetailID' => $vehicleDetailID
-            ]);
+    public function updateDetail()
+{
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $vehicleDetailID = $_POST["vehicle_id"] ?? null;
+
+        if (!$vehicleDetailID) {
+            echo json_encode(['success' => false, 'message' => 'Vehicle Detail ID is required']);
+            return;
         }
+
+        $data = [
+            'VehicleID' => $vehicleDetailID,
+            'HourlyPrice' => $_POST["hourly_price"] ?? null,
+            'DailyPrice' => $_POST["daily_price"] ?? null,
+            'WeeklyPrice' => $_POST["weekly_price"] ?? null,
+            'MonthlyPrice' => $_POST["monthly_price"] ?? 0,
+            'Description' => $_POST["description"] ?? '',
+            'FuelConsumption' => $_POST["fuel_consumption"] ?? '',
+            'Transmission' => $_POST["transmission"] ?? '',
+            'FuelType' => $_POST["fuel_type"] ?? '',
+            'Year' => $_POST["year"] ?? '',
+            'LicensePlateNumber' => $_POST["license_plate"] ?? '',
+            'ColorID' => $_POST["color_id"] ?? '',
+            'Mileage' => $_POST["mileage"] ?? '',
+            'Active' => ($_POST["is_active"] ?? "0") == "1" ? 1 : 0,
+        ];
+
+        $updateResult = $this->vehicleDetailModel->update($vehicleDetailID, $data);
+        $imageUpdateResult = false;
+
+        if (!empty($_FILES['upload-image']['name'][0]) && $updateResult) {
+            $uploadedFiles = $_FILES['upload-image'];
+            $primaryIndex = $_POST['primary_image_index'] ?? -1;
+        
+            for ($i = 0; $i < count($uploadedFiles['name']); $i++) {
+                $tmpFile = $uploadedFiles['tmp_name'][$i];
+        
+                if (is_uploaded_file($tmpFile)) {
+                    try {
+                        $uploadResult = $this->cloudinaryModel->uploadImage($tmpFile);
+                        if (!isset($uploadResult['secure_url'])) {
+                            throw new Exception("Upload failed, no secure_url.");
+                        }
+        
+                        $isPrimary = ($i == $primaryIndex) ? 1 : 0;
+        
+                        $imageData = [
+                            'VehicleDetailID' => $vehicleDetailID,
+                            'ImageURL' => $uploadResult['secure_url'],
+                            'IsPrimary' => $isPrimary
+                        ];
+        
+                        $imageUpdateResult = $this->vehicleImageModel->create($imageData);
+                    } catch (Exception $e) {
+                        error_log("Upload failed: " . $e->getMessage());
+                        continue;
+                    }
+                }
+            }
+        }
+        
+
+        echo json_encode([
+            'success' => $updateResult,
+            'UpdateDetail' => $updateResult,
+            'UpdateImage' => $imageUpdateResult,
+            'vehicleDetailID' => $vehicleDetailID
+        ]);
     }
-    
+}
+
     public function deleteDetail() {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $vehicleID = $_POST["id"] ?? null;
             
             if (!$vehicleID) {
                 header('Content-Type: application/json');
-                echo json_encode(['success' => false, 'message' => 'Vehicle ID is required']);
+                echo json_encode(['success' => false, 'message' => 'Vehicle Detail ID is required']);
                 return;
             }
 
@@ -622,6 +690,27 @@ class Vehicles extends Controller {
             
             header('Content-Type: application/json');
             echo json_encode(['success' => $result]);
+        }
+    }
+
+    public function checkAvailable() {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $vehicleID = $_POST["vehicleDetailId"] ?? null;
+            $pickupDate = $_POST["pickupDate"] ?? null;
+            $returnDate = $_POST["returnDate"] ?? null;
+            
+            
+            if (!$vehicleID) {
+                echo json_encode(['success' => false, 'message' => 'Vehicle ID is required']);
+                return;
+            }
+            
+            $result = $this->vehicleDetailModel->checkAvailable($vehicleID, $pickupDate, $returnDate);
+            if ($result) {
+                echo json_encode(['success' => false, 'message' => 'Vehicle is not available']);
+            } else {
+                echo json_encode(['success' => true, 'message' => 'Vehicle is available']);
+            }
         }
     }
 

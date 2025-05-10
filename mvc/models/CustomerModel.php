@@ -42,7 +42,19 @@ class CustomerModel extends Database {
         $data = mysqli_fetch_assoc($result);
         return $data['IdentityCard'] ?? null;
     }
-
+    public function createInfo($fullName, $phoneNumber, $dateOfBirth, $identityCard, $idCardBefore, $idCardAfter, $sex, $accountID, $totalOrdered, $totalFine, $totalAmount) {
+        $sql = "INSERT INTO `Customers` (`FullName`, `PhoneNumber`, `DateOfBirth`, `IdentityCard`, `IDCardBefore`, `IDCardAfter`, `Sex`, `AccountID`, `TotalOrdered`, `TotalFine`, `TotalAmount`, `Active`, `Is_Delete`) 
+                VALUES ('$fullName', '$phoneNumber', '$dateOfBirth', '$identityCard', '$idCardBefore', '$idCardAfter', '$sex', '$accountID', '$totalOrdered', '$totalFine', '$totalAmount', 1, 0)";
+        
+        $check = true;
+        $result = mysqli_query($this->con, $sql);
+        
+        if (!$result) {
+            $check = false;
+        }
+        
+        return $check;
+    }
     public function create($data) {
         $sql = "INSERT INTO Accounts (Username, Password, Email, RoleID, Active, ProfilePicture) 
         VALUES ('{$data['Username']}', '{$data['Password']}', '{$data['Email']}', 0, {$data['AccountActive']}, '{$data['ProfilePicture']}')";

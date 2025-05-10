@@ -174,10 +174,12 @@ $(".js-validation-signup").off('submit').submit(function (e) {
                 username: $('#signup-newUsername').val(),
                 password: $('#signup-newPassword').val()
             },
+            dataType: "json",
+
             success: function (response) {
                 $(".form-control").removeClass("is-invalid");
                 $(".invalid-feedback").remove();
-                console.log(response);
+                console.log(response.success);
                 if (response.success) {
                     Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: "Account created successfully",z_index: 9999 });
                     console.log(BaseUrl + "auth/addCustomer");
@@ -185,10 +187,15 @@ $(".js-validation-signup").off('submit').submit(function (e) {
                         location.reload();
                       }, 500);
                 } else {
-                    response.error_fields['username'].length != 0 ? showError("#signup-newUsername", response.error_fields['username']) : null;
-                    response.error_fields['email'].length != 0 ? showError("#signup-email", response.error_fields['email']) : null;
-                    response.error_fields['phone'].length != 0 ? showError("#signup-phone", response.error_fields['phone']) : null;
+                    if (response.error_fields) {
+                        response.error_fields['username'] && response.error_fields['username'].length != 0 ? showError("#signup-newUsername", response.error_fields['username']) : null;
+                        response.error_fields['email'] && response.error_fields['email'].length != 0 ? showError("#signup-email", response.error_fields['email']) : null;
+                        response.error_fields['phone'] && response.error_fields['phone'].length != 0 ? showError("#signup-phone", response.error_fields['phone']) : null;
+                    }   
                 }
+                setTimeout(function () {
+                    location.reload();
+                  }, 500);
             },
             error: function () {
                 Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: "An error occurred. Please try again.",z_index: 9999 });

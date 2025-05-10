@@ -104,12 +104,50 @@ $(document).ready(function () {
     // const vehicleDetailId = <?= $data['Vehicle']['VehicleDetailID'] ?>;
 
     // Gọi AJAX để kiểm tra với backend ở đây nếu cần
+    $.ajax({
+      type: "POST",
+      url: BaseUrl + "vehicles/checkAvailable",
+      data: {
+        vehicleDetailId: $("#id-save").val(),
+        pickupDate: pickup,
+        returnDate: ret,
+      },
+      dataType: "json",
+      success: function (response) {
+        console.log(response.success);
+        if (response.success) {
+          // Nếu có sẵn
+          $(".available-actions").removeClass("d-none");
+          $("#availability-message")
+
+            .removeClass("text-danger")
+            .addClass("text-success")
+            .text("Available!");
+
+        } else {
+          // Nếu không có sẵn
+          $(".available-actions").addClass("d-none");
+          $("#availability-message")
+            .removeClass("text-success")
+            .addClass("text-danger")
+            .text("Not available!");
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error("Error checking availability:", error);
+        $("#availability-message")
+          .removeClass("text-success")
+          .addClass("text-danger")
+          .text("An error occurred while checking availability.");
+      },
+    });
+
     // Giả lập thành công:
-    $(".available-actions").removeClass("d-none");
-    $("#availability-message")
-      .removeClass("text-danger")
-      .addClass("text-success")
-      .text("Available!");
+    // $(".available-actions").removeClass("d-none");
+    // $("#availability-message")
+    //   .removeClass("text-danger")
+    //   .addClass("text-success")
+    //   .text("Available!");
   });
 
   // === Khởi tạo lần đầu ===

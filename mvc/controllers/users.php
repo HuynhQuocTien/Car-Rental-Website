@@ -1,5 +1,4 @@
 <?php
-
 class Users extends Controller {
     public $accountModel;
     public $userModel;
